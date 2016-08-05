@@ -34,11 +34,22 @@ class LocationsDataStore {
                     locationName = locationNameTwo
                 }
                 
+                var images = [String]()
+                for item in multimedia {
+                    guard let mediaType = item["type"] as? String else {print("Error: No type key for media item."); return}
+                    
+                    if mediaType == "image" {
+                        guard let imageURL = item["url"] as? String else {print("Error: Failure getting image url from multimedia array."); return}
+                        images.append(imageURL)
+                    }
+                }
+                
                 print("Name: \(locationName)")
                 print("Description: \(snippet)")
+                print("Images: \(images)")
                 print("##############################")
                 
-                let location = Location(name: locationName, description: snippet)
+                let location = Location(name: locationName, description: snippet, images: images)
                 self.locations.append(location)
                 print("Location count: \(self.locations.count)")
             }
