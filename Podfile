@@ -7,16 +7,6 @@ target 'PlayingWithNYTimesAPI' do
 
   # Pods for PlayingWithNYTimesAPI
 
-  target 'PlayingWithNYTimesAPITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'PlayingWithNYTimesAPIUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 pod 'Alamofire', '~> 3.4'
 pod 'SwiftyJSON'
 end
