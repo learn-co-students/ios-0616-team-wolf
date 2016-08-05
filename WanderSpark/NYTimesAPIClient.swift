@@ -8,27 +8,30 @@
 
 import Foundation
 import Alamofire
-import SwiftyJSON
 
 class NYTimesAPIClient {
     
-    class func getLocationsWithCompletion(completion: ([JSON]) -> ()) {
+    class func getLocationsWithCompletion(completion: ([[String: AnyObject]]) -> ()) {
         
         Alamofire.request(.GET, "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=36+Hours&key=\(Secrets.nyTimesAPIKey)")
             .responseJSON { response in
                 
-                if let responseValue = response.result.value {
-                    let json = JSON(responseValue)
-                    let docsDictionary = json["response"].dictionaryValue
-                    let thirtySixHoursArray = docsDictionary["docs"]!.arrayValue
+                if let responseValue = response.result.value as? NSDictionary {
                     
-                    print(thirtySixHoursArray)
+                    guard let docsDictionary = responseValue["response"] as? [String : AnyObject] else {
+                        print("Error: Unable to get docs dictionary from NYTimes response value.")
+                        return
+                    }
+                    guard let thirtySixHoursArray = docsDictionary["docs"] as? [[String: AnyObject]] else {
+                        print ("Error: Unable to get 36 Hours articles array from docs dictionary.")
+                        return
+                    }
                     completion(thirtySixHoursArray)
-                
+                    
                 } else {
-                    print("Error casting 36 Hours get request to NSArray.")
+                    print("Error: Unable to get response value from NYTimes get request.")
                 }
         }
     }
-
+    
 }

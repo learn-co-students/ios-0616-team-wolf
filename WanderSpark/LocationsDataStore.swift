@@ -19,13 +19,29 @@ class LocationsDataStore {
         NYTimesAPIClient.getLocationsWithCompletion { (thirtySixHoursArray) in
             self.locations.removeAll()
             
-            for json in thirtySixHoursArray {
+            for article in thirtySixHoursArray {
                 
-//                guard let locationDictionary = json.dictionaryValue as? [String: AnyObject] else { fatalError("Object in thirtySixHoursArray is of non-dictionary type.") }
-                let location = Location(apiDictionary: json)
+                guard let
+                    keywords = article["keywords"] as? [[String:String]],
+                    locationNameOne = keywords[0]["value"],
+                    locationNameTwo = keywords[1]["value"],
+                    snippet = article["snippet"] as? String,
+                    multimedia = article["multimedia"] as? [[String: AnyObject]]
+                    else { fatalError("Could not create location object from supplied dictionary.") }
+                
+                var locationName = locationNameOne
+                if locationNameOne == "Travel and Vacations" {
+                    locationName = locationNameTwo
+                }
+                
+                print("Name: \(locationName)")
+                print("Description: \(snippet)")
+                print("##############################")
+                
+                let location = Location(name: locationName, description: snippet)
                 self.locations.append(location)
+                print("Location count: \(self.locations.count)")
             }
-            
             completion()
         }
     }
