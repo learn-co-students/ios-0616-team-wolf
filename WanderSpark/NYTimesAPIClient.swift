@@ -11,6 +11,8 @@ import Alamofire
 
 class NYTimesAPIClient {
     
+    
+    // Need to work on getting more than 10 results!!
     class func getLocationsWithCompletion(completion: ([[String: AnyObject]]) -> ()) {
         
         Alamofire.request(.GET, "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=36+Hours&key=\(Secrets.nyTimesAPIKey)")
