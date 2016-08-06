@@ -11,8 +11,8 @@ import Alamofire
 
 class NYTimesAPIClient {
     
+    // Notes on rate limit: Five calls per second allowed. Need to implement a timer so that this follows the rate limit otherwise we won't get all the data we need.
     
-    // Need to work on getting more than 10 results!!
     class func getLocationsWithCompletion(page: Int, completion: ([[String: AnyObject]]) -> ()) {
         
         Alamofire.request(.GET, "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=36+Hours&page=\(page)&key=\(Secrets.nyTimesAPIKey)")
