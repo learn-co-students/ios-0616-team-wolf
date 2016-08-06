@@ -14,6 +14,9 @@ class LocationsDataStore {
     private init() {}
     
     var locations = [Location]()
+    var airports = [String]()
+    var usersCurrentLocation = "New York, NY"
+    //placeholder, will be changed to user's input later
     
     func getLocationsWithCompletion(completion: () -> ()) {
         NYTimesAPIClient.getLocationsWithCompletion { (thirtySixHoursArray) in
@@ -43,6 +46,17 @@ class LocationsDataStore {
                 print("Location count: \(self.locations.count)")
             }
             completion()
+        }
+    }
+    
+    
+    func getAirportsWithCompletion(completion: () -> ()) {
+        GooglePlacesAPIClient.findNearbyAirportsWithCompletion { (destinations) in
+            self.airports.removeAll()
+            
+            for destination in destinations {
+                
+            }
         }
     }
 }

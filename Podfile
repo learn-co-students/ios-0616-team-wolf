@@ -9,5 +9,8 @@ target 'WanderSpark' do
 pod 'Alamofire', '~> 3.4'
 pod 'SwiftyJSON'
 pod 'AlamofireImage', '~> 2.0'
+pod 'GooglePlaces'
+pod 'GooglePlacePicker'
+pod 'GoogleMaps'
 
 end
