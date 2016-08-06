@@ -20,29 +20,30 @@ class LocationsDataStore {
         
         while page < 60 {
             NYTimesAPIClient.getLocationsWithCompletion(page) { (thirtySixHoursArray) in
-                //self.locations.removeAll()
                 
                 for article in thirtySixHoursArray {
                     
                     guard let
                         keywords = article["keywords"] as? [[String:String]],
-                        locationNameOne = keywords[0]["value"],
-                        locationNameTwo = keywords[1]["value"],
                         snippet = article["snippet"] as? String,
                         multimedia = article["multimedia"] as? [[String: AnyObject]]
-                        else { fatalError("Could not create location object from supplied dictionary.") }
+                        else { print("Could not create location object from supplied dictionary."); return }
                     
-                    var locationName = locationNameOne
-                    if locationNameOne == "Travel and Vacations" {
-                        locationName = locationNameTwo
+                    // There are a variable number of keywords for each article. Iterate over the entire array in order to pull out the one that contains the location name. The location name is always formatted as "City Name (State or Country)" so pull this one out by finding the value that contains parentheses substring.
+                    var locationName = ""
+                    for keyword in keywords {
+                        guard let value = keyword["value"] else { print("Error: No value key in keywords dictionary."); return }
+                        if value.containsString("(") {
+                            locationName = value
+                        }
                     }
                     
                     var images = [String]()
                     for item in multimedia {
-                        guard let mediaType = item["type"] as? String else {print("Error: No type key for media item."); return}
+                        guard let mediaType = item["type"] as? String else { print("Error: No type key for media item."); return }
                         
                         if mediaType == "image" {
-                            guard let imageURL = item["url"] as? String else {print("Error: Failure getting image url from multimedia array."); return}
+                            guard let imageURL = item["url"] as? String else { print("Error: Failure getting image url from multimedia array."); return }
                             images.append(imageURL)
                         }
                     }
