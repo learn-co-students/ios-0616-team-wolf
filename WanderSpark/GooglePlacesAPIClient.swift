@@ -12,17 +12,14 @@ import GooglePlaces
 import GooglePlacePicker
 import GoogleMaps
 
-//the purpose of using this API is to take the locations provided by the NYTimesAPIClient and find the airport codes within these given locations
-//first need to get the placeIDs for these vacation destinations
-//then use the types property to filter for airports in these areas
-
-
 class GooglePlacesAPIClient {
     
     static let vacationDestinations = "Sydney,+Australia"
     //loop through vacation destinations array to replaces spaces with "+"
+    static var locationCoordinates = [(Double,Double)]()
 
-    class func getLocationCoordinatesWithCompletion(completion: ([String: AnyObject]) -> ()) {
+    //need to have location coordinates to find nearby airports
+    class func getLocationCoordinatesWithCompletion(completion: () -> ()) {
         
         Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/geocode/json?address=\(self.vacationDestinations)&key=\(Secrets.googlePlacesAPIKey)").responseJSON { (response) in
             
@@ -40,10 +37,15 @@ class GooglePlacesAPIClient {
                         fatalError("ERROR: No match found for submitted location")
                 }
                 
+                let coordinates = (destinationLat, destinationLng)
+                
                 print("**********DESTINATION INFO HERE***********")
                 print(destinationInformation)
-                print("latitude: \(destinationLat)")
-                print("longitude: \(destinationLng)")
+                print("coordinates: \(coordinates)")
+                
+                self.locationCoordinates.append(coordinates)
+                
+                completion()
                 
             } else {
                 fatalError("ERROR: No response for request")

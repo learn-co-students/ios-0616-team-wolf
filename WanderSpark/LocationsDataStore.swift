@@ -14,7 +14,7 @@ class LocationsDataStore {
     private init() {}
     
     var locations = [Location]()
-    var airports = [String]()
+    var airports = [Airport]()
     var usersCurrentLocation = "New York, NY"
     //placeholder, will be changed to user's input later
     
@@ -51,12 +51,8 @@ class LocationsDataStore {
     
     
     func getAirportsWithCompletion(completion: () -> ()) {
-        GooglePlacesAPIClient.findNearbyAirportsWithCompletion { (destinations) in
-            self.airports.removeAll()
-            
-            for destination in destinations {
-                
-            }
+        GooglePlacesAPIClient.getNearbyAirports()
+        //need to complete 
         }
     }
 }
