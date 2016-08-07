@@ -13,9 +13,11 @@ import GooglePlacePicker
 import GoogleMaps
 
 class GooglePlacesAPIClient {
+
+    // static let locationsStore = LocationsDataStore.sharedInstance
+    static let vacationDestinations = "Sydney,Australia"
+    // let vacationDestinations = locationsStore.locations
     
-    static let vacationDestinations = "Sydney,+Australia"
-    //loop through vacation destinations array to replaces spaces with "+"
     static var locationCoordinates = [(Double,Double)]()
 
     //need to have location coordinates to find nearby airports

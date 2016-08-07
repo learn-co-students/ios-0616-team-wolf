@@ -38,6 +38,9 @@ class LocationsDataStore {
                 }
                 
                 print("Name: \(locationName)")
+                //format locationName so that we can pass it into Google API
+                locationName = Location.formatLocationName(locationName)
+                print("Formatted Location Name: \(locationName)")
                 print("Description: \(snippet)")
                 print("##############################")
                 
@@ -50,9 +53,8 @@ class LocationsDataStore {
     }
     
     
-    func getAirportsWithCompletion(completion: () -> ()) {
-        GooglePlacesAPIClient.getNearbyAirports()
-        //need to complete 
-        }
-    }
+//    func getAirportsWithCompletion(completion: () -> ()) {
+//        GooglePlacesAPIClient.getNearbyAirports()
+//        //need to complete
+//    }
 }

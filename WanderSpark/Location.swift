@@ -13,13 +13,13 @@ class Location {
     var name: String
     var images: [NSURL]
     var description: String
-    var coordinates: (Double, Double)
+    // var coordinates: (Double, Double)
     
-    init(name: String, description: String, coordinates: (Double, Double)) {
+    init(name: String, description: String /*, coordinates: (Double, Double)*/) {
         self.name = name
         self.description = description
         self.images = []
-        self.coordinates = coordinates
+      //  self.coordinates = coordinates
         
         // Attempt to get images from the multimedia array:
         
@@ -37,7 +37,19 @@ class Location {
         
     }
     
-    convenience init(name: String, description: String) {
-        self.init(name: name, description: description)
+//    convenience init(name: String, description: String) {
+//        self.init(name: name, description: description, coordinates: (0.0, 0.0))
+//    }
+    
+    class func formatLocationName(locationName: String) -> String {
+        //place comma between city and state/country
+        let locationNameArray = locationName.componentsSeparatedByString(" (")
+        let addCommaToLocationName = locationNameArray.joinWithSeparator(",")
+        
+        //remove parenthesis and replace spaces with "+"
+        var formattedLocation = addCommaToLocationName.stringByReplacingOccurrencesOfString(")", withString: "")
+        formattedLocation = formattedLocation.stringByReplacingOccurrencesOfString(" ", withString: "+")
+        
+        return formattedLocation
     }
 }
