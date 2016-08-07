@@ -13,46 +13,48 @@ import GooglePlacePicker
 import GoogleMaps
 
 class GooglePlacesAPIClient {
-
-    // static let locationsStore = LocationsDataStore.sharedInstance
-    static let vacationDestinations = "Sydney,Australia"
-    // let vacationDestinations = locationsStore.locations
     
-    static var locationCoordinates = [(Double,Double)]()
-
-    //need to have location coordinates to find nearby airports
+    static let locationsStore = LocationsDataStore.sharedInstance
+    static let vacationDestinations = locationsStore.locations
+    
+    // static var locationCoordinates = [(Double,Double)]()
+    
     class func getLocationCoordinatesWithCompletion(completion: () -> ()) {
         
-        Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/geocode/json?address=\(self.vacationDestinations)&key=\(Secrets.googlePlacesAPIKey)").responseJSON { (response) in
+        for destination in self.vacationDestinations {
             
-            print("inside request")
+            let destinationName = Location.formatLocationName(destination.name)
             
-            if let locationResultsResponse = response.result.value as? NSDictionary {
+            Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/geocode/json?address=\(destinationName)&key=\(Secrets.googlePlacesAPIKey)").responseJSON { (response) in
                 
-                guard let
-                    locationResults = locationResultsResponse["results"] as? [[String : AnyObject]], //array of location dictionaries
-                    destinationInformation = locationResults[0]["geometry"] as? [String:AnyObject], //dictionary of location information
-                    destinationLocationInfo = destinationInformation["location"] as? [String : Double], //dictionary of lat/lng info
-                    destinationLat = destinationLocationInfo["lat"],
-                    destinationLng = destinationLocationInfo["lng"]
-                    else {
-                        fatalError("ERROR: No match found for submitted location")
+                if let locationResultsResponse = response.result.value as? NSDictionary {
+                    
+                    guard let
+                        locationResults = locationResultsResponse["results"] as? [[String : AnyObject]], //array of location dictionaries
+                        destinationInformation = locationResults[0]["geometry"] as? [String:AnyObject], //dictionary of location information
+                        destinationLocationInfo = destinationInformation["location"] as? [String : Double], //dictionary of lat/lng info
+                        destinationLat = destinationLocationInfo["lat"],
+                        destinationLng = destinationLocationInfo["lng"]
+                        else {
+                            fatalError("ERROR: No match found for submitted location")
+                    }
+                    //input coordinates to location objects in LocationsDataStore
+                    destination.coordinates = (destinationLat, destinationLng)
+                    
+                    print("**********DESTINATION INFORMATION************")
+                    print("Name: \(destination.name)")
+                    print("Formatted Name: \(destinationName)")
+                    print("Snippet Description: \(destination.description)")
+                    print("Coordinates: \(destination.coordinates)")
+                    print("*********************************************")
+                    
+                    completion()
+                    
+                } else {
+                    fatalError("ERROR: No response for request")
                 }
                 
-                let coordinates = (destinationLat, destinationLng)
-                
-                print("**********DESTINATION INFO HERE***********")
-                print(destinationInformation)
-                print("coordinates: \(coordinates)")
-                
-                self.locationCoordinates.append(coordinates)
-                
-                completion()
-                
-            } else {
-                fatalError("ERROR: No response for request")
             }
-            
         }
     }
     

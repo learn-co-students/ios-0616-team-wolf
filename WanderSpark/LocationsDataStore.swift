@@ -38,16 +38,19 @@ class LocationsDataStore {
                 }
                 
                 print("Name: \(locationName)")
-                //format locationName so that we can pass it into Google API
-                locationName = Location.formatLocationName(locationName)
-                print("Formatted Location Name: \(locationName)")
                 print("Description: \(snippet)")
                 print("##############################")
                 
                 let location = Location(name: locationName, description: snippet)
                 self.locations.append(location)
                 print("Location count: \(self.locations.count)")
+                
             }
+            
+            GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({
+                print("\nadding coordinates")
+            })
+            
             completion()
         }
     }
