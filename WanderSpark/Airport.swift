@@ -11,6 +11,7 @@ import Foundation
 class Airport {
     var name : String
     var code : String
+    //maybe need location as well? 
     
     init(name: String, code: String) {
         self.name = name
