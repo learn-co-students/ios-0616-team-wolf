@@ -48,7 +48,7 @@ class GooglePlacesAPIClient {
                     print("Snippet Description: \(destination.description)")
                     print("***********************************************")
                     
-                    completion(self.getNearbyAirportsWithCompletion({ 
+                    completion(self.getNearbyAirportsWithCompletion({
                         //call function when this is done adding coordinates to locations
                     }))
                     
@@ -63,7 +63,7 @@ class GooglePlacesAPIClient {
     class func getNearbyAirportsWithCompletion(completion:() ->()) {
         //use coordinates obtained from previous function to get nearby airports of vacation destinations
         
-       for destination in vacationDestinations {
+        for destination in vacationDestinations {
             
             Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(destination.coordinates.latitude),\(destination.coordinates.longitude)&radius=50000&name=airport&type=airport&key=\(Secrets.googlePlacesAPIKey)").responseJSON(completionHandler: { (response) in
                 
@@ -74,6 +74,9 @@ class GooglePlacesAPIClient {
                             fatalError("ERROR: No airports found nearby given location")
                     }
                     
+                    //current problem: some airport names aren't in english, some terminals are being added as airports (Paris) and others are outside of radius allowed by google (Ex: Barcelona), its status is "ZERO_RESULTS"
+                    //there's also redundancy in the print statement of airport information and in some, like South Africa, airport information is empty until the end (after a few repeated prints with no airport information) 
+                    
                     destination.nearbyAirports.removeAll()
                     
                     for airportResult in airportResults {
@@ -83,20 +86,20 @@ class GooglePlacesAPIClient {
                         }
                     }
                     
-                    print("********** AIRPORT INFORMATION ************")
-                    print("Location: \(destination.name)")
-                    print("Location Coordinates: \(destination.coordinates.0),\(destination.coordinates.1)")
-                    for airport in destination.nearbyAirports {
-                        print("Airport: \(airport.airportName)")
-                    }
-                    print("*******************************************")
-                    
                     completion()
                 } else {
                     fatalError("ERROR: No response for nearbyAirports request")
                 }
+                
+                print("********** AIRPORT INFORMATION ************")
+                print("Location: \(destination.name)")
+                print("Location Coordinates: \(destination.coordinates.0),\(destination.coordinates.1)")
+                for airport in destination.nearbyAirports {
+                    print("Airport: \(airport.airportName)")
+                }
+                print("*******************************************")
+                
             })
-            
         }
         
     } //end of function
