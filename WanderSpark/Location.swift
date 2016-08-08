@@ -13,6 +13,7 @@ class Location {
     var name: String
     var images: [String]
     var description: String
+    var matchCount = 0
     
     init(name: String, description: String, images: [String]) {
         self.name = name

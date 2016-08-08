@@ -15,14 +15,10 @@ class LocationsDataStore {
     
     var locations = [Location]()
     
-//    func getLocationsWithDelayForRateLimit() {
-//        let delay = 0.2
-//        
-//        NSTimer.scheduledTimerWithTimeInterval(delay, target: self, selector: #selector(self.getLocationsWithCompletion(_:)), userInfo: nil, repeats: false)
-//    }
-    
+    // Orta says this is sending 60 page requests simultaneously. Need to implement it such that you say, "When one page request is complete, then go to the next."
 
     func getLocationsWithCompletion(completion: () -> ()) {
+    
         var page = 0
         
         while page < 60 {
