@@ -9,12 +9,15 @@
 import Foundation
 
 class Airport {
-    var name : String
-    var code : String
-    //maybe need location as well? 
+    var airportName : String
+    var airportCode : String
     
-    init(name: String, code: String) {
-        self.name = name
-        self.code = code 
+    init(airportName: String, airportCode: String) {
+        self.airportName = airportName
+        self.airportCode = airportCode
+    }
+    
+    convenience init(airportName: String) {
+        self.init(airportName: airportName, airportCode: "EMPTY")
     }
 }

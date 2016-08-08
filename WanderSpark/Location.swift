@@ -13,7 +13,9 @@ class Location {
     var name: String
     var images: [NSURL]
     var description: String
-    var coordinates: (Double, Double)
+    var coordinates: (latitude: Double, longitude: Double)
+    //var nearbyAirports: [Airport]()
+    //may also need to add property of nearby airports and set up another convenience initializer for it
     
     init(name: String, description: String, coordinates: (Double, Double)) {
         self.name = name
