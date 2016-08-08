@@ -15,6 +15,7 @@ class Location {
     var description: String
     var coordinates: (latitude: Double, longitude: Double)
     var nearbyAirports: [Airport]
+    
     init(name: String, description: String, images: [String], coordinates: (Double, Double), nearbyAirports: [Airport]) {
         self.name = name
         self.description = description

@@ -15,10 +15,8 @@ import GoogleMaps
 class GooglePlacesAPIClient {
     
     static let locationsStore = LocationsDataStore.sharedInstance
-    static let vacationDestinations = locationsStore.locations
-    // static var destinationAirports = locationsStore.airports
-    
-    // static var locationCoordinates = [(Double,Double)]()
+    static var vacationDestinations = locationsStore.locations
+    //static var destinationAirports = locationsStore.airports
     
     //need to get coordinates before searching nearby airports
     class func getLocationCoordinatesWithCompletion(completion: () -> ()) {
@@ -50,7 +48,9 @@ class GooglePlacesAPIClient {
                     print("Snippet Description: \(destination.description)")
                     print("***********************************************")
                     
-                    completion()
+                    completion(self.getNearbyAirportsWithCompletion({ 
+                        //call function when this is done adding coordinates to locations
+                    }))
                     
                 } else {
                     fatalError("ERROR: No response for request")
@@ -63,7 +63,7 @@ class GooglePlacesAPIClient {
     class func getNearbyAirportsWithCompletion(completion:() ->()) {
         //use coordinates obtained from previous function to get nearby airports of vacation destinations
         
-        for destination in vacationDestinations {
+       for destination in vacationDestinations {
             
             Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(destination.coordinates.latitude),\(destination.coordinates.longitude)&radius=50000&name=airport&type=airport&key=\(Secrets.googlePlacesAPIKey)").responseJSON(completionHandler: { (response) in
                 
@@ -71,23 +71,24 @@ class GooglePlacesAPIClient {
                     
                     guard let airportResults = nearbyAirportsResponse["results"] as? [[String:AnyObject]]
                         else {
-                            fatalError("ERROR: No airports found nearby given location, \(destination.name)")
+                            fatalError("ERROR: No airports found nearby given location")
                     }
+                    
+                    destination.nearbyAirports.removeAll()
                     
                     for airportResult in airportResults {
                         if let currentAirport = airportResult["name"] as? String {
                             let airport = Airport(airportName: currentAirport)
-                            print("adding airport: \(airport)")
                             destination.nearbyAirports.append(airport)
                         }
                     }
                     
                     print("********** AIRPORT INFORMATION ************")
                     print("Location: \(destination.name)")
+                    print("Location Coordinates: \(destination.coordinates.0),\(destination.coordinates.1)")
                     for airport in destination.nearbyAirports {
                         print("Airport: \(airport.airportName)")
                     }
-                    //airport being initialized but not populated
                     print("*******************************************")
                     
                     completion()
@@ -98,11 +99,5 @@ class GooglePlacesAPIClient {
             
         }
         
-    }
-    
-    class func obtainAirportCodes() -> [String] {
-        //get codes of nearby airports from IATA API to pass into QPX Express API and get flight information
-        return [" "]
-    }
-    
+    } //end of function
 }

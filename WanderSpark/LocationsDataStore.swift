@@ -55,25 +55,14 @@ class LocationsDataStore {
                 let location = Location(name: locationName, description: snippet, images: images)
                 self.locations.append(location)
                 print("Location count: \(self.locations.count)")
-                
-
+    
             }
             
             GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({
-                print("\nadding coordinates")
+                // airports for destinations will be populated once this is complete
             })
-            
-            GooglePlacesAPIClient.getNearbyAirportsWithCompletion({ 
-                print("\n\n\ngetting nearby airports")
-            })
-            
             
             completion()
         }
     }
-    
-//    func getAirportsWithCompletion(completion: () -> ()) {
-//        GooglePlacesAPIClient.getNearbyAirports()
-//        //need to complete
-//    }
 }
