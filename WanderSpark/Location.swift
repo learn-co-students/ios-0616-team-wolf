@@ -13,6 +13,8 @@ class Location {
     var name: String
     var images: [String]
     var description: String
+    var matchCount = 0
+
     var coordinates: (latitude: Double, longitude: Double)
     var nearbyAirports: [Airport]
     
@@ -22,7 +24,6 @@ class Location {
         self.images = []
         self.coordinates = coordinates
         self.nearbyAirports = nearbyAirports
-        
     }
     
     convenience init(name: String, description: String, images: [String]){
