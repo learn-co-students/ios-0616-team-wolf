@@ -16,32 +16,22 @@ class Location {
     var coordinates: (latitude: Double, longitude: Double)
     var nearbyAirports: [Airport]
     
-    init(name: String, description: String, coordinates: (Double, Double), nearbyAirports: [Airport]) {
+    init(name: String, description: String, images: [String], coordinates: (Double, Double), nearbyAirports: [Airport]) {
         self.name = name
         self.description = description
         self.images = []
         self.coordinates = coordinates
         self.nearbyAirports = nearbyAirports
         
-        // Attempt to get images from the multimedia array:
-        
-        //        for item in multimedia  {
-        //            guard let item = item as? NSDictionary else {
-        //                fatalError("Could not get multimedia dictionary.")
-        //            }
-        //            if item["type"] == "image" {
-        //                guard let imageURL = item["url"] as? NSURL else {
-        //                    fatalError("Could not get image URL from supplied dictionary.")
-        //                }
-        //                images.append(imageURL)
-        //            }
-        //        }
-        
+    }
+    
+    convenience init(name: String, description: String, images: [String]){
+        self.init(name: name, description: description, images: images, coordinates: (0.00, 0.00), nearbyAirports: [Airport(airportName: "DEFAULT 1"), Airport(airportName: "DEFAULT 2")])
     }
     
     
     convenience init(name: String, description: String) {
-        self.init(name: name, description: description, coordinates: (0.00, 0.00), nearbyAirports: [Airport(airportName: "DEFAULT 1"), Airport(airportName: "DEFAULT 2")])
+        self.init(name: name, description: description, images: [], coordinates: (0.00, 0.00), nearbyAirports: [Airport(airportName: "DEFAULT 1"), Airport(airportName: "DEFAULT 2")])
     }
     
 //    convenience init(name: String, description: String, coordinates: (Double, Double)){
