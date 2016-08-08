@@ -16,7 +16,7 @@ class GooglePlacesAPIClient {
     
     static let locationsStore = LocationsDataStore.sharedInstance
     static let vacationDestinations = locationsStore.locations
-    static var destinationAirports = locationsStore.airports
+    // static var destinationAirports = locationsStore.airports
     
     // static var locationCoordinates = [(Double,Double)]()
     
@@ -60,36 +60,43 @@ class GooglePlacesAPIClient {
         }
     }
     
-    class func getNearbyAirportsWithCompletion(destination: Location, completion:() ->()) {
+    class func getNearbyAirportsWithCompletion(completion:() ->()) {
         //use coordinates obtained from previous function to get nearby airports of vacation destinations
         
-        Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(destination.coordinates.latitude),\(destination.coordinates.longitude)&radius=50000&name=airport&type=airport&key=\(Secrets.googlePlacesAPIKey)").responseJSON(completionHandler: { (response) in
+        for destination in vacationDestinations {
             
-            if let nearbyAirportsResponse = response.result.value as? NSDictionary {
-                guard let airportResults = nearbyAirportsResponse["results"] as? [[String:AnyObject]]
-                    else {
-                    fatalError("ERROR: No airports found nearby given location, \(destination.name)")
-                }
+            Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(destination.coordinates.latitude),\(destination.coordinates.longitude)&radius=50000&name=airport&type=airport&key=\(Secrets.googlePlacesAPIKey)").responseJSON(completionHandler: { (response) in
                 
-                for airportResult in airportResults {
-                    if let currentAirport = airportResult["name"] as? String {
-                        let airport = Airport(airportName: currentAirport)
-                        self.destinationAirports.append(airport)
+                if let nearbyAirportsResponse = response.result.value as? NSDictionary {
+                    
+                    guard let airportResults = nearbyAirportsResponse["results"] as? [[String:AnyObject]]
+                        else {
+                            fatalError("ERROR: No airports found nearby given location, \(destination.name)")
                     }
+                    
+                    for airportResult in airportResults {
+                        if let currentAirport = airportResult["name"] as? String {
+                            let airport = Airport(airportName: currentAirport)
+                            self.locationsStore.airports.append(airport)
+                        }
+                    }
+                    
+                    print("********** AIRPORT INFORMATION ************")
+                    print("Location: \(destination.name)")
+                    for airport in destination.nearbyAirports {
+                        print("Airport: \(airport.airportName)")
+                    }
+                    //airport being initialized but not populated
+                    print("*******************************************")
+                    
+                    completion()
+                } else {
+                    fatalError("ERROR: No response for nearbyAirports request")
                 }
-                
-                print("********** AIRPORT INFORMATION ************")
-                print("Location: \(destination.name)")
-                for destinationAirport in destinationAirports {
-                    print("Airport: \(destinationAirport.airportName)")
-                }
-                print("*******************************************")
-                
-                completion()
-            } else {
-                fatalError("ERROR: No response for nearbyAirports request")
-            }
-        })
+            })
+            
+        }
+        
     }
     
     class func obtainAirportCodes() -> [String] {

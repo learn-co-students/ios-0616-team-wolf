@@ -14,14 +14,14 @@ class Location {
     var images: [NSURL]
     var description: String
     var coordinates: (latitude: Double, longitude: Double)
-    //var nearbyAirports: [Airport]()
-    //may also need to add property of nearby airports and set up another convenience initializer for it
+    var nearbyAirports: [Airport]
     
-    init(name: String, description: String, coordinates: (Double, Double)) {
+    init(name: String, description: String, coordinates: (Double, Double), nearbyAirports: [Airport]) {
         self.name = name
         self.description = description
         self.images = []
         self.coordinates = coordinates
+        self.nearbyAirports = nearbyAirports
         
         // Attempt to get images from the multimedia array:
         
@@ -41,9 +41,12 @@ class Location {
     
     
     convenience init(name: String, description: String) {
-        self.init(name: name, description: description, coordinates: (0.00, 0.00))
+        self.init(name: name, description: description, coordinates: (0.00, 0.00), nearbyAirports: [Airport(airportName: "DEFAULT 1"), Airport(airportName: "DEFAULT 2")])
     }
     
+//    convenience init(name: String, description: String, coordinates: (Double, Double)){
+//        
+//    }
     
     class func formatLocationName(locationName: String) -> String {
         //place comma between city and state/country

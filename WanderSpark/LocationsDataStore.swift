@@ -45,13 +45,15 @@ class LocationsDataStore {
                 self.locations.append(location)
                 print("Location count: \(self.locations.count)")
                 
-//                GooglePlacesAPIClient.getNearbyAirportsWithCompletion(location, completion: {
-//                    print("\n\nchecking airports")
-//                })
+
             }
             
             GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({
                 print("\nadding coordinates")
+            })
+            
+            GooglePlacesAPIClient.getNearbyAirportsWithCompletion({ 
+                print("\n\n\ngetting nearby airports")
             })
             
             
