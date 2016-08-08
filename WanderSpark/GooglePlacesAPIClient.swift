@@ -77,7 +77,8 @@ class GooglePlacesAPIClient {
                     for airportResult in airportResults {
                         if let currentAirport = airportResult["name"] as? String {
                             let airport = Airport(airportName: currentAirport)
-                            self.locationsStore.airports.append(airport)
+                            print("adding airport: \(airport)")
+                            destination.nearbyAirports.append(airport)
                         }
                     }
                     
