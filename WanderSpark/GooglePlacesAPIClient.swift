@@ -74,8 +74,8 @@ class GooglePlacesAPIClient {
                             fatalError("ERROR: No airports found nearby given location")
                     }
                     
-                    //current problem: some airport names aren't in english, some terminals are being added as airports (Paris) and others are outside of radius allowed by google (Ex: Barcelona), its status is "ZERO_RESULTS"
-                    //there's also redundancy in the print statement of airport information and in some, like South Africa, airport information is empty until the end (after a few repeated prints with no airport information) 
+                    //current problem: some airport names aren't in english, some terminals are being added as airports (Paris), and others are outside of radius allowed by google (Ex: Barcelona), its status is "ZERO_RESULTS"
+                    //there's also redundancy in the print statement of airport information and in some, like South Africa, airport information is empty until the end (after a few repeated prints with no airport information)
                     
                     destination.nearbyAirports.removeAll()
                     
