@@ -14,6 +14,9 @@ class LocationsDataStore {
     private init() {}
     
     var locations = [Location]()
+    var airports = [Airport]()
+    var usersCurrentLocation = "New York, NY"
+    //placeholder, will be changed to user's input later
     
     // Orta says this is sending 60 page requests simultaneously. Need to implement it such that you say, "When one page request is complete, then go to the next."
 
@@ -72,9 +75,25 @@ class LocationsDataStore {
                     self.locations.append(location)
                     print("Location count: \(self.locations.count)")
                 }
-            }
             page += 1
+            }
+            
+
+            
+            GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({
+                print("\nadding coordinates")
+            })
+            
+            GooglePlacesAPIClient.getNearbyAirportsWithCompletion({ 
+                print("\n\n\ngetting nearby airports")
+            })
+            
         }
         completion()
     }
+    
+//    func getAirportsWithCompletion(completion: () -> ()) {
+//        GooglePlacesAPIClient.getNearbyAirports()
+//        //need to complete
+//    }
 }
