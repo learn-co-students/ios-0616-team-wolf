@@ -11,7 +11,5 @@ import Foundation
 class NYTimesDataParser {
     
     let thirtySixHoursArray = [[String : AnyObject]]()
-
-
-    
+   
 }

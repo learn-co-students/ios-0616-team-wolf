@@ -8,54 +8,51 @@
 
 import Foundation
 import Alamofire
-import GooglePlaces
-import GooglePlacePicker
-import GoogleMaps
 
 class GooglePlacesAPIClient {
     
-    static let locationsStore = LocationsDataStore.sharedInstance
-    static var vacationDestinations = locationsStore.locations
+    static let store = LocationsDataStore.sharedInstance
+    static var vacationDestinations = store.locations
     //static var destinationAirports = locationsStore.airports
     
     //need to get coordinates before searching nearby airports
     class func getLocationCoordinatesWithCompletion(completion: () -> ()) {
         
-        for destination in self.vacationDestinations {
-            
-            let destinationName = Location.formatLocationName(destination.name)
-            
-            Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/geocode/json?address=\(destinationName)&key=\(Secrets.googlePlacesAPIKey)").responseJSON { (response) in
+        store.getLocationsWithCompletion {
+            print("Count of locations in data store: \(self.vacationDestinations.count)")
+            for destination in self.vacationDestinations {
                 
-                if let locationResultsResponse = response.result.value as? NSDictionary {
+                let destinationName = Location.formatLocationName(destination.name)
+                
+                Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/geocode/json?address=\(destinationName)&key=\(Secrets.googlePlacesAPIKey)").responseJSON { (response) in
                     
-                    guard let
-                        locationResults = locationResultsResponse["results"] as? [[String : AnyObject]], //array of location dictionaries
-                        destinationInformation = locationResults[0]["geometry"] as? [String:AnyObject], //dictionary of location information
-                        destinationLocationInfo = destinationInformation["location"] as? [String : Double], //dictionary of lat/lng info
-                        destinationLat = destinationLocationInfo["lat"],
-                        destinationLng = destinationLocationInfo["lng"]
-                        else {
-                            fatalError("ERROR: No match found for submitted location")
+                    if let locationResultsResponse = response.result.value as? NSDictionary {
+                        
+                        guard let
+                            locationResults = locationResultsResponse["results"] as? [[String : AnyObject]], //array of location dictionaries
+                            destinationInformation = locationResults[0]["geometry"] as? [String:AnyObject], //dictionary of location information
+                            destinationLocationInfo = destinationInformation["location"] as? [String : Double], //dictionary of lat/lng info
+                            destinationLat = destinationLocationInfo["lat"],
+                            destinationLng = destinationLocationInfo["lng"]
+                            else {
+                                fatalError("ERROR: No match found for submitted location")
+                        }
+                        //input coordinates to location objects in LocationsDataStore
+                        destination.coordinates = (destinationLat, destinationLng)
+                        
+                        print("********** DESTINATION INFORMATION ************")
+                        print("Name: \(destination.name)")
+                        print("Formatted Name: \(destinationName)")
+                        print("Coordinates: \(destination.coordinates)")
+                        print("Snippet Description: \(destination.description)")
+                        print("***********************************************")
+                        
+                        completion()
+                        
+                    } else {
+                        fatalError("ERROR: No response for request")
                     }
-                    //input coordinates to location objects in LocationsDataStore
-                    destination.coordinates = (destinationLat, destinationLng)
-                    
-                    print("********** DESTINATION INFORMATION ************")
-                    print("Name: \(destination.name)")
-                    print("Formatted Name: \(destinationName)")
-                    print("Coordinates: \(destination.coordinates)")
-                    print("Snippet Description: \(destination.description)")
-                    print("***********************************************")
-                    
-                    completion(self.getNearbyAirportsWithCompletion({
-                        //call function when this is done adding coordinates to locations
-                    }))
-                    
-                } else {
-                    fatalError("ERROR: No response for request")
                 }
-                
             }
         }
     }

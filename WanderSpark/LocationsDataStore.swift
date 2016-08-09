@@ -15,18 +15,21 @@ class LocationsDataStore {
     
     var locations = [Location]()
     var airports = [Airport]()
-    var usersCurrentLocation = "New York, NY"
-    //placeholder, will be changed to user's input later
     
-    // Orta says this is sending 60 page requests simultaneously. Need to implement it such that you say, "When one page request is complete, then go to the next."
+    //placeholder, will be changed to user's input later
+    var usersCurrentLocation = "New York, NY"
+    
     
     func getLocationsWithCompletion(completion: () -> ()) {
         
         var page = 0
         
         while page < 60 {
+            
+            print("PAGE: \(page)")
+            
             NYTimesAPIClient.getLocationsWithCompletion(page) { (thirtySixHoursArray) in
-                
+                print("PAGE SENT TO NYTIMES API: \(page)")
                 for article in thirtySixHoursArray {
                     guard let
                         headline = article["headline"] as? [String:String],
@@ -51,8 +54,6 @@ class LocationsDataStore {
                             locationName = mainHeadline.stringByReplacingOccurrencesOfString("36 Hours in ", withString: "")
                         } else if mainHeadline.containsString("36 Hours:") {
                             locationName = mainHeadline.stringByReplacingOccurrencesOfString("36 Hours: ", withString: "")
-                        } else {
-                            locationName = mainHeadline
                         }
                     }
                     
@@ -71,18 +72,18 @@ class LocationsDataStore {
                     print("Images: \(images)")
                     print("##############################")
                     
-                    let location = Location(name: locationName, description: snippet, images: images)
-                    self.locations.append(location)
-                    print("Location count: \(self.locations.count)")
+                    if locationName != "" {
+                        let location = Location(name: locationName, description: snippet, images: images)
+                        self.locations.append(location)
+                        print("Location count: \(self.locations.count)")
+                    }
                 }
-                page += 1
             }
-            
-            GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({
-                // airports for destinations will be populated once this is complete
-            })
-            
+            page += 1  
         }
+        
+        print("COMPLETE")
         completion()
-    }
+        }
+    
 }

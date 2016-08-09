@@ -14,16 +14,16 @@ class LocationMatchmaker {
     var matchedLocations = [Location]()
     let store = LocationsDataStore.sharedInstance
     
-    let matchingDictionary = ["City": ["city", "metropolis", "crowd", "busy", "bustl", "touris", "capital", "cosmopolitan", "urban", "skyscraper", "downtown"],
+    let matchingDictionary = ["City": ["city", "metropoli", "crowd", "busy", "bustl", "touris", "capital", "cosmopolitan", "urban", "skyscraper", "downtown"],
                               "Country" : ["scenic", "lake", "grass", "natur", "idyll", "pastor", "quiet", "laid-back", "charm", "town", "humdrum", "provinc"],
                               "Mountains" : ["climb", "peak", "ski", "snowboard", "Alps", "Andes", "Appalachia", "Himalaya", "cable car", "sherpa"],
                               "Beaches" : ["beach", "sand", "sea", "surf", "ocean", "wave", "sun", "maritime", "coast", "resort", "island", "cruise"],
                               "Shopping" : ["shop", "market", "bazaar", "brand", "trend", "boutique", "design", "styl", "antique", "store", "fashion", "jewelry", "artisan"],
                               "Outdoors" : ["outdoor", "park", "green", "natur", "tropic", "forest", "volcan", "lake", "river", "valley", "snow", "sun", "landscape", "panoram", "view", "rugged", "camp", "ranch", "verdant", "eco", "farm", "vineyard", "gondola"],
-                              "Sightseeing" : ["museum", "art", "architectur", "galler", "plaza", "histor", "temple", "pagoda", "cathedral", "sculptur", "opera", "landmark", "college", "universit", "campus", "stroll"],
+                              "Sightseeing" : ["museum", "art", "architectur", "galler", "plaza", "histor", "temple", "pagoda", "cathedral", "sculptur", "opera", "landmark", "monument", "college", "universit", "campus", "stroll"],
                               "Nightlife" : ["night", "music", "party", "hedonist", "danc", "casino", "lounge", "club", "theater", "bar"],
-                              "Historic" : ["histor", "old", "plaza", "piazza", "square", "cemetery", "classic", "royal", "anniversary", "ruin", "ancient"],
-                              "Modern" : ["modern", "new", "international", "cosmopolitan", "trend", "hip",  "prosper", "innovat", "renovat", "boom", "tech", "entrepreneur", "transform"],
+                              "Historic" : ["histor", "old", "plaza", "piazza", "square", "cemetery", "classic", "royal", "anniversary", "ruin", "ancient", "medieval", "castle"],
+                              "Modern" : ["modern", "new", "fresh", "young", "international", "cosmopolitan", "trend", "hip",  "prosper", "innovat", "renovat", "boom", "tech", "entrepreneur", "transform"],
                               "Food" : ["food", "culinary", "cuisine", "eat", "restaurant", "dining", "dine", "dinner", "meal", "dish", "snack", "drink", "bar", "wine", "cocktail", "pub", "brewer", "beer", "pint", "chef", "flavor", "meat",  "bistro", "farm", "vineyard", "coffee", "Michelin"],
                               "Fitness" : ["fitness", "run", "walk", "stroll", "backpack", "bik", "kayak",  "hik", "trek", "ski", "sport", "yoga", "meditat", "vegetarian", "green", "eco", "locavore", "Olympic"],
                               "Luxury" : ["fancy", "high-end",  "upscale", "expens", "cachet", "sophisticat", "aristocrat", "luxur", "chic", "posh", "styl", "pamper", "hotel", "spa"],

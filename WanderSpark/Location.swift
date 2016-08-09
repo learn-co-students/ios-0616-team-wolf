@@ -35,9 +35,6 @@ class Location {
         self.init(name: name, description: description, images: [], coordinates: (0.00, 0.00), nearbyAirports: [Airport(airportName: "DEFAULT 1"), Airport(airportName: "DEFAULT 2")])
     }
     
-//    convenience init(name: String, description: String, coordinates: (Double, Double)){
-//        
-//    }
     
     class func formatLocationName(locationName: String) -> String {
         //place comma between city and state/country
