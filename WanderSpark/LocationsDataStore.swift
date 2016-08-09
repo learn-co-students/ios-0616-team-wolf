@@ -14,19 +14,22 @@ class LocationsDataStore {
     private init() {}
     
     var locations = [Location]()
-    var airports = [Airport]()
     
     
     func getLocationsWithCompletion(completion: () -> ()) {
+        
+        var currentPage = 0
+        let lastPage = 10
+        
+        while currentPage < lastPage {
             
-            NYTimesAPIClient.getAllPagesWithCompletion { (thirtySixHoursArray) in
-                print(thirtySixHoursArray)
+            NYTimesAPIClient.getLocationsWithCompletion(currentPage) { (thirtySixHoursArray) in
                 
                 for article in thirtySixHoursArray {
                     let locationName = NYTimesDataParser.getLocationName(article)
                     let locationSnippet = NYTimesDataParser.getLocationSnippet(article)
                     let locationImages = NYTimesDataParser.getLocationImages(article)
-
+                    
                     print("###############################")
                     print("Name: \(locationName)")
                     print("Description: \(locationSnippet)")
@@ -38,7 +41,8 @@ class LocationsDataStore {
                         print("Location count: \(self.locations.count)")
                     }
                 }
- 
+            }
+            currentPage += 1
         }
         completion()
     }

@@ -16,25 +16,22 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        store.getLocationsWithCompletion { 
-            
+        store.getLocationsWithCompletion {
         }
-            
-//            print("INSIDE COMPLETION BLOCK")
-//            print(self.store.locations)
-//            
-//            let matcher = LocationMatchmaker(matchParameters: ["Outdoors", "City", "Luxury", "Beach", "Nightlife", "Modern", "Food"])
-//            matcher.tallyLocationMatches()
-//            matcher.sortLocationsByMatchCount()
-//            matcher.returnMatchedLocations()
-//            
-//            print("THESE ARE THE MATCHES:\n")
-//            for location in matcher.matchedLocations {
-//                print("Compatibility Score: \(location.matchCount)")
-//                print("Location Name: \(location.name)")
-//                print("###############################")
-//            }
+
+    /*
+        let matcher = LocationMatchmaker(matchParameters: ["Outdoors", "City", "Luxury", "Beach", "Nightlife", "Modern", "Food"])
+        matcher.tallyLocationMatches()
+        matcher.sortLocationsByMatchCount()
+        matcher.returnMatchedLocations()
         
+        print("THESE ARE THE MATCHES:\n")
+        for location in matcher.matchedLocations {
+            print("Location Name: \(location.name)")
+            print("Compatibility Score: \(location.matchCount)")
+            print("###############################")
+        }
+    */
  
     }
 
