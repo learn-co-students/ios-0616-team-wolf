@@ -10,35 +10,32 @@ import Foundation
 
 class NYTimesDataParser {
     
-    let thirtySixHoursArray = [[String : AnyObject]]()
+    let thirtySixHoursArticle = [String : AnyObject]()
 
     
     func getLocationName() -> String {
         var locationName = ""
         
-        for article in thirtySixHoursArray {
-            guard let
-                headline = article["headline"] as? [String:String],
-                keywords = article["keywords"] as? [[String:String]]
-                else { assertionFailure("Could not get location keywords or headline from supplied dictionary.") }
-            
-            // The location name is usually formatted as "City Name (State or Country)" so pull this out by finding keyword with value that contains parentheses substring.
-            
-            for keyword in keywords {
-                guard let value = keyword["value"] else { assertionFailure("Error: No value key in keywords dictionary.") }
-                if value.containsString("(") {
-                    locationName = value
-                }
+        guard let
+            headline = thirtySixHoursArticle["headline"] as? [String:String],
+            keywords = thirtySixHoursArticle["keywords"] as? [[String:String]]
+            else { assertionFailure("Could not get location keywords or headline from supplied dictionary."); return "ERROR: Location Name" }
+        
+        // The location name is usually formatted as "City Name (State or Country)" so pull this out by finding keyword with value that contains parentheses substring.
+        for keyword in keywords {
+            guard let value = keyword["value"] else { assertionFailure("Error: No value key in keywords dictionary."); return "ERROR: Location Name" }
+            if value.containsString("(") {
+                locationName = value
             }
-            
-            // Sometimes the keyword does not include (State or Country), so using parentheses to find  location name does not work. In this case, pull location name from the main headline.
-            if locationName == "" {
-                guard let mainHeadline = headline["main"] else { assertionFailure("Error: No main key in headline dictionary.") }
-                if mainHeadline.containsString("36 Hours in") {
-                    locationName = mainHeadline.stringByReplacingOccurrencesOfString("36 Hours in ", withString: "")
-                } else if mainHeadline.containsString("36 Hours:") {
-                    locationName = mainHeadline.stringByReplacingOccurrencesOfString("36 Hours: ", withString: "")
-                }
+        }
+        
+        // Sometimes the keyword does not include (State or Country), so using parentheses to find  location name does not work. In this case, pull location name from the main headline.
+        if locationName == "" {
+            guard let mainHeadline = headline["main"] else { assertionFailure("Error: No main key in headline dictionary."); return "ERROR: Location Name" }
+            if mainHeadline.containsString("36 Hours in") {
+                locationName = mainHeadline.stringByReplacingOccurrencesOfString("36 Hours in ", withString: "")
+            } else if mainHeadline.containsString("36 Hours:") {
+                locationName = mainHeadline.stringByReplacingOccurrencesOfString("36 Hours: ", withString: "")
             }
         }
         return locationName
@@ -46,28 +43,28 @@ class NYTimesDataParser {
     
     
     func getLocationSnippet() -> String {
-        for article in thirtySixHoursArray {
-            guard let snippet = article["snippet"] as? String
-                else { assertionFailure("Could not create location object from supplied dictionary.") }
-        }
-        return snippet  
+        
+        guard let snippet = thirtySixHoursArticle["snippet"] as? String
+            else { assertionFailure("Could not get location snippet from supplied dictionary."); return "ERROR: Location Snippet" }
+        return snippet
     }
     
     
     func getLocationImages() -> [String] {
         
-        for article in thirtySixHoursArray {
-            guard let
-                multimedia = article["multimedia"] as? [[String: AnyObject]]
-                else { print("Could not create location object from supplied dictionary."); return }
+        guard let multimedia = thirtySixHoursArticle["multimedia"] as? [[String: AnyObject]]
+            else { assertionFailure("Could not get location multimedia from supplied dictionary."); return ["ERROR: Location Multimedia"] }
+        
         var images = [String]()
         for item in multimedia {
-            guard let mediaType = item["type"] as? String else { print("Error: No type key for media item."); return }
+            guard let mediaType = item["type"] as? String else { assertionFailure("Error: No type key for media item."); return ["ERROR: Location Multimedia"] }
             
             if mediaType == "image" {
-                guard let imageURL = item["url"] as? String else { print("Error: Failure getting image url from multimedia array."); return }
+                guard let imageURL = item["url"] as? String else { assertionFailure("Error: Failure getting image url from multimedia array."); return ["ERROR: Location Multimedia"] }
                 images.append(imageURL)
             }
         }
+        return images
     }
+    
 }
