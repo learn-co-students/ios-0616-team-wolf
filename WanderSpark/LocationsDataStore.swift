@@ -16,12 +16,8 @@ class LocationsDataStore {
     var locations = [Location]()
     var airports = [Airport]()
     
-    //placeholder, will be changed to user's input later
-    var usersCurrentLocation = "New York, NY"
-    
     
     func getLocationsWithCompletion(completion: () -> ()) {
-        
         var page = 0
         
         while page < 60 {
