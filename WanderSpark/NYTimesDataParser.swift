@@ -11,21 +11,7 @@ import Foundation
 class NYTimesDataParser {
     
     let thirtySixHoursArray = [[String : AnyObject]]()
-//    var headline = [String:String]()
-//    var keywords = [[String:String]]()
-//    var multimedia = [[String: AnyObject]]()
-   
-    func unwrapOptionalLocationData() {
-        for article in thirtySixHoursArray {
-            guard let
-                headline = article["headline"] as? [String:String],
-                keywords = article["keywords"] as? [[String:String]],
-                snippet = article["snippet"] as? String,
-                multimedia = article["multimedia"] as? [[String: AnyObject]]
-                else { print("Could not create location object from supplied dictionary."); return }
-        }
-    }
-    
+
     
     func getLocationName() -> String {
         var locationName = ""
@@ -60,11 +46,28 @@ class NYTimesDataParser {
     
     
     func getLocationSnippet() -> String {
-        
+        for article in thirtySixHoursArray {
+            guard let snippet = article["snippet"] as? String
+                else { assertionFailure("Could not create location object from supplied dictionary.") }
+        }
+        return snippet  
     }
     
     
     func getLocationImages() -> [String] {
         
+        for article in thirtySixHoursArray {
+            guard let
+                multimedia = article["multimedia"] as? [[String: AnyObject]]
+                else { print("Could not create location object from supplied dictionary."); return }
+        var images = [String]()
+        for item in multimedia {
+            guard let mediaType = item["type"] as? String else { print("Error: No type key for media item."); return }
+            
+            if mediaType == "image" {
+                guard let imageURL = item["url"] as? String else { print("Error: Failure getting image url from multimedia array."); return }
+                images.append(imageURL)
+            }
+        }
     }
 }
