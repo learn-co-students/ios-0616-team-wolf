@@ -36,4 +36,31 @@ class NYTimesAPIClient {
         }
     }
     
+    
+    class func getAllPagesWithCompletion(completion: ([[String: AnyObject]]) -> ()) {
+        
+        var allArticles = [[String: AnyObject]]()
+        
+        let group = dispatch_group_create()
+        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        
+        let currentPage = 0
+        let lastPage = 60
+        
+        while currentPage < lastPage {
+            dispatch_group_enter(group)
+            dispatch_async(queue, {
+                
+                self.getLocationsWithCompletion(currentPage, completion: { (thirtySixHoursArray) in
+                    allArticles.appendContentsOf(thirtySixHoursArray)
+                    dispatch_group_leave(group)
+                })
+            })
+        }
+        
+        dispatch_group_notify(group, queue) {
+            completion(allArticles)
+        }
+    }
+    
 }

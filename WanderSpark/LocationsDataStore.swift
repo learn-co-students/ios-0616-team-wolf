@@ -31,10 +31,10 @@ class LocationsDataStore {
                     let locationSnippet = parser.getLocationSnippet(article)
                     let locationImages = parser.getLocationImages(article)
 
+                    print("###############################")
                     print("Name: \(locationName)")
                     print("Description: \(locationSnippet)")
                     print("Images: \(locationImages)")
-                    print("##############################")
                     
                     if locationName != "" && !locationImages.isEmpty {
                         let location = Location(name: locationName, description: locationSnippet, images: locationImages)
