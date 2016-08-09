@@ -12,5 +12,6 @@ pod 'AlamofireImage', '~> 2.0'
 pod 'GooglePlaces'
 pod 'GooglePlacePicker'
 pod 'GoogleMaps'
+pod ‘FZCarousel'
 
 end
