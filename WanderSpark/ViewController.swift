@@ -16,11 +16,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-
+        store.getLocationsWithCompletion { 
             
-            GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({
-                // airports for destinations will be populated once this is complete
-            })
+        }
             
 //            print("INSIDE COMPLETION BLOCK")
 //            print(self.store.locations)

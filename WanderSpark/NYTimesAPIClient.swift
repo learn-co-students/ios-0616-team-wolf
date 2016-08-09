@@ -11,13 +11,13 @@ import Alamofire
 
 class NYTimesAPIClient {
     
-    // Notes on rate limit: Five calls per second allowed. Maybe implement a timer so that this follows the rate limit otherwise we won't get all the data we need? Or, request 5 pages each time that a new question view controller is presented?
+    // Rate limit: Five calls per second, 1k per day allowed.
     
     class func getLocationsWithCompletion(page: Int, completion: ([[String: AnyObject]]) -> ()) {
         
         Alamofire.request(.GET, "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=36+Hours&page=\(page)&key=\(Secrets.nyTimesAPIKey)")
             .responseJSON { response in
-                
+                //print("RESPONSE: \(response)")
                 if let responseValue = response.result.value as? NSDictionary {
                     
                     guard let docsDictionary = responseValue["response"] as? [String : AnyObject] else {
@@ -44,18 +44,20 @@ class NYTimesAPIClient {
         let group = dispatch_group_create()
         let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
         
-        let currentPage = 0
-        let lastPage = 60
+        var currentPage = 0
+        let lastPage = 20 // We probably want to increase this to get more locations.
         
         while currentPage < lastPage {
             dispatch_group_enter(group)
             dispatch_async(queue, {
                 
                 self.getLocationsWithCompletion(currentPage, completion: { (thirtySixHoursArray) in
+                    print("Array passed from page \(currentPage): \(thirtySixHoursArray)")
                     allArticles.appendContentsOf(thirtySixHoursArray)
                     dispatch_group_leave(group)
                 })
             })
+            currentPage += 1
         }
         
         dispatch_group_notify(group, queue) {

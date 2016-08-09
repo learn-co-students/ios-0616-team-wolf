@@ -8,9 +8,9 @@
 
 import Foundation
 
-class NYTimesDataParser {
+struct NYTimesDataParser {
     
-    func getLocationName(article: [String : AnyObject]) -> String {
+    static func getLocationName(article: [String : AnyObject]) -> String {
         var locationName = ""
         
         guard let
@@ -39,7 +39,7 @@ class NYTimesDataParser {
     }
     
     
-    func getLocationSnippet(article: [String : AnyObject]) -> String {
+    static func getLocationSnippet(article: [String : AnyObject]) -> String {
         
         guard let snippet = article["snippet"] as? String
             else { assertionFailure("Could not get location snippet from supplied dictionary."); return "ERROR: Location Snippet" }
@@ -47,7 +47,7 @@ class NYTimesDataParser {
     }
     
     
-    func getLocationImages(article: [String : AnyObject]) -> [String] {
+    static func getLocationImages(article: [String : AnyObject]) -> [String] {
         
         guard let multimedia = article["multimedia"] as? [[String: AnyObject]]
             else { assertionFailure("Could not get location multimedia from supplied dictionary."); return ["ERROR: Location Multimedia"] }
