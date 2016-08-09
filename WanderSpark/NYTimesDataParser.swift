@@ -10,15 +10,12 @@ import Foundation
 
 class NYTimesDataParser {
     
-    let thirtySixHoursArticle = [String : AnyObject]()
-
-    
-    func getLocationName() -> String {
+    func getLocationName(article: [String : AnyObject]) -> String {
         var locationName = ""
         
         guard let
-            headline = thirtySixHoursArticle["headline"] as? [String:String],
-            keywords = thirtySixHoursArticle["keywords"] as? [[String:String]]
+            headline = article["headline"] as? [String:String],
+            keywords = article["keywords"] as? [[String:String]]
             else { assertionFailure("Could not get location keywords or headline from supplied dictionary."); return "ERROR: Location Name" }
         
         // The location name is usually formatted as "City Name (State or Country)" so pull this out by finding keyword with value that contains parentheses substring.
@@ -42,17 +39,17 @@ class NYTimesDataParser {
     }
     
     
-    func getLocationSnippet() -> String {
+    func getLocationSnippet(article: [String : AnyObject]) -> String {
         
-        guard let snippet = thirtySixHoursArticle["snippet"] as? String
+        guard let snippet = article["snippet"] as? String
             else { assertionFailure("Could not get location snippet from supplied dictionary."); return "ERROR: Location Snippet" }
         return snippet
     }
     
     
-    func getLocationImages() -> [String] {
+    func getLocationImages(article: [String : AnyObject]) -> [String] {
         
-        guard let multimedia = thirtySixHoursArticle["multimedia"] as? [[String: AnyObject]]
+        guard let multimedia = article["multimedia"] as? [[String: AnyObject]]
             else { assertionFailure("Could not get location multimedia from supplied dictionary."); return ["ERROR: Location Multimedia"] }
         
         var images = [String]()

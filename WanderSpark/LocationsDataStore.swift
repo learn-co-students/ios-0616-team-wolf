@@ -32,9 +32,8 @@ class LocationsDataStore {
                 print("PAGE SENT TO NYTIMES API: \(page)")
                 
                 for article in thirtySixHoursArray {
-                    
-                    
-                    
+
+                    article = NYTimesDataParser.
                     
                     
 //                    guard let
