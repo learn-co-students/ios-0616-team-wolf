@@ -22,9 +22,18 @@ class WSCarouselCollectionViewController: UIViewController {
         super.viewDidLoad()
         //setConstraints()
         
-        store.getLocationsWithCompletion {
+        // call swiping/survey function here 
+        // while user is going through the questions, load NYTimes data 
+        // after NYTimes data has finished loading, obtain coordinates 
+        // then match destinations and get flight information 
+        
+        let obtainLocationsQueue = NSOperationQueue()
+        obtainLocationsQueue.qualityOfService = .Utility //or .UserInitiated 
+        obtainLocationsQueue.addOperationWithBlock { 
+            self.store.getLocationsWithCompletion {
+            }
         }
-      
+        
         carouselView.clipsToBounds = true
         
         self.createImagesFromURL()
