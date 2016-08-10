@@ -27,6 +27,7 @@
 
 
 @property (nonatomic, strong) NSArray<UIImage *> *imageArray;
+@property (nonatomic, strong) NSArray <UIButton *> *buttonArray;
 @property (nonatomic) BOOL gestureRecognitionShouldEndCarousel;
 @property (nonatomic, assign) NSTimeInterval crankInterval; // Three Seconds by default
 

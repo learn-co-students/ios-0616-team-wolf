@@ -24,6 +24,8 @@
 		BF41AB5F1D55275000725AAE /* LocationsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF41AB5E1D55275000725AAE /* LocationsDataStore.swift */; };
 		BF41AB611D55275700725AAE /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF41AB601D55275700725AAE /* Location.swift */; };
 		BF53C59D1D5A8CFA00810066 /* WSCarouselCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C59A1D5A8CFA00810066 /* WSCarouselCollectionViewController.swift */; };
+		BFC9EF691D5B771F009C0F2A /* VacationCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC9EF681D5B771F009C0F2A /* VacationCollectionView.swift */; };
+		BFC9EF6D1D5B9048009C0F2A /* customVacationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC9EF6C1D5B9048009C0F2A /* customVacationCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		BF41AB5E1D55275000725AAE /* LocationsDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsDataStore.swift; sourceTree = "<group>"; };
 		BF41AB601D55275700725AAE /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		BF53C59A1D5A8CFA00810066 /* WSCarouselCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCarouselCollectionViewController.swift; sourceTree = "<group>"; };
+		BFC9EF681D5B771F009C0F2A /* VacationCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VacationCollectionView.swift; sourceTree = "<group>"; };
+		BFC9EF6C1D5B9048009C0F2A /* customVacationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customVacationCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 		BF41AB491D55270800725AAE /* WanderSpark */ = {
 			isa = PBXGroup;
 			children = (
+				BFC9EF6C1D5B9048009C0F2A /* customVacationCell.swift */,
+				BFC9EF681D5B771F009C0F2A /* VacationCollectionView.swift */,
 				BF53C59A1D5A8CFA00810066 /* WSCarouselCollectionViewController.swift */,
 				BF415E0C1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.h */,
 				BF415E0D1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m */,
@@ -252,6 +258,7 @@
 				BF415E111D5A8FD200C2BFB8 /* FZCarouselView.m in Sources */,
 				BF41AB4D1D55270800725AAE /* ViewController.swift in Sources */,
 				BF415E101D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m in Sources */,
+				BFC9EF691D5B771F009C0F2A /* VacationCollectionView.swift in Sources */,
 				1B2A25531D5A239D00AB08E6 /* Secrets.swift in Sources */,
 				1BE7A63B1D592FD000B7E89F /* NYTimesDataParser.swift in Sources */,
 				BF53C59D1D5A8CFA00810066 /* WSCarouselCollectionViewController.swift in Sources */,
@@ -262,6 +269,7 @@
 				BF41AB5F1D55275000725AAE /* LocationsDataStore.swift in Sources */,
 				1BE7A6391D58E3E600B7E89F /* LocationMatchmaker.swift in Sources */,
 				BF41AB4B1D55270800725AAE /* AppDelegate.swift in Sources */,
+				BFC9EF6D1D5B9048009C0F2A /* customVacationCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

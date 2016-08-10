@@ -17,6 +17,7 @@ class WSCarouselCollectionViewController: UIViewController {
     var dictionaryOfLocationsAndPictures: [[String : UIImage]]?
     var arrayOfStringURL: [String] = [String]()
     var arrayOfImages: [UIImage] = [UIImage]()
+    var arrayOfButtons: [UIButton] = [UIButton]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,14 @@ class WSCarouselCollectionViewController: UIViewController {
 
     }
 
+    func createButtons(){
+        let button = UIButton(frame: CGRect(x: 50, y: 50, width: 50, height: 50))
+        button.backgroundColor = .greenColor()
+        button.setTitle("Test Button", forState: .Normal)
+        
+        arrayOfButtons.append(button)
+        
+    }
     func createImagesFromURL(){
         arrayOfStringURL.append("https://www.nytimes.com/images/2016/08/07/travel/07HOURS1/07HOURS1-master1050.jpg")
         arrayOfStringURL.append("https://static01.nyt.com/images/2016/07/31/travel/31HOURS-PORTLAND4/31HOURS-PORTLAND4-master1050.jpg")
@@ -45,9 +54,11 @@ class WSCarouselCollectionViewController: UIViewController {
   
         }
     }
+    
+    
+    
     func prepareCarousel(){
-
-        
+        carouselView.buttonArray = arrayOfButtons
         carouselView.imageArray = arrayOfImages
         carouselView.crankInterval = 1.0
         carouselView.beginCarousel()
