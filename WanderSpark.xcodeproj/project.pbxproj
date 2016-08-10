@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B2A25531D5A239D00AB08E6 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A25521D5A239D00AB08E6 /* Secrets.swift */; };
 		1B2A255A1D5B9C1A00AB08E6 /* MatchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A25591D5B9C1A00AB08E6 /* MatchingViewController.swift */; };
+		1B47991B1D5BC2E700E702A5 /* SkyScannerAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47991A1D5BC2E700E702A5 /* SkyScannerAPIClient.swift */; };
+		1B47991D1D5BC36400E702A5 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47991C1D5BC36400E702A5 /* Secrets.swift */; };
 		1BE7A6391D58E3E600B7E89F /* LocationMatchmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7A6381D58E3E600B7E89F /* LocationMatchmaker.swift */; };
 		1BE7A63B1D592FD000B7E89F /* NYTimesDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */; };
 		866CB137E4DF3ECD4861E1F7 /* Pods_WanderSpark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707E29238D4220E595964DD8 /* Pods_WanderSpark.framework */; };
@@ -28,8 +29,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1B2A25521D5A239D00AB08E6 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		1B2A25591D5B9C1A00AB08E6 /* MatchingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingViewController.swift; sourceTree = "<group>"; };
+		1B47991A1D5BC2E700E702A5 /* SkyScannerAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkyScannerAPIClient.swift; path = ../../.Trash/WanderSpark/SkyScannerAPIClient.swift; sourceTree = SOURCE_ROOT; };
+		1B47991C1D5BC36400E702A5 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Secrets.swift; path = "../../../Desktop/ios-0616-team-wolfx/Secrets.swift"; sourceTree = "<group>"; };
 		1BE7A6381D58E3E600B7E89F /* LocationMatchmaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationMatchmaker.swift; sourceTree = "<group>"; };
 		1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NYTimesDataParser.swift; sourceTree = "<group>"; };
 		4672D9EB3A15AFDF01321DE8 /* Pods-WanderSpark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WanderSpark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WanderSpark/Pods-WanderSpark.debug.xcconfig"; sourceTree = "<group>"; };
@@ -110,15 +112,16 @@
 				BF415E0D1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m */,
 				BF415E0E1D5A8FD200C2BFB8 /* FZCarouselView.h */,
 				BF415E0F1D5A8FD200C2BFB8 /* FZCarouselView.m */,
-				1B2A25521D5A239D00AB08E6 /* Secrets.swift */,
 				BF41AB4A1D55270800725AAE /* AppDelegate.swift */,
 				BF41AB4C1D55270800725AAE /* ViewController.swift */,
+				1B47991A1D5BC2E700E702A5 /* SkyScannerAPIClient.swift */,
 				A4ECDD641D55429F00FC9E03 /* GooglePlacesAPIClient.swift */,
 				BF41AB5C1D55274700725AAE /* NYTimesAPIClient.swift */,
 				1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */,
 				BF41AB5E1D55275000725AAE /* LocationsDataStore.swift */,
 				A4CE39AC1D56982100611A2B /* Airport.swift */,
 				BF41AB601D55275700725AAE /* Location.swift */,
+				1B47991C1D5BC36400E702A5 /* Secrets.swift */,
 				1BE7A6381D58E3E600B7E89F /* LocationMatchmaker.swift */,
 				1B2A25591D5B9C1A00AB08E6 /* MatchingViewController.swift */,
 				BF41AB4E1D55270800725AAE /* Main.storyboard */,
@@ -253,10 +256,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF415E111D5A8FD200C2BFB8 /* FZCarouselView.m in Sources */,
+				1B47991D1D5BC36400E702A5 /* Secrets.swift in Sources */,
 				BF41AB4D1D55270800725AAE /* ViewController.swift in Sources */,
 				BF415E101D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m in Sources */,
-				1B2A25531D5A239D00AB08E6 /* Secrets.swift in Sources */,
 				1BE7A63B1D592FD000B7E89F /* NYTimesDataParser.swift in Sources */,
+				1B47991B1D5BC2E700E702A5 /* SkyScannerAPIClient.swift in Sources */,
 				BF53C59D1D5A8CFA00810066 /* WSCarouselCollectionViewController.swift in Sources */,
 				A4CE39AD1D56982100611A2B /* Airport.swift in Sources */,
 				A4ECDD651D55429F00FC9E03 /* GooglePlacesAPIClient.swift in Sources */,
