@@ -69,7 +69,10 @@ extension MatchingViewController: KolodaViewDataSource {
         iconViewOne.image = iconOne
         iconViewTwo.image = iconTwo
         
-        // Zain to adjust inset/offset amounts when adding this to Storyboard. Uncertain whether inset moves in negative direction, offset in positive direction?
+        iconViewOne.contentMode = .ScaleAspectFill // Zain: ScaleAspectFill is correct, as as long as you make the icons square which is the aspect ratio that I use in the constraints. If you use a different aspect ratio, use ScaleAspectFit.
+        iconViewTwo.contentMode = .ScaleAspectFill
+        
+        // Zain: Please adjust inset/offset amounts when adding this to Storyboard. Uncertain whether inset moves in negative direction, offset in positive direction?
         iconViewOne.snp_makeConstraints { make in
             make.centerX.equalTo(matchingCardView).inset(50)
             make.centerY.equalTo(matchingCardView).inset(50)
@@ -110,9 +113,28 @@ extension MatchingViewController: KolodaViewDataSource {
         }
         
         // Add and constrain arrows:
+        let arrowViewOne = UIImageView()
+        let arrowViewTwo = UIImageView()
         
+        arrowViewOne.image = leftArrow
+        arrowViewTwo.image = rightArrow
         
-
+        arrowViewOne.contentMode = .ScaleAspectFit // Zain: I used Fit instead of Fill here, because it's not a square and may be harder to match the aspect ratio you use in Sketch to the aspect ratio in the constraints.
+        arrowViewTwo.contentMode = .ScaleAspectFit
+        
+        arrowViewOne.snp_makeConstraints { make in
+            make.centerX.equalTo(iconViewOne)
+            make.top.equalTo(labelOne.snp_bottom).offset(20)
+            make.width.equalTo(60)
+            make.height.equalTo(25)
+        }
+        
+        labelTwo.snp_makeConstraints { make in
+            make.centerX.equalTo(iconViewTwo)
+            make.top.equalTo(labelTwo.snp_bottom).offset(20)
+            make.width.equalTo(60)
+            make.height.equalTo(25)
+        }
         
         return matchingCardView
     }
