@@ -13,6 +13,8 @@ import SnapKit
 
 class MatchingViewController: UIViewController {
     @IBOutlet weak var matchingView: KolodaView!
+    
+    var matchParameters = [String]()
 
     let matchingKeys = [("City", "Country"),
                         ("Mountains", "Beaches"),
@@ -39,12 +41,28 @@ class MatchingViewController: UIViewController {
 
 extension MatchingViewController: KolodaViewDelegate {
     func kolodaDidRunOutOfCards(matchingView: KolodaView) {
-        // Present the Carousel ViewController based on the matching parameters.
+        // Initialize and run the LocationMatchmaker based on the matching parameters.
+        let matcher = LocationMatchmaker.init(matchParameters: matchParameters)
+        matcher.tallyLocationMatches()
+        matcher.sortLocationsByMatchCount()
+        matcher.returnMatchedLocations()
         
+        // Send the matched locations to the Carousel ViewController...?
     }
     
-    func koloda(matchingView: KolodaView, didSelectCardAtIndex index: UInt) {
-        // Store the matching parameter in the matchmaker array.
+    
+    func koloda(matchingView: KolodaView, didSwipeCardAtIndex index: UInt, inDirection direction: SwipeResultDirection) {
+        
+        if direction == .Left {
+            let matchWord = matchingKeys[Int(index)].0
+            matchParameters.append(matchWord)
+            
+        } else if direction == .Right {
+            let matchWord = matchingKeys[Int(index)].1
+            matchParameters.append(matchWord)
+        }
+        
+        // Does this also need to present the next card or is that automatically built into Koloda?
     }
 }
 
