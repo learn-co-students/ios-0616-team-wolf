@@ -13,9 +13,8 @@ class GooglePlacesAPIClient {
     
     static let store = LocationsDataStore.sharedInstance
     static var vacationDestinations = store.locations
-    //static var destinationAirports = locationsStore.airports
+
     
-    //need to get coordinates before searching nearby airports
     class func getLocationCoordinatesWithCompletion(completion: () -> ()) {
         
         store.getLocationsWithCompletion {
@@ -57,6 +56,7 @@ class GooglePlacesAPIClient {
         }
     }
     
+    /*
     class func getNearbyAirportsWithCompletion(completion:() ->()) {
         //use coordinates obtained from previous function to get nearby airports of vacation destinations
         
@@ -99,5 +99,5 @@ class GooglePlacesAPIClient {
             })
         }
         
-    } //end of function
+    } */
 }
