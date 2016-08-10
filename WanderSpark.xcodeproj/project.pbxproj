@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B2A25531D5A239D00AB08E6 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A25521D5A239D00AB08E6 /* Secrets.swift */; };
 		1BE7A6391D58E3E600B7E89F /* LocationMatchmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7A6381D58E3E600B7E89F /* LocationMatchmaker.swift */; };
 		1BE7A63B1D592FD000B7E89F /* NYTimesDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */; };
 		866CB137E4DF3ECD4861E1F7 /* Pods_WanderSpark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707E29238D4220E595964DD8 /* Pods_WanderSpark.framework */; };
+		A44A50FC1D5B634E004E5505 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44A50FB1D5B634E004E5505 /* Secrets.swift */; };
 		A4CE39AD1D56982100611A2B /* Airport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CE39AC1D56982100611A2B /* Airport.swift */; };
 		A4ECDD651D55429F00FC9E03 /* GooglePlacesAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ECDD641D55429F00FC9E03 /* GooglePlacesAPIClient.swift */; };
 		BF415E101D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF415E0D1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m */; };
@@ -27,12 +27,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1B2A25521D5A239D00AB08E6 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		1BE7A6381D58E3E600B7E89F /* LocationMatchmaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationMatchmaker.swift; sourceTree = "<group>"; };
 		1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NYTimesDataParser.swift; sourceTree = "<group>"; };
 		4672D9EB3A15AFDF01321DE8 /* Pods-WanderSpark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WanderSpark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WanderSpark/Pods-WanderSpark.debug.xcconfig"; sourceTree = "<group>"; };
 		6A645B5D56252138D187BDB8 /* Pods-WanderSpark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WanderSpark.release.xcconfig"; path = "Pods/Target Support Files/Pods-WanderSpark/Pods-WanderSpark.release.xcconfig"; sourceTree = "<group>"; };
 		707E29238D4220E595964DD8 /* Pods_WanderSpark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WanderSpark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A44A50FB1D5B634E004E5505 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		A4CE39AC1D56982100611A2B /* Airport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Airport.swift; sourceTree = "<group>"; };
 		A4ECDD641D55429F00FC9E03 /* GooglePlacesAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePlacesAPIClient.swift; sourceTree = "<group>"; };
 		BF415E0B1D5A8FD200C2BFB8 /* WanderSpark-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WanderSpark-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -103,12 +103,12 @@
 		BF41AB491D55270800725AAE /* WanderSpark */ = {
 			isa = PBXGroup;
 			children = (
+				A44A50FB1D5B634E004E5505 /* Secrets.swift */,
 				BF53C59A1D5A8CFA00810066 /* WSCarouselCollectionViewController.swift */,
 				BF415E0C1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.h */,
 				BF415E0D1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m */,
 				BF415E0E1D5A8FD200C2BFB8 /* FZCarouselView.h */,
 				BF415E0F1D5A8FD200C2BFB8 /* FZCarouselView.m */,
-				1B2A25521D5A239D00AB08E6 /* Secrets.swift */,
 				BF41AB4A1D55270800725AAE /* AppDelegate.swift */,
 				BF41AB4C1D55270800725AAE /* ViewController.swift */,
 				A4ECDD641D55429F00FC9E03 /* GooglePlacesAPIClient.swift */,
@@ -140,6 +140,7 @@
 				BF41AB451D55270800725AAE /* Resources */,
 				595CBC7275772FA7B5C23558 /* [CP] Embed Pods Frameworks */,
 				18FE42A34584744D3D3950AB /* [CP] Copy Pods Resources */,
+				B8E3F7F6DB33010A7CA78BF6 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -242,6 +243,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		B8E3F7F6DB33010A7CA78BF6 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WanderSpark/Pods-WanderSpark-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -252,7 +268,6 @@
 				BF415E111D5A8FD200C2BFB8 /* FZCarouselView.m in Sources */,
 				BF41AB4D1D55270800725AAE /* ViewController.swift in Sources */,
 				BF415E101D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m in Sources */,
-				1B2A25531D5A239D00AB08E6 /* Secrets.swift in Sources */,
 				1BE7A63B1D592FD000B7E89F /* NYTimesDataParser.swift in Sources */,
 				BF53C59D1D5A8CFA00810066 /* WSCarouselCollectionViewController.swift in Sources */,
 				A4CE39AD1D56982100611A2B /* Airport.swift in Sources */,
@@ -261,6 +276,7 @@
 				BF41AB611D55275700725AAE /* Location.swift in Sources */,
 				BF41AB5F1D55275000725AAE /* LocationsDataStore.swift in Sources */,
 				1BE7A6391D58E3E600B7E89F /* LocationMatchmaker.swift in Sources */,
+				A44A50FC1D5B634E004E5505 /* Secrets.swift in Sources */,
 				BF41AB4B1D55270800725AAE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

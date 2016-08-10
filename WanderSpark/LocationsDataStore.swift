@@ -37,6 +37,9 @@ class LocationsDataStore {
                     
                     if locationName != "" && !locationImages.isEmpty {
                         let location = Location(name: locationName, description: locationSnippet, images: locationImages)
+                        GooglePlacesAPIClient.getLocationCoordinatesWithCompletion(location, completion: { 
+                            
+                        })
                         self.locations.append(location)
                         print("Location count: \(self.locations.count)")
                     }

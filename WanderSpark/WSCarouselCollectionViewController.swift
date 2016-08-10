@@ -21,6 +21,9 @@ class WSCarouselCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //setConstraints()
+        
+        store.getLocationsWithCompletion {
+        }
       
         carouselView.clipsToBounds = true
         
