@@ -23,6 +23,9 @@ class WSCarouselCollectionViewController: UIViewController {
         super.viewDidLoad()
         //setConstraints()
       
+        store.getLocationsWithCompletion {
+        }
+        
         carouselView.clipsToBounds = true
         
         self.createImagesFromURL()

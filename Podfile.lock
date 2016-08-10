@@ -3,36 +3,29 @@ PODS:
   - AlamofireImage (2.4.1):
     - Alamofire (~> 3.3)
   - FZCarousel (0.1.2)
-  - GoogleMaps (2.0.1):
-    - GoogleMaps/Maps (= 2.0.1)
-  - GoogleMaps/Base (2.0.1)
-  - GoogleMaps/Maps (2.0.1):
-    - GoogleMaps/Base (= 2.0.1)
-  - GooglePlacePicker (2.0.1):
-    - GoogleMaps (= 2.0.1)
-    - GooglePlaces (= 2.0.1)
-  - GooglePlaces (2.0.1):
-    - GoogleMaps/Base (= 2.0.1)
+  - Koloda (3.1.1):
+    - pop (~> 1.0)
+  - pop (1.0.9)
+  - SnapKit (0.22.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - Alamofire (~> 3.4)
   - AlamofireImage (~> 2.0)
   - FZCarousel
-  - GoogleMaps
-  - GooglePlacePicker
-  - GooglePlaces
+  - Koloda (~> 3.1)
+  - SnapKit (~> 0.22)
   - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   AlamofireImage: 3ccf3347d9ea24580dc11fb892770a0be6a29826
   FZCarousel: 81c7fba723fd785107ee2b18079e0721457e2181
-  GoogleMaps: f09da64fc987c1aa29394567c3cab5a3df83c402
-  GooglePlacePicker: e7b11b732e40dbe76e8ab4c5fc2f4a7c32b96578
-  GooglePlaces: 72fab1d1651c6df0322f2aad245ffb15b80d3c56
+  Koloda: 782e61549cafec9fd69fc70c4a8b54bce997894d
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  SnapKit: 0dd2fd157330f1ea11fd84da13e6be8a7a22bae0
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 692b7b60d7d6f8f5e20c03de03b9a315e14dc1bb
+PODFILE CHECKSUM: 2323e0218fffcb53fe3bddabe2c49b1cefd8236a
 
 COCOAPODS: 1.0.1
