@@ -10,29 +10,22 @@ import Foundation
 import UIKit
 
 class Location {
-    var name: String
-    var images: [String]
-    var description: String
+    let name: String
+    let images: [String]
+    let description: String
     var matchCount = 0
-
     var coordinates: (latitude: Double, longitude: Double)
-    var nearbyAirports: [Airport]
+
     
-    init(name: String, description: String, images: [String], coordinates: (Double, Double), nearbyAirports: [Airport]) {
+    init(name: String, description: String, images: [String], coordinates: (Double, Double)) {
         self.name = name
         self.description = description
-        self.images = []
+        self.images = images
         self.coordinates = coordinates
-        self.nearbyAirports = nearbyAirports
     }
     
     convenience init(name: String, description: String, images: [String]){
-        self.init(name: name, description: description, images: images, coordinates: (0.00, 0.00), nearbyAirports: [Airport(airportName: "DEFAULT 1"), Airport(airportName: "DEFAULT 2")])
-    }
-    
-    
-    convenience init(name: String, description: String) {
-        self.init(name: name, description: description, images: [], coordinates: (0.00, 0.00), nearbyAirports: [Airport(airportName: "DEFAULT 1"), Airport(airportName: "DEFAULT 2")])
+        self.init(name: name, description: description, images: images, coordinates: (0.00, 0.00))
     }
     
     
