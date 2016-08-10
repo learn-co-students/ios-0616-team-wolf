@@ -38,7 +38,10 @@ class LocationsDataStore {
                     
                     if locationName != "" && !locationImages.isEmpty {
                         let location = Location(name: locationName, description: locationSnippet, images: locationImages)
-                        self.locations.append(location)
+                        
+                        if !self.locations.contains(location) {
+                            self.locations.append(location)
+                        }
                         print("Location count: \(self.locations.count)")
                     }
                 }

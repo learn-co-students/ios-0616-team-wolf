@@ -35,3 +35,8 @@ class Location {
         return formattedLocation
     }
 }
+
+extension Location: Equatable {}
+    func ==(lhs: Location, rhs: Location) -> Bool {
+        return lhs.name == rhs.name && lhs.description == rhs.description
+    }

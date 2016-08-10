@@ -10,5 +10,7 @@ pod 'Alamofire', '~> 3.4'
 pod 'SwiftyJSON'
 pod 'AlamofireImage', '~> 2.0'
 pod ‘FZCarousel'
+pod 'Koloda', '~> 3.1'
+pod 'SnapKit', '~> 0.22'
 
 end
