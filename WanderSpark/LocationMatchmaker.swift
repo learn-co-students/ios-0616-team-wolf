@@ -11,7 +11,6 @@ import Foundation
 class LocationMatchmaker {
     
     var matchParameters = [String]()
-    var matchedLocations = [Location]()
     let store = LocationsDataStore.sharedInstance
     
     let matchingDictionary = ["City": ["city", "metropoli", "crowd", "busy", "bustl", "touris", "capital", "cosmopolitan", "urban", "skyscraper", "downtown"],
@@ -60,9 +59,10 @@ class LocationMatchmaker {
     
     func returnMatchedLocations() {
         
-        while matchedLocations.count < 10 {
-            let match = store.locations.removeFirst()
-            matchedLocations.append(match)
+        while store.matchedLocations.count < 10 {
+            if let match = store.locations.first {
+                store.matchedLocations.append(match)
+            }
         }
     }
     

@@ -10,21 +10,17 @@ import Foundation
 import UIKit
 
 class Location {
-    var name: String
-    var images: [String]
-    var description: String
+    let name: String
+    let images: [String]
+    let description: String
     var matchCount = 0
-    var coordinates : (Double, Double)
+    var coordinates : (Double, Double)?
+    var cheapestFlight : Int?
     
-    init(name: String, description: String, images: [String], coordinates: (Double, Double)) {
+    init(name: String, description: String, images: [String]) {
         self.name = name
         self.description = description
         self.images = []
-        self.coordinates = coordinates
-    }
-    
-    convenience init(name: String, description: String, images: [String]){
-        self.init(name: name, description: description, images: images, coordinates: (0.00, 0.00))
     }
     
     class func formatLocationName(locationName: String) -> String {
