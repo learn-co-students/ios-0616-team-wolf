@@ -24,9 +24,7 @@ class MatchingViewController: UIViewController {
                         ("Food", "Fitness"),
                         ("Luxury", "Adventure")]
     
-    // Zain will populate this with icons made in Sketch. Needs to be in the same order as matchingKeys above, as tuples.
-    
-    // Should we combine this with the matchingKeys in a dictionary somehow? Or maybe add everything to the matching dictionary in LocationMatchmaker class?
+    // Zain: Please populate these with icons made in Sketch. Needs to be in the same order as matchingKeys above, as tuples.
     let matchingIcons = [(UIImage, UIImage)]()
     let leftArrow = UIImage()
     let rightArrow = UIImage()
@@ -157,6 +155,7 @@ extension MatchingViewController: KolodaViewDataSource {
         return matchingCardView
     }
     
+    // Do not know if we need this...
     func koloda(koloda: KolodaView, viewForCardOverlayAtIndex index: UInt) -> OverlayView? {
         return NSBundle.mainBundle().loadNibNamed("OverlayView",
                                                   owner: self, options: nil)[0] as? OverlayView
