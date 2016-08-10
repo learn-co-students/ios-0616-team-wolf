@@ -28,7 +28,6 @@ class Location {
         self.init(name: name, description: description, images: images, coordinates: (0.00, 0.00))
     }
     
-    
     class func formatLocationName(locationName: String) -> String {
         //place comma between city and state/country
         let locationNameArray = locationName.componentsSeparatedByString(" (")
@@ -41,3 +40,8 @@ class Location {
         return formattedLocation
     }
 }
+
+extension Location: Equatable {}
+    func ==(lhs: Location, rhs: Location) -> Bool {
+        return lhs.name == rhs.name && lhs.description == rhs.description
+    }
