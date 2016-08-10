@@ -42,7 +42,11 @@ class WSCarouselCollectionViewController: UIViewController {
             }
         }
         
-        // 3. after NYTimes data has finished loading, obtain coordinates
+        
+        // 3. match user to destinations
+        
+        
+        // 4. obtain coordinates for matched locations
         let obtainLocationCoordinatesBlockOperation = NSBlockOperation {
             print("Coordinates block called")
             GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({
@@ -74,7 +78,7 @@ class WSCarouselCollectionViewController: UIViewController {
         
         
         
-        // 4. then match destinations and get flight information
+        // 5. then use coordinates for matched locations to get flight information
         
         
         
