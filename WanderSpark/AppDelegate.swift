@@ -12,10 +12,56 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    let store = LocationsDataStore.sharedInstance
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // 0. set up main queue for UI stuff
+        let mainOperationQueue = NSOperationQueue.mainQueue()
+        
+        // 1. call swiping function/cocoapod here
+        
+        
+        
+        // 2. while user is going through the questions, load NYTimes data for every other swipe
+        let obtainLocations = NSBlockOperation {
+            print("locations block called")
+            self.store.getLocationsWithCompletion ({ print("done with locations") })
+        }
+        obtainLocations.qualityOfService = .UserInitiated //or .UserInitiated
+        mainOperationQueue.addOperation(obtainLocations)
+        
+        // 3. match user to destinations
+        
+        
+        // 4. obtain coordinates for matched locations
+        //check if user has gone through all the questions 
+        let obtainLocationCoordinatesQueue = NSOperationQueue()
+        obtainLocationCoordinatesQueue.qualityOfService = .Utility
+        mainOperationQueue.addOperationWithBlock {
+            if obtainLocations.finished {
+                GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({
+                })
+            }
+        }
+        // obtainLocationCoordinatesBlockOperation.addDependency(obtainLocationsQueue)
+//        obtainLocationCoordinatesBlockOperation.completionBlock = {
+//            print("in coordinates completion block")
+//            if obtainLocationCoordinatesBlockOperation.finished {
+//                print("DONE WITH COORDINATES QUEUE")
+//            }
+//        }
+        
+        
+//        mainOperationQueue.addOperations([obtainLocationsQueue, obtainLocationCoordinatesBlockOperation], waitUntilFinished: false)
+        
+        
+        
+        // 5. then use coordinates for matched locations to get flight information
+        
+        
         return true
     }
 

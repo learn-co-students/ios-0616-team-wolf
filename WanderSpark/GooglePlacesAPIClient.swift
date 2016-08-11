@@ -9,11 +9,11 @@
 import Foundation
 import Alamofire
 
-class GooglePlacesAPIClient {
+struct GooglePlacesAPIClient {
     
     static let store = LocationsDataStore.sharedInstance
     
-    class func getLocationCoordinatesWithCompletion(completion: () -> ()) {
+    static func getLocationCoordinatesWithCompletion(completion: () -> ()) {
         
         print("in google coordinates function...")
         

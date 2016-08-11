@@ -22,63 +22,6 @@ class WSCarouselCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //setConstraints()        
-        // 0. set up main queue for UI stuff 
-        let mainOperationQueue = NSOperationQueue.mainQueue()
-        
-        // 1. call swiping function/cocoapod here
-        
-        
-        
-        // 2. while user is going through the questions, load NYTimes data
-        let obtainLocationsQueue = NSBlockOperation {
-            print("locations block called")
-            self.store.getLocationsWithCompletion ({ })
-        }
-        obtainLocationsQueue.qualityOfService = .Utility //or .UserInitiated
-        obtainLocationsQueue.completionBlock = {
-            print ("in locations completion block")
-            if obtainLocationsQueue.finished {
-                print("DONE WITH LOCATION QUEUE")
-            }
-        }
-        
-        
-        // 3. match user to destinations
-        
-        
-        // 4. obtain coordinates for matched locations
-        let obtainLocationCoordinatesBlockOperation = NSBlockOperation {
-            print("Coordinates block called")
-            GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({
-            })
-        }
-        obtainLocationCoordinatesBlockOperation.qualityOfService = .Utility //important to set this, if not this will get called first
-        obtainLocationCoordinatesBlockOperation.addDependency(obtainLocationsQueue)
-        obtainLocationCoordinatesBlockOperation.completionBlock = {
-            print("in coordinates completion block")
-            if obtainLocationCoordinatesBlockOperation.finished {
-                print("DONE WITH COORDINATES QUEUE")
-            }
-        }
-        
-        
-        //testing
-//        let testBlock = NSBlockOperation {
-//            if obtainLocationCoordinatesBlockOperation.finished {
-//                print("DONE WITH COORDINATES REALLY")
-//            } else {
-//                print("Nope, not really done yet")
-//            }
-//        }
-//        testBlock.addDependency(obtainLocationsQueue)
-//        testBlock.addDependency(obtainLocationCoordinatesBlockOperation)
-//        testBlock.qualityOfService = .Utility
-        
-        mainOperationQueue.addOperations([obtainLocationsQueue, obtainLocationCoordinatesBlockOperation], waitUntilFinished: false)
-        
-        
-        
-        // 5. then use coordinates for matched locations to get flight information
         
         carouselView.clipsToBounds = true
         

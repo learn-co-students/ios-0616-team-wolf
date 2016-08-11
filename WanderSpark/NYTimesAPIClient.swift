@@ -14,6 +14,7 @@ class NYTimesAPIClient {
     // Rate limit: Five calls per second, 1k per day allowed.
     
     class func getLocationsWithCompletion(page: Int, completion: ([[String : AnyObject]]) -> ()) {
+        //called every other swipe 
         
         Alamofire.request(.GET, "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=36+Hours&page=\(page)&key=\(Secrets.nyTimesAPIKey)")
             .responseJSON { response in
