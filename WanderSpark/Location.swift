@@ -13,14 +13,16 @@ class Location {
     let name: String
     let images: [String]
     let description: String
+    let articleURL: String
     var matchCount = 0
     var coordinates : (Double, Double)!
     var cheapestFlight : Int!
     
-    init(name: String, description: String, images: [String]) {
+    init(name: String, description: String, images: [String], url: String) {
         self.name = name
         self.description = description
-        self.images = []
+        self.images = images
+        self.articleURL = url
     }
     
     class func formatLocationName(locationName: String) -> String {
@@ -38,5 +40,5 @@ class Location {
 
 extension Location: Equatable {}
     func ==(lhs: Location, rhs: Location) -> Bool {
-        return lhs.name == rhs.name && lhs.description == rhs.description
+        return lhs.articleURL == rhs.articleURL
     }
