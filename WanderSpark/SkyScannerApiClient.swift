@@ -9,11 +9,11 @@
 import Foundation
 import SwiftyJSON
 
-class SkyScannerAPIClient {
+struct SkyScannerAPIClient {
     
     //let store = LocationsDataStore.sharedInstance
     
-    class func getPricesForDestination(location: Location, completion:(Int) -> ())
+    static func getPricesForDestination(location: Location, completion:(Int) -> ())
     {
         var sortedArrayOfPrices: [Int] = []
         //    let stringURL = "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.7128,-74.0059-latlong/-33.8688,151.2093-latlong/anytime/anytime?apiKey=\(Secrets.api_keySkyScanner)"
