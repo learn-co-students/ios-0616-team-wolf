@@ -20,6 +20,9 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        store.getLocationsWithCompletion { 
+        }
  
         setConstraints()
         setUpCollectionView()

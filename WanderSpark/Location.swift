@@ -13,12 +13,12 @@ class Location {
     let name: String
     let images: [String]
     let description: String
-    let articleURL: NSURL
+    let articleURL: String
     var matchCount = 0
     var coordinates : (Double, Double)?
     var cheapestFlight : Int?
     
-    init(name: String, description: String, images: [String], url: NSURL) {
+    init(name: String, description: String, images: [String], url: String) {
         self.name = name
         self.description = description
         self.images = images

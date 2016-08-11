@@ -10,6 +10,30 @@ import Foundation
 
 struct NYTimesDataParser {
     
+    static func initializeLocationsFromJSON(JSONArray: [[String : AnyObject]]) -> [Location] {
+        
+        var unfilteredLocations = [Location]()
+        
+        for article in JSONArray {
+            let locationName = NYTimesDataParser.getLocationName(article)
+            let locationSnippet = NYTimesDataParser.getLocationSnippet(article)
+            let locationImages = NYTimesDataParser.getLocationImages(article)
+            let articleURL = NYTimesDataParser.getArticleURL(article)
+            
+            print("###############################")
+            print("Name: \(locationName)")
+            print("Description: \(locationSnippet)")
+            print("Images: \(locationImages)")
+            
+            if locationName != "" && !locationImages.isEmpty {
+                let location = Location(name: locationName, description: locationSnippet, images: locationImages, url: articleURL)
+                unfilteredLocations.append(location)
+            }
+        }
+        return unfilteredLocations
+    }
+    
+    
     static func getLocationName(article: [String : AnyObject]) -> String {
         var locationName = ""
         
@@ -65,9 +89,9 @@ struct NYTimesDataParser {
     }
     
     
-    static func getArticleURL(article: [String: AnyObject]) -> NSURL {
-        guard let url = article["web_url"] as? NSURL
-            else { assertionFailure("Could not get article URL from supplied dictionary."); return NSURL() }
+    static func getArticleURL(article: [String: AnyObject]) -> String {
+        guard let url = article["web_url"] as? String
+            else { assertionFailure("Could not get article URL from supplied dictionary."); return "" }
         return url
     }
     

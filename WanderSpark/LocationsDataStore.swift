@@ -26,25 +26,13 @@ class LocationsDataStore {
             
             NYTimesAPIClient.getLocationsWithCompletion(currentPage) { (thirtySixHoursArray) in
                 
-                for article in thirtySixHoursArray {
-                    let locationName = NYTimesDataParser.getLocationName(article)
-                    let locationSnippet = NYTimesDataParser.getLocationSnippet(article)
-                    let locationImages = NYTimesDataParser.getLocationImages(article)
-                    let articleURL = NYTimesDataParser.getArticleURL(article)
-                    
-                    print("###############################")
-                    print("Name: \(locationName)")
-                    print("Description: \(locationSnippet)")
-                    print("Images: \(locationImages)")
-                    
-                    if locationName != "" && !locationImages.isEmpty {
-                        let location = Location(name: locationName, description: locationSnippet, images: locationImages, url: articleURL)
-                        
-                        if !self.locations.contains(location) {
-                            self.locations.append(location)
-                        }
-                        print("Location count: \(self.locations.count)")
+                let unfilteredLocations = NYTimesDataParser.initializeLocationsFromJSON(thirtySixHoursArray)
+                
+                for location in unfilteredLocations {
+                    if !self.locations.contains(location) {
+                        self.locations.append(location)
                     }
+                    print("Location count: \(self.locations.count)")
                 }
             }
             currentPage += 1
