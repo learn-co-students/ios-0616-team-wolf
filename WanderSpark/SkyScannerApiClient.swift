@@ -18,7 +18,7 @@ class SkyScannerAPIClient {
         var sortedArrayOfPrices: [Int] = []
         //    let stringURL = "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.7128,-74.0059-latlong/-33.8688,151.2093-latlong/anytime/anytime?apiKey=\(Secrets.api_keySkyScanner)"
         
-        let stringURL = "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.7128,-74.0059-latlong/\(location.coordinateslatitude),\(location.coordinateslongitude)-latlong/anytime/anytime?apiKey=\(Secrets.api_keySkyScanner)"
+        let stringURL = "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.7128,-74.0059-latlong/\(location.coordinates)-latlong/anytime/anytime?apiKey=\(Secrets.api_keySkyScanner)"
         //create the string URL
         
         let nsURL = NSURL(string: stringURL)
