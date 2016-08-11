@@ -44,7 +44,7 @@ struct NYTimesDataParser {
         
         // The location name is usually formatted as "City Name (State or Country)" so pull this out by finding keyword with value that contains parentheses substring.
         for keyword in keywords {
-            guard let value = keyword["value"] else { assertionFailure("Error: No value key in keywords dictionary."); return "ERROR: Location Name" }
+            guard let value = keyword["value"] else { assertionFailure("Error: No value key in keywords dictionary."); return "" }
             if value.containsString("(") {
                 locationName = value
             }
@@ -52,7 +52,7 @@ struct NYTimesDataParser {
         
         // Sometimes the keyword does not include (State or Country), so using parentheses to find  location name does not work. In this case, pull location name from the main headline.
         if locationName == "" {
-            guard let mainHeadline = headline["main"] else { assertionFailure("Error: No main key in headline dictionary."); return "ERROR: Location Name" }
+            guard let mainHeadline = headline["main"] else { assertionFailure("Error: No main key in headline dictionary."); return "" }
             if mainHeadline.containsString("36 Hours in") {
                 locationName = mainHeadline.stringByReplacingOccurrencesOfString("36 Hours in ", withString: "")
             } else if mainHeadline.containsString("36 Hours:") {

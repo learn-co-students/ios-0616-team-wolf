@@ -13,24 +13,36 @@ struct NYTimesAPIClient {
     
     // Rate limit: Five calls per second, 1k per day allowed.
     
-    static func getLocationsWithCompletion(page: Int, completion: ([[String : AnyObject]]) -> ()) {
+    typealias LocationCompletion = ([Location], ErrorType?) -> ()
+    
+    enum APIError: ErrorType {
+        case InvalidJSON
+    }
+    
+    static func getLocationsWithCompletion(page: Int, completion: LocationCompletion) {
         
         Alamofire.request(.GET, "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=36+Hours&page=\(page)&key=\(Secrets.nyTimesAPIKey)")
             .responseJSON { response in
-                if let responseValue = response.result.value as? NSDictionary {
+                
+                switch response.result {
+                case .Failure(let error):
+                    completion([Location](), error)
                     
-                    guard let docsDictionary = responseValue["response"] as? [String : AnyObject] else { print("Error: Unable to get docs dictionary from NYTimes response value: \(responseValue)"); return }
+                case .Success(let value):
+                    if let responseValue = value as? NSDictionary {
+                        
+                        guard let docsDictionary = responseValue["response"] as? [String : AnyObject] else { print("Error: Unable to get docs dictionary from NYTimes response value: \(responseValue)"); return }
+                        
+                        guard let thirtySixHoursArray = docsDictionary["docs"] as? [[String: AnyObject]] else { print("Error: Unable to get 36 Hours articles array from docs dictionary."); return }
+                        
+                        completion(NYTimesDataParser.initializeLocationsFromJSON(thirtySixHoursArray), nil)
+                    } else {
+                        completion([Location](), APIError.InvalidJSON)
+                    }
                     
-                    guard let thirtySixHoursArray = docsDictionary["docs"] as? [[String: AnyObject]] else { print ("Error: Unable to get 36 Hours articles array from docs dictionary."); return }
-                    
-                    completion(thirtySixHoursArray)
-                    
-                } else {
-                    print("Error: Unable to get response value from NYTimes get request.")
                 }
         }
     }
-    
     /*
     static func getAllPagesWithCompletion(completion: ([[String: AnyObject]]) -> ()) {
         print("Calling get all pages in NYTimes API Client")
