@@ -15,8 +15,10 @@ struct NYTimesAPIClient {
     
     typealias LocationCompletion = ([Location], ErrorType?) -> ()
     
-    enum APIError: ErrorType {
-        case InvalidJSON
+    enum NYTimesAPIError: ErrorType {
+        case InvalidJSONDictionaryCast
+        case InvalidDictionaryResponseKey
+        case InvalidDictionaryDocsKey
     }
     
     static func getLocationsWithCompletion(page: Int, completion: LocationCompletion) {
@@ -29,20 +31,17 @@ struct NYTimesAPIClient {
                     completion([Location](), error)
                     
                 case .Success(let value):
-                    if let responseValue = value as? NSDictionary {
-                        
-                        guard let docsDictionary = responseValue["response"] as? [String : AnyObject] else { print("Error: Unable to get docs dictionary from NYTimes response value: \(responseValue)"); return }
-                        
-                        guard let thirtySixHoursArray = docsDictionary["docs"] as? [[String: AnyObject]] else { print("Error: Unable to get 36 Hours articles array from docs dictionary."); return }
-                        
-                        completion(NYTimesDataParser.initializeLocationsFromJSON(thirtySixHoursArray), nil)
-                    } else {
-                        completion([Location](), APIError.InvalidJSON)
-                    }
+                    guard let responseValue = value as? NSDictionary else { completion([Location](), NYTimesAPIError.InvalidJSONDictionaryCast); return }
                     
+                    guard let docsDictionary = responseValue["response"] as? [String : AnyObject] else { completion([Location](), NYTimesAPIError.InvalidDictionaryResponseKey); return }
+                    
+                    guard let thirtySixHoursArray = docsDictionary["docs"] as? [[String: AnyObject]] else { completion([Location](), NYTimesAPIError.InvalidDictionaryDocsKey); return }
+                    
+                    completion(NYTimesDataParser.initializeLocationsFromJSON(thirtySixHoursArray), nil)
                 }
         }
     }
+}
     /*
     static func getAllPagesWithCompletion(completion: ([[String: AnyObject]]) -> ()) {
         print("Calling get all pages in NYTimes API Client")
@@ -78,4 +77,3 @@ struct NYTimesAPIClient {
     }
     */
     
-}

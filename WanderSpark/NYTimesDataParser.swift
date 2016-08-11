@@ -10,6 +10,9 @@ import Foundation
 
 struct NYTimesDataParser {
     
+    typealias ParsedString = (String, ErrorType?)
+    typealias ParsedArray = ([String], ErrorType?)
+    
     static func initializeLocationsFromJSON(JSONArray: [[String : AnyObject]]) -> [Location] {
         
         var unfilteredLocations = [Location]()
