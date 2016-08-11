@@ -6,7 +6,7 @@ PODS:
   - Koloda (3.1.1):
     - pop (~> 1.0)
   - pop (1.0.9)
-  - SnapKit (0.22.0)
+  - SnapKit (0.15.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
@@ -14,7 +14,8 @@ DEPENDENCIES:
   - AlamofireImage (~> 2.0)
   - FZCarousel
   - Koloda (~> 3.1)
-  - SnapKit (~> 0.22)
+  - pop (~> 1.0)
+  - SnapKit (~> 0.15.0)
   - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -23,7 +24,9 @@ SPEC CHECKSUMS:
   FZCarousel: 81c7fba723fd785107ee2b18079e0721457e2181
   Koloda: 782e61549cafec9fd69fc70c4a8b54bce997894d
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
-  SnapKit: 0dd2fd157330f1ea11fd84da13e6be8a7a22bae0
+  SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: a8736b321ecfad5ad2c309fea797eb00c2a892db
+
+COCOAPODS: 1.0.0

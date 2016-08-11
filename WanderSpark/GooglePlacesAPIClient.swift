@@ -21,7 +21,7 @@ class GooglePlacesAPIClient {
             
             print("HELLO, I'M IN THE LOOP YAY")
             
-            let destinationName = Location.formatLocationName(destination.name)
+            let destinationName = Location.formatLocationName(location.name)
             
             Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/geocode/json?address=\(destinationName)&key=\(Secrets.googlePlacesAPIKey)").responseJSON { (response) in
                 
@@ -37,14 +37,14 @@ class GooglePlacesAPIClient {
                             fatalError("ERROR: No match found for submitted location")
                     }
                     //input coordinates to location objects in LocationsDataStore
-                    destination.coordinates = (destinationLat, destinationLng)
-                    
-                    print("********** DESTINATION INFORMATION ************")
-                    print("Name: \(destination.name)")
-                    print("Formatted Name: \(destinationName)")
-                    print("Coordinates: \(destination.coordinates)")
-                    print("Snippet Description: \(destination.description)")
-                    print("***********************************************")
+//                    destination.coordinates = (destinationLat, destinationLng)
+//                    
+//                    print("********** DESTINATION INFORMATION ************")
+//                    print("Name: \(destination.name)")
+//                    print("Formatted Name: \(destinationName)")
+//                    print("Coordinates: \(destination.coordinates)")
+//                    print("Snippet Description: \(destination.description)")
+//                    print("***********************************************")
                     
                     completion()
                     

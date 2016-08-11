@@ -6,11 +6,12 @@ target 'WanderSpark' do
   use_frameworks!
 
   # Pods for WanderSpark
-pod 'Alamofire', '~> 3.4'
-pod 'SwiftyJSON'
-pod 'AlamofireImage', '~> 2.0'
-pod ‘FZCarousel'
-pod 'Koloda', '~> 3.1'
-pod 'SnapKit', '~> 0.22'
+  pod 'Alamofire', '~> 3.4'
+  pod 'SwiftyJSON'
+  pod 'AlamofireImage', '~> 2.0'
+  pod ‘FZCarousel'
+  pod 'Koloda', '~> 3.1'
+  pod 'SnapKit', '~> 0.15.0'
+  pod 'pop', '~> 1.0'
 
 end
