@@ -21,23 +21,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 0. set up main queue for UI stuff
         let mainOperationQueue = NSOperationQueue.mainQueue()
         
-        // 1. call swiping function/cocoapod here
-        
-        
-        
-        // 2. while user is going through the questions, load NYTimes data for every other swipe
+        // 1. load NYTimes location data while user is swiping through survey
+            //main thread: swiping 
+            //other thread: call NYTimesAPI for every other swipe, use index to determine the call
         let obtainLocations = NSBlockOperation {
             print("locations block called")
-            self.store.getLocationsWithCompletion ({ print("done with locations") })
+            self.store.getLocationsWithCompletion ({ })
         }
         obtainLocations.qualityOfService = .UserInitiated //or .UserInitiated
         mainOperationQueue.addOperation(obtainLocations)
         
-        // 3. match user to destinations
+        
+        //THINGS THAT HAPPEN DURING LOADING/MATCHING SCREEN (main thread)
+        // 2. match user to destinations
+            //main thread: loading screen of airplane zipping around? or something with the crystal ball!
+            //other thread: matching dictionary magic :)
         
         
-        // 4. obtain coordinates for matched locations
-        //check if user has gone through all the questions 
+        // 3. obtain coordinates for matched locations
+            //main thread: loading screen
+            //background thread:
+                //may need to check if user has gone through all the questions (dependency)
+                //or better yet, check count of the matchedLocations array in the data store
         let obtainLocationCoordinatesQueue = NSOperationQueue()
         obtainLocationCoordinatesQueue.qualityOfService = .Utility
         mainOperationQueue.addOperationWithBlock {
@@ -59,7 +64,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-        // 5. then use coordinates for matched locations to get flight information
+        // 4. use coordinates for matched locations to get flight information
+            //main thread: loading screen 
+            //other thread: get flight information from skyscannerAPI 
+                //may need to check if coordinates are already populated first
         
         
         return true

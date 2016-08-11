@@ -15,7 +15,7 @@ class LocationsDataStore {
     
     var locations = [Location]()
     var matchedLocations = [Location(name: "Portland (Me)", description: "", images: []), Location(name: "Budapest (Hungary)", description: "", images: []), Location(name: "Siena (Italy)", description: "", images: [])]
-    
+    //var matchedLocations = [Location]()
     
     func getLocationsWithCompletion(completion: () -> ()) {
         
