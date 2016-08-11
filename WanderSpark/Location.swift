@@ -14,8 +14,8 @@ class Location {
     let images: [String]
     let description: String
     var matchCount = 0
-    var coordinates : (Double, Double)?
-    var cheapestFlight : Int?
+    var coordinates : (Double, Double)!
+    var cheapestFlight : Int!
     
     init(name: String, description: String, images: [String]) {
         self.name = name

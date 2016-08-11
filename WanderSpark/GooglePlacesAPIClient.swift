@@ -36,6 +36,7 @@ struct GooglePlacesAPIClient {
                         else {
                             fatalError("ERROR: No match found for submitted location")
                     }
+                    
                     //input coordinates to location objects in LocationsDataStore
                     location.coordinates = (destinationLat, destinationLng)
                     

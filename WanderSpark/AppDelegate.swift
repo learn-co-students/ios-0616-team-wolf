@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("locations block called")
             self.store.getLocationsWithCompletion ({ })
         }
-        obtainLocations.qualityOfService = .UserInitiated //or .UserInitiated
+        obtainLocations.qualityOfService = .UserInitiated
         mainOperationQueue.addOperation(obtainLocations)
         
         
@@ -38,19 +38,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //other thread: matching dictionary magic :)
         
         
+        
         // 3. obtain coordinates for matched locations
             //main thread: loading screen
             //background thread:
-                //may need to check if user has gone through all the questions (dependency)
-                //or better yet, check count of the matchedLocations array in the data store
         let obtainLocationCoordinatesQueue = NSOperationQueue()
         obtainLocationCoordinatesQueue.qualityOfService = .Utility
-        mainOperationQueue.addOperationWithBlock {
-            if obtainLocations.finished {
-                GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({
-                })
+        if store.matchedLocations.count > 0 /* AND matching thread in step 2 is complete */ {
+            mainOperationQueue.addOperationWithBlock {
+                if obtainLocations.finished {
+                    GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({
+                    })
+                }
             }
         }
+        
         // obtainLocationCoordinatesBlockOperation.addDependency(obtainLocationsQueue)
 //        obtainLocationCoordinatesBlockOperation.completionBlock = {
 //            print("in coordinates completion block")
