@@ -52,7 +52,7 @@ class SkyScannerAPIClient {
                     
                     for singleDictionary in priceArray
                     {
-                        var priceOfFlight = singleDictionary["MinPrice"] as? Int
+                        let priceOfFlight = singleDictionary["MinPrice"] as? Int
                         
                         guard let unwrappedPrice = priceOfFlight else {fatalError("INVALID") }
                         

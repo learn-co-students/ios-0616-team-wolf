@@ -37,14 +37,14 @@ class GooglePlacesAPIClient {
                             fatalError("ERROR: No match found for submitted location")
                     }
                     //input coordinates to location objects in LocationsDataStore
-//                    destination.coordinates = (destinationLat, destinationLng)
-//                    
-//                    print("********** DESTINATION INFORMATION ************")
-//                    print("Name: \(destination.name)")
-//                    print("Formatted Name: \(destinationName)")
-//                    print("Coordinates: \(destination.coordinates)")
-//                    print("Snippet Description: \(destination.description)")
-//                    print("***********************************************")
+                    location.coordinates = (destinationLat, destinationLng)
+                    
+                    print("********** DESTINATION INFORMATION ************")
+                    print("Name: \(location.name)")
+                    print("Formatted Name: \(destinationName)")
+                    print("Coordinates: \(location.coordinates)")
+                    print("Snippet Description: \(location.description)")
+                    print("***********************************************")
                     
                     completion()
                     
