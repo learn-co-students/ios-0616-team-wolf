@@ -146,7 +146,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BF41AB591D55270800725AAE /* Build configuration list for PBXNativeTarget "WanderSpark" */;
 			buildPhases = (
-				4EC44BDD62B2627343D775B6 /* 📦 Check Pods Manifest.lock */,
+				4EC44BDD62B2627343D775B6 /* [CP] Check Pods Manifest.lock */,
 				B0D488CE91E285CB667914CF /* [CP] Check Pods Manifest.lock */,
 				BF41AB431D55270800725AAE /* Sources */,
 				BF41AB441D55270800725AAE /* Frameworks */,
@@ -227,14 +227,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WanderSpark/Pods-WanderSpark-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4EC44BDD62B2627343D775B6 /* 📦 Check Pods Manifest.lock */ = {
+		4EC44BDD62B2627343D775B6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

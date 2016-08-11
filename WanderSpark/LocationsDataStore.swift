@@ -30,6 +30,7 @@ class LocationsDataStore {
                     let locationName = NYTimesDataParser.getLocationName(article)
                     let locationSnippet = NYTimesDataParser.getLocationSnippet(article)
                     let locationImages = NYTimesDataParser.getLocationImages(article)
+                    let articleURL = NYTimesDataParser.getArticleURL(article)
                     
                     print("###############################")
                     print("Name: \(locationName)")
@@ -37,7 +38,7 @@ class LocationsDataStore {
                     print("Images: \(locationImages)")
                     
                     if locationName != "" && !locationImages.isEmpty {
-                        let location = Location(name: locationName, description: locationSnippet, images: locationImages)
+                        let location = Location(name: locationName, description: locationSnippet, images: locationImages, url: articleURL)
                         
                         if !self.locations.contains(location) {
                             self.locations.append(location)
