@@ -9,11 +9,11 @@
 import Foundation
 import Alamofire
 
-class NYTimesAPIClient {
+struct NYTimesAPIClient {
     
     // Rate limit: Five calls per second, 1k per day allowed.
     
-    class func getLocationsWithCompletion(page: Int, completion: ([[String : AnyObject]]) -> ()) {
+    static func getLocationsWithCompletion(page: Int, completion: ([[String : AnyObject]]) -> ()) {
         
         Alamofire.request(.GET, "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=36+Hours&page=\(page)&key=\(Secrets.nyTimesAPIKey)")
             .responseJSON { response in
@@ -32,7 +32,7 @@ class NYTimesAPIClient {
     }
     
     /*
-    class func getAllPagesWithCompletion(completion: ([[String: AnyObject]]) -> ()) {
+    static func getAllPagesWithCompletion(completion: ([[String: AnyObject]]) -> ()) {
         print("Calling get all pages in NYTimes API Client")
         
         var allArticles = [[String: AnyObject]]()
