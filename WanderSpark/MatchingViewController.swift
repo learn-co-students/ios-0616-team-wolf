@@ -86,10 +86,14 @@ extension MatchingViewController: KolodaViewDelegate {
         }
         
         for location in store.matchedLocations {
-            SkyScannerAPIClient.getPricesForDestination(location, completion: { (Price) in
-                location.cheapestFlight = Price
-                print("Flight Price: \(String(location.cheapestFlight))")
-            })
+            print("DOUBLE CHECKING IF COORDINATES ARE POPULATING")
+            print(" ----------- LOCATION COORDINATES ------------ ")
+            print("Location: \(location.name)")
+            print("Coordinates: \(location.coordinates)")
+//            SkyScannerAPIClient.getPricesForDestination(location, completion: { (Price) in
+//                location.cheapestFlight = Price
+//                print("Flight Price: \(String(location.cheapestFlight))")
+//            })
         }
         
     }
