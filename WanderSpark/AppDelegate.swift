@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var window: UIWindow?
     var locationManager: CLLocationManager!
     let userLocation = UserOrigin.sharedOrigin
-    //let stuff = UserOrigin()
+    let stuff = UserOrigin()
 
     
     let store = LocationsDataStore.sharedInstance
@@ -97,8 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 //        UserOrigin.locationManager()
 //        stuff.checkCoreLocationPermission()
 //      stuff.locationManager(locationManager, didUpdateLocations: )
-        userLocation
-        
+        stuff.checkCoreLocationPermission()
         return true
     }
     

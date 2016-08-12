@@ -40,7 +40,7 @@ class UserOrigin: NSObject, CLLocationManagerDelegate
         print("Entered Here!!!!!!!!!!!!!!!!!!!!!!!!2")
         if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse || CLLocationManager.authorizationStatus() == .AuthorizedAlways{
             locationManager.startUpdatingLocation()
-            print("This worked and went through")
+            print("This worked and went through") //not entering here
 //            return true
         }
         else{
@@ -52,12 +52,17 @@ class UserOrigin: NSObject, CLLocationManagerDelegate
         }
     }
     
+    
+    ///Not entering here!!!!! 
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
 //        if self.checkCoreLocationPermission() {
         print("Entered Here!!!!!!!!!!!!!!!!!!!!!!!!4")
         guard let lastLocation = locations.first else { fatalError("no locations") }
         self.userCoordinates = lastLocation.coordinate
+        
+        print(userCoordinates)
+        
         locationManager.stopUpdatingHeading() 
     }
     
