@@ -77,14 +77,15 @@ class LocationMatchmaker {
         store.locations.sortInPlace({ $0.matchCount > $1.matchCount })
     }
     
+    
     func returnMatchedLocations() {
+        var matchedLocationsCount = 0
         
         while store.matchedLocations.count < 10 {
-            if let match = store.locations.first {
-                store.matchedLocations.append(match)
-            }
+            let match = store.locations[matchedLocationsCount]
+            store.matchedLocations.append(match)
+            matchedLocationsCount += 1
         }
     }
-    
 
 }

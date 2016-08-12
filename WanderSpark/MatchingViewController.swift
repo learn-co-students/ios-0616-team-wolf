@@ -13,6 +13,7 @@ import SnapKit
 
 class MatchingViewController: UIViewController {
     
+    let store = LocationsDataStore.sharedInstance
     var matchingView: KolodaView!
     
     var positiveMatchParameters = [String]()
@@ -59,13 +60,25 @@ class MatchingViewController: UIViewController {
 
 extension MatchingViewController: KolodaViewDelegate {
     func kolodaDidRunOutOfCards(matchingView: KolodaView) {
+        
         // Initialize and run the LocationMatchmaker based on the matching parameters.
-        let matcher = LocationMatchmaker.init(matchParameters: positiveMatchParameters)
-        matcher.tallyLocationMatches()
+        let matcher = LocationMatchmaker.init(positiveMatchParameters: positiveMatchParameters, negativeMatchParameters: negativeMatchParameters)
+        matcher.tallyPositiveLocationMatches()
+        matcher.tallyNegativeLocationMatches()
         matcher.sortLocationsByMatchCount()
         matcher.returnMatchedLocations()
         
-        // Send the matched locations to the Carousel ViewController...?
+        print("These are all the locations:\n")
+        for location in store.locations {
+            print("Name: \(location.name)\n")
+            print("Match Count: \(location.matchCount)")
+        }
+        
+        print("These are the matched locations:\n")
+        for location in store.matchedLocations {
+            print("Name: \(location.name)\n")
+            print("Match Count: \(location.matchCount)")
+        }
     }
 
     
@@ -75,6 +88,14 @@ extension MatchingViewController: KolodaViewDelegate {
     }
     
     func koloda(matchingView: KolodaView, didSwipeCardAtIndex index: UInt, inDirection direction: SwipeResultDirection) {
+        
+        print("Locations in store when \(index + 1) match card loads: \(store.locations.count)")
+        
+        if index % 3 == 0 {
+            store.getLocationsWithCompletion({ 
+                print("Calling get locations for the card at index \(index).")
+            })
+        }
         
         let matchWord = matchingKeys[Int(index)]
         
