@@ -30,6 +30,12 @@ import Foundation
  let sightseeingImage = UIImage(named: "sightseeing")!
  let rightArrowImage = UIImage(named: "rightArrow")!
  let leftArrowImage = UIImage(named: "leftArrow")!
-
+let carousel1 = UIImage(named: "Carousel1")!
+let carousel2 = UIImage(named: "Carousel2")!
+let carousel3 = UIImage(named: "Carousel3")!
+let carousel4 = UIImage(named: "Carousel4")!
+let carousel5 = UIImage(named: "china")!
+let backgroundButton = UIImage(named: "rectangleBackground-1")!
+let wanderSparkIcon =  UIImage(named: "wanderSparkIcon")!
 
 

@@ -107,9 +107,9 @@
 		BF41AB491D55270800725AAE /* WanderSpark */ = {
 			isa = PBXGroup;
 			children = (
-				1BFA0EEE1D5CC2D500423878 /* MatchingViewController.swift */,
 				BFC9EF6C1D5B9048009C0F2A /* customVacationCell.swift */,
 				5D7FB7771D5CAD3F0086DACA /* Secrets.swift */,
+				1BFA0EEE1D5CC2D500423878 /* MatchingViewController.swift */,
 				BFC9EF681D5B771F009C0F2A /* VacationCollectionView.swift */,
 				BF53C59A1D5A8CFA00810066 /* WSCarouselCollectionViewController.swift */,
 				BF415E0C1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.h */,

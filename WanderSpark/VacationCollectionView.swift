@@ -15,12 +15,28 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     var fullSceenImage = UIImageView()
     var blurImage = UIVisualEffectView()
     var vacationCollectionView : UICollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
+    //dummy
     
+    var vacationLocations: [Location] = [Location]()
+    
+    func createDummyData(){
+        let china = Location(name: "China", description: "From Jfk *1999", images: ["china"], url: "None")
+        let india = Location(name: "India", description: "From Jfk *1599", images: ["india"], url: "None")
+        let japan = Location(name: "Japan", description: "From Jfk *1966", images: ["japan"], url: "None")
+        let brazil = Location(name: "Brazil", description: "From Jfk *1999", images: ["brazil"], url: "None")
+        let egypt = Location(name: "Egypt", description: "From Jfk *1999", images: ["egypt"], url: "None")
+        self.vacationLocations.append(china)
+        self.vacationLocations.append(india)
+        self.vacationLocations.append(japan)
+        self.vacationLocations.append(brazil)
+        self.vacationLocations.append(egypt)
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        createDummyData()
         store.getLocationsWithCompletion { 
         }
  
@@ -36,14 +52,15 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     
     
     func setConstraints() {
-        self.view.removeConstraints(self.view.constraints)
-        self.fullSceenImage.removeConstraints(self.fullSceenImage.constraints)
-        self.blurImage.removeConstraints(self.blurImage.constraints)
-       
-        
-        self.view.translatesAutoresizingMaskIntoConstraints = false
+//        self.view.removeConstraints(self.view.constraints)
+//        self.fullSceenImage.removeConstraints(self.fullSceenImage.constraints)
+//        self.blurImage.removeConstraints(self.blurImage.constraints)
+//       
+//        
+//        self.view.translatesAutoresizingMaskIntoConstraints = false
         self.fullSceenImage.translatesAutoresizingMaskIntoConstraints = false
         self.blurImage.translatesAutoresizingMaskIntoConstraints = false
+        
         
         self.view.addSubview(fullSceenImage)
         
@@ -95,16 +112,17 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 14
+        return 5
     }
     
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
-        cell.locationLabel.text = "China"
-        cell.imageView.image = UIImage(named: "China")
-        cell.priceButton.setTitle("*from: $1999", forState: .Normal)
+        
+        cell.locationLabel.text = vacationLocations[indexPath.row].name
+        cell.imageView.image = UIImage(named:  (vacationLocations[indexPath.row].images[0]))
+        cell.priceButton.setTitle(vacationLocations[indexPath.row].description, forState: .Normal)
         cell.priceButton.addTarget(self, action: #selector(VacationCollectionView.getPrices), forControlEvents: .TouchUpInside)
       
         

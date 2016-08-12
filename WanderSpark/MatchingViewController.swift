@@ -57,6 +57,8 @@ extension MatchingViewController: KolodaViewDelegate {
         matcher.sortLocationsByMatchCount()
         matcher.returnMatchedLocations()
         
+        self.performSegueWithIdentifier("loadCarousel", sender: self)
+        
         // Send the matched locations to the Carousel ViewController...?
     }
 
