@@ -8,67 +8,66 @@
 
 import Foundation
 
-class DelayOperation: NSOperation {
+class Operations {
     
-    private let timeInterval: NSTimeInterval
+    static let store = LocationsDataStore.sharedInstance
     
-    override var asynchronous: Bool {
-        get{
-            return true
+    // 0. set up main queue for UI stuff
+    static let mainOperationQueue = NSOperationQueue.mainQueue()
+    
+    // 1. load NYTimes location data while user is swiping through survey
+    //main thread: swiping
+    //function call in the MatchingViewController
+    
+    //other thread: call NYTimesAPI for every other swipe, use index to determine the call
+    class func obtainLocations () {
+        let obtainLocations = NSBlockOperation {
+            print("locations block called")
+            store.getLocationsWithCompletion ({ })
+        }
+        obtainLocations.qualityOfService = .UserInitiated
+        mainOperationQueue.addOperation(obtainLocations)
+    }
+    
+    
+    // 3. obtain coordinates for matched locations
+    //main thread: loading screen
+    //background thread:
+    class func obtainCoordinates(matchingComplete: Bool) {
+        if matchingComplete {
+            GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({ 
+                print("getting coordinates!")
+            })
         }
     }
     
-    private var _executing: Bool = false
-    override var executing:Bool {
-        get { return _executing }
-        set {
-            willChangeValueForKey("isExecuting")
-            _executing = newValue
-            didChangeValueForKey("isExecuting")
-            if _cancelled == true {
-                self.finished = true
-            }
-        }
-    }
-    private var _finished: Bool = false
-    override var finished:Bool {
-        get { return _finished }
-        set {
-            willChangeValueForKey("isFinished")
-            _finished = newValue
-            didChangeValueForKey("isFinished")
-        }
-    }
+    //        let obtainLocationCoordinatesQueue = NSOperationQueue()
+    //        obtainLocationCoordinatesQueue.qualityOfService = .Utility
+    //        if  > 0 /* AND matching thread in step 2 is complete */ {
+    //            mainOperationQueue.addOperationWithBlock {
+    //                if obtainLocations.finished {
+    //                    GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({
+    //                    })
+    //                }
+    //            }
+    //        }
+
     
-    private var _cancelled: Bool = false
-    override var cancelled: Bool {
-        get { return _cancelled }
-        set {
-            willChangeValueForKey("isCancelled")
-            _cancelled = newValue
-            didChangeValueForKey("isCancelled")
-        }
-    }
+    // obtainLocationCoordinatesBlockOperation.addDependency(obtainLocationsQueue)
+    //        obtainLocationCoordinatesBlockOperation.completionBlock = {
+    //            print("in coordinates completion block")
+    //            if obtainLocationCoordinatesBlockOperation.finished {
+    //                print("DONE WITH COORDINATES QUEUE")
+    //            }
+    //        }
     
-    init(timeInterval: NSTimeInterval) {
-        self.timeInterval = timeInterval
-    }
     
-    override func start() {
-        super.start()
-        self.executing = true
-    }
+    //        mainOperationQueue.addOperations([obtainLocationsQueue, obtainLocationCoordinatesBlockOperation], waitUntilFinished: false)
     
-    override func main() {
-        if cancelled {
-            executing = false
-            finished = true
-            return
-        }
-        let when = dispatch_time(DISPATCH_TIME_NOW, Int64(timeInterval * Double(NSEC_PER_SEC)))
-        dispatch_after(when, dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0)) {
-            self.finished = true
-            self.executing = false
-        }
-    }
+    
+    
+    // 4. use coordinates for matched locations to get flight information
+    //main thread: loading screen
+    //other thread: get flight information from skyscannerAPI
+    //may need to check if coordinates are already populated first
 }

@@ -18,6 +18,7 @@ class MatchingViewController: UIViewController {
     
     var positiveMatchParameters = [String]()
     var negativeMatchParameters = [String]()
+    var matchingComplete = true
 
     let matchingKeys = ["City",
                         "Country",
@@ -68,6 +69,9 @@ extension MatchingViewController: KolodaViewDelegate {
         matcher.sortLocationsByMatchCount()
         matcher.returnMatchedLocations()
         
+        matchingComplete = true
+        
+        
         print("These are all the locations:\n")
         for location in store.locations {
             print("Name: \(location.name)")
@@ -79,6 +83,8 @@ extension MatchingViewController: KolodaViewDelegate {
             print("Name: \(location.name)")
             print("Match Count: \(location.matchCount)\n")
         }
+        
+        Operations.obtainCoordinates(matchingComplete)
     }
 
     
@@ -92,7 +98,7 @@ extension MatchingViewController: KolodaViewDelegate {
         print("Locations in store when \(index + 1) match card loads: \(store.locations.count)")
         
         if index % 3 == 0 {
-            store.getLocationsWithCompletion({ 
+            store.getLocationsWithCompletion({
                 print("Calling get locations for the card at index \(index).")
             })
         }

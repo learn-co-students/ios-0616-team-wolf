@@ -14,8 +14,8 @@ class LocationsDataStore {
     private init() {}
     
     var locations = [Location]()
-    var matchedLocations = [Location(name: "Portland (Me)", description: "", images: [], url: ""), Location(name: "Budapest (Hungary)", description: "", images: [], url: ""), Location(name: "Siena (Italy)", description: "", images: [], url: "")] //dummy data; ideally, we will have anywhere between 8 to 10 matches for the user
-    // var matchedLocations = [Location]()
+    // var matchedLocations = [Location(name: "Portland (Me)", description: "", images: [], url: ""), Location(name: "Budapest (Hungary)", description: "", images: [], url: ""), Location(name: "Siena (Italy)", description: "", images: [], url: "")] //dummy data; ideally, we will have anywhere between 8 to 10 matches for the user
+    var matchedLocations = [Location]()
     
     func getLocationsWithCompletion(completion: () -> ()) {
         
