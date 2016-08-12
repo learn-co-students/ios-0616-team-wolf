@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
+    var window: UIWindow?
+    var locationManager: CLLocationManager!
+    let userOrigin = UserOrigin.sharedOrigin
+
     
     let store = LocationsDataStore.sharedInstance
 
@@ -72,7 +77,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 //may need to check if coordinates are already populated first
         
         
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse
+        {
+            locationManager.startUpdatingLocation()
+        }
+        else if CLLocationManager.authorizationStatus() == .NotDetermined
+        {
+            locationManager.requestWhenInUseAuthorization()
+        }
+        else if CLLocationManager.authorizationStatus() == .Restricted
+        {
+            print("Error! Please Provide Information")
+        }
+        locationManager.startUpdatingLocation()
+        
+        
         return true
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        print("\nlocation manager\n")
+        guard let lastLocation = locations.last else { fatalError("no locations") }
+        userOrigin.location = lastLocation
+        print(lastLocation)
+        
     }
 
     func applicationWillResignActive(application: UIApplication) {
