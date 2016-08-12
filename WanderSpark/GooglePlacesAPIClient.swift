@@ -15,8 +15,6 @@ struct GooglePlacesAPIClient {
     
     static func getLocationCoordinatesWithCompletion(completion: () -> ()) {
         
-        print("in google coordinates function...")
-        
         for location in store.matchedLocations {
             
             print("HELLO, I'M IN THE LOOP YAY")

@@ -18,7 +18,6 @@ class MatchingViewController: UIViewController {
     
     var positiveMatchParameters = [String]()
     var negativeMatchParameters = [String]()
-    var matchingComplete = true
 
     let matchingKeys = ["City",
                         "Country",
@@ -69,9 +68,6 @@ extension MatchingViewController: KolodaViewDelegate {
         matcher.sortLocationsByMatchCount()
         matcher.returnMatchedLocations()
         
-        matchingComplete = true
-        
-        
         print("These are all the locations:\n")
         for location in store.locations {
             print("Name: \(location.name)")
@@ -84,7 +80,18 @@ extension MatchingViewController: KolodaViewDelegate {
             print("Match Count: \(location.matchCount)\n")
         }
         
-        Operations.obtainCoordinates(matchingComplete)
+        
+        GooglePlacesAPIClient.getLocationCoordinatesWithCompletion {
+            print("getting coordinates for matched locations")
+        }
+        
+        for location in store.matchedLocations {
+            SkyScannerAPIClient.getPricesForDestination(location, completion: { (Price) in
+                location.cheapestFlight = Price
+                print("Flight Price: \(String(location.cheapestFlight))")
+            })
+        }
+        
     }
 
     

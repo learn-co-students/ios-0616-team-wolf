@@ -11,7 +11,7 @@ import SwiftyJSON
 
 struct SkyScannerAPIClient {
     
-    //let store = LocationsDataStore.sharedInstance
+    // let store = LocationsDataStore.sharedInstance
     
     static func getPricesForDestination(location: Location, completion:(Int) -> ())
     {

@@ -12,7 +12,6 @@
 		1BE7A63B1D592FD000B7E89F /* NYTimesDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */; };
 		1BFA0EEF1D5CC2D500423878 /* MatchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFA0EEE1D5CC2D500423878 /* MatchingViewController.swift */; };
 		75879A495B6B2D845B650C37 /* Pods_WanderSpark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B43BFDA5775D51B2DF42474B /* Pods_WanderSpark.framework */; };
-		A44A50FE1D5B8608004E5505 /* playingWithQueues.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44A50FD1D5B8608004E5505 /* playingWithQueues.swift */; };
 		A496A6971D5E17C2007DF405 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A496A6961D5E17C2007DF405 /* Secrets.swift */; };
 		A4CE39AD1D56982100611A2B /* Airport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CE39AC1D56982100611A2B /* Airport.swift */; };
 		A4ECDD651D55429F00FC9E03 /* GooglePlacesAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ECDD641D55429F00FC9E03 /* GooglePlacesAPIClient.swift */; };
@@ -39,7 +38,6 @@
 		1BFA0EEE1D5CC2D500423878 /* MatchingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingViewController.swift; sourceTree = "<group>"; };
 		677A2EC55B9FDFA0279234EE /* Pods-WanderSpark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WanderSpark.release.xcconfig"; path = "Pods/Target Support Files/Pods-WanderSpark/Pods-WanderSpark.release.xcconfig"; sourceTree = "<group>"; };
 		6C6871091063FE9EE85305AE /* Pods-WanderSpark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WanderSpark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WanderSpark/Pods-WanderSpark.debug.xcconfig"; sourceTree = "<group>"; };
-		A44A50FD1D5B8608004E5505 /* playingWithQueues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = playingWithQueues.swift; sourceTree = "<group>"; };
 		A496A6961D5E17C2007DF405 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		A4CE39AC1D56982100611A2B /* Airport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Airport.swift; sourceTree = "<group>"; };
 		A4ECDD641D55429F00FC9E03 /* GooglePlacesAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePlacesAPIClient.swift; sourceTree = "<group>"; };
@@ -119,7 +117,6 @@
 				BF41AB4A1D55270800725AAE /* AppDelegate.swift */,
 				BF41AB4C1D55270800725AAE /* ViewController.swift */,
 				A4ECDD641D55429F00FC9E03 /* GooglePlacesAPIClient.swift */,
-				A44A50FD1D5B8608004E5505 /* playingWithQueues.swift */,
 				BF41AB5C1D55274700725AAE /* NYTimesAPIClient.swift */,
 				1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */,
 				BF41AB5E1D55275000725AAE /* LocationsDataStore.swift */,
@@ -316,7 +313,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A496A6971D5E17C2007DF405 /* Secrets.swift in Sources */,
-				A44A50FE1D5B8608004E5505 /* playingWithQueues.swift in Sources */,
 				BF415E111D5A8FD200C2BFB8 /* FZCarouselView.m in Sources */,
 				BF41AB4D1D55270800725AAE /* ViewController.swift in Sources */,
 				1BFA0EEF1D5CC2D500423878 /* MatchingViewController.swift in Sources */,
