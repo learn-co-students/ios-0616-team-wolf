@@ -97,7 +97,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 //        UserOrigin.locationManager()
 //        stuff.checkCoreLocationPermission()
 //      stuff.locationManager(locationManager, didUpdateLocations: )
-        stuff.checkCoreLocationPermission()
+//        stuff.checkCoreLocationPermission()
+//        SkyScannerAPIClient.getPricesForDestination(Location.init(name: "Barcelona", description: "", images: [""], url: "")) { (<#Int#>) in
+//            print("It worked")
+//        }
+        
+        SkyScannerAPIClient.getPricesForDestination(Location.init(name: "Barcelona", description: "", images: [""], url: "")) { (<#Int#>) in
+            print("print stuff")
+        }
         return true
     }
     

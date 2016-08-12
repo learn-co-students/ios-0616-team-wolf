@@ -20,9 +20,9 @@ class UserOrigin: NSObject, CLLocationManagerDelegate
     var userCoordinates: CLLocationCoordinate2D
     
     
-//    init(userCoordinates: CLLocationCoordinate2D) {
-//        self.userCoordinates = userCoordinates
-//    }  
+    init(userCoordinates: CLLocationCoordinate2D) {
+        self.userCoordinates = userCoordinates
+    }  
     
     override init() {
         self.userCoordinates = CLLocationCoordinate2D(latitude: 40.730610, longitude: -73.935242)
@@ -38,7 +38,7 @@ class UserOrigin: NSObject, CLLocationManagerDelegate
         locationManager.requestLocation()
         
         print("Entered Here!!!!!!!!!!!!!!!!!!!!!!!!2")
-        if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse || CLLocationManager.authorizationStatus() == .AuthorizedAlways{
+        if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse || CLLocationManager.authorizationStatus() == .AuthorizedAlways {
             locationManager.startUpdatingLocation()
             print("This worked and went through") //not entering here
 //            return true
@@ -46,14 +46,14 @@ class UserOrigin: NSObject, CLLocationManagerDelegate
         else{
             // Investigate the default alert that this shows to the user. We want to add something saying, "New York is the default origin for flights, if you do not enable Location Services."
             print("Entered Here!!!!!!!!!!!!!!!!!!!!!!!!3")
-            self.locationManager.requestWhenInUseAuthorization()
+            locationManager.requestWhenInUseAuthorization()
             print("This is the second step")
 //            return false
         }
     }
     
     
-    ///Not entering here!!!!! 
+    ///Not entering here!!!!!
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
 //        if self.checkCoreLocationPermission() {
