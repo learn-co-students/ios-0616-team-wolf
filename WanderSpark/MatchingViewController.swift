@@ -70,14 +70,14 @@ extension MatchingViewController: KolodaViewDelegate {
         
         print("These are all the locations:\n")
         for location in store.locations {
-            print("Name: \(location.name)\n")
-            print("Match Count: \(location.matchCount)")
+            print("Name: \(location.name)")
+            print("Match Count: \(location.matchCount)\n")
         }
         
         print("These are the matched locations:\n")
         for location in store.matchedLocations {
-            print("Name: \(location.name)\n")
-            print("Match Count: \(location.matchCount)")
+            print("Name: \(location.name)")
+            print("Match Count: \(location.matchCount)\n")
         }
     }
 
