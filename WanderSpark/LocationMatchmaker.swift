@@ -10,7 +10,8 @@ import Foundation
 
 class LocationMatchmaker {
     
-    var matchParameters = [String]()
+    var positiveMatchParameters = [String]()
+    var negativeMatchParameters = [String]()
     let store = LocationsDataStore.sharedInstance
     
     let matchingDictionary = ["City": ["city", "metropoli", "crowd", "busy", "bustl", "touris", "capital", "cosmopolitan", "urban", "skyscraper", "downtown"],
@@ -29,16 +30,17 @@ class LocationMatchmaker {
                               "Adventure" : ["ventur", "grit", "shabby", "industr", "funky", "bohemian", "creativ", "divers", "cultur", "remote", "off-beat", "budget", "festival", "lively", "energ", "dynam", "vibrant", "secret"]]
     
     
-    init(matchParameters: [String]) {
-        self.matchParameters = matchParameters
+    init(positiveMatchParameters: [String], negativeMatchParameters: [String]) {
+        self.positiveMatchParameters = positiveMatchParameters
+        self.negativeMatchParameters = negativeMatchParameters
     }
     
     
-    func tallyLocationMatches() {
+    func tallyPositiveLocationMatches() {
         
         for location in store.locations {
             
-            for parameter in matchParameters {
+            for parameter in positiveMatchParameters {
                 
                 guard let matchWords = matchingDictionary[parameter] else { print("Error: Invalid location matching parameter is not a key in the Matching Dictionary."); return }
                 
@@ -51,6 +53,24 @@ class LocationMatchmaker {
         }
     }
     
+    
+    func tallyNegativeLocationMatches() {
+        
+        for location in store.locations {
+            
+            for parameter in negativeMatchParameters {
+                
+                guard let matchWords = matchingDictionary[parameter] else { print("Error: Invalid location matching parameter is not a key in the Matching Dictionary."); return }
+                
+                for word in matchWords {
+                    if location.description.containsString(word) {
+                        location.matchCount -= 1
+                    }
+                }
+            }
+        }
+    }
+
     
     func sortLocationsByMatchCount() {
         
