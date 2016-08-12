@@ -13,9 +13,9 @@ import CoreLocation
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
-    var window: UIWindow?
     var locationManager: CLLocationManager!
-    let userOrigin = UserOrigin.sharedOrigin
+    let userLocation = UserOrigin.sharedOrigin
+    //let stuff = UserOrigin()
 
     
     let store = LocationsDataStore.sharedInstance
@@ -75,37 +75,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             //main thread: loading screen 
             //other thread: get flight information from skyscannerAPI 
                 //may need to check if coordinates are already populated first
+       
         
-        
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse
-        {
-            locationManager.startUpdatingLocation()
-        }
-        else if CLLocationManager.authorizationStatus() == .NotDetermined
-        {
-            locationManager.requestWhenInUseAuthorization()
-        }
-        else if CLLocationManager.authorizationStatus() == .Restricted
-        {
-            print("Error! Please Provide Information")
-        }
-        locationManager.startUpdatingLocation()
-        
+//        locationManager = CLLocationManager()
+//        locationManager.delegate = self
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse
+//        {
+//            locationManager.startUpdatingLocation()
+//        }
+//        else if CLLocationManager.authorizationStatus() == .NotDetermined
+//        {
+//            locationManager.requestWhenInUseAuthorization()
+//        }
+//        else if CLLocationManager.authorizationStatus() == .Restricted
+//        {
+//            print("Error! Please Provide Information")
+//        }
+//        locationManager.startUpdatingLocation()
+//        UserOrigin.checkCoreLocationPermission()
+//        UserOrigin.locationManager()
+//        stuff.checkCoreLocationPermission()
+//      stuff.locationManager(locationManager, didUpdateLocations: )
+        userLocation
         
         return true
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        print("\nlocation manager\n")
-        guard let lastLocation = locations.last else { fatalError("no locations") }
-        userOrigin.location = lastLocation
-        print(lastLocation)
-        
-    }
+//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        
+//        print("\nlocation manager\n")
+//        guard let lastLocation = locations.last else { fatalError("no locations") }
+//        userOrigin.location = lastLocation
+//        print(lastLocation)
+//        
+//    }
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
