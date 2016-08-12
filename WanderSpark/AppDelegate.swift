@@ -23,6 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // 1. load NYTimes location data while user is swiping through survey
             //main thread: swiping 
+        let swipingQueue = NSOperationQueue()
+        swipingQueue.qualityOfService = .UserInteractive
+        
             //other thread: call NYTimesAPI for every other swipe, use index to determine the call
         let obtainLocations = NSBlockOperation {
             print("locations block called")
