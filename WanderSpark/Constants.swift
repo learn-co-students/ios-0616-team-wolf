@@ -9,10 +9,7 @@
 
 import Foundation
 
-
 //Images for matching
-
-
 
  let adventureImage = UIImage(named: "adventure")!
  let beachesImage = UIImage(named: "beaches")!
