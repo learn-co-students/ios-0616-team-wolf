@@ -86,7 +86,7 @@ extension MatchingViewController: KolodaViewDelegate {
             print("got coordinates")
         }
         
-        for location in self.store.matchedLocations {
+        for location in store.matchedLocations {
             print("DOUBLE CHECKING IF COORDINATES ARE POPULATING")
             
             if location.coordinates != nil {

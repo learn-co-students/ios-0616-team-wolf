@@ -8,8 +8,15 @@
 
 import Foundation
 
-//class Flight {
-//    static var carrier : String
-//    static var carrierID : String
-//    static var lowestPrice : Int
-//}
+class Flight {
+    
+    let carrierName : String
+    let carrierID : String
+    let lowestPrice : Int
+    
+    init(carrierName: String, carrierID: String, lowestPrice: Int) {
+        self.carrierName = carrierName
+        self.carrierID = carrierID
+        self.lowestPrice = lowestPrice
+    }
+}
