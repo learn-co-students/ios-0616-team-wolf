@@ -13,12 +13,10 @@ struct SkyScannerAPIClient {
     
     // let store = LocationsDataStore.sharedInstance
     
-    static func getPricesForDestination(location: Location, completion:(Int) -> ())
+    static func getPricesForDestination(location: Location, completion:() -> (Int))
     {
         var sortedArrayOfPrices: [Int] = []
-        //    let stringURL = "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.7128,-74.0059-latlong/-33.8688,151.2093-latlong/anytime/anytime?apiKey=\(Secrets.api_keySkyScanner)"
         
-
         let stringURL = "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.7128,-74.0059-latlong/\(location.coordinates!.0),\(location.coordinates!.1)-latlong/anytime/anytime?apiKey=\(Secrets.skyscannerAPIKey)"
 
         //create the string URL

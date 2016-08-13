@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class customVacationCell: UICollectionViewCell {
     var locationLabel: UILabel!
     var priceButton: UIButton!
