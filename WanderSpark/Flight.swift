@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Flight {
-    static var carrier : String
-    static var lowestPrice : Int
-}
+//class Flight {
+//    static var carrier : String
+//    static var lowestPrice : Int
+//}

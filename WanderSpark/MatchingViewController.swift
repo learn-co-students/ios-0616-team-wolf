@@ -68,6 +68,7 @@ extension MatchingViewController: KolodaViewDelegate {
         matcher.sortLocationsByMatchCount()
         matcher.returnMatchedLocations()
         
+
         print("These are all the locations:\n")
         for location in store.locations {
             print("Name: \(location.name)")
@@ -96,6 +97,9 @@ extension MatchingViewController: KolodaViewDelegate {
 //            })
         }
         
+        self.performSegueWithIdentifier("loadCarousel", sender: self)
+        
+        // Send the matched locations to the Carousel ViewController...?
     }
 
     
