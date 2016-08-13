@@ -84,18 +84,19 @@ extension MatchingViewController: KolodaViewDelegate {
         
         GooglePlacesAPIClient.getLocationCoordinatesWithCompletion {
             print("got coordinates")
-            for location in self.store.matchedLocations {
-                print("DOUBLE CHECKING IF COORDINATES ARE POPULATING")
-                
-                if location.coordinates != nil {
-                    print("********** DESTINATION INFORMATION ************")
-                    print("Name: \(location.name)")
-                    print("Coordinates: \(location.coordinates)")
-                    print("Snippet Description: \(location.description)")
-                    print("***********************************************")
-                } else {
-                    print("\(location.name) coordinates are nil")
-                }
+        }
+        
+        for location in self.store.matchedLocations {
+            print("DOUBLE CHECKING IF COORDINATES ARE POPULATING")
+            
+            if location.coordinates != nil {
+                print("********** DESTINATION INFORMATION ************")
+                print("Name: \(location.name)")
+                print("Coordinates: \(location.coordinates)")
+                print("Snippet Description: \(location.description)")
+                print("***********************************************")
+            } else {
+                print("\(location.name) coordinates are nil")
             }
         }
     

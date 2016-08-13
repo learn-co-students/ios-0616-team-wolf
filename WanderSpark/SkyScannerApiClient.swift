@@ -60,8 +60,6 @@ struct SkyScannerAPIClient {
                         
                         sortedArrayOfPrices = ArrayOfPrices.sort(<)
                         
-                        //                    print(sortedArrayOfPrices.first)
-                        
                     }
                     
                     guard let cheapestPrice = sortedArrayOfPrices.first else {fatalError()}
