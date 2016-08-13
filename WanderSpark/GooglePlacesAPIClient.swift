@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-struct GooglePlacesAPIClient {
+class GooglePlacesAPIClient {
     
     static let store = LocationsDataStore.sharedInstance
     
