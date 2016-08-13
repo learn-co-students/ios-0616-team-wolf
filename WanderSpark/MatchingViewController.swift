@@ -83,19 +83,22 @@ extension MatchingViewController: KolodaViewDelegate {
         
         
         GooglePlacesAPIClient.getLocationCoordinatesWithCompletion {
-            print("getting coordinates for matched locations")
+            print("got coordinates")
+            for location in self.store.matchedLocations {
+                print("DOUBLE CHECKING IF COORDINATES ARE POPULATING")
+                
+                if location.coordinates != nil {
+                    print("********** DESTINATION INFORMATION ************")
+                    print("Name: \(location.name)")
+                    print("Coordinates: \(location.coordinates)")
+                    print("Snippet Description: \(location.description)")
+                    print("***********************************************")
+                } else {
+                    print("\(location.name) coordinates are nil")
+                }
+            }
         }
-        
-        for location in store.matchedLocations {
-            print("DOUBLE CHECKING IF COORDINATES ARE POPULATING")
-            print(" ----------- LOCATION COORDINATES ------------ ")
-            print("Location: \(location.name)")
-            print("Coordinates: \(location.coordinates)")
-//            SkyScannerAPIClient.getPricesForDestination(location, completion: { (Price) in
-//                location.cheapestFlight = Price
-//                print("Flight Price: \(String(location.cheapestFlight))")
-//            })
-        }
+    
         
         self.performSegueWithIdentifier("loadCarousel", sender: self)
         

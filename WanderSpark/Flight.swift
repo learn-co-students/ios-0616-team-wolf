@@ -10,5 +10,6 @@ import Foundation
 
 //class Flight {
 //    static var carrier : String
+//    static var carrierID : String
 //    static var lowestPrice : Int
 //}

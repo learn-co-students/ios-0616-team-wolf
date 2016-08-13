@@ -38,13 +38,6 @@ struct GooglePlacesAPIClient {
                     //input coordinates to location objects in LocationsDataStore
                     location.coordinates = (destinationLat, destinationLng)
                     
-                    print("********** DESTINATION INFORMATION ************")
-                    print("Name: \(location.name)")
-                    print("Formatted Name: \(destinationName)")
-                    print("Coordinates: \(location.coordinates)")
-                    print("Snippet Description: \(location.description)")
-                    print("***********************************************")
-                    
                     completion()
                     
                 } else {
