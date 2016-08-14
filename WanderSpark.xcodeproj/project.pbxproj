@@ -12,6 +12,7 @@
 		1BE7A63B1D592FD000B7E89F /* NYTimesDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */; };
 		1BFA0EEF1D5CC2D500423878 /* MatchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFA0EEE1D5CC2D500423878 /* MatchingViewController.swift */; };
 		75879A495B6B2D845B650C37 /* Pods_WanderSpark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B43BFDA5775D51B2DF42474B /* Pods_WanderSpark.framework */; };
+		A476A1781D5FFAD10049027E /* testingClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A476A1771D5FFAD10049027E /* testingClass.swift */; };
 		A496A69B1D5E5BF0007DF405 /* playingWithCoordinateAndFlightQueues.swift in Sources */ = {isa = PBXBuildFile; fileRef = A496A69A1D5E5BF0007DF405 /* playingWithCoordinateAndFlightQueues.swift */; };
 		A496A69D1D5E5C29007DF405 /* Flight.swift in Sources */ = {isa = PBXBuildFile; fileRef = A496A69C1D5E5C29007DF405 /* Flight.swift */; };
 		A496A69F1D5E795E007DF405 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A496A69E1D5E795E007DF405 /* Secrets.swift */; };
@@ -40,6 +41,7 @@
 		1BFA0EEE1D5CC2D500423878 /* MatchingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingViewController.swift; sourceTree = "<group>"; };
 		677A2EC55B9FDFA0279234EE /* Pods-WanderSpark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WanderSpark.release.xcconfig"; path = "Pods/Target Support Files/Pods-WanderSpark/Pods-WanderSpark.release.xcconfig"; sourceTree = "<group>"; };
 		6C6871091063FE9EE85305AE /* Pods-WanderSpark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WanderSpark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WanderSpark/Pods-WanderSpark.debug.xcconfig"; sourceTree = "<group>"; };
+		A476A1771D5FFAD10049027E /* testingClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testingClass.swift; sourceTree = "<group>"; };
 		A496A69A1D5E5BF0007DF405 /* playingWithCoordinateAndFlightQueues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = playingWithCoordinateAndFlightQueues.swift; sourceTree = "<group>"; };
 		A496A69C1D5E5C29007DF405 /* Flight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flight.swift; sourceTree = "<group>"; };
 		A496A69E1D5E795E007DF405 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Secrets.swift; path = ../Secrets.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				1BE7A6381D58E3E600B7E89F /* LocationMatchmaker.swift */,
 				BF41AB4E1D55270800725AAE /* Main.storyboard */,
 				1BBE4BA41D5BD4890037032D /* SkyScannerApiClient.swift */,
+				A476A1771D5FFAD10049027E /* testingClass.swift */,
 				A496A69C1D5E5C29007DF405 /* Flight.swift */,
 				BFA39BE81D5D219B007E1638 /* Constants.swift */,
 				A496A69A1D5E5BF0007DF405 /* playingWithCoordinateAndFlightQueues.swift */,
@@ -333,6 +336,7 @@
 				BF41AB611D55275700725AAE /* Location.swift in Sources */,
 				BF41AB5F1D55275000725AAE /* LocationsDataStore.swift in Sources */,
 				1BE7A6391D58E3E600B7E89F /* LocationMatchmaker.swift in Sources */,
+				A476A1781D5FFAD10049027E /* testingClass.swift in Sources */,
 				BF41AB4B1D55270800725AAE /* AppDelegate.swift in Sources */,
 				1BBE4BA51D5BD4890037032D /* SkyScannerApiClient.swift in Sources */,
 				A496A69D1D5E5C29007DF405 /* Flight.swift in Sources */,

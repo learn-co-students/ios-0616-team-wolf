@@ -9,9 +9,9 @@
 import Foundation
 import SwiftyJSON
 
-struct SkyScannerAPIClient {
+class SkyScannerAPIClient {
     
-    // let store = LocationsDataStore.sharedInstance
+    let store = LocationsDataStore.sharedInstance
     
     static func getPricesForDestination(location: Location, completion:() -> ())
     {

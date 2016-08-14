@@ -1,6 +1,6 @@
 //
 //  playingWithCoordinateAndFlightQueues.swift
-//  
+//
 //
 //  Created by Betty Fung on 8/12/16.
 //
@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+
 
 class CoordinateAndFlightQueues {
     
@@ -17,47 +18,34 @@ class CoordinateAndFlightQueues {
     class func getCoordinatesAndFlights() {
         if store.matchedLocations.count == 10 {
             
-            let coordinateOperation = NSBlockOperation {
-                GooglePlacesAPIClient.getLocationCoordinatesWithCompletion {
-                    print("got coordinates")
-                }
-            }
-            coordinateOperation.qualityOfService = .UserInitiated
-            
-        
-            
-            
-            let flightPriceOperation = NSBlockOperation {
-                for location in store.matchedLocations {
-                    SkyScannerAPIClient.getPricesForDestination(location, completion: { 
-                        print("got prices")
+            let getCoordinates = NSOperationQueue()
+            getCoordinates.addOperationWithBlock({
+                GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({ (addedCoordinates) in
+                    
+                    print("Added Coordinates? \(addedCoordinates)")
+                    NSOperationQueue.mainQueue().addOperationWithBlock({
+                        Testing.testingStuff()
                     })
-                }
-            }
-            flightPriceOperation.addDependency(coordinateOperation)
+                })
+            })
+            getCoordinates.maxConcurrentOperationCount = 1
+            getCoordinates.qualityOfService = .UserInitiated
+
             
-            let printCompleteInfoOperation = NSBlockOperation {
-                print("flights complete")
+            
+            
+            let flightPriceOperation = NSOperationQueue()
+            flightPriceOperation.maxConcurrentOperationCount = 1
+            flightPriceOperation.addOperationWithBlock({ 
                 for location in store.matchedLocations {
-                    print("********** DESTINATION INFORMATION ************")
-                    print("Name: \(location.name)")
-                    print("Coordinates: \(location.coordinates)")
-                    // print("Flight Price: \(location.cheapestFlight.lowestPrice)")
-                    print("Snippet Description: \(location.description)")
-                    print("***********************************************")
+                    print("flyyyyyyyyyy")
+                    print("Location coordinates: \(location.coordinates)")
                 }
-            }
-            printCompleteInfoOperation.addDependency(flightPriceOperation)
-            printCompleteInfoOperation.addDependency(coordinateOperation)
-            printCompleteInfoOperation.qualityOfService = .Utility
-            
-            NSOperationQueue.mainQueue().addOperations([coordinateOperation, flightPriceOperation, printCompleteInfoOperation], waitUntilFinished: false)
-
-
+            })
+            NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                flightPriceOperation
+                print("calling flights")
+            })
         }
     }
-    
-    
-    //flight queue
-    
 }

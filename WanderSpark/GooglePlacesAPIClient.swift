@@ -13,11 +13,11 @@ class GooglePlacesAPIClient {
     
     static let store = LocationsDataStore.sharedInstance
     
-    static func getLocationCoordinatesWithCompletion(completion: () -> ()) {
+    class func getLocationCoordinatesWithCompletion(completion: (Bool) -> ()) {
+        
+        print("HELLO, I'M IN GOOGLE API CLIENT")
         
         for location in store.matchedLocations {
-            
-            print("HELLO, I'M IN THE LOOP YAY")
             
             let destinationName = Location.formatLocationName(location.name)
             
@@ -35,16 +35,17 @@ class GooglePlacesAPIClient {
                             fatalError("ERROR: No match found for submitted location")
                     }
                     
-                    //input coordinates to location objects in LocationsDataStore
                     location.coordinates = (destinationLat, destinationLng)
                     
-                    completion()
+                    completion(true)
                     
                 } else {
                     fatalError("ERROR: No response for request")
                 }
             }
+            
         }
+        
     }
 }
 
