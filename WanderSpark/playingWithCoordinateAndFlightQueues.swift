@@ -14,11 +14,10 @@ class CoordinateAndFlightQueues {
     
     static let store = LocationsDataStore.sharedInstance
     
-    //coordinate operation
     class func getCoordinatesAndFlights() {
         if store.matchedLocations.count == 10 {
             
-            NSOperationQueue.mainQueue().maxConcurrentOperationCount = 1
+            NSOperationQueue.mainQueue().maxConcurrentOperationCount = 2
             
             let getCoordinates = NSOperationQueue()
             getCoordinates.maxConcurrentOperationCount = 1
@@ -42,11 +41,9 @@ class CoordinateAndFlightQueues {
                 }
             })
             getCoordinates.qualityOfService = .UserInitiated
-            NSOperationQueue.mainQueue().addOperationWithBlock({
-                print("added coordinates queue")
-                getCoordinates
-            })
 
         }
     }
+    
+    //will need to add queue for loading screen/animation
 }
