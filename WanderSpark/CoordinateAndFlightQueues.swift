@@ -73,8 +73,7 @@ class CoordinateAndFlightQueues {
         newOperationQueue.maxConcurrentOperationCount = 1
         newOperationQueue.addOperations([googleOperation, flightOperation], waitUntilFinished: false)
     }
-    
-    
+
     
     //    class func getCoordinatesAndFlights() {
     //        if store.matchedLocations.count == 10 {
