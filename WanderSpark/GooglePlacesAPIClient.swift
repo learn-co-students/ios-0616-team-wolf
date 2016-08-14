@@ -13,40 +13,37 @@ class GooglePlacesAPIClient {
     
     static let store = LocationsDataStore.sharedInstance
     
-    class func getLocationCoordinatesWithCompletion(completion: (Bool) -> ()) {
+    class func getLocationCoordinatesWithCompletion(location: Location, completion: (Bool) -> ()) {
         
         print("HELLO, I'M IN GOOGLE API CLIENT")
         
-        for location in store.matchedLocations {
+        let destinationName = Location.formatLocationName(location.name)
+        
+        Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/geocode/json?address=\(destinationName)&key=\(Secrets.googlePlacesAPIKey)").responseJSON { (response) in
             
-            let destinationName = Location.formatLocationName(location.name)
-            
-            Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/geocode/json?address=\(destinationName)&key=\(Secrets.googlePlacesAPIKey)").responseJSON { (response) in
+            if let locationResultsResponse = response.result.value as? NSDictionary {
                 
-                if let locationResultsResponse = response.result.value as? NSDictionary {
-                    
-                    guard let
-                        locationResults = locationResultsResponse["results"] as? [[String : AnyObject]], //array of location dictionaries
-                        destinationInformation = locationResults[0]["geometry"] as? [String:AnyObject], //dictionary of location information
-                        destinationLocationInfo = destinationInformation["location"] as? [String : Double], //dictionary of lat/lng info
-                        destinationLat = destinationLocationInfo["lat"],
-                        destinationLng = destinationLocationInfo["lng"]
-                        else {
-                            fatalError("ERROR: No match found for submitted location")
-                    }
-                    
-                    location.coordinates = (destinationLat, destinationLng)
-                    
-                    completion(true)
-                    
-                } else {
-                    fatalError("ERROR: No response for request")
+                guard let
+                    locationResults = locationResultsResponse["results"] as? [[String : AnyObject]], //array of location dictionaries
+                    destinationInformation = locationResults[0]["geometry"] as? [String:AnyObject], //dictionary of location information
+                    destinationLocationInfo = destinationInformation["location"] as? [String : Double], //dictionary of lat/lng info
+                    destinationLat = destinationLocationInfo["lat"],
+                    destinationLng = destinationLocationInfo["lng"]
+                    else {
+                        fatalError("ERROR: No match found for submitted location")
                 }
+                
+                location.coordinates = (destinationLat, destinationLng)
+                
+                completion(true)
+                
+            } else {
+                fatalError("ERROR: No response for request")
             }
-            
         }
         
     }
+    
 }
 
 

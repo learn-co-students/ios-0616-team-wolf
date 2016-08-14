@@ -17,6 +17,8 @@ class SkyScannerAPIClient {
     {
         var sortedArrayOfPrices: [Int] = []
         
+        print("FLIGHTS: Location coordinates: \(location.coordinates)")
+        
         let stringURL = "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.7128,-74.0059-latlong/\(location.coordinates.0),\(location.coordinates.1)-latlong/anytime/anytime?apiKey=\(Secrets.skyscannerAPIKey)"
 
         //create the string URL

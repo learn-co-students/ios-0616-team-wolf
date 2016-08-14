@@ -88,30 +88,6 @@ class LocationMatchmaker {
             matchedLocationsCount += 1
         }
         
-        let newOperationQueue = NSOperationQueue()
-        newOperationQueue.addOperationWithBlock { 
-            GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({ (gotCoordinates) in
-                
-                print("google")
-                
-                NSOperationQueue.mainQueue().addOperationWithBlock({ 
-                    if gotCoordinates {
-                        
-                        for location in self.store.matchedLocations {
-                            
-                            print("********** DESTINATION INFORMATION ************")
-                            print("Name: \(location.name)")
-                            print("Coordinates: \(location.coordinates)")
-                            // print("Flight Price: \(location.cheapestFlight.lowestPrice)")
-                            print("Snippet Description: \(location.description)")
-                            print("***********************************************")
-                        }
-                        
-                    }
-                })
-                
-            })
-        }
     }
 
 }

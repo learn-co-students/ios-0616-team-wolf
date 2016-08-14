@@ -18,34 +18,35 @@ class CoordinateAndFlightQueues {
     class func getCoordinatesAndFlights() {
         if store.matchedLocations.count == 10 {
             
+            NSOperationQueue.mainQueue().maxConcurrentOperationCount = 1
+            
             let getCoordinates = NSOperationQueue()
-            getCoordinates.addOperationWithBlock({
-                GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({ (addedCoordinates) in
-                    
-                    print("Added Coordinates? \(addedCoordinates)")
-                    NSOperationQueue.mainQueue().addOperationWithBlock({
-                        Testing.testingStuff()
-                    })
-                })
-            })
             getCoordinates.maxConcurrentOperationCount = 1
-            getCoordinates.qualityOfService = .UserInitiated
-
-            
-            
-            
-            let flightPriceOperation = NSOperationQueue()
-            flightPriceOperation.maxConcurrentOperationCount = 1
-            flightPriceOperation.addOperationWithBlock({ 
-                for location in store.matchedLocations {
-                    print("flyyyyyyyyyy")
-                    print("Location coordinates: \(location.coordinates)")
+            getCoordinates.addOperationWithBlock({
+                print("in coordinates queue")
+                for location in self.store.matchedLocations {
+                    GooglePlacesAPIClient.getLocationCoordinatesWithCompletion(location, completion: { (gotCoordinates) in
+                        
+                        print("google completion block")
+                        print("********** DESTINATION INFORMATION ************")
+                        print("Name: \(location.name)")
+                        print("Coordinates: \(location.coordinates)")
+                        // print("Flight Price: \(location.cheapestFlight.lowestPrice)")
+                        print("Snippet Description: \(location.description)")
+                        print("***********************************************")
+                        
+                        SkyScannerAPIClient.getPricesForDestination(location, completion: {
+                            print("flights")
+                        })
+                    })
                 }
             })
-            NSOperationQueue.mainQueue().addOperationWithBlock({ 
-                flightPriceOperation
-                print("calling flights")
+            getCoordinates.qualityOfService = .UserInitiated
+            NSOperationQueue.mainQueue().addOperationWithBlock({
+                print("added coordinates queue")
+                getCoordinates
             })
+
         }
     }
 }
