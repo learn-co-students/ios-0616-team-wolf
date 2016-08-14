@@ -81,7 +81,7 @@ extension MatchingViewController: KolodaViewDelegate {
             print("Match Count: \(location.matchCount)\n")
         }
         
-        CoordinateAndFlightQueues.getCoordinatesAndFlights()
+        CoordinateAndFlightQueues.getStuff()
         
         self.performSegueWithIdentifier("loadCarousel", sender: self)
         

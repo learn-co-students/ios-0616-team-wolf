@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class GooglePlacesAPIClient {
+class GooglePlacesAPIClient : NSBlockOperation {
     
     static let store = LocationsDataStore.sharedInstance
     
@@ -41,7 +41,6 @@ class GooglePlacesAPIClient {
                 fatalError("ERROR: No response for request")
             }
         }
-        
     }
     
 }
