@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class GooglePlacesAPIClient : NSBlockOperation {
+class GooglePlacesAPIClient {
     
     static let store = LocationsDataStore.sharedInstance
     

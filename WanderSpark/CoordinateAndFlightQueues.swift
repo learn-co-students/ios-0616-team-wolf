@@ -1,5 +1,5 @@
 //
-//  playingWithCoordinateAndFlightQueues.swift
+//  CoordinateAndFlightQueues.swift
 //
 //
 //  Created by Betty Fung on 8/12/16.
@@ -17,9 +17,9 @@ class CoordinateAndFlightQueues {
     static let newOperationQueue = NSOperationQueue()
     static var coordinatesPopulated = false
     static var coordinatesPopulatedCount = 0
-    static var retrievingCoordinates = true
+    static var retrievingCoordinates : Bool = true
     
-    class func getStuff () {
+    class func getCoordinatesAndFlightInfo () {
         
         print("function called")
         
@@ -43,23 +43,7 @@ class CoordinateAndFlightQueues {
             
         })
         
-//        googleOperation.completionBlock = {
-//            for location in store.matchedLocations {
-//                if location.coordinates != (0.0, 0.0) {
-//                    coordinatesPopulatedCount += 1
-//                }
-//            }
-//            
-//            
-//        }
-        
-        //        let flightOperation = NSBlockOperation {
-        //            for location in store.matchedLocations {
-        //                SkyScannerAPIClient.getPricesForDestination(location, completion: {
-        //                    print("flights yayay")
-        //                })
-        //            }
-        //        }
+
         
         let flightOperation = NSBlockOperation()
         flightOperation.addExecutionBlock {
@@ -68,11 +52,10 @@ class CoordinateAndFlightQueues {
                     print("FLIGHT COORDINATES: \(location.name) -> \(location.coordinates)")
                 }
             }
-            
         }
         
+        
         googleOperation.addExecutionBlock({
-//            print("asynchronous google? \(googleOperation.concurrent)")
             
             while coordinatesPopulatedCount < 10 {
                 print("still retrieving coordinates")

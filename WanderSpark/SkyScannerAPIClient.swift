@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class SkyScannerAPIClient : NSOperation {
+class SkyScannerAPIClient {
     
     let store = LocationsDataStore.sharedInstance
     
