@@ -80,6 +80,9 @@ extension MatchingViewController: KolodaViewDelegate {
             print("Name: \(location.name)")
             print("Match Count: \(location.matchCount)\n")
         }
+        
+        CoordinateAndFlightQueues.getCoordinatesAndFlightInfo()
+        
         self.performSegueWithIdentifier("loadCarousel", sender: self)
         
         // Send the matched locations to the Carousel ViewController...?
@@ -96,7 +99,7 @@ extension MatchingViewController: KolodaViewDelegate {
         print("Locations in store when \(index + 1) match card loads: \(store.locations.count)")
         
         if index % 3 == 0 {
-            store.getLocationsWithCompletion({ 
+            store.getLocationsWithCompletion({
                 print("Calling get locations for the card at index \(index).")
             })
         }

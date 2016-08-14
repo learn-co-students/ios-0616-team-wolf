@@ -12,6 +12,7 @@ class LocationMatchmaker {
     
     var positiveMatchParameters = [String]()
     var negativeMatchParameters = [String]()
+    
     let store = LocationsDataStore.sharedInstance
     
     let matchingDictionary = ["City": ["city", "metropoli", "crowd", "busy", "bustl", "touris", "capital", "cosmopolitan", "urban", "skyscraper", "downtown"],
@@ -86,6 +87,7 @@ class LocationMatchmaker {
             store.matchedLocations.append(match)
             matchedLocationsCount += 1
         }
+        
     }
 
 }

@@ -18,60 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        // 0. set up main queue for UI stuff
-        let mainOperationQueue = NSOperationQueue.mainQueue()
-        
-        // 1. load NYTimes location data while user is swiping through survey
-            //main thread: swiping 
-            //other thread: call NYTimesAPI for every other swipe, use index to determine the call
-        let obtainLocations = NSBlockOperation {
-            print("locations block called")
-            self.store.getLocationsWithCompletion ({ })
-        }
-        obtainLocations.qualityOfService = .UserInitiated
-        mainOperationQueue.addOperation(obtainLocations)
-        
-        
-        //THINGS THAT HAPPEN DURING LOADING/MATCHING SCREEN (main thread)
-        // 2. match user to destinations
-            //main thread: loading screen of airplane zipping around? or something with the crystal ball!
-            //other thread: matching dictionary magic :)
-        
-        
-        
-        // 3. obtain coordinates for matched locations
-            //main thread: loading screen
-            //background thread:
-        let obtainLocationCoordinatesQueue = NSOperationQueue()
-        obtainLocationCoordinatesQueue.qualityOfService = .Utility
-        if store.matchedLocations.count > 0 /* AND matching thread in step 2 is complete */ {
-            mainOperationQueue.addOperationWithBlock {
-                if obtainLocations.finished {
-                    GooglePlacesAPIClient.getLocationCoordinatesWithCompletion({
-                    })
-                }
-            }
-        }
-        
-        // obtainLocationCoordinatesBlockOperation.addDependency(obtainLocationsQueue)
-//        obtainLocationCoordinatesBlockOperation.completionBlock = {
-//            print("in coordinates completion block")
-//            if obtainLocationCoordinatesBlockOperation.finished {
-//                print("DONE WITH COORDINATES QUEUE")
-//            }
-//        }
-        
-        
-//        mainOperationQueue.addOperations([obtainLocationsQueue, obtainLocationCoordinatesBlockOperation], waitUntilFinished: false)
-        
-        
-        
-        // 4. use coordinates for matched locations to get flight information
-            //main thread: loading screen 
-            //other thread: get flight information from skyscannerAPI 
-                //may need to check if coordinates are already populated first
-        
-        
         return true
     }
 
