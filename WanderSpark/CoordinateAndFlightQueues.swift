@@ -28,7 +28,7 @@ class CoordinateAndFlightQueues {
             
             for location in store.matchedLocations {
                  
-                GooglePlacesAPIClient.getLocationCoordinatesWithCompletion(location) { (gotCoordinates) in
+                GoogleMapsAPIClient.getLocationCoordinatesWithCompletion(location) { (gotCoordinates) in
                     print("********** DESTINATION INFORMATION ************")
                     print("Name: \(location.name)")
                     print("Coordinates: \(location.coordinates)")

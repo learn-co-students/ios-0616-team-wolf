@@ -1,5 +1,5 @@
 //
-//  GooglePlacesAPIClient.swift
+//  GoogleMapsAPIClient.swift
 //  WanderSpark
 //
 //  Created by Betty Fung on 8/5/16.
@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class GooglePlacesAPIClient {
+class GoogleMapsAPIClient {
     
     static let store = LocationsDataStore.sharedInstance
     

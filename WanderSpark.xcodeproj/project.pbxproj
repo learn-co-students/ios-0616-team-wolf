@@ -16,7 +16,7 @@
 		A496A69D1D5E5C29007DF405 /* Flight.swift in Sources */ = {isa = PBXBuildFile; fileRef = A496A69C1D5E5C29007DF405 /* Flight.swift */; };
 		A496A69F1D5E795E007DF405 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A496A69E1D5E795E007DF405 /* Secrets.swift */; };
 		A4CE39AD1D56982100611A2B /* Airport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CE39AC1D56982100611A2B /* Airport.swift */; };
-		A4ECDD651D55429F00FC9E03 /* GooglePlacesAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ECDD641D55429F00FC9E03 /* GooglePlacesAPIClient.swift */; };
+		A4ECDD651D55429F00FC9E03 /* GoogleMapsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ECDD641D55429F00FC9E03 /* GoogleMapsAPIClient.swift */; };
 		BF415E101D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF415E0D1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m */; };
 		BF415E111D5A8FD200C2BFB8 /* FZCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF415E0F1D5A8FD200C2BFB8 /* FZCarouselView.m */; };
 		BF41AB4B1D55270800725AAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF41AB4A1D55270800725AAE /* AppDelegate.swift */; };
@@ -44,7 +44,7 @@
 		A496A69C1D5E5C29007DF405 /* Flight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flight.swift; sourceTree = "<group>"; };
 		A496A69E1D5E795E007DF405 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Secrets.swift; path = ../Secrets.swift; sourceTree = "<group>"; };
 		A4CE39AC1D56982100611A2B /* Airport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Airport.swift; sourceTree = "<group>"; };
-		A4ECDD641D55429F00FC9E03 /* GooglePlacesAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePlacesAPIClient.swift; sourceTree = "<group>"; };
+		A4ECDD641D55429F00FC9E03 /* GoogleMapsAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleMapsAPIClient.swift; sourceTree = "<group>"; };
 		B43BFDA5775D51B2DF42474B /* Pods_WanderSpark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WanderSpark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF415E0B1D5A8FD200C2BFB8 /* WanderSpark-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WanderSpark-Bridging-Header.h"; sourceTree = "<group>"; };
 		BF415E0C1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZCarouselCollectionViewDelegate.h; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 				BF415E0F1D5A8FD200C2BFB8 /* FZCarouselView.m */,
 				BF41AB4A1D55270800725AAE /* AppDelegate.swift */,
 				BF41AB4C1D55270800725AAE /* ViewController.swift */,
-				A4ECDD641D55429F00FC9E03 /* GooglePlacesAPIClient.swift */,
+				A4ECDD641D55429F00FC9E03 /* GoogleMapsAPIClient.swift */,
 				BF41AB5C1D55274700725AAE /* NYTimesAPIClient.swift */,
 				1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */,
 				BF41AB5E1D55275000725AAE /* LocationsDataStore.swift */,
@@ -328,7 +328,7 @@
 				BF53C59D1D5A8CFA00810066 /* WSCarouselCollectionViewController.swift in Sources */,
 				A496A69B1D5E5BF0007DF405 /* CoordinateAndFlightQueues.swift in Sources */,
 				A4CE39AD1D56982100611A2B /* Airport.swift in Sources */,
-				A4ECDD651D55429F00FC9E03 /* GooglePlacesAPIClient.swift in Sources */,
+				A4ECDD651D55429F00FC9E03 /* GoogleMapsAPIClient.swift in Sources */,
 				BF41AB5D1D55274700725AAE /* NYTimesAPIClient.swift in Sources */,
 				BF41AB611D55275700725AAE /* Location.swift in Sources */,
 				BF41AB5F1D55275000725AAE /* LocationsDataStore.swift in Sources */,
