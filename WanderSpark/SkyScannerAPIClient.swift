@@ -16,7 +16,7 @@ class SkyScannerAPIClient {
     
     class func getPricesForDestination(location: Location, completion: ()-> ()) {
         
-        Alamofire.request(.GET, "https://api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.730610,-73.935242-latlong/60.169855699999992,24.938379000000001-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)").responseJSON { (response) in
+        Alamofire.request(.GET, "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.730610,-73.935242-latlong/60.169855699999992,24.938379000000001-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)").responseJSON { (response) in
             
             if let flightsResponse = response.result.value as? NSDictionary {
                 
