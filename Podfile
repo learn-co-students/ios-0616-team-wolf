@@ -14,4 +14,5 @@ target 'WanderSpark' do
   pod 'SnapKit', '~> 0.15.0'
   pod 'pop', '~> 1.0'
 pod 'UICircleAnimationView', '~> 0.9'
+pod 'ChameleonFramework', '~> 2.1'
 end

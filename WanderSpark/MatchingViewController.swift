@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Koloda
 import SnapKit
+import ChameleonFramework
 
 class MatchingViewController: UIViewController {
     
@@ -35,28 +36,40 @@ class MatchingViewController: UIViewController {
                         "Adventure"]
     
     let matchingIcons: [UIImage] = [cityImage, countryImage, mountainsImage, beachesImage, shoppingImage, outdoorsImage, sightseeingImage, nightlifeImage, historicImage, modernImage, foodieImage, fitnessImage, luxuryImage, adventureImage]
-
-//    let leftArrow: UIImage = leftArrowImage
-//    let rightArrow: UIImage = rightArrowImage
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        matchingView = KolodaView()
-        self.view.addSubview(matchingView)
-        self.matchingView.translatesAutoresizingMaskIntoConstraints = false
-        self.matchingView.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-        self.matchingView.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
-        self.matchingView.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.85).active = true
-        self.matchingView.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.75).active = true
         
-        self.view.backgroundColor = UIColor.darkGrayColor()
+        print("Color count: \(colorArray.count)")
+        
+        configureMatchingView()
+        
+        self.view.backgroundColor = softWhite
+    }
+    
+    
+    func configureMatchingView() {
+        matchingView = KolodaView()
+        view.addSubview(matchingView)
+        matchingView.translatesAutoresizingMaskIntoConstraints = false
+        matchingView.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
+        matchingView.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
+        matchingView.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.85).active = true
+        matchingView.heightAnchor.constraintEqualToAnchor(matchingView.widthAnchor, multiplier: 1.1).active = true
         
         matchingView.dataSource = self
         matchingView.delegate = self
+
+        matchingView.layer.shadowRadius = 4
+        matchingView.layer.shadowOpacity = 0.5
+        matchingView.layer.borderColor = teal.CGColor
+        matchingView.layer.borderWidth = 6
     }
 }
+
+
 
 extension MatchingViewController: KolodaViewDelegate {
     func kolodaDidRunOutOfCards(matchingView: KolodaView) {
@@ -68,7 +81,6 @@ extension MatchingViewController: KolodaViewDelegate {
         matcher.sortLocationsByMatchCount()
         matcher.returnMatchedLocations()
         
-
         print("These are all the locations:\n")
         for location in store.locations {
             print("Name: \(location.name)")
@@ -132,7 +144,7 @@ extension MatchingViewController: KolodaViewDataSource {
         // MatchingCardView should be subclass of UIView rather than doing all the configuration here.
         let matchingCardView = UIView()
         
-        matchingCardView.backgroundColor = UIColor.whiteColor()
+        matchingCardView.backgroundColor = gray//periwinkle.lightenByPercentage(10000)
         
         // Add and constrain matching icon:
         let iconView = UIImageView()
@@ -150,16 +162,20 @@ extension MatchingViewController: KolodaViewDataSource {
         
         // Add and constrain matching label:
         let matchWordLabel = UILabel()
+        let font = UIFont(name: "Avenir-Book", size: 45)
         matchingCardView.addSubview(matchWordLabel)
         
         matchWordLabel.text = matchingKeys[Int(index)]
+        matchWordLabel.font = font
         matchWordLabel.textAlignment = .Center
+        matchWordLabel.textColor = gray
+        matchWordLabel.backgroundColor = mint
         
         matchWordLabel.snp_makeConstraints { make in
             make.centerX.equalTo(iconView)
-            make.top.equalTo(iconView.snp_bottom).offset(20)
-            make.width.equalTo(100)
-            make.height.equalTo(25)
+            make.bottom.equalTo(matchingCardView).offset(-10)
+            make.width.equalTo(matchingCardView)
+            make.height.equalTo(70)
         }
         
         return matchingCardView
