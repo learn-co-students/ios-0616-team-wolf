@@ -39,13 +39,18 @@ class SkyScannerAPIClient {
                 print("CARRIERS: \(carrierList)\n\n")
                 print("******************* END FLIGHT INFO *******************")
                 
+                //get lowest price first, grab the index of that dictionary within the array
+                //then use it to find carrier / airport info so you don't have to loop through the entire JSON response
+                
                 for quote in flightQuotes {
+                    print("LOOPING THROUGH QUOTES ARRAY")
+                    print("\(quote)\n\n\n")
                     guard let
-                        flightMinPrice = quote["MinPrice"] as? [String : String], //may be Int
-                        flightOriginAirportID = quote["OriginId"] as? [String:String],
-                        flightDepartureDate = quote["DepartureDate"] as? [String:String],
+                        flightMinPrice = quote["MinPrice"] as? Int, //may be Int
+                        flightOriginAirportID = quote["OriginId"] as? Int,
+                        flightDepartureDate = quote["DepartureDate"] as? String,
                         flightOutboundInfo = quote["OutboundLeg"] as? [String:AnyObject],
-                        flightOutboundCarrierID = flightOutboundInfo["CarrierIds"] as? [String] //may also be Int
+                        flightOutboundCarrierID = flightOutboundInfo["CarrierIds"] as? [Int] //may also be Int
                         else {
                             fatalError("ERROR: no flight quotes found")
                     }
