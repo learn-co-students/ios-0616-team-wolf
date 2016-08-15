@@ -87,8 +87,11 @@ class WSCarouselCollectionViewController: UIViewController {
         for urlString in arrayOfStringURL{
             let url = NSURL(string: urlString)
             let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
-            let imageFromURL = UIImage(data: data!)
-            arrayOfImages.append(imageFromURL!)
+            if let data = data {
+                let imageFromURL = UIImage(data: data)
+                arrayOfImages.append(imageFromURL!)
+            }
+            
   
         }
        

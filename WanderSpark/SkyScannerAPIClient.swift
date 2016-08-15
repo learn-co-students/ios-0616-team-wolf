@@ -14,9 +14,11 @@ class SkyScannerAPIClient {
     
     let store = LocationsDataStore.sharedInstance
     
+    var flights = [Flight]() 
+    
     class func getPricesForDestination(location: Location, completion: ()-> ()) {
         
-        Alamofire.request(.GET, "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.730610,-73.935242-latlong/60.169855699999992,24.938379000000001-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)").responseJSON { (response) in
+        Alamofire.request(.GET, "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.730610,-73.935242-latlong/\(location.coordinates.0),\(location.coordinates.1)-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)").responseJSON { (response) in
             
             if let flightsResponse = response.result.value as? NSDictionary {
                 
@@ -31,7 +33,8 @@ class SkyScannerAPIClient {
                 }
                 
                 print("***************** FLIGHT INFORMATION *****************")
-                print("\n\nPRICES: \(flightQuotes)")
+                print("\n\nNAME: \(location.name)")
+                print("PRICES: \(flightQuotes)")
                 print("LOCATION: \(locationInfo)")
                 print("CARRIERS: \(carrierList)\n\n")
                 print("******************* END FLIGHT INFO *******************")
