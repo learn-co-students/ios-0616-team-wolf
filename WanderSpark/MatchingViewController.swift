@@ -37,14 +37,14 @@ class MatchingViewController: UIViewController {
     
     let matchingIcons: [UIImage] = [cityImage, countryImage, mountainsImage, beachesImage, shoppingImage, outdoorsImage, sightseeingImage, nightlifeImage, historicImage, modernImage, foodieImage, fitnessImage, luxuryImage, adventureImage]
     
+    let iconCounterView = UIStackView()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        print("Color count: \(colorArray.count)")
-        
         configureMatchingView()
+        configureIconCounterView()
         
         self.view.backgroundColor = softWhite
     }
@@ -66,6 +66,35 @@ class MatchingViewController: UIViewController {
         matchingView.layer.shadowOpacity = 0.5
         matchingView.layer.borderColor = teal.CGColor
         matchingView.layer.borderWidth = 6
+    }
+    
+    
+    func configureIconCounterView() {
+        view.addSubview(iconCounterView)
+        iconCounterView.backgroundColor = pink
+        iconCounterView.axis = .Horizontal
+        iconCounterView.distribution = .FillEqually
+        iconCounterView.alignment = .Center
+        iconCounterView.spacing = 0
+        
+        iconCounterView.snp_makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.top.equalTo(view)
+            make.width.equalTo(view).multipliedBy(2)
+            make.height.equalTo(view).multipliedBy(0.2)
+        }
+        
+        for icon in matchingIcons {
+            let iconImageView = UIImageView(image: icon)
+            
+            iconImageView.snp_makeConstraints { make in
+                make.width.height.equalTo(60)
+            }
+            iconImageView.layer.borderWidth = 3
+            iconImageView.layer.borderColor = UIColor.darkGrayColor().CGColor
+            iconCounterView.addArrangedSubview(iconImageView)
+        }
+        
     }
 }
 
