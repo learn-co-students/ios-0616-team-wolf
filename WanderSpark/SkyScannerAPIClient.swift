@@ -23,6 +23,7 @@ class SkyScannerAPIClient {
                 
                 guard let
                 flightQuotes = flightsResponse["Quotes"] as? [[String:AnyObject]],
+                    //only care about key value pairs whose values are Int
                 //getting place information 
                 locationInfo = flightsResponse["Places"] as? [[String:AnyObject]],
                 //getting carrier information 
@@ -41,38 +42,44 @@ class SkyScannerAPIClient {
                 //get lowest price first, grab the index of that dictionary within the array
                 //then use it to find carrier / airport info so you don't have to loop through the entire JSON response
                 
-                for quote in flightQuotes {
-                    print("LOOPING THROUGH QUOTES ARRAY")
-                    print("\(quote)\n\n\n")
-                    guard let
-                        flightMinPrice = quote["MinPrice"] as? Int, //may be Int
-                        flightOriginAirportID = quote["OriginId"] as? Int,
-                        flightDepartureDate = quote["DepartureDate"] as? String,
-                        flightOutboundInfo = quote["OutboundLeg"] as? [String:AnyObject],
-                        flightOutboundCarrierID = flightOutboundInfo["CarrierIds"] as? [Int] //may also be Int
-                        else {
-                            fatalError("ERROR: no flight quotes found")
-                    }
+//                var selectedFlight = flightQuotes[0]
+//                var lowestPrice = flightQuotes[0]["MinPrice"]
+//                
+//                for quote in flightQuotes {
+//                    guard let flightMinPrice = quote["MinPrice"]
+//                        else {
+//                        fatalError("ERROR: no flight quotes found")
+//                        }
+//                    if flightMinPrice < lowestPrice {
+//                        lowestPrice = flightMinPrice
+//                        selectedFlight = quote
+//                    }
                 }
+//                        flightOriginAirportID = quote["OriginId"] as? Int,
+//                        flightDepartureDate = quote["DepartureDate"] as? String,
+                        // flightOutboundInfo = quote["OutboundLeg"] as? [String:AnyObject],
+                        //flightOutboundCarrierID = flightOutboundInfo["CarrierIds"] as? [Int]                         else {
                 
-                for flightLocation in locationInfo {
-                    guard let
-                    locationPlaceId = flightLocation["PlaceId"] as? String, //or Int
-                    locationIATACode = flightLocation["IataCode"] as? String, //or Int
-                    locationCityName = flightLocation["Cityname"] as? String
-                        else {
-                            fatalError("ERROR: no places for flight quotes found")
-                    }
-                }
+               // let flightQuoteOfInterest = lowestFlightQuote
                 
-                for carrierInfo in carrierList {
-                    guard let
-                    carrierID = carrierInfo["CarrierID"] as? [String:String],
-                    carrierName = carrierInfo["Name"] as? String
-                        else {
-                            fatalError("ERROR: no carrier info for flights found")
-                    }
-                }
+//                for flightLocation in locationInfo {
+//                    guard let
+//                    locationPlaceId = flightLocation["PlaceId"] as? String, //or Int
+//                    locationIATACode = flightLocation["IataCode"] as? String, //or Int
+//                    locationCityName = flightLocation["Cityname"] as? String
+//                        else {
+//                            fatalError("ERROR: no places for flight quotes found")
+//                    }
+//                }
+//                
+//                for carrierInfo in carrierList {
+//                    guard let
+//                    carrierID = carrierInfo["CarrierID"] as? [String:String],
+//                    carrierName = carrierInfo["Name"] as? String
+//                        else {
+//                            fatalError("ERROR: no carrier info for flights found")
+//                    }
+//                }
                 
             }
             
@@ -153,9 +160,7 @@ class SkyScannerAPIClient {
     //        task.resume()
     //
     //    }
-    
-    
-}
+
 
 
 // ####################################################
