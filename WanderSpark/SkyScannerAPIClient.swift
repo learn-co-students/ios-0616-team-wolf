@@ -14,7 +14,6 @@ class SkyScannerAPIClient {
     
     let store = LocationsDataStore.sharedInstance
     
-    var flights = [Flight]() 
     
     class func getPricesForDestination(location: Location, completion: ()-> ()) {
         

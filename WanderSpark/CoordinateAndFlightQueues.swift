@@ -47,7 +47,7 @@ class CoordinateAndFlightQueues {
         flightOperation.addExecutionBlock {
             if coordinatesPopulated {
                 for location in store.matchedLocations {
-                    print("FLIGHT COORDINATES: \(location.name) -> \(location.coordinates)")
+                    // print("FLIGHT COORDINATES: \(location.name) -> \(location.coordinates)")
                     SkyScannerAPIClient.getPricesForDestination(location, completion: { 
                         print("getting flight info")
                     })
