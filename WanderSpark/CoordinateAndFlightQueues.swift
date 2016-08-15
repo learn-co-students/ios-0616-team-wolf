@@ -38,9 +38,7 @@ class CoordinateAndFlightQueues {
                     
                     coordinatesPopulatedCount += 1
                 }
-                
             }
-            
         })
         
 
@@ -50,6 +48,9 @@ class CoordinateAndFlightQueues {
             if coordinatesPopulated {
                 for location in store.matchedLocations {
                     print("FLIGHT COORDINATES: \(location.name) -> \(location.coordinates)")
+                    SkyScannerAPIClient.getPricesForDestination(location, completion: { 
+                        print("getting flight info")
+                    })
                 }
             }
         }
@@ -60,6 +61,8 @@ class CoordinateAndFlightQueues {
             while coordinatesPopulatedCount < 10 {
                 print("still retrieving coordinates")
             }
+            
+            //if progress bar is included on the matching animation screen, may need to hop back onto main queue within these execution and completion blocks to update that bar
             
             retrievingCoordinates = false
             coordinatesPopulated = true

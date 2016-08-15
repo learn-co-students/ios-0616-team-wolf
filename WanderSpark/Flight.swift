@@ -10,9 +10,14 @@ import Foundation
 
 class Flight {
     
+    //all flights obtained from skyscanner are round trip 
+    
     let carrierName : String
     let carrierID : String
-    let lowestPrice : Int
+    // let origin : String
+    // let destination : String ... these may also be airport names 
+    // let departureDate : NSDate
+    let lowestPrice : Int //may need to change into String
     
     init(carrierName: String, carrierID: String, lowestPrice: Int) {
         self.carrierName = carrierName
