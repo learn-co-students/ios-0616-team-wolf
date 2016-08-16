@@ -102,9 +102,9 @@ class MatchingViewController: UIViewController {
         
         iconStackView.snp_makeConstraints { make in
             make.left.equalTo(iconScrollView)
-            make.top.equalTo(iconScrollView)//.offset(20)
-            make.width.equalTo(iconScrollView)//.multipliedBy(2)
-            make.height.equalTo(iconScrollView)//.multipliedBy(0.2)
+            make.top.equalTo(iconScrollView)
+            make.width.equalTo(iconScrollView)
+            make.height.equalTo(iconScrollView)
         }
         
         for icon in matchingIcons {
@@ -126,7 +126,7 @@ class MatchingViewController: UIViewController {
     func configureYesButton() {
         view.addSubview(yesButton)
         yesButton.setTitle("✔︎", forState: UIControlState.Normal)
-        yesButton.backgroundColor = UIColor.flatGreenColorDark()//.lightenByPercentage(0.1)
+        yesButton.backgroundColor = UIColor.flatGreenColorDark()
         yesButton.layer.cornerRadius = 2
         yesButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 35)
     
@@ -212,6 +212,10 @@ extension MatchingViewController: KolodaViewDelegate {
         
         let matchWord = matchingKeys[Int(index)]
         let icon = iconStackView.arrangedSubviews[Int(index)]
+        
+        /* Trying to animate scroll view so that each icon moves over as card is selected...
+        let newXPoint = iconScrollView.contentOffset.x + icon.frame.size.width
+        iconScrollView.setContentOffset(CGPoint(x: newXPoint, y: iconScrollView.contentOffset.y), animated: true) */
         
         if direction == .Left {
             negativeMatchParameters.append(matchWord)

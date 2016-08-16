@@ -41,7 +41,7 @@ class LoadViewController: UIViewController {
     
     
     func configureGlobe() {
-        let globe = UIImage(named: "globe.png")
+        let globe = UIImage(named: "earth.png")
         let globeImageView = UIImageView(image: globe)
         view.addSubview(globeImageView)
         globeImageView.contentMode = .ScaleAspectFill
