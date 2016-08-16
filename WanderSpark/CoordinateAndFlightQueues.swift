@@ -78,7 +78,7 @@ class CoordinateAndFlightQueues {
                     print("COORDINATES: \(location.coordinates)")
                     print("CARRIER: \(location.cheapestFlight.carrierName)")
                     print("FLIGHT ORIGIN AIRPORT: \(location.cheapestFlight.originIATACode)")
-                    print("PRICE: \(String(location.cheapestFlight.lowestPrice))\n\n")
+                    print("PRICE: \(location.cheapestFlight.lowestPrice)\n\n")
                     print("******************* END FLIGHT INFO *******************")
                 }
 

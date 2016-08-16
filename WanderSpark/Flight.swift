@@ -16,7 +16,6 @@ class Flight {
     let carrierID : String
     let originIATACode : String
     let destinationIATACode : String
-    // let departureDate : NSDate
     let lowestPrice : String
     
     init(carrierName: String, carrierID: String, originIATACode: String, destinationIATACode: String, lowestPrice: String) {
