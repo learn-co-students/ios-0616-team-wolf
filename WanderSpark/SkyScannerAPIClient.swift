@@ -14,11 +14,11 @@ class SkyScannerAPIClient {
     
     let store = LocationsDataStore.sharedInstance
     static var lowestPrices = [[String:AnyObject]]()
-    static var carrierInformation = [[String:String]]()
-    static var locationInformation = [[String:String]]()
+    static var carrierInformation = [[String:AnyObject]]()
+    static var locationInformation = [[String:AnyObject]]()
     
     
-    class func getPricesForDestination(location: Location, completion: ()-> ()) {
+    class func getFlights(location: Location, completion: ()-> ()) {
         
         Alamofire.request(.GET, "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.730610,-73.935242-latlong/\(location.coordinates.0),\(location.coordinates.1)-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)").responseJSON { (response) in
             
@@ -35,23 +35,19 @@ class SkyScannerAPIClient {
                         fatalError("ERROR: No flights found for location")
                 }
                 
-                
+                //sorting and assigning response to variables/properties
                 lowestPrices = flightQuotes.sort{
                     (($0)["MinPrice"] as? Int) < (($1)["MinPrice"] as? Int)
                 }
+                locationInformation = locationInfo
+                carrierInformation = carrierList
                 
                 print("***************** FLIGHT INFORMATION *****************")
                 print("\n\nNAME: \(location.name)")
-                print("PRICES: \(flightQuotes)")
                 print("LOWEST PRICES: \(lowestPrices)")
-                print("LOCATION: \(locationInfo)")
-                print("CARRIERS: \(carrierList)\n\n")
+                print("LOCATION: \(locationInformation)")
+                print("CARRIERS: \(carrierInformation)\n\n")
                 print("******************* END FLIGHT INFO *******************")
-                
-                
-                //get lowest price first, grab the index of that dictionary within the array
-                //then use it to find carrier / airport info so you don't have to loop through the entire JSON response
-                
                 
                 
             }
