@@ -48,9 +48,10 @@ class SkyScannerDataParser {
         }
     }
     
+    //may need to have this somewhere else to match locations and need to make sure we call the previously declared mathods to get all the right information!! 
     class func matchedLocationFlightInfo() {
         for location in store.matchedLocations {
-            
+            location.cheapestFlight = Flight(carrierName: flightCarrierName, carrierID: flightCarrierID, originIATACode: flightOriginIATACode, destinationIATACode: flightDestinationIATACode, lowestPrice: flightData["MinPrice"])
         }
     }
     
