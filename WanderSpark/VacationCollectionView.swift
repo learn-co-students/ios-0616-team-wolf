@@ -125,6 +125,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         cell.imageView.image = UIImage(named:  (vacationLocations[indexPath.row].images[0]))
         cell.priceButton.setTitle(vacationLocations[indexPath.row].description, forState: .Normal)
         cell.priceButton.addTarget(self, action: #selector(VacationCollectionView.getPrices), forControlEvents: .TouchUpInside)
+       
       
         
         return cell

@@ -34,5 +34,12 @@ let carousel4 = UIImage(named: "Carousel4")!
 let carousel5 = UIImage(named: "china")!
 let backgroundButton = UIImage(named: "rectangleBackground-1")!
 let wanderSparkIcon =  UIImage(named: "wanderSparkIcon")!
+let wanderSparkIconBW =  UIImage(named: "WanderSparkIconBW")!
+let china =  UIImage(named: "china")!
+let india =  UIImage(named: "india")!
+let japan =  UIImage(named: "japan")!
+let egypt =  UIImage(named: "egypt")!
+let brazil =  UIImage(named: "brazil")!
+
 
 

@@ -40,9 +40,11 @@ class WSCarouselCollectionViewController: UIViewController {
 
     func createButtons(){
         //
-        self.logoView.image = wanderSparkIcon
+        self.logoView.image = wanderSparkIconBW
+        
         self.logoView.layer.shadowRadius = 2
         self.logoView.layer.shadowOpacity = 2
+        self.logoView.layer.shadowColor = UIColor.whiteColor().CGColor
         
         
         self.findDestinationButton.setTitle("Find Destination", forState: .Normal)
@@ -72,11 +74,17 @@ class WSCarouselCollectionViewController: UIViewController {
     
     func createImagesFromURL(){
          // append images from assets
-        arrayOfImages.append(carousel1)
-        arrayOfImages.append(carousel2)
         arrayOfImages.append(carousel3)
         arrayOfImages.append(carousel4)
         arrayOfImages.append(carousel5)
+        arrayOfImages.append(japan)
+        arrayOfImages.append(china)
+        arrayOfImages.append(india)
+        arrayOfImages.append(egypt)
+        arrayOfImages.append(brazil)
+        arrayOfImages.append(carousel1)
+        arrayOfImages.append(carousel2)
+        
         
         arrayOfStringURL.append("https://www.nytimes.com/images/2016/08/07/travel/07HOURS1/07HOURS1-master1050.jpg")
         arrayOfStringURL.append("https://static01.nyt.com/images/2016/07/31/travel/31HOURS-PORTLAND4/31HOURS-PORTLAND4-master1050.jpg")

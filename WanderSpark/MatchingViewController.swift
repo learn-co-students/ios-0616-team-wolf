@@ -51,7 +51,7 @@ class MatchingViewController: UIViewController {
         self.matchingView.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.85).active = true
         self.matchingView.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.75).active = true
         
-        self.view.backgroundColor = UIColor.darkGrayColor()
+        self.view.backgroundColor = UIColor.blackColor()
         
         matchingView.dataSource = self
         matchingView.delegate = self
@@ -81,7 +81,7 @@ extension MatchingViewController: KolodaViewDelegate {
             print("Match Count: \(location.matchCount)\n")
         }
         self.performSegueWithIdentifier("loadCarousel", sender: self)
-        
+       
         // Send the matched locations to the Carousel ViewController...?
     }
 
