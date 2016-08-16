@@ -60,6 +60,7 @@ class MatchingViewController: UIViewController {
         matchingView.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
         matchingView.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.85).active = true
         matchingView.heightAnchor.constraintEqualToAnchor(matchingView.widthAnchor, multiplier: 1.1).active = true
+
         
         matchingView.dataSource = self
         matchingView.delegate = self
@@ -168,11 +169,13 @@ extension MatchingViewController: KolodaViewDelegate {
             print("Name: \(location.name)")
             print("Match Count: \(location.matchCount)\n")
         }
+       
+         CoordinateAndFlightQueues.getCoordinatesAndFlightInfo()
+        self.performSegueWithIdentifier("loadViewController", sender: self)
+       
         
-        CoordinateAndFlightQueues.getCoordinatesAndFlightInfo()
         
-        self.performSegueWithIdentifier("loadCarousel", sender: self)
-        
+       
         // Send the matched locations to the Carousel ViewController...?
     }
     

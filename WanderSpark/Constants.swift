@@ -10,6 +10,12 @@
 import Foundation
 import ChameleonFramework
 
+//WanderSpark Font
+func wanderSparkFont(size: CGFloat)-> UIFont{
+
+return UIFont(name: "Avenir-Book", size: size)!
+
+}
 //Images for matching
 
  let adventureImage = UIImage(named: "adventure")!
@@ -34,6 +40,13 @@ let carousel4 = UIImage(named: "Carousel4")!
 let carousel5 = UIImage(named: "china")!
 let backgroundButton = UIImage(named: "rectangleBackground-1")!
 let wanderSparkIcon =  UIImage(named: "wanderSparkIcon")!
+let wanderSparkIconBW =  UIImage(named: "WanderSparkIconBW")!
+let china =  UIImage(named: "china")!
+let india =  UIImage(named: "india")!
+let japan =  UIImage(named: "japan")!
+let egypt =  UIImage(named: "egypt")!
+let brazil =  UIImage(named: "brazil")!
+
 
 // Colors
 
@@ -46,4 +59,22 @@ let mint = colorArray[0] as! UIColor
 let gray = colorArray[1] as! UIColor
 let periwinkle = colorArray [2] as! UIColor
 let pink = colorArray[4] as! UIColor
+
+extension UIImage {
+    var circle: UIImage {
+        let square = size.width < size.height ? CGSize(width: size.width, height: size.width) : CGSize(width: size.height, height: size.height)
+        let imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: square))
+        imageView.contentMode = UIViewContentMode.ScaleAspectFill
+        imageView.image = self
+        imageView.layer.cornerRadius = square.width/2
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderColor = UIColor.whiteColor().CGColor
+        imageView.layer.borderWidth = 4
+        UIGraphicsBeginImageContext(imageView.bounds.size)
+        imageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result
+    }
+}
 

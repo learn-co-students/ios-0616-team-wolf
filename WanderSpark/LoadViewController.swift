@@ -22,6 +22,14 @@ class LoadViewController: UIViewController {
         configurePlane()
         configureGlobe()
         configureWanderText()
+        
+        
+    }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        self.performSegueWithIdentifier("presentCollectionView", sender: self)
+
     }
     
     override func didReceiveMemoryWarning() {
