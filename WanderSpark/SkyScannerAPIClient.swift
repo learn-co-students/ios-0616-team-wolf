@@ -24,13 +24,10 @@ class SkyScannerAPIClient {
             if let flightsResponse = response.result.value as? NSDictionary {
                 
                 guard let
-                flightQuotes = flightsResponse["Quotes"] as? [[String:AnyObject]],
-                    //only care about key value pairs whose values are Int
-                //getting place information 
-                locationInfo = flightsResponse["Places"] as? [[String:AnyObject]],
-                //getting carrier information 
-                carrierList = flightsResponse["Carriers"] as? [[String:AnyObject]]
-                else {
+                    flightQuotes = flightsResponse["Quotes"] as? [[String:AnyObject]],
+                    locationInfo = flightsResponse["Places"] as? [[String:AnyObject]],
+                    carrierList = flightsResponse["Carriers"] as? [[String:AnyObject]]
+                    else {
                         fatalError("ERROR: No flights found for location")
                 }
                 
@@ -41,20 +38,22 @@ class SkyScannerAPIClient {
                 locationInformation = locationInfo
                 carrierInformation = carrierList
                 
-                print("***************** FLIGHT INFORMATION *****************")
-                print("\n\nNAME: \(location.name)")
-                print("LOWEST PRICES: \(lowestPrices)")
-                print("LOCATION: \(locationInformation)")
-                print("CARRIERS: \(carrierInformation)\n\n")
-                print("******************* END FLIGHT INFO *******************")
+//                print("***************** FLIGHT INFORMATION *****************")
+//                print("\n\nNAME: \(location.name)")
+//                print("LOWEST PRICES: \(lowestPrices)")
+//                print("LOCATION: \(locationInformation)")
+//                print("CARRIERS: \(carrierInformation)\n\n")
+//                print("******************* END FLIGHT INFO *******************")
                 
-                
-            }
-            
-                
+            } // end of if statement
+        } //end of Alamofire request
+    }//end of class func 
+}
+
+
 //                var selectedFlight = flightQuotes[0]
 //                var lowestPrice = flightQuotes[0]["MinPrice"]
-//                
+//
 //                for quote in flightQuotes {
 //                    guard let flightMinPrice = quote["MinPrice"]
 //                        else {
@@ -67,11 +66,11 @@ class SkyScannerAPIClient {
 //                }
 //                        flightOriginAirportID = quote["OriginId"] as? Int,
 //                        flightDepartureDate = quote["DepartureDate"] as? String,
-                        // flightOutboundInfo = quote["OutboundLeg"] as? [String:AnyObject],
-                        //flightOutboundCarrierID = flightOutboundInfo["CarrierIds"] as? [Int]                         else {
-                
-               // let flightQuoteOfInterest = lowestFlightQuote
-                
+// flightOutboundInfo = quote["OutboundLeg"] as? [String:AnyObject],
+//flightOutboundCarrierID = flightOutboundInfo["CarrierIds"] as? [Int]                         else {
+
+// let flightQuoteOfInterest = lowestFlightQuote
+
 //                for flightLocation in locationInfo {
 //                    guard let
 //                    locationPlaceId = flightLocation["PlaceId"] as? String, //or Int
@@ -81,7 +80,7 @@ class SkyScannerAPIClient {
 //                            fatalError("ERROR: no places for flight quotes found")
 //                    }
 //                }
-//                
+//
 //                for carrierInfo in carrierList {
 //                    guard let
 //                    carrierID = carrierInfo["CarrierID"] as? [String:String],
@@ -90,86 +89,82 @@ class SkyScannerAPIClient {
 //                            fatalError("ERROR: no carrier info for flights found")
 //                    }
 //                }
-                
-            }
-            
-        }
-        
-    }
-    
-    //    static func getPricesForDestination(location: Location, completion:() -> ())
-    //    {
-    //        var sortedArrayOfPrices: [Int] = []
-    //
-    //        print("FLIGHTS: Location coordinates: \(location.coordinates)")
-    //
-    //        let stringURL = "https://api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.730610,-73.935242-latlong/\(location.coordinates.0),\(location.coordinates.1)-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)"
-    //
-    //        //create the string URL
-    //
-    //        let nsURL = NSURL(string: stringURL)
-    //        //create the NSURL version of the URL
-    //
-    //        let session = NSURLSession.sharedSession()
-    //        //creating the session
-    //
-    //        guard let unwrappedURL = nsURL else { fatalError("Invalid URL") }
-    //        //unwrapping the URL
-    //
-    //        //creating the task to get the data, response, and error
-    //        //only interested in the data
-    //        let task = session.dataTaskWithURL(unwrappedURL, completionHandler: { (data,
-    //            response, error) -> Void in
-    //
-    //            if data == nil
-    //            {
-    //                print("NO INFORMATION AVAILABLE")
-    //            }
-    //            else {
-    //
-    //                do{
-    //                    var ArrayOfPrices: [Int] = []
-    //
-    //                    let dataDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
-    //
-    //                    guard let allTheDictionaries = dataDictionary else { fatalError("INVALID") }
-    //
-    //                    guard let priceArray = allTheDictionaries["Quotes"] as? NSArray else { fatalError("INVALID") }
-    //
-    //                    for singleDictionary in priceArray
-    //                    {
-    //                        let priceOfFlight = singleDictionary["MinPrice"] as? Int
-    //
-    //                        guard let unwrappedPrice = priceOfFlight else {fatalError("INVALID") }
-    //
-    //                        ArrayOfPrices.append(unwrappedPrice)
-    //
-    //                        sortedArrayOfPrices = ArrayOfPrices.sort(<)
-    //
-    //                    }
-    //
-    //                    guard let cheapestPrice = sortedArrayOfPrices.first else {fatalError()}
-    //
-    //                    completion()
-    //                    //let firstDictionaryInQuotesArray = priceArray[0] as? NSDictionary
-    //                    //guard let nextDictionary = firstDictionaryInQuotesArray else { fatalError("INVALID") }
-    //                    //let actualPriceOfFlight = nextDictionary["MinPrice"] as? Int
-    //                    //guard let priceOfFlight = actualPriceOfFlight else { fatalError("INVALID") }
-    //                    //print(priceOfFlight)
-    //                    //starts of as a dictionary - Done
-    //                    //Then cast as an array in "Quotes" - Done
-    //                    //Then cast as a dictionary and get the value for the "minPrice" key
-    //
-    //                }
-    //
-    //                catch {
-    //                    print("ERROR OCCURRED HERE!")
-    //                }
-    //            }
-    //        })
-    //        task.resume()
-    //
-    //    }
+
+
+
+//    static func getPricesForDestination(location: Location, completion:() -> ())
+//    {
+//        var sortedArrayOfPrices: [Int] = []
+//
+//        print("FLIGHTS: Location coordinates: \(location.coordinates)")
+//
+//        let stringURL = "https://api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.730610,-73.935242-latlong/\(location.coordinates.0),\(location.coordinates.1)-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)"
+//
+//        //create the string URL
+//
+//        let nsURL = NSURL(string: stringURL)
+//        //create the NSURL version of the URL
+//
+//        let session = NSURLSession.sharedSession()
+//        //creating the session
+//
+//        guard let unwrappedURL = nsURL else { fatalError("Invalid URL") }
+//        //unwrapping the URL
+//
+//        //creating the task to get the data, response, and error
+//        //only interested in the data
+//        let task = session.dataTaskWithURL(unwrappedURL, completionHandler: { (data,
+//            response, error) -> Void in
+//
+//            if data == nil
+//            {
+//                print("NO INFORMATION AVAILABLE")
+//            }
+//            else {
+//
+//                do{
+//                    var ArrayOfPrices: [Int] = []
+//
+//                    let dataDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
+//
+//                    guard let allTheDictionaries = dataDictionary else { fatalError("INVALID") }
+//
+//                    guard let priceArray = allTheDictionaries["Quotes"] as? NSArray else { fatalError("INVALID") }
+//
+//                    for singleDictionary in priceArray
+//                    {
+//                        let priceOfFlight = singleDictionary["MinPrice"] as? Int
+//
+//                        guard let unwrappedPrice = priceOfFlight else {fatalError("INVALID") }
+//
+//                        ArrayOfPrices.append(unwrappedPrice)
+//
+//                        sortedArrayOfPrices = ArrayOfPrices.sort(<)
+//
+//                    }
+//
+//                    guard let cheapestPrice = sortedArrayOfPrices.first else {fatalError()}
+//
+//                    completion()
+//                    //let firstDictionaryInQuotesArray = priceArray[0] as? NSDictionary
+//                    //guard let nextDictionary = firstDictionaryInQuotesArray else { fatalError("INVALID") }
+//                    //let actualPriceOfFlight = nextDictionary["MinPrice"] as? Int
+//                    //guard let priceOfFlight = actualPriceOfFlight else { fatalError("INVALID") }
+//                    //print(priceOfFlight)
+//                    //starts of as a dictionary - Done
+//                    //Then cast as an array in "Quotes" - Done
+//                    //Then cast as a dictionary and get the value for the "minPrice" key
+//
+//                }
+//
+//                catch {
+//                    print("ERROR OCCURRED HERE!")
+//                }
+//            }
+//        })
+//        task.resume()
+//
+//    }
 
 
 

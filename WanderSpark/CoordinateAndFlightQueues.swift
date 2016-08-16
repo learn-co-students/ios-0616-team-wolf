@@ -50,6 +50,15 @@ class CoordinateAndFlightQueues {
                     // print("FLIGHT COORDINATES: \(location.name) -> \(location.coordinates)")
                     SkyScannerAPIClient.getFlights(location, completion: {
                         print("getting flight info")
+                        SkyScannerDataParser.matchedLocationFlightInfo(location)
+                        print("***************** FLIGHT INFORMATION *****************")
+                        print("\n\nNAME: \(location.name)")
+                        print("DESCRIPTION: \(location.description)")
+                        print("COORDINATES: \(location.coordinates)")
+                        print("CARRIER: \(location.cheapestFlight.carrierName)")
+                        print("FLIGHT ORIGIN AIRPORT: \(location.cheapestFlight.originIATACode)")
+                        print("PRICE: \(String(location.cheapestFlight.lowestPrice))\n\n")
+                        print("******************* END FLIGHT INFO *******************")
                     })
                 }
             }
@@ -59,11 +68,8 @@ class CoordinateAndFlightQueues {
         googleOperation.addExecutionBlock({
             
             while coordinatesPopulatedCount < 10 {
-                //print("still retrieving coordinates")
+                print("still retrieving coordinates")
             }
-            
-            //if progress bar is included on the matching animation screen, may need to hop back onto main queue within these execution and completion blocks to update that bar
-            
             retrievingCoordinates = false
             coordinatesPopulated = true
             flightOperation.addDependency(googleOperation)

@@ -14,22 +14,23 @@ class SkyScannerDataParser {
     
     static let store = LocationsDataStore.sharedInstance
     
-    static let flightData = SkyScannerAPIClient.lowestPrices[0]
-    static let flightCarrierID = flightData["CarrierIds"] as? [Int]
-    static let flightOriginID = flightData["OriginId"] as? Int
-    static let flightDestinationID = flightData["DestinationId"] as? Int
+    static let flightDataWithLowestPrice = SkyScannerAPIClient.lowestPrices[0]
+    static let flightCarrierID = flightDataWithLowestPrice["CarrierIds"] as? [Int]
+    static let flightOriginID = flightDataWithLowestPrice["OriginId"] as? Int
+    static let flightDestinationID = flightDataWithLowestPrice["DestinationId"] as? Int
     
-    static let flightCarrierName : String
-    static let flightOriginIATACode : String
-    static let flightOriginName : String
-    static let flightDestinationIATACode : String
-    static let flightDestinationName : String
+    static var flightCarrierName : String = ""
+    static var flightOriginIATACode : String = ""
+    static var flightOriginName : String = ""
+    static var flightDestinationIATACode : String = ""
+    static var flightDestinationName : String = ""
+    
     
     
     class func matchCarrierInformation() {
         for carrier in SkyScannerAPIClient.carrierInformation {
-            if carrier["CarrierId"] as? Int == flightCarrierID {
-                flightCarrierName = carrier["Name"] as? String
+            if carrier["CarrierId"]![0] == flightCarrierID {
+                flightCarrierName = carrier["Name"] as! String
             }
         }
     }
@@ -48,13 +49,15 @@ class SkyScannerDataParser {
         }
     }
     
-    //may need to have this somewhere else to match locations and need to make sure we call the previously declared mathods to get all the right information!! 
-    class func matchedLocationFlightInfo() {
-        for location in store.matchedLocations {
-            location.cheapestFlight = Flight(carrierName: flightCarrierName, carrierID: flightCarrierID, originIATACode: flightOriginIATACode, destinationIATACode: flightDestinationIATACode, lowestPrice: flightData["MinPrice"])
-        }
+
+    class func matchedLocationFlightInfo(location: Location) {
+        //call functions to match up carrier ids and flight information
+        matchCarrierInformation()
+        matchFlightLocationInformation()
+        
+        location.cheapestFlight = Flight(carrierName: flightCarrierName, carrierID: flightCarrierID, originIATACode: flightOriginIATACode, destinationIATACode: flightDestinationIATACode, lowestPrice: flightDataWithLowestPrice["MinPrice"])
     }
-    
-    
-    
 }
+
+
+
