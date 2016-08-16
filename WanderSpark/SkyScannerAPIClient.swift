@@ -13,6 +13,9 @@ import SwiftyJSON
 class SkyScannerAPIClient {
     
     let store = LocationsDataStore.sharedInstance
+    static var lowestPrices = [[String:AnyObject]]()
+    static var carrierInformation = [[String:String]]()
+    static var locationInformation = [[String:String]]()
     
     
     class func getPricesForDestination(location: Location, completion: ()-> ()) {
@@ -32,15 +35,27 @@ class SkyScannerAPIClient {
                         fatalError("ERROR: No flights found for location")
                 }
                 
+                
+                lowestPrices = flightQuotes.sort{
+                    (($0)["MinPrice"] as? Int) < (($1)["MinPrice"] as? Int)
+                }
+                
                 print("***************** FLIGHT INFORMATION *****************")
                 print("\n\nNAME: \(location.name)")
                 print("PRICES: \(flightQuotes)")
+                print("LOWEST PRICES: \(lowestPrices)")
                 print("LOCATION: \(locationInfo)")
                 print("CARRIERS: \(carrierList)\n\n")
                 print("******************* END FLIGHT INFO *******************")
                 
+                
                 //get lowest price first, grab the index of that dictionary within the array
                 //then use it to find carrier / airport info so you don't have to loop through the entire JSON response
+                
+                
+                
+            }
+            
                 
 //                var selectedFlight = flightQuotes[0]
 //                var lowestPrice = flightQuotes[0]["MinPrice"]
@@ -54,7 +69,7 @@ class SkyScannerAPIClient {
 //                        lowestPrice = flightMinPrice
 //                        selectedFlight = quote
 //                    }
-                }
+//                }
 //                        flightOriginAirportID = quote["OriginId"] as? Int,
 //                        flightDepartureDate = quote["DepartureDate"] as? String,
                         // flightOutboundInfo = quote["OutboundLeg"] as? [String:AnyObject],
