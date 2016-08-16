@@ -59,7 +59,7 @@ class MatchingViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        iconScrollView.frame = CGRectMake(0, 0, view.frame.width, view.frame.height/10)
+        iconScrollView.frame = CGRectMake(0, 60, view.frame.width, view.frame.height/10)
         iconStackView.frame = CGRectMake(0, 0, iconScrollView.contentSize.width, iconScrollView.contentSize.height)
     }
     
@@ -81,11 +81,16 @@ class MatchingViewController: UIViewController {
         matchingView.layer.shadowOffset = CGSize(width: 0, height: 3)
     }
     
+// MARK: Icon Scroll View
     
     func configureIconScrollView() {
         iconScrollView.contentSize = CGSizeMake(860, 60)
         iconScrollView.addSubview(iconStackView)
         view.addSubview(iconScrollView)
+        
+        iconScrollView.snp_remakeConstraints { (make) in
+            make.top.equalTo(view)
+        }
     }
     
     
@@ -96,7 +101,7 @@ class MatchingViewController: UIViewController {
         iconStackView.spacing = 2
         
         iconStackView.snp_makeConstraints { make in
-            make.centerX.equalTo(iconScrollView)
+            make.left.equalTo(iconScrollView)
             make.top.equalTo(iconScrollView)//.offset(20)
             make.width.equalTo(iconScrollView)//.multipliedBy(2)
             make.height.equalTo(iconScrollView)//.multipliedBy(0.2)
@@ -110,8 +115,6 @@ class MatchingViewController: UIViewController {
                 make.width.height.equalTo(60)
             }
             iconImageView.backgroundColor = UIColor.flatWhiteColor()
-//            iconImageView.layer.borderWidth = 2
-//            iconImageView.layer.borderColor = UIColor.flatWhiteColor().CGColor
             iconImageView.tintColor = UIColor.flatBlackColor().lightenByPercentage(0.05)
             iconImageView.alpha = 0.25
             iconStackView.addArrangedSubview(iconImageView)
