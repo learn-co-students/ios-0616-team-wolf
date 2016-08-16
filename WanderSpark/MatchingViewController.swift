@@ -48,7 +48,7 @@ class MatchingViewController: UIViewController {
         configureYesButton()
         configureNoButton()
         
-        self.view.backgroundColor = softWhite
+        self.view.backgroundColor = periwinkle.lightenByPercentage(200)
     }
     
     
@@ -98,6 +98,8 @@ class MatchingViewController: UIViewController {
         }
     }
     
+// MARK: Buttons
+    
     func configureYesButton() {
         let yesButton = UIButton()
         view.addSubview(yesButton)
@@ -143,7 +145,7 @@ class MatchingViewController: UIViewController {
     
 }
 
-
+// MARK: Koloda Delegate
 
 extension MatchingViewController: KolodaViewDelegate {
     func kolodaDidRunOutOfCards(matchingView: KolodaView) {
@@ -173,10 +175,6 @@ extension MatchingViewController: KolodaViewDelegate {
         
         // Send the matched locations to the Carousel ViewController...?
     }
-
-    
-    func koloda(koloda: KolodaView, draggedCardWithPercentage finishPercentage: CGFloat, inDirection direction: SwipeResultDirection) {
-    }
     
     
     func koloda(matchingView: KolodaView, didSwipeCardAtIndex index: UInt, inDirection direction: SwipeResultDirection) {
@@ -199,7 +197,7 @@ extension MatchingViewController: KolodaViewDelegate {
             
         } else if direction == .Right {
             positiveMatchParameters.append(matchWord)
-            icon.layer.borderColor = pink.CGColor
+            icon.layer.borderColor = teal.CGColor
             print("Right swipe : \(matchWord)")
         }
         
@@ -207,6 +205,8 @@ extension MatchingViewController: KolodaViewDelegate {
         print("These words have been added to the negative matching parameters array: \(negativeMatchParameters)")
     }
 }
+
+// MARK: Koloda Data Source
 
 extension MatchingViewController: KolodaViewDataSource {
     

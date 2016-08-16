@@ -58,7 +58,7 @@ class CoordinateAndFlightQueues {
         googleOperation.addExecutionBlock({
             
             while coordinatesPopulatedCount < 10 {
-                print("still retrieving coordinates")
+                //print("still retrieving coordinates")
             }
             
             retrievingCoordinates = false
