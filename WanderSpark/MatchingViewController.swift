@@ -38,6 +38,8 @@ class MatchingViewController: UIViewController {
     let matchingIcons: [UIImage] = [cityImage, countryImage, mountainsImage, beachesImage, shoppingImage, outdoorsImage, sightseeingImage, nightlifeImage, historicImage, modernImage, foodieImage, fitnessImage, luxuryImage, adventureImage]
     
     let iconCounterView = UIStackView()
+    var yesButton = UIButton()
+    var noButton = UIButton()
     
     
     override func viewDidLoad() {
@@ -101,17 +103,17 @@ class MatchingViewController: UIViewController {
 // MARK: Buttons
     
     func configureYesButton() {
-        let yesButton = UIButton()
         view.addSubview(yesButton)
         yesButton.setTitle("✸", forState: UIControlState.Normal)
         yesButton.backgroundColor = UIColor.flatGreenColorDark()
         yesButton.layer.cornerRadius = 5
-        yesButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 60)
+        yesButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 35)
     
         yesButton.snp_makeConstraints { make in
-            make.right.equalTo(matchingView).inset(40)
-            make.top.equalTo(matchingView.snp_bottom).offset(40)
-            make.width.height.equalTo(60)
+            make.right.equalTo(matchingView)
+            make.top.equalTo(matchingView.snp_bottom).offset(5)
+            make.width.equalTo(matchingView).multipliedBy(0.5)
+            make.height.equalTo(30)
         }
         
         yesButton.addTarget(self, action: #selector(self.yesButtonTapped), forControlEvents: .TouchUpInside)
@@ -119,17 +121,17 @@ class MatchingViewController: UIViewController {
     
     
     func configureNoButton() {
-        let noButton = UIButton()
         view.addSubview(noButton)
         noButton.setTitle("✖︎", forState: UIControlState.Normal)
         noButton.backgroundColor = UIColor.flatRedColorDark()
         noButton.layer.cornerRadius = 5
-        noButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 55)
+        noButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 30)
         
         noButton.snp_makeConstraints { make in
-            make.left.equalTo(matchingView).inset(40)
-            make.top.equalTo(matchingView.snp_bottom).offset(40)
-            make.width.height.equalTo(60)
+            make.left.equalTo(matchingView)
+            make.top.equalTo(matchingView.snp_bottom).offset(5)
+            make.width.equalTo(matchingView).multipliedBy(0.5)
+            make.height.equalTo(30)
         }
         
         noButton.addTarget(self, action:#selector(self.noButtonTapped), forControlEvents: .TouchUpInside)
