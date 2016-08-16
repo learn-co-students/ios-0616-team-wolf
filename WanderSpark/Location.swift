@@ -15,14 +15,20 @@ class Location {
     let description: String
     let articleURL: String
     var matchCount = 0
-    var coordinates : (Double, Double)!
-    var cheapestFlight : Int!
+    var coordinates : (Double, Double)
+    var cheapestFlight : Flight
     
-    init(name: String, description: String, images: [String], url: String) {
+    init(name: String, description: String, images: [String], url: String, coordinates: (Double, Double), cheapestFlight : Flight) {
         self.name = name
         self.description = description
         self.images = images
         self.articleURL = url
+        self.coordinates = coordinates
+        self.cheapestFlight = cheapestFlight
+    }
+    
+    convenience init(name: String, description: String, images: [String], url: String) {
+        self.init(name: name, description: description, images: images, url: url, coordinates: (0.00, 0.00), cheapestFlight : Flight(carrierName: "EMPTY", carrierID: "EMPTY", lowestPrice: 0))
     }
     
     class func formatLocationName(locationName: String) -> String {
