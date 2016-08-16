@@ -39,7 +39,7 @@ class SkyScannerAPIClient {
                 }
                 
                 if let cheapestFlight = lowestFlightPrices.first {
-                    lowestAirfare = String(cheapestFlight["MinPrice"])
+                    lowestAirfare = String(cheapestFlight["MinPrice"]) 
                     if let selectedFlight = cheapestFlight["OutboundLeg"] {
                         bestFlight = selectedFlight as! [String:AnyObject]
                     }
@@ -53,7 +53,7 @@ class SkyScannerAPIClient {
                 print("***************** FLIGHTS *****************")
                 print("\n\nNAME: \(location.name)")
                 print("FLIGHT: \(bestFlight)")
-                print("LOWEST PRICE: \(bestFlight["MinPrice"])")
+                print("LOWEST PRICE: \(lowestAirfare)")
                 print("LOCATION: \(locationInformation)")
                 print("CARRIERS: \(carrierInformation)\n\n")
                 print("******************* END *******************")
