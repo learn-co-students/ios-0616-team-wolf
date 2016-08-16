@@ -45,6 +45,8 @@ class MatchingViewController: UIViewController {
         
         configureMatchingView()
         configureIconCounterView()
+        configureYesButton()
+        configureNoButton()
         
         self.view.backgroundColor = softWhite
     }
@@ -65,9 +67,8 @@ class MatchingViewController: UIViewController {
         matchingView.layer.shadowRadius = 4
         matchingView.layer.shadowOpacity = 0.5
         matchingView.layer.borderColor = teal.CGColor
-        matchingView.layer.borderWidth = 6
+        matchingView.layer.borderWidth = 7
     }
-    
     
     func configureIconCounterView() {
         view.addSubview(iconCounterView)
@@ -75,11 +76,11 @@ class MatchingViewController: UIViewController {
         iconCounterView.axis = .Horizontal
         iconCounterView.distribution = .FillEqually
         iconCounterView.alignment = .Center
-        iconCounterView.spacing = 0
+        iconCounterView.spacing = 2
         
         iconCounterView.snp_makeConstraints { make in
             make.centerX.equalTo(view)
-            make.top.equalTo(view)
+            make.top.equalTo(view).offset(10)
             make.width.equalTo(view).multipliedBy(2)
             make.height.equalTo(view).multipliedBy(0.2)
         }
@@ -90,12 +91,56 @@ class MatchingViewController: UIViewController {
             iconImageView.snp_makeConstraints { make in
                 make.width.height.equalTo(60)
             }
+            iconImageView.backgroundColor = gray
             iconImageView.layer.borderWidth = 3
             iconImageView.layer.borderColor = UIColor.darkGrayColor().CGColor
             iconCounterView.addArrangedSubview(iconImageView)
         }
-        
     }
+    
+    func configureYesButton() {
+        let yesButton = UIButton()
+        view.addSubview(yesButton)
+        yesButton.setTitle("✸", forState: UIControlState.Normal)
+        yesButton.backgroundColor = UIColor.flatGreenColorDark()
+        yesButton.layer.cornerRadius = 5
+        yesButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 60)
+    
+        yesButton.snp_makeConstraints { make in
+            make.right.equalTo(matchingView).inset(40)
+            make.top.equalTo(matchingView.snp_bottom).offset(40)
+            make.width.height.equalTo(60)
+        }
+        
+        yesButton.addTarget(self, action: #selector(self.yesButtonTapped), forControlEvents: .TouchUpInside)
+    }
+    
+    
+    func configureNoButton() {
+        let noButton = UIButton()
+        view.addSubview(noButton)
+        noButton.setTitle("✖︎", forState: UIControlState.Normal)
+        noButton.backgroundColor = UIColor.flatRedColorDark()
+        noButton.layer.cornerRadius = 5
+        noButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 55)
+        
+        noButton.snp_makeConstraints { make in
+            make.left.equalTo(matchingView).inset(40)
+            make.top.equalTo(matchingView.snp_bottom).offset(40)
+            make.width.height.equalTo(60)
+        }
+        
+        noButton.addTarget(self, action:#selector(self.noButtonTapped), forControlEvents: .TouchUpInside)
+    }
+    
+    func yesButtonTapped() {
+        matchingView.swipe(.Right)
+    }
+    
+    func noButtonTapped() {
+        matchingView.swipe(.Left)
+    }
+    
 }
 
 
@@ -131,9 +176,8 @@ extension MatchingViewController: KolodaViewDelegate {
 
     
     func koloda(koloda: KolodaView, draggedCardWithPercentage finishPercentage: CGFloat, inDirection direction: SwipeResultDirection) {
-
-       
     }
+    
     
     func koloda(matchingView: KolodaView, didSwipeCardAtIndex index: UInt, inDirection direction: SwipeResultDirection) {
         
@@ -146,19 +190,21 @@ extension MatchingViewController: KolodaViewDelegate {
         }
         
         let matchWord = matchingKeys[Int(index)]
+        let icon = iconCounterView.arrangedSubviews[Int(index)]
         
         if direction == .Left {
             negativeMatchParameters.append(matchWord)
+            icon.alpha = 0.4
             print("Left swipe : \(matchWord)")
             
         } else if direction == .Right {
             positiveMatchParameters.append(matchWord)
+            icon.layer.borderColor = pink.CGColor
             print("Right swipe : \(matchWord)")
         }
         
         print("These words have been added to the positive matching parameters array: \(positiveMatchParameters)")
         print("These words have been added to the negative matching parameters array: \(negativeMatchParameters)")
-        // Does this also need to present the next card or is that automatically built into Koloda?
     }
 }
 
@@ -173,7 +219,7 @@ extension MatchingViewController: KolodaViewDataSource {
         // MatchingCardView should be subclass of UIView rather than doing all the configuration here.
         let matchingCardView = UIView()
         
-        matchingCardView.backgroundColor = gray//periwinkle.lightenByPercentage(10000)
+        matchingCardView.backgroundColor = gray
         
         // Add and constrain matching icon:
         let iconView = UIImageView()
@@ -211,8 +257,4 @@ extension MatchingViewController: KolodaViewDataSource {
     }
     
 
-//    func koloda(koloda: KolodaView, viewForCardOverlayAtIndex index: UInt) -> OverlayView? {
-//        return NSBundle.mainBundle().loadNibNamed("OverlayView",
-//                                                  owner: self, options: nil)[0] as? OverlayView
-//    }
 }
