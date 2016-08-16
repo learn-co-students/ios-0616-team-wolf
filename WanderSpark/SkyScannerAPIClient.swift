@@ -12,7 +12,6 @@ import SwiftyJSON
 
 class SkyScannerAPIClient {
     
-    let store = LocationsDataStore.sharedInstance
     static var lowestPrices = [[String:AnyObject]]()
     static var carrierInformation = [[String:AnyObject]]()
     static var locationInformation = [[String:AnyObject]]()
