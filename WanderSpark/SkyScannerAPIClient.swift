@@ -45,7 +45,11 @@ class SkyScannerAPIClient {
 //                print("CARRIERS: \(carrierInformation)\n\n")
 //                print("******************* END FLIGHT INFO *******************")
                 
-            } // end of if statement
+                completion()
+            } 
+            else {
+                fatalError("ERROR: No response for flights from \(location.name) with coordinates \(location.coordinates)")
+            }
         } //end of Alamofire request
     }//end of class func 
 }
