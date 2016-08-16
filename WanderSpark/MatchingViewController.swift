@@ -37,7 +37,7 @@ class MatchingViewController: UIViewController {
     
     let matchingIcons: [UIImage] = [cityImage, countryImage, mountainsImage, beachesImage, shoppingImage, outdoorsImage, sightseeingImage, nightlifeImage, historicImage, modernImage, foodieImage, fitnessImage, luxuryImage, adventureImage]
     
-    let iconCounterView = UIStackView()
+    let iconStackView = UIStackView()
     var yesButton = UIButton()
     var noButton = UIButton()
     
@@ -73,13 +73,13 @@ class MatchingViewController: UIViewController {
     }
     
     func configureIconCounterView() {
-        view.addSubview(iconCounterView)
-        iconCounterView.axis = .Horizontal
-        iconCounterView.distribution = .FillEqually
-        iconCounterView.alignment = .Center
-        iconCounterView.spacing = 2
+        view.addSubview(iconStackView)
+        iconStackView.axis = .Horizontal
+        iconStackView.distribution = .FillEqually
+        iconStackView.alignment = .Center
+        iconStackView.spacing = 2
         
-        iconCounterView.snp_makeConstraints { make in
+        iconStackView.snp_makeConstraints { make in
             make.centerX.equalTo(view)
             make.top.equalTo(view).offset(10)
             make.width.equalTo(view).multipliedBy(2)
@@ -94,9 +94,9 @@ class MatchingViewController: UIViewController {
                 make.width.height.equalTo(60)
             }
             iconImageView.backgroundColor = UIColor.flatWhiteColor()
-            iconImageView.tintColor = UIColor.blueColor()
+            iconImageView.tintColor = UIColor.flatBlackColor()//.lightenByPercentage(0.2)
             iconImageView.alpha = 0.25
-            iconCounterView.addArrangedSubview(iconImageView)
+            iconStackView.addArrangedSubview(iconImageView)
         }
     }
     
@@ -104,10 +104,10 @@ class MatchingViewController: UIViewController {
     
     func configureYesButton() {
         view.addSubview(yesButton)
-        yesButton.setTitle("✸", forState: UIControlState.Normal)
-        yesButton.backgroundColor = UIColor.flatYellowColor().darkenByPercentage(0.05)
+        yesButton.setTitle("✔︎", forState: UIControlState.Normal)
+        yesButton.backgroundColor = UIColor.flatGreenColorDark()//.lightenByPercentage(0.1)
         yesButton.layer.cornerRadius = 2
-        yesButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 32)
+        yesButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 35)
     
         yesButton.snp_makeConstraints { make in
             make.right.equalTo(matchingView)
@@ -123,7 +123,7 @@ class MatchingViewController: UIViewController {
     func configureNoButton() {
         view.addSubview(noButton)
         noButton.setTitle("✖︎", forState: UIControlState.Normal)
-        noButton.backgroundColor = UIColor.flatRedColorDark()//.darkenByPercentage(0.1)
+        noButton.backgroundColor = UIColor.flatRedColorDark()
         noButton.layer.cornerRadius = 2
         noButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 30)
         
@@ -190,7 +190,7 @@ extension MatchingViewController: KolodaViewDelegate {
         }
         
         let matchWord = matchingKeys[Int(index)]
-        let icon = iconCounterView.arrangedSubviews[Int(index)]
+        let icon = iconStackView.arrangedSubviews[Int(index)]
         
         if direction == .Left {
             negativeMatchParameters.append(matchWord)
@@ -199,8 +199,8 @@ extension MatchingViewController: KolodaViewDelegate {
             
         } else if direction == .Right {
             positiveMatchParameters.append(matchWord)
-            icon.backgroundColor = UIColor.flatMagentaColor()
-            icon.alpha = 0.6
+            icon.backgroundColor = UIColor.flatGreenColor()
+            icon.alpha = 0.55
             print("Right swipe : \(matchWord)")
         }
         
@@ -247,7 +247,7 @@ extension MatchingViewController: KolodaViewDataSource {
         matchWordLabel.font = font
         matchWordLabel.textAlignment = .Center
         matchWordLabel.textColor = UIColor.flatWhiteColor()
-        matchWordLabel.backgroundColor = UIColor.flatPlumColorDark().darkenByPercentage(0.1)
+        matchWordLabel.backgroundColor = UIColor.flatPlumColorDark().darkenByPercentage(0.2)
         
         matchWordLabel.snp_makeConstraints { make in
             make.centerX.equalTo(iconView)
