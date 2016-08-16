@@ -11,7 +11,7 @@ import Foundation
 import SwiftyJSON
 
 class SkyScannerAPIClient {
-    
+
     static var lowestFlightPrices = [[String:AnyObject]]()
     static var carrierInformation = [[String:AnyObject]]()
     static var locationInformation = [[String:AnyObject]]()
