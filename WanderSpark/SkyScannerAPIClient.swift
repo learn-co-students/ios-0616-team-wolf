@@ -15,6 +15,7 @@ class SkyScannerAPIClient {
     static var lowestPrices = [[String:AnyObject]]()
     static var carrierInformation = [[String:AnyObject]]()
     static var locationInformation = [[String:AnyObject]]()
+    static var bestFlight = [String:AnyObject]()
     
     
     class func getFlights(location: Location, completion: ()-> ()) {
@@ -35,15 +36,23 @@ class SkyScannerAPIClient {
                 lowestPrices = flightQuotes.sort{
                     (($0)["MinPrice"] as? Int) < (($1)["MinPrice"] as? Int)
                 }
+                
+                if let cheapestFlight = lowestPrices.first {
+                    bestFlight = cheapestFlight
+                } else {
+                    print("STILL ERROR WITH CHEAPEST FLIGHT")
+                }
+                
                 locationInformation = locationInfo
                 carrierInformation = carrierList
                 
-//                print("***************** FLIGHT INFORMATION *****************")
-//                print("\n\nNAME: \(location.name)")
-//                print("LOWEST PRICES: \(lowestPrices)")
-//                print("LOCATION: \(locationInformation)")
-//                print("CARRIERS: \(carrierInformation)\n\n")
-//                print("******************* END FLIGHT INFO *******************")
+                print("***************** FLIGHTS *****************")
+                print("\n\nNAME: \(location.name)")
+                print("FLIGHT: \(bestFlight)")
+                print("LOWEST PRICE: \(bestFlight["MinPrice"])")
+                print("LOCATION: \(locationInformation)")
+                print("CARRIERS: \(carrierInformation)\n\n")
+                print("******************* END *******************")
                 
                 completion()
             } 

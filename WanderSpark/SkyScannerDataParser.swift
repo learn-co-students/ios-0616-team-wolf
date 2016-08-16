@@ -14,7 +14,9 @@ class SkyScannerDataParser {
     
     static let store = LocationsDataStore.sharedInstance
     
-    static var flightCarrierID = 0
+    static let flight = SkyScannerAPIClient.bestFlight
+    
+    static var flightCarrierID = ""
     static var flightCarrierName : String = ""
     static var flightOriginIATACode : String = ""
     static var flightOriginName : String = ""
@@ -28,9 +30,9 @@ class SkyScannerDataParser {
         for carrier in SkyScannerAPIClient.carrierInformation {
             
             guard let
-                flightData = SkyScannerAPIClient.lowestPrices[0] as? [String: AnyObject],
-                flightCarrierIDArray = flightData["CarrierIds"] as? [Int],
-                carrierID = carrier["CarrierId"] as? [Int]
+                flightOutboundLeg = flight["OutboundLeg"] as? [String:AnyObject],
+                flightCarrierIDArray = flightOutboundLeg["CarrierIds"] as? [String],
+                carrierID = carrier["CarrierId"] as? [String]
                 else {fatalError("no carrier IDs available")}
             
             if carrierID[0] == flightCarrierIDArray[0] {
@@ -45,9 +47,8 @@ class SkyScannerDataParser {
         for flightLocation in SkyScannerAPIClient.locationInformation {
             
             guard let
-                flightData = SkyScannerAPIClient.lowestPrices[0] as? [String: AnyObject],
-                flightOriginID = flightData["OriginId"] as? Int,
-                flightDestinationID = flightData["DestinationId"] as? Int,
+                flightOriginID = flight["OriginId"] as? Int,
+                flightDestinationID = flight["DestinationId"] as? Int,
                 airportName = flightLocation["Name"] as? String,
                 airportIATACode = flightLocation["IataCode"] as? String
                 else { fatalError("no airport name/IATA code available") }
@@ -69,11 +70,8 @@ class SkyScannerDataParser {
         matchCarrierInformation()
         matchFlightLocationInformation()
         
-        guard let
-            flightData = SkyScannerAPIClient.lowestPrices[0] as? [String: AnyObject]
-            else { fatalError("lowest airfare not available") }
-        
-        let lowestAirfare = flightData["MinPrice"] as! Int
+        guard let lowestAirfare = flight["MinPrice"] as? Int
+            else {fatalError("No minimum price available :( ")}
         
         location.cheapestFlight = Flight(carrierName: flightCarrierName, carrierID: String(flightCarrierID), originIATACode: flightOriginIATACode, destinationIATACode: flightDestinationIATACode, lowestPrice: lowestAirfare)
     }
