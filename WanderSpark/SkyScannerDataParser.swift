@@ -35,6 +35,7 @@ class SkyScannerDataParser {
             
             if carrierID[0] == flightCarrierIDArray[0] {
                 flightCarrierName = carrier["Name"] as! String
+                flightCarrierID = carrierID[0]
             }
         }
     }
