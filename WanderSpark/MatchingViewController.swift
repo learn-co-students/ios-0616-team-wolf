@@ -50,7 +50,8 @@ class MatchingViewController: UIViewController {
         configureYesButton()
         configureNoButton()
         
-        self.view.backgroundColor = UIColor.flatWhiteColor()
+        let gradientColor = UIColor(gradientStyle:UIGradientStyle.Radial, withFrame:view.frame, andColors:[UIColor.flatYellowColor(), UIColor.flatRedColor()])
+        self.view.backgroundColor = gradientColor
     }
     
     
@@ -66,10 +67,9 @@ class MatchingViewController: UIViewController {
         matchingView.dataSource = self
         matchingView.delegate = self
 
-        //matchingView.layer.shadowRadius = 4
-        //matchingView.layer.shadowOpacity = 0.5
-        matchingView.layer.borderColor = UIColor.flatSkyBlueColorDark().CGColor
-        matchingView.layer.borderWidth = 7
+        matchingView.layer.shadowRadius = 4
+        matchingView.layer.shadowOpacity = 0.35
+        matchingView.layer.shadowOffset = CGSize(width: 0, height: 3)
     }
     
     func configureIconCounterView() {
@@ -87,14 +87,15 @@ class MatchingViewController: UIViewController {
         }
         
         for icon in matchingIcons {
-            let iconImageView = UIImageView(image: icon)
+            let tintedIcon = icon.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+            let iconImageView = UIImageView(image: tintedIcon)
             
             iconImageView.snp_makeConstraints { make in
                 make.width.height.equalTo(60)
             }
-            iconImageView.backgroundColor = gray
-            iconImageView.layer.borderWidth = 2
-            iconImageView.layer.borderColor = UIColor.flatGrayColor().CGColor
+            iconImageView.backgroundColor = UIColor.flatWhiteColor()
+            iconImageView.tintColor = UIColor.blueColor()
+            iconImageView.alpha = 0.25
             iconCounterView.addArrangedSubview(iconImageView)
         }
     }
@@ -104,15 +105,15 @@ class MatchingViewController: UIViewController {
     func configureYesButton() {
         view.addSubview(yesButton)
         yesButton.setTitle("✸", forState: UIControlState.Normal)
-        yesButton.backgroundColor = UIColor.flatGreenColorDark()
+        yesButton.backgroundColor = UIColor.flatYellowColor().darkenByPercentage(0.05)
         yesButton.layer.cornerRadius = 2
-        yesButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 35)
+        yesButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 32)
     
         yesButton.snp_makeConstraints { make in
             make.right.equalTo(matchingView)
-            make.top.equalTo(matchingView.snp_bottom).offset(5)
+            make.top.equalTo(matchingView.snp_bottom).offset(20)
             make.width.equalTo(matchingView).multipliedBy(0.5)
-            make.height.equalTo(30)
+            make.height.equalTo(35)
         }
         
         yesButton.addTarget(self, action: #selector(self.yesButtonTapped), forControlEvents: .TouchUpInside)
@@ -122,15 +123,15 @@ class MatchingViewController: UIViewController {
     func configureNoButton() {
         view.addSubview(noButton)
         noButton.setTitle("✖︎", forState: UIControlState.Normal)
-        noButton.backgroundColor = UIColor.flatRedColorDark()
+        noButton.backgroundColor = UIColor.flatRedColorDark()//.darkenByPercentage(0.1)
         noButton.layer.cornerRadius = 2
         noButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 30)
         
         noButton.snp_makeConstraints { make in
             make.left.equalTo(matchingView)
-            make.top.equalTo(matchingView.snp_bottom).offset(5)
+            make.top.equalTo(matchingView.snp_bottom).offset(20)
             make.width.equalTo(matchingView).multipliedBy(0.5)
-            make.height.equalTo(30)
+            make.height.equalTo(35)
         }
         
         noButton.addTarget(self, action:#selector(self.noButtonTapped), forControlEvents: .TouchUpInside)
@@ -193,12 +194,13 @@ extension MatchingViewController: KolodaViewDelegate {
         
         if direction == .Left {
             negativeMatchParameters.append(matchWord)
-            icon.alpha = 0.4
+            icon.backgroundColor = UIColor.flatRedColorDark()
             print("Left swipe : \(matchWord)")
             
         } else if direction == .Right {
             positiveMatchParameters.append(matchWord)
-            icon.layer.borderColor = UIColor.flatOrangeColor().CGColor
+            icon.backgroundColor = UIColor.flatMagentaColor()
+            icon.alpha = 0.6
             print("Right swipe : \(matchWord)")
         }
         
@@ -220,7 +222,7 @@ extension MatchingViewController: KolodaViewDataSource {
         // MatchingCardView should be subclass of UIView rather than doing all the configuration here.
         let matchingCardView = UIView()
         
-        matchingCardView.backgroundColor = gray
+        matchingCardView.backgroundColor = UIColor.flatWhiteColor()
         
         // Add and constrain matching icon:
         let iconView = UIImageView()
@@ -245,7 +247,7 @@ extension MatchingViewController: KolodaViewDataSource {
         matchWordLabel.font = font
         matchWordLabel.textAlignment = .Center
         matchWordLabel.textColor = UIColor.flatWhiteColor()
-        matchWordLabel.backgroundColor = UIColor.flatNavyBlueColor()
+        matchWordLabel.backgroundColor = UIColor.flatPlumColorDark().darkenByPercentage(0.1)
         
         matchWordLabel.snp_makeConstraints { make in
             make.centerX.equalTo(iconView)

@@ -41,9 +41,3 @@ let seafoam = UIColor(red: 112/255, green: 217/255, blue: 169/255, alpha: 1.0)
 let teal = UIColor(red: 44/255, green: 157/255, blue: 145/255, alpha: 1.0)
 let softWhite = UIColor(red: 252/255, green: 251/255, blue: 242/255, alpha: 1.0)
 
-let colorArray = NSArray(ofColorsWithColorScheme:ColorScheme.Analogous, usingColor:UIColor.flatPowderBlueColor(), withFlatScheme:true)
-let mint = colorArray[0] as! UIColor
-let gray = colorArray[1] as! UIColor
-let periwinkle = colorArray [2] as! UIColor
-let pink = colorArray[4] as! UIColor
-
