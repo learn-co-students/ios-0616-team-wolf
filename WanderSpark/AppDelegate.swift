@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-      userLocation.checkCoreLocationPermission()
+      //userLocation.checkCoreLocationPermission()
 
         
         // obtainLocationCoordinatesBlockOperation.addDependency(obtainLocationsQueue)
@@ -43,34 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             //main thread: loading screen 
             //other thread: get flight information from skyscannerAPI 
                 //may need to check if coordinates are already populated first
-       
-        
-//        locationManager = CLLocationManager()
-//        locationManager.delegate = self
-//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//        if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse
-//        {
-//            locationManager.startUpdatingLocation()
-//        }
-//        else if CLLocationManager.authorizationStatus() == .NotDetermined
-//        {
-//            locationManager.requestWhenInUseAuthorization()
-//        }
-//        else if CLLocationManager.authorizationStatus() == .Restricted
-//        {
-//            print("Error! Please Provide Information")
-//        }
-//        locationManager.startUpdatingLocation()
-//        UserOrigin.checkCoreLocationPermission()
-//        UserOrigin.locationManager()
-//        stuff.checkCoreLocationPermission()
-//      stuff.locationManager(locationManager, didUpdateLocations: )
-//        stuff.checkCoreLocationPermission()
-//        SkyScannerAPIClient.getPricesForDestination(Location.init(name: "Barcelona", description: "", images: [""], url: "")) { (<#Int#>) in
-//            print("It worked")
-//        }
-        
-        
+
 
         return true
     }
