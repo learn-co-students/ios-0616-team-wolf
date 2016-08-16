@@ -59,7 +59,7 @@ class CoordinateAndFlightQueues {
         googleOperation.addExecutionBlock({
             
             while coordinatesPopulatedCount < 10 {
-                print("still retrieving coordinates")
+                //print("still retrieving coordinates")
             }
             
             //if progress bar is included on the matching animation screen, may need to hop back onto main queue within these execution and completion blocks to update that bar
