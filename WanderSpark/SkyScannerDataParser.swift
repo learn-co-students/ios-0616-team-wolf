@@ -14,22 +14,26 @@ class SkyScannerDataParser {
     
     static let store = LocationsDataStore.sharedInstance
     
-    static let flightDataWithLowestPrice = SkyScannerAPIClient.lowestPrices[0]
-    static let flightCarrierID = flightDataWithLowestPrice["CarrierIds"] as? [Int]
-    static let flightOriginID = flightDataWithLowestPrice["OriginId"] as? Int
-    static let flightDestinationID = flightDataWithLowestPrice["DestinationId"] as? Int
-    
+    static var flightCarrierID = 0
     static var flightCarrierName : String = ""
     static var flightOriginIATACode : String = ""
     static var flightOriginName : String = ""
     static var flightDestinationIATACode : String = ""
     static var flightDestinationName : String = ""
-    
+    static var lowestAirfare : Int = 0
     
     
     class func matchCarrierInformation() {
+        
         for carrier in SkyScannerAPIClient.carrierInformation {
-            if carrier["CarrierId"]![0] == flightCarrierID {
+            
+            guard let
+                flightData = SkyScannerAPIClient.lowestPrices[0] as? [String: AnyObject],
+                flightCarrierIDArray = flightData["CarrierIds"] as? [Int],
+                carrierID = carrier["CarrierId"] as? [Int]
+                else {fatalError("no carrier IDs available")}
+            
+            if carrierID[0] == flightCarrierIDArray[0] {
                 flightCarrierName = carrier["Name"] as! String
             }
         }
@@ -38,13 +42,22 @@ class SkyScannerDataParser {
     
     class func matchFlightLocationInformation() {
         for flightLocation in SkyScannerAPIClient.locationInformation {
+            
+            guard let
+                flightData = SkyScannerAPIClient.lowestPrices[0] as? [String: AnyObject],
+                flightOriginID = flightData["OriginId"] as? Int,
+                flightDestinationID = flightData["DestinationId"] as? Int,
+                airportName = flightLocation["Name"] as? String,
+                airportIATACode = flightLocation["IataCode"] as? String
+                else { fatalError("no airport name/IATA code available") }
+            
             if flightLocation["PlaceId"] as? Int == flightOriginID {
-                flightOriginName = flightLocation["Name"] as? String
-                flightOriginIATACode = flightLocation["IataCode"] as? String
+                flightOriginName = airportName
+                flightOriginIATACode = airportIATACode
             }
             else if flightLocation["PlaceId"] as? Int == flightDestinationID {
-                flightDestinationName = flightLocation["Name"] as? String
-                flightDestinationIATACode = flightLocation["IataCode"] as? String
+                flightDestinationName = airportName
+                flightDestinationIATACode = airportIATACode
             }
         }
     }
@@ -55,7 +68,13 @@ class SkyScannerDataParser {
         matchCarrierInformation()
         matchFlightLocationInformation()
         
-        location.cheapestFlight = Flight(carrierName: flightCarrierName, carrierID: flightCarrierID, originIATACode: flightOriginIATACode, destinationIATACode: flightDestinationIATACode, lowestPrice: flightDataWithLowestPrice["MinPrice"])
+        guard let
+            flightData = SkyScannerAPIClient.lowestPrices[0] as? [String: AnyObject]
+            else { fatalError("lowest airfare not available") }
+        
+        let lowestAirfare = flightData["MinPrice"] as! Int
+        
+        location.cheapestFlight = Flight(carrierName: flightCarrierName, carrierID: String(flightCarrierID), originIATACode: flightOriginIATACode, destinationIATACode: flightDestinationIATACode, lowestPrice: lowestAirfare)
     }
 }
 
