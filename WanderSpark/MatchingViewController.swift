@@ -38,20 +38,29 @@ class MatchingViewController: UIViewController {
     let matchingIcons: [UIImage] = [cityImage, countryImage, mountainsImage, beachesImage, shoppingImage, outdoorsImage, sightseeingImage, nightlifeImage, historicImage, modernImage, foodieImage, fitnessImage, luxuryImage, adventureImage]
     
     let iconStackView = UIStackView()
-    var yesButton = UIButton()
-    var noButton = UIButton()
+    let iconScrollView = UIScrollView()
+    let yesButton = UIButton()
+    let noButton = UIButton()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureMatchingView()
-        configureIconCounterView()
+        configureIconScrollView()
+        configureIconStackView()
         configureYesButton()
         configureNoButton()
         
         let gradientColor = UIColor(gradientStyle:UIGradientStyle.Radial, withFrame:view.frame, andColors:[UIColor.flatYellowColor(), UIColor.flatRedColor()])
         self.view.backgroundColor = gradientColor
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        iconScrollView.frame = CGRectMake(0, 0, view.frame.width, view.frame.height/10)
+        iconStackView.frame = CGRectMake(0, 0, iconScrollView.contentSize.width, iconScrollView.contentSize.height)
     }
     
     
@@ -72,18 +81,25 @@ class MatchingViewController: UIViewController {
         matchingView.layer.shadowOffset = CGSize(width: 0, height: 3)
     }
     
-    func configureIconCounterView() {
-        view.addSubview(iconStackView)
+    
+    func configureIconScrollView() {
+        iconScrollView.contentSize = CGSizeMake(860, 60)
+        iconScrollView.addSubview(iconStackView)
+        view.addSubview(iconScrollView)
+    }
+    
+    
+    func configureIconStackView() {
         iconStackView.axis = .Horizontal
         iconStackView.distribution = .FillEqually
         iconStackView.alignment = .Center
         iconStackView.spacing = 2
         
         iconStackView.snp_makeConstraints { make in
-            make.centerX.equalTo(view)
-            make.top.equalTo(view).offset(10)
-            make.width.equalTo(view).multipliedBy(2)
-            make.height.equalTo(view).multipliedBy(0.2)
+            make.centerX.equalTo(iconScrollView)
+            make.top.equalTo(iconScrollView)//.offset(20)
+            make.width.equalTo(iconScrollView)//.multipliedBy(2)
+            make.height.equalTo(iconScrollView)//.multipliedBy(0.2)
         }
         
         for icon in matchingIcons {
@@ -94,7 +110,9 @@ class MatchingViewController: UIViewController {
                 make.width.height.equalTo(60)
             }
             iconImageView.backgroundColor = UIColor.flatWhiteColor()
-            iconImageView.tintColor = UIColor.flatBlackColor()//.lightenByPercentage(0.2)
+//            iconImageView.layer.borderWidth = 2
+//            iconImageView.layer.borderColor = UIColor.flatWhiteColor().CGColor
+            iconImageView.tintColor = UIColor.flatBlackColor().lightenByPercentage(0.05)
             iconImageView.alpha = 0.25
             iconStackView.addArrangedSubview(iconImageView)
         }
