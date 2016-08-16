@@ -28,7 +28,7 @@ class Location {
     }
     
     convenience init(name: String, description: String, images: [String], url: String) {
-        self.init(name: name, description: description, images: images, url: url, coordinates: (0.00, 0.00), cheapestFlight : Flight(carrierName: "EMPTY", carrierID: "EMPTY", originIATACode: "EMPTY", destinationIATACode: "EMPTY", lowestPrice: 0))
+        self.init(name: name, description: description, images: images, url: url, coordinates: (0.00, 0.00), cheapestFlight : Flight(carrierName: "EMPTY", carrierID: "EMPTY", originIATACode: "EMPTY", destinationIATACode: "EMPTY", lowestPrice: "ZERO"))
     }
     
     class func formatLocationName(locationName: String) -> String {

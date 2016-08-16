@@ -30,8 +30,7 @@ class SkyScannerDataParser {
         for carrier in SkyScannerAPIClient.carrierInformation {
             
             guard let
-                flightOutboundLeg = flight["OutboundLeg"] as? [String:AnyObject],
-                flightCarrierIDArray = flightOutboundLeg["CarrierIds"] as? [String],
+                flightCarrierIDArray = flight["CarrierIds"] as? [String],
                 carrierID = carrier["CarrierId"] as? [String]
                 else {fatalError("no carrier IDs available")}
             
@@ -70,10 +69,7 @@ class SkyScannerDataParser {
         matchCarrierInformation()
         matchFlightLocationInformation()
         
-        guard let lowestAirfare = flight["MinPrice"] as? Int
-            else {fatalError("No minimum price available :( ")}
-        
-        location.cheapestFlight = Flight(carrierName: flightCarrierName, carrierID: String(flightCarrierID), originIATACode: flightOriginIATACode, destinationIATACode: flightDestinationIATACode, lowestPrice: lowestAirfare)
+        location.cheapestFlight = Flight(carrierName: flightCarrierName, carrierID: String(flightCarrierID), originIATACode: flightOriginIATACode, destinationIATACode: flightDestinationIATACode, lowestPrice: SkyScannerAPIClient.lowestAirfare)
     }
 }
 

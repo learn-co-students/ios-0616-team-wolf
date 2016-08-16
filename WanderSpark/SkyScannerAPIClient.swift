@@ -12,10 +12,11 @@ import SwiftyJSON
 
 class SkyScannerAPIClient {
     
-    static var lowestPrices = [[String:AnyObject]]()
+    static var lowestFlightPrices = [[String:AnyObject]]()
     static var carrierInformation = [[String:AnyObject]]()
     static var locationInformation = [[String:AnyObject]]()
     static var bestFlight = [String:AnyObject]()
+    static var lowestAirfare = ""
     
     
     class func getFlights(location: Location, completion: ()-> ()) {
@@ -33,12 +34,15 @@ class SkyScannerAPIClient {
                 }
                 
                 //sorting and assigning response to variables/properties
-                lowestPrices = flightQuotes.sort{
+                lowestFlightPrices = flightQuotes.sort{
                     (($0)["MinPrice"] as? Int) < (($1)["MinPrice"] as? Int)
                 }
                 
-                if let cheapestFlight = lowestPrices.first {
-                    bestFlight = cheapestFlight
+                if let cheapestFlight = lowestFlightPrices.first {
+                    lowestAirfare = String(cheapestFlight["MinPrice"])
+                    if let selectedFlight = cheapestFlight["OutboundLeg"] {
+                        bestFlight = selectedFlight as! [String:AnyObject]
+                    }
                 } else {
                     print("STILL ERROR WITH CHEAPEST FLIGHT")
                 }
