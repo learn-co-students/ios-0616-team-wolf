@@ -10,7 +10,7 @@
 		1B3D0A341D5E02C40072185F /* UserOrigin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D0A331D5E02C40072185F /* UserOrigin.swift */; };
 		1B3D0A361D5E02DA0072185F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B3D0A351D5E02DA0072185F /* CoreLocation.framework */; };
 		1BBE4BA51D5BD4890037032D /* SkyScannerAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBE4BA41D5BD4890037032D /* SkyScannerAPIClient.swift */; };
-		1BC592C91D64A4F600CE6F72 /* FlightsParametersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC592C81D64A4F600CE6F72 /* FlightsParametersViewController.swift */; };
+		1BC592C91D64A4F600CE6F72 /* UserAlternateLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC592C81D64A4F600CE6F72 /* UserAlternateLocationViewController.swift */; };
 		1BE7A6391D58E3E600B7E89F /* LocationMatchmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7A6381D58E3E600B7E89F /* LocationMatchmaker.swift */; };
 		1BE7A63B1D592FD000B7E89F /* NYTimesDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */; };
 		1BFA0EEF1D5CC2D500423878 /* MatchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFA0EEE1D5CC2D500423878 /* MatchingViewController.swift */; };
@@ -42,7 +42,7 @@
 		1B3D0A331D5E02C40072185F /* UserOrigin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserOrigin.swift; sourceTree = "<group>"; };
 		1B3D0A351D5E02DA0072185F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1BBE4BA41D5BD4890037032D /* SkyScannerAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyScannerAPIClient.swift; sourceTree = "<group>"; };
-		1BC592C81D64A4F600CE6F72 /* FlightsParametersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightsParametersViewController.swift; sourceTree = "<group>"; };
+		1BC592C81D64A4F600CE6F72 /* UserAlternateLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAlternateLocationViewController.swift; sourceTree = "<group>"; };
 		1BE7A6381D58E3E600B7E89F /* LocationMatchmaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationMatchmaker.swift; sourceTree = "<group>"; };
 		1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NYTimesDataParser.swift; sourceTree = "<group>"; };
 		1BFA0EEE1D5CC2D500423878 /* MatchingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingViewController.swift; sourceTree = "<group>"; };
@@ -129,7 +129,7 @@
 				BF415E0C1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.h */,
 				BF415E0D1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m */,
 				BF415E0E1D5A8FD200C2BFB8 /* FZCarouselView.h */,
-				1BC592C81D64A4F600CE6F72 /* FlightsParametersViewController.swift */,
+				1BC592C81D64A4F600CE6F72 /* UserAlternateLocationViewController.swift */,
 				BF415E0F1D5A8FD200C2BFB8 /* FZCarouselView.m */,
 				BF41AB4A1D55270800725AAE /* AppDelegate.swift */,
 				1B3D0A331D5E02C40072185F /* UserOrigin.swift */,
@@ -353,7 +353,7 @@
 				1BE7A6391D58E3E600B7E89F /* LocationMatchmaker.swift in Sources */,
 				BF41AB4B1D55270800725AAE /* AppDelegate.swift in Sources */,
 				1BBE4BA51D5BD4890037032D /* SkyScannerAPIClient.swift in Sources */,
-				1BC592C91D64A4F600CE6F72 /* FlightsParametersViewController.swift in Sources */,
+				1BC592C91D64A4F600CE6F72 /* UserAlternateLocationViewController.swift in Sources */,
 				A496A69D1D5E5C29007DF405 /* Flight.swift in Sources */,
 				BFC9EF6D1D5B9048009C0F2A /* customVacationCell.swift in Sources */,
 				BFA39BE91D5D219B007E1638 /* Constants.swift in Sources */,
