@@ -85,7 +85,9 @@ class MatchingViewController: UIViewController {
 // MARK: Icon Scroll View
     
     func configureIconScrollView() {
-        iconScrollView.contentSize = CGSizeMake(860, 60)
+        iconScrollView.contentSize = CGSizeMake(860, iconStackView.frame.height)
+        iconScrollView.alwaysBounceHorizontal = false
+        iconScrollView.showsHorizontalScrollIndicator = false
         iconScrollView.addSubview(iconStackView)
         view.addSubview(iconScrollView)
         
@@ -216,9 +218,8 @@ extension MatchingViewController: KolodaViewDelegate {
         let matchWord = matchingKeys[Int(index)]
         let icon = iconStackView.arrangedSubviews[Int(index)]
         
-        /* Trying to animate scroll view so that each icon moves over as card is selected...
-        let newXPoint = iconScrollView.contentOffset.x + icon.frame.size.width
-        iconScrollView.setContentOffset(CGPoint(x: newXPoint, y: iconScrollView.contentOffset.y), animated: true) */
+        // Trying to animate scroll view so that each icon moves over as card is selected...
+        iconScrollView.contentInset.left = iconScrollView.contentInset.left - (icon.frame.size.width + CGFloat(2))
         
         if direction == .Left {
             negativeMatchParameters.append(matchWord)
@@ -263,7 +264,7 @@ extension MatchingViewController: KolodaViewDataSource {
         iconView.snp_makeConstraints { make in
             make.centerX.equalTo(matchingCardView)
             make.centerY.equalTo(matchingCardView).offset(-20)
-            make.width.height.equalTo(225)
+            make.width.height.equalTo(matchingCardView).multipliedBy(0.7)
         }
         
         // Add and constrain matching label:
