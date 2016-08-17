@@ -112,7 +112,7 @@ class WSCarouselCollectionViewController: UIViewController {
     func prepareCarousel(){
         carouselView.buttonArray = arrayOfButtons
         carouselView.imageArray = arrayOfImages
-        carouselView.crankInterval = 3.0
+        carouselView.crankInterval = 1.5
         carouselView.beginCarousel()
     
     }
