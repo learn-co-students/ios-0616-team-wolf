@@ -85,7 +85,9 @@ class MatchingViewController: UIViewController {
 // MARK: Icon Scroll View
     
     func configureIconScrollView() {
-        iconScrollView.contentSize = CGSizeMake(860, 60)
+        iconScrollView.contentSize = CGSizeMake(860, iconStackView.frame.height)
+        iconScrollView.alwaysBounceHorizontal = false
+        iconScrollView.showsHorizontalScrollIndicator = false
         iconScrollView.addSubview(iconStackView)
         view.addSubview(iconScrollView)
         
@@ -263,7 +265,7 @@ extension MatchingViewController: KolodaViewDataSource {
         iconView.snp_makeConstraints { make in
             make.centerX.equalTo(matchingCardView)
             make.centerY.equalTo(matchingCardView).offset(-20)
-            make.width.height.equalTo(225)
+            make.width.height.equalTo(matchingCardView).multipliedBy(0.7)
         }
         
         // Add and constrain matching label:
