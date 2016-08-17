@@ -20,13 +20,13 @@ class WSCarouselCollectionViewController: UIViewController {
     var arrayOfImages: [UIImage] = [UIImage]()
     var arrayOfButtons: [UIButton] = [UIButton]()
     var findDestinationButton: UIButton! = UIButton()
-    var imFellingLuckyButton: UIButton! = UIButton()
+    var imFeelingLuckyButton: UIButton! = UIButton()
     var logoView: UIImageView! = UIImageView()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setConstraints()
+        
         carouselView.clipsToBounds = true
         
         self.createImagesFromURL()
@@ -35,11 +35,9 @@ class WSCarouselCollectionViewController: UIViewController {
         
         self.prepareCarousel()
         activateBlur()
-      
     }
 
     func createButtons(){
-        //
         self.logoView.image = wanderSparkIconBW
         
         self.logoView.layer.shadowRadius = 2
@@ -48,20 +46,19 @@ class WSCarouselCollectionViewController: UIViewController {
         
         
         self.findDestinationButton.setTitle("Find Destination", forState: .Normal)
+        self.findDestinationButton.titleLabel?.font = wanderSparkFont(20)
         self.findDestinationButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.playMatchMakerTapped), forControlEvents: .TouchUpInside)
        // self.findDestinationButton.setBackgroundImage(backgroundButton, forState: .Normal)
         self.findDestinationButton.layer.shadowRadius = 2
         self.findDestinationButton.layer.shadowOpacity = 2
         
-        self.imFellingLuckyButton.setTitle("I'm Feeling Lucky", forState: .Normal)
-        self.imFellingLuckyButton.titleLabel?.font = UIFont(name: "Helvetica-Nue", size: 20)
-        self.imFellingLuckyButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.imFeelingLuckyTapped), forControlEvents: .TouchUpInside)
-       
+        self.imFeelingLuckyButton.setTitle("I'm Feeling Lucky", forState: .Normal)
+        self.imFeelingLuckyButton.titleLabel?.font = wanderSparkFont(20)
+        self.imFeelingLuckyButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.imFeelingLuckyTapped), forControlEvents: .TouchUpInside)
         
-        // self.imFellingLuckyButton.setBackgroundImage(backgroundButton, forState: .Normal)
-        self.imFellingLuckyButton.layer.shadowRadius = 2
-        self.imFellingLuckyButton.layer.shadowOpacity = 2
-
+        // self.imFeelingLuckyButton.setBackgroundImage(backgroundButton, forState: .Normal)
+        self.imFeelingLuckyButton.layer.shadowRadius = 2
+        self.imFeelingLuckyButton.layer.shadowOpacity = 2
     }
     
     func playMatchMakerTapped(){
@@ -75,21 +72,18 @@ class WSCarouselCollectionViewController: UIViewController {
     func createImagesFromURL(){
          // append images from assets
         arrayOfImages.append(carousel3)
-        arrayOfImages.append(carousel4)
-        arrayOfImages.append(carousel5)
         arrayOfImages.append(japan)
+        arrayOfImages.append(carousel4)
         arrayOfImages.append(china)
-        arrayOfImages.append(india)
-        arrayOfImages.append(egypt)
-        arrayOfImages.append(brazil)
         arrayOfImages.append(carousel1)
-        arrayOfImages.append(carousel2)
+        arrayOfImages.append(egypt)
+        arrayOfImages.append(india)
+        arrayOfImages.append(brazil)
+        
         
         arrayOfStringURL.append("https://www.nytimes.com/images/2016/08/07/travel/07HOURS1/07HOURS1-master1050.jpg")
-        arrayOfStringURL.append("https://static01.nyt.com/images/2016/07/31/travel/31HOURS-PORTLAND4/31HOURS-PORTLAND4-master1050.jpg")
         arrayOfStringURL.append("https://static01.nyt.com/images/2016/07/24/travel/24HOURS1/24HOURS1-jumbo.jpg")
         arrayOfStringURL.append("https://static01.nyt.com/images/2016/06/05/travel/05HOURS-CHICAGO1_LISTY/05HOURS-CHICAGO1_LISTY-jumbo.jpg")
-        
         
         for urlString in arrayOfStringURL{
             let url = NSURL(string: urlString)
@@ -98,11 +92,7 @@ class WSCarouselCollectionViewController: UIViewController {
                 let imageFromURL = UIImage(data: data)
                 arrayOfImages.append(imageFromURL!)
             }
-            
-  
         }
-       
- 
     }
     
     func activateBlur(){
@@ -113,10 +103,9 @@ class WSCarouselCollectionViewController: UIViewController {
         view.addSubview(blurEffectView)
         blurEffectView.alpha = 0.5
         
-        
         carouselView.addSubview(blurEffectView)
         self.carouselView.bringSubviewToFront(self.findDestinationButton)
-        self.carouselView.bringSubviewToFront(self.imFellingLuckyButton)
+        self.carouselView.bringSubviewToFront(self.imFeelingLuckyButton)
         self.carouselView.bringSubviewToFront(self.logoView)
     }
     
@@ -149,14 +138,14 @@ class WSCarouselCollectionViewController: UIViewController {
         
        
         
-        self.carouselView.addSubview(imFellingLuckyButton)
-        self.imFellingLuckyButton.translatesAutoresizingMaskIntoConstraints = false
+        self.carouselView.addSubview(imFeelingLuckyButton)
+        self.imFeelingLuckyButton.translatesAutoresizingMaskIntoConstraints = false
         
-        self.imFellingLuckyButton.topAnchor.constraintEqualToAnchor(self.findDestinationButton.bottomAnchor, constant: 50).active = true
-        self.imFellingLuckyButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
+        self.imFeelingLuckyButton.topAnchor.constraintEqualToAnchor(self.findDestinationButton.bottomAnchor, constant: 50).active = true
+        self.imFeelingLuckyButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
         
-        self.imFellingLuckyButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.1).active = true
-        self.imFellingLuckyButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.5).active = true
+        self.imFeelingLuckyButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.1).active = true
+        self.imFeelingLuckyButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.5).active = true
         
         self.carouselView.addSubview(logoView)
         self.logoView.translatesAutoresizingMaskIntoConstraints = false
