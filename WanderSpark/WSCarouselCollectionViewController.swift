@@ -36,11 +36,12 @@ class WSCarouselCollectionViewController: UIViewController {
     }
 
     func createButtons(){
-        self.logoView.image = wanderSparkIconBW
+        self.logoView.image = UIImage(named: "crystalballnobackground")
+        logoView.contentMode = .ScaleAspectFit
         
-        self.logoView.layer.shadowRadius = 2
-        self.logoView.layer.shadowOpacity = 2
-        self.logoView.layer.shadowColor = UIColor.whiteColor().CGColor
+        //self.logoView.layer.shadowRadius = 2
+        //self.logoView.layer.shadowOpacity = 2
+        //self.logoView.layer.shadowColor = UIColor.whiteColor().CGColor
         
         self.findDestinationButton.setTitle("Find Destination", forState: .Normal)
         self.findDestinationButton.titleLabel?.font = wanderSparkFont(22)
@@ -91,42 +92,26 @@ class WSCarouselCollectionViewController: UIViewController {
     }
     
     func setConstraints() {
-//       self.view.removeConstraints(self.view.constraints)
-//        self.carouselView.removeConstraints(self.carouselView.constraints)
-//
-//        self.view.translatesAutoresizingMaskIntoConstraints = false
-//        self.carouselView.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        self.carouselView.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-//        self.carouselView.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
-//        self.carouselView.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor).active = true
-//        self.carouselView.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor).active = true
+        self.carouselView.addSubview(logoView)
+        self.logoView.translatesAutoresizingMaskIntoConstraints = false
+        self.logoView.bottomAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
+        self.logoView.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
+        self.logoView.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.35).active = true
+        self.logoView.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.7).active = true
+        
         self.carouselView.addSubview(findDestinationButton)
         self.findDestinationButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.findDestinationButton.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
+        self.findDestinationButton.topAnchor.constraintEqualToAnchor(self.logoView.bottomAnchor, constant: 100).active = true
         self.findDestinationButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
         self.findDestinationButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.1).active = true
         self.findDestinationButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.5).active = true
         
         self.carouselView.addSubview(imFeelingLuckyButton)
         self.imFeelingLuckyButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.imFeelingLuckyButton.topAnchor.constraintEqualToAnchor(self.findDestinationButton.bottomAnchor, constant: 50).active = true
+        self.imFeelingLuckyButton.topAnchor.constraintEqualToAnchor(self.findDestinationButton.bottomAnchor, constant: 10).active = true
         self.imFeelingLuckyButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-        
         self.imFeelingLuckyButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.1).active = true
         self.imFeelingLuckyButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.5).active = true
-        
-        self.carouselView.addSubview(logoView)
-        self.logoView.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.logoView.bottomAnchor.constraintEqualToAnchor(self.findDestinationButton.topAnchor, constant: -50).active = true
-        self.logoView.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-        
-        self.logoView.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.2).active = true
-        self.logoView.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.7).active = true
-        self.logoView.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 50).active = true
     }
     
     override func didReceiveMemoryWarning() {
