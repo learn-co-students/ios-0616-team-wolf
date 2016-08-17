@@ -15,7 +15,7 @@ class WSCarouselCollectionViewController: UIViewController {
     let store = LocationsDataStore.sharedInstance
     @IBOutlet weak var carouselView: FZCarouselView!
     var blurEffect: UIBlurEffect!
-    var arrayOfImages = [carousel3, japan, carousel4, china, carousel1, egypt, india, brazil]
+    var arrayOfImages = [carousel3, japan, carousel4, china, carousel1, egypt, brazil]
     var arrayOfGrayscaleImages: [UIImage] = [UIImage]()
     var findDestinationButton: UIButton! = UIButton()
     var imFeelingLuckyButton: UIButton! = UIButton()
@@ -38,10 +38,6 @@ class WSCarouselCollectionViewController: UIViewController {
     func createButtons(){
         self.logoView.image = UIImage(named: "crystalballnobackground")
         logoView.contentMode = .ScaleAspectFit
-        
-        //self.logoView.layer.shadowRadius = 2
-        //self.logoView.layer.shadowOpacity = 2
-        //self.logoView.layer.shadowColor = UIColor.whiteColor().CGColor
         
         self.findDestinationButton.setTitle("Find Destination", forState: .Normal)
         self.findDestinationButton.titleLabel?.font = wanderSparkFont(22)
