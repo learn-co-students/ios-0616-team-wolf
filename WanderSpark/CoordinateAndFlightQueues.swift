@@ -53,25 +53,39 @@ class CoordinateAndFlightQueues {
             if coordinatesPopulated {
                 for location in store.matchedLocations {
                     print("FLIGHT COORDINATES: \(location.name) -> \(location.coordinates)")
-                    SkyScannerAPIClient.getFlights(location, completion: {
+                    SkyScannerAPIClient.getFlights(location, completion: {_,_ in
                         numberOfFlightsRetrieved += 1
                         print("number of flights retrieved: \(String(numberOfFlightsRetrieved))")
                         
+//                        
+                       // SkyScannerDataParser.matchedLocationFlightInfo(location)
+//                        print("***************** FLIGHT INFORMATION *****************")
+//                        print("\n\nNAME: \(location.name)")
+//                        print("DESCRIPTION: \(location.description)")
+//                        print("COORDINATES: \(location.coordinates)")
+//                        print("CARRIER: \(location.cheapestFlight.carrierName)")
+//                        print("FLIGHT ORIGIN AIRPORT: \(location.cheapestFlight.originIATACode)")
+//                        print("PRICE: \(location.cheapestFlight.lowestPrice)\n\n")
+//                        print("******************* END FLIGHT INFO *******************")
                     })
                 }
             }
         }
-        flightOperation.completionBlock = {
+        
+        flightOperation.addExecutionBlock {
             while numberOfFlightsRetrieved < 10 {
                 print("still retrieving flight information")
             }
             
             retrievingFlights = false
             flightsRetrieved = true
-            
-            for location in self.store.matchedLocations {
-                if flightsRetrieved {
-                    SkyScannerDataParser.matchedLocationFlightInfo(location)
+        }
+        
+        flightOperation.completionBlock = {
+            if flightsRetrieved {
+                print("all flight info retrieved")
+                for location in store.matchedLocations {
+                    //SkyScannerDataParser.matchedLocationFlightInfo(location)
                     print("***************** FLIGHT INFORMATION *****************")
                     print("\n\nNAME: \(location.name)")
                     print("DESCRIPTION: \(location.description)")
@@ -81,7 +95,6 @@ class CoordinateAndFlightQueues {
                     print("PRICE: \(location.cheapestFlight.lowestPrice)\n\n")
                     print("******************* END FLIGHT INFO *******************")
                 }
-
             }
         }
         
@@ -104,37 +117,4 @@ class CoordinateAndFlightQueues {
         newOperationQueue.addOperations([googleOperation, flightOperation], waitUntilFinished: false)
     }
 
-    
-    //    class func getCoordinatesAndFlights() {
-    //        if store.matchedLocations.count == 10 {
-    //
-    //            NSOperationQueue.mainQueue().maxConcurrentOperationCount = 2
-    //
-    //            let getCoordinates = NSOperationQueue()
-    //            getCoordinates.maxConcurrentOperationCount = 1
-    //            getCoordinates.addOperationWithBlock({
-    //                print("in coordinates queue")
-    //                for location in self.store.matchedLocations {
-    //                    GooglePlacesAPIClient.getLocationCoordinatesWithCompletion(location, completion: { (gotCoordinates) in
-    //
-    //                        print("google completion block")
-    //                        print("********** DESTINATION INFORMATION ************")
-    //                        print("Name: \(location.name)")
-    //                        print("Coordinates: \(location.coordinates)")
-    //                        // print("Flight Price: \(location.cheapestFlight.lowestPrice)")
-    //                        print("Snippet Description: \(location.description)")
-    //                        print("***********************************************")
-    //
-    //                        SkyScannerAPIClient.getPricesForDestination(location, completion: {
-    //                            print("flights")
-    //                        })
-    //                    })
-    //                }
-    //            })
-    //            getCoordinates.qualityOfService = .UserInitiated
-    //
-    //        }
-    //    }
-    
-    //will need to add queue for loading screen/animation
 }

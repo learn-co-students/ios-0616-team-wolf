@@ -91,12 +91,14 @@ class SkyScannerDataParser {
         }
         
         
-        class func matchedLocationFlightInfo(location: Location) {
+        class func matchedLocationFlightInfo(location: Location) -> Flight {
             //call functions to match up carrier ids and flight information
             matchCarrierInformation()
             matchFlightLocationInformation()
             
-            location.cheapestFlight = Flight(carrierName: flightCarrierName, carrierID: flightCarrierID, originIATACode: flightOriginIATACode, destinationIATACode: flightDestinationIATACode, lowestPrice: SkyScannerAPIClient.lowestAirfare)
+            let cheapestFlight = Flight(carrierName: flightCarrierName, carrierID: flightCarrierID, originIATACode: flightOriginIATACode, destinationIATACode: flightDestinationIATACode, lowestPrice: SkyScannerAPIClient.lowestAirfare)
+            location.cheapestFlight = cheapestFlight
+            return cheapestFlight
         }
 }
 

@@ -11,15 +11,18 @@ import Foundation
 import SwiftyJSON
 
 class SkyScannerAPIClient {
-
+    
     static var lowestFlightPrices = [[String:AnyObject]]()
     static var carrierInformation = [[String:AnyObject]]()
     static var locationInformation = [[String:AnyObject]]()
     static var bestFlight = [String:AnyObject]()
     static var lowestAirfare = ""
     
+    typealias FlightCompletion = (Flight, ErrorType?) -> ()
     
-    class func getFlights(location: Location, completion: ()-> ()) {
+    static let store = LocationsDataStore.sharedInstance
+    
+    class func getFlights(location: Location, completion: FlightCompletion) {
         
         Alamofire.request(.GET, "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.730610,-73.935242-latlong/\(location.coordinates.0),\(location.coordinates.1)-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)").responseJSON { (response) in
             
@@ -39,7 +42,7 @@ class SkyScannerAPIClient {
                 }
                 
                 if let cheapestFlight = lowestFlightPrices.first {
-                    lowestAirfare = String(cheapestFlight["MinPrice"]) 
+                    lowestAirfare = String(cheapestFlight["MinPrice"])
                     if let selectedFlight = cheapestFlight["OutboundLeg"] {
                         bestFlight = selectedFlight as! [String:AnyObject]
                     }
@@ -58,7 +61,7 @@ class SkyScannerAPIClient {
                 print("CARRIERS: \(carrierInformation)\n\n")
                 print("******************* END *******************")
                 
-                completion()
+                completion(SkyScannerDataParser.matchedLocationFlightInfo(location), nil)
             } 
             else {
                 fatalError("ERROR: No response for flights from \(location.name) with coordinates \(location.coordinates)")
