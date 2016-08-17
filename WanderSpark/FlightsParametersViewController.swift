@@ -14,27 +14,34 @@ class FlightsParametersViewController: UIViewController {
         super.viewDidLoad()
         
         //this button will allow to use Core location to find the user's starting point
-        var useCurrentLocButton = UIButton()
+        let useCurrentLocButton = UIButton(type: UIButtonType.System)
         useCurrentLocButton.backgroundColor = UIColor.blueColor()
-        useCurrentLocButton.currentTitleColor = UIColor.whiteColor()
-        useCurrentLocButton.setTitle("Use origin Coordinates", forState: UIControlState.Normal)
+        useCurrentLocButton.setTitle("Use user origin", forState: UIControlState.Normal)
+        useCurrentLocButton.frame = CGRectMake(100, 100, 100, 50)
+        useCurrentLocButton.addTarget(self, action: #selector(implementCoreLocation), forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(useCurrentLocButton)
         
         //this button will allow the user to input their city zipcode for their starting point
-        var departureCityZipcode = UIButton()
+       let departureCityZipcode = UIButton(type: UIButtonType.System)
         departureCityZipcode.backgroundColor = UIColor.blueColor()
-        departureCityZipcode.currentTitleColor = UIColor.whiteColor()
-        departureCityZipcode.setTitle("Input City Zipcode", forState: UIControlState.Normal)
+        departureCityZipcode.setTitle("Input user city zipcode", forState: UIControlState.Normal)
+        departureCityZipcode.frame = CGRectMake(100, 100, 100, 50)
+        departureCityZipcode.addTarget(self, action: #selector(allowUserToInputCityZipcode), forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(departureCityZipcode)
         
-        
-        //function for useCurrentLocButton
-        
-        
-        //function for departureCityZipcode
-        
-
-        // Do any additional setup after loading the view.
     }
 
+    func implementCoreLocation(sender:UIButton)
+    {
+        
+    }
+    
+    func allowUserToInputCityZipcode (sender: UIButton)
+    {
+    
+    
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
