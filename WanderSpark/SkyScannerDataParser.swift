@@ -72,7 +72,7 @@ class SkyScannerDataParser {
             matchCarrierInformation()
             matchFlightLocationInformation()
             
-            location.cheapestFlight = Flight(carrierName: flightCarrierName, carrierID: String(flightCarrierID), originIATACode: flightOriginIATACode, destinationIATACode: flightDestinationIATACode, lowestPrice: SkyScannerAPIClient.lowestAirfare)
+            location.cheapestFlight = Flight(carrierName: flightCarrierName, carrierID: flightCarrierID, originIATACode: flightOriginIATACode, destinationIATACode: flightDestinationIATACode, lowestPrice: SkyScannerAPIClient.lowestAirfare)
         }
 }
 
