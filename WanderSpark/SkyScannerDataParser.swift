@@ -27,16 +27,32 @@ class SkyScannerDataParser {
     
     class func matchCarrierInformation() {
         
+        // print("match carrier function called")
+        // print("carrier IDs: \(flight["CarrierIds"])")
+        
         for carrier in SkyScannerAPIClient.carrierInformation {
+            //looping through carriers array in response
             
             if let flightCarrierIDArray = flight["CarrierIds"] as? [String] {
+                //flight carrier id in cheapest flight price quote
                 
-                guard let carrierID = carrier["CarrierId"] as? [String]
+                guard let carrierID = carrier["CarrierId"] as? String
                     else {fatalError("no carrier IDs available")}
+                //this is in the carriers array
                 
-                if carrierID[0] == flightCarrierIDArray[0] {
+                let selectedFlightCarrierID = flightCarrierIDArray[0]
+                
+                print("***** LOOPING THROUGH CARRIERS *****")
+                print("Current Carrier in loop: \(carrier)\nCarrierID: \(carrierID)")
+                print("Flight Carrier ID for selected flight: \(selectedFlightCarrierID)")
+                print("***** FIN *****")
+                
+                if selectedFlightCarrierID == carrierID {
+                    print("CARRIER MATCH YAYAY <3")
                     flightCarrierName = carrier["Name"] as! String
-                    flightCarrierID = carrierID[0]
+                    flightCarrierID = carrierID
+                } else {
+                    print("NO MATCHES FOUND :(")
                 }
                 
                 
