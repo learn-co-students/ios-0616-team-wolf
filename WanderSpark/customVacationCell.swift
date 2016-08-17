@@ -15,7 +15,7 @@ class customVacationCell: UICollectionViewCell {
     //var snippetButton: UIButton!
     //var imageIsBlurred: Bool = false
     var blurEffectView: UIVisualEffectView!
-    var snippetLabel: UILabel!
+    var snippetLabel: UITextView!
     var circleProfileView: UIImageView!
     var backgroundLocationImage: UIImageView!
     
@@ -32,16 +32,16 @@ class customVacationCell: UICollectionViewCell {
         priceButton = UIButton()
         locationLabel = UILabel()
         //snippetButton = UIButton()
-        snippetLabel = UILabel()
+        snippetLabel = UITextView()
         circleProfileView = UIImageView()
         backgroundLocationImage = UIImageView()
         
         contentView.addSubview(imageView)
         contentView.addSubview(locationLabel)
         contentView.addSubview(priceButton)
-        contentView.addSubview(snippetLabel)
         contentView.addSubview(circleProfileView)
         contentView.addSubview(backgroundLocationImage)
+        contentView.addSubview(snippetLabel)
         
         
         self.imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +54,7 @@ class customVacationCell: UICollectionViewCell {
         
         self.circleProfileView.translatesAutoresizingMaskIntoConstraints = false
         
-        self.circleProfileView.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 35).active = true
+        self.circleProfileView.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 25).active = true
         self.circleProfileView.heightAnchor.constraintEqualToAnchor(self.contentView.heightAnchor, multiplier: 0.10).active = true
         self.circleProfileView.widthAnchor.constraintEqualToAnchor(self.contentView.widthAnchor, multiplier: 0.18).active = true
         self.circleProfileView.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: 30).active = true
@@ -67,30 +67,34 @@ class customVacationCell: UICollectionViewCell {
         self.backgroundLocationImage.centerXAnchor.constraintEqualToAnchor(self.contentView.centerXAnchor).active = true
 
         self.snippetLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.snippetLabel.topAnchor.constraintEqualToAnchor(self.imageView.bottomAnchor, constant: 20).active = true
-        self.snippetLabel.widthAnchor.constraintEqualToAnchor(self.contentView.widthAnchor, multiplier: 0.8)
-        self.snippetLabel.heightAnchor.constraintEqualToAnchor(self.contentView.heightAnchor, multiplier: 0.4).active = true
+        self.snippetLabel.topAnchor.constraintEqualToAnchor(self.imageView.bottomAnchor, constant: -60).active = true
+        self.snippetLabel.widthAnchor.constraintEqualToAnchor(self.contentView.widthAnchor, multiplier: 0.8).active = true
+        self.snippetLabel.heightAnchor.constraintEqualToAnchor(self.contentView.heightAnchor, multiplier: 0.2).active = true
         self.snippetLabel.centerXAnchor.constraintEqualToAnchor(self.contentView.centerXAnchor).active = true
+        //self.snippetLabel.centerYAnchor.constraintEqualToAnchor(self.contentView.centerYAnchor).active = true
+        //contentView.bringSubviewToFront(snippetLabel)
         
         
         
         self.locationLabel.translatesAutoresizingMaskIntoConstraints = false
         self.locationLabel.leadingAnchor.constraintEqualToAnchor(self.circleProfileView.trailingAnchor, constant: 20).active = true
-        self.locationLabel.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 50).active = true
+        self.locationLabel.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 40).active = true
+        self.locationLabel.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor, constant: -40).active = true
         
-        self.locationLabel.sizeToFit()
+        
         locationLabel.font = UIFont(name: "Avenir-Book" , size: 27)
         locationLabel.textColor = UIColor.whiteColor()
         locationLabel.textAlignment = .Center
         locationLabel.layer.shadowRadius = 10
         locationLabel.layer.shadowOpacity = 1.75
         locationLabel.layer.shadowColor = UIColor.whiteColor().CGColor
+        self.locationLabel.adjustsFontSizeToFitWidth = true
         
 
         
         self.priceButton.translatesAutoresizingMaskIntoConstraints = false
-        self.priceButton.bottomAnchor.constraintEqualToAnchor(self.contentView.bottomAnchor, constant: -30).active = true
-        self.priceButton.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor, constant: -60).active = true
+        self.priceButton.topAnchor.constraintEqualToAnchor(self.circleProfileView.bottomAnchor, constant: 20).active = true
+        self.priceButton.centerXAnchor.constraintEqualToAnchor(self.contentView.centerXAnchor).active = true
         
 
 //        self.snippetButton = UIButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
@@ -103,19 +107,25 @@ class customVacationCell: UICollectionViewCell {
         blurEffectView.alpha = 1
         self.contentView.addSubview(blurEffectView)
         
-        
-        contentView.addSubview(imageView)
-        contentView.addSubview(locationLabel)
-        contentView.addSubview(priceButton)
-       // contentView.addSubview(snippetButton)
-        contentView.addSubview(circleProfileView)
-        contentView.addSubview(snippetLabel)
-        
         snippetLabel.backgroundColor = UIColor.clearColor()
         snippetLabel.font = wanderSparkFont(20)
         
         snippetLabel.textAlignment = NSTextAlignment.Center
         snippetLabel.textColor = UIColor.whiteColor()
+        snippetLabel.text = "No Information"
+        
+        priceButton.titleLabel?.font = wanderSparkFont(20)
+        priceButton.titleLabel?.textColor = UIColor.whiteColor()
+        
+
+        contentView.addSubview(imageView)
+        contentView.addSubview(locationLabel)
+        contentView.addSubview(priceButton)
+        contentView.addSubview(circleProfileView)
+        contentView.addSubview(snippetLabel)
+     
+        
+
         
         
         
