@@ -17,7 +17,7 @@ class WSCarouselCollectionViewController: UIViewController {
     var blurEffect: UIBlurEffect!
     var dictionaryOfLocationsAndPictures: [[String : UIImage]]?
     var arrayOfStringURL: [String] = [String]()
-    var arrayOfImages: [UIImage] = [UIImage]()
+    var arrayOfImages = [carousel3, japan, carousel4, china, carousel1, egypt, india, brazil]
     var arrayOfGrayscaleImages: [UIImage] = [UIImage]()
     var arrayOfButtons: [UIButton] = [UIButton]()
     var findDestinationButton: UIButton! = UIButton()
@@ -30,8 +30,6 @@ class WSCarouselCollectionViewController: UIViewController {
         
         carouselView.clipsToBounds = true
         
-        appendImagesFromAssets()
-        appendImagesFromURL()
         convertImagesToGrayscale()
         createButtons()
         setConstraints()
@@ -69,32 +67,6 @@ class WSCarouselCollectionViewController: UIViewController {
     
     func imFeelingLuckyTapped(){
         self.performSegueWithIdentifier("imFeelingLucky", sender: self)
-    }
-    
-    func appendImagesFromAssets() {
-        arrayOfImages.append(carousel3)
-        arrayOfImages.append(japan)
-        arrayOfImages.append(carousel4)
-        arrayOfImages.append(china)
-        arrayOfImages.append(carousel1)
-        arrayOfImages.append(egypt)
-        arrayOfImages.append(india)
-        arrayOfImages.append(brazil)
-    }
-    
-    func appendImagesFromURL(){
-        arrayOfStringURL.append("https://www.nytimes.com/images/2016/08/07/travel/07HOURS1/07HOURS1-master1050.jpg")
-        arrayOfStringURL.append("https://static01.nyt.com/images/2016/07/24/travel/24HOURS1/24HOURS1-jumbo.jpg")
-        arrayOfStringURL.append("https://static01.nyt.com/images/2016/06/05/travel/05HOURS-CHICAGO1_LISTY/05HOURS-CHICAGO1_LISTY-jumbo.jpg")
-        
-        for urlString in arrayOfStringURL{
-            let url = NSURL(string: urlString)
-            let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
-            if let data = data {
-                let imageFromURL = UIImage(data: data)
-                arrayOfImages.append(imageFromURL!)
-            }
-        }
     }
     
     func convertImagesToGrayscale() {
@@ -183,33 +155,3 @@ class WSCarouselCollectionViewController: UIViewController {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-//        print("prepare for carousel being called!")
-//        for location in store.locations{
-//
-//            for locationString in location.images{
-//                let url = NSURL(string: "http://www.nytimes.com/\(locationString)")
-//                let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
-//                let imageFromURL = UIImage(data: data!)
-//                var myDictionary:[String : UIImage] = [String : UIImage]()
-//
-//                myDictionary[location.name] = imageFromURL
-//                dictionaryOfLocationsAndPictures?.append(myDictionary)
-//
-//            }
-//        }
-
-
-
-
-
