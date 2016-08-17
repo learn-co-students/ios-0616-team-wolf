@@ -20,6 +20,12 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     var vacationLocations: [Location] = [Location]()
     
     func createDummyData(){
+        
+        //store.matchedLocations
+//        for place in store.matchedLocations
+//        {
+//            self.vacationLocations.append(place)
+//        }
         let china = Location(name: "China", description: "From Jfk *1999", images: ["china"], url: "None")
         let india = Location(name: "India", description: "From Jfk *1599", images: ["india"], url: "None")
         let japan = Location(name: "Japan", description: "From Jfk *1966", images: ["japan"], url: "None")
@@ -47,6 +53,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func getPrices(){
+        
         
         print("GET PRICES!!!!!!!!!!!!!")
     }
