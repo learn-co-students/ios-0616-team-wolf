@@ -15,11 +15,8 @@ class WSCarouselCollectionViewController: UIViewController {
     let store = LocationsDataStore.sharedInstance
     @IBOutlet weak var carouselView: FZCarouselView!
     var blurEffect: UIBlurEffect!
-    var dictionaryOfLocationsAndPictures: [[String : UIImage]]?
-    var arrayOfStringURL: [String] = [String]()
     var arrayOfImages = [carousel3, japan, carousel4, china, carousel1, egypt, india, brazil]
     var arrayOfGrayscaleImages: [UIImage] = [UIImage]()
-    var arrayOfButtons: [UIButton] = [UIButton]()
     var findDestinationButton: UIButton! = UIButton()
     var imFeelingLuckyButton: UIButton! = UIButton()
     var logoView: UIImageView! = UIImageView()
@@ -88,7 +85,6 @@ class WSCarouselCollectionViewController: UIViewController {
     }
     
     func prepareCarousel(){
-        carouselView.buttonArray = arrayOfButtons
         carouselView.imageArray = arrayOfGrayscaleImages
         carouselView.crankInterval = 1.5
         carouselView.beginCarousel()
