@@ -25,4 +25,8 @@ class Flight {
         self.destinationIATACode = destinationIATACode
         self.lowestPrice = lowestPrice
     }
+    
+    convenience init() {
+        self.init(carrierName: "", carrierID: 0, originIATACode: "", destinationIATACode: "", lowestPrice: "")
+    }
 }
