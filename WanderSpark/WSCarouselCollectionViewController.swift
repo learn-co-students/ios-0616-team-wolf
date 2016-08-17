@@ -18,6 +18,7 @@ class WSCarouselCollectionViewController: UIViewController {
     var dictionaryOfLocationsAndPictures: [[String : UIImage]]?
     var arrayOfStringURL: [String] = [String]()
     var arrayOfImages: [UIImage] = [UIImage]()
+    var arrayOfGrayscaleImages: [UIImage] = [UIImage]()
     var arrayOfButtons: [UIButton] = [UIButton]()
     var findDestinationButton: UIButton! = UIButton()
     var imFeelingLuckyButton: UIButton! = UIButton()
@@ -29,7 +30,9 @@ class WSCarouselCollectionViewController: UIViewController {
         
         carouselView.clipsToBounds = true
         
-        self.createImagesFromURL()
+        appendImagesFromAssets()
+        appendImagesFromURL()
+        convertImagesToGrayscale()
         createButtons()
         setConstraints()
         
@@ -44,21 +47,20 @@ class WSCarouselCollectionViewController: UIViewController {
         self.logoView.layer.shadowOpacity = 2
         self.logoView.layer.shadowColor = UIColor.whiteColor().CGColor
         
-        
         self.findDestinationButton.setTitle("Find Destination", forState: .Normal)
-        self.findDestinationButton.titleLabel?.font = wanderSparkFont(20)
+        self.findDestinationButton.titleLabel?.font = wanderSparkFont(22)
         self.findDestinationButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.playMatchMakerTapped), forControlEvents: .TouchUpInside)
-       // self.findDestinationButton.setBackgroundImage(backgroundButton, forState: .Normal)
-        self.findDestinationButton.layer.shadowRadius = 2
-        self.findDestinationButton.layer.shadowOpacity = 2
+        //self.findDestinationButton.setBackgroundImage(backgroundButton, forState: .Normal)
+        //self.findDestinationButton.layer.shadowRadius = 2
+        //self.findDestinationButton.layer.shadowOpacity = 2
         
         self.imFeelingLuckyButton.setTitle("I'm Feeling Lucky", forState: .Normal)
-        self.imFeelingLuckyButton.titleLabel?.font = wanderSparkFont(20)
+        self.imFeelingLuckyButton.titleLabel?.font = wanderSparkFont(22)
         self.imFeelingLuckyButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.imFeelingLuckyTapped), forControlEvents: .TouchUpInside)
         
-        // self.imFeelingLuckyButton.setBackgroundImage(backgroundButton, forState: .Normal)
-        self.imFeelingLuckyButton.layer.shadowRadius = 2
-        self.imFeelingLuckyButton.layer.shadowOpacity = 2
+        //self.imFeelingLuckyButton.setBackgroundImage(backgroundButton, forState: .Normal)
+        //self.imFeelingLuckyButton.layer.shadowRadius = 2
+        //self.imFeelingLuckyButton.layer.shadowOpacity = 2
     }
     
     func playMatchMakerTapped(){
@@ -69,8 +71,7 @@ class WSCarouselCollectionViewController: UIViewController {
         self.performSegueWithIdentifier("imFeelingLucky", sender: self)
     }
     
-    func createImagesFromURL(){
-         // append images from assets
+    func appendImagesFromAssets() {
         arrayOfImages.append(carousel3)
         arrayOfImages.append(japan)
         arrayOfImages.append(carousel4)
@@ -79,8 +80,9 @@ class WSCarouselCollectionViewController: UIViewController {
         arrayOfImages.append(egypt)
         arrayOfImages.append(india)
         arrayOfImages.append(brazil)
-        
-        
+    }
+    
+    func appendImagesFromURL(){
         arrayOfStringURL.append("https://www.nytimes.com/images/2016/08/07/travel/07HOURS1/07HOURS1-master1050.jpg")
         arrayOfStringURL.append("https://static01.nyt.com/images/2016/07/24/travel/24HOURS1/24HOURS1-jumbo.jpg")
         arrayOfStringURL.append("https://static01.nyt.com/images/2016/06/05/travel/05HOURS-CHICAGO1_LISTY/05HOURS-CHICAGO1_LISTY-jumbo.jpg")
@@ -93,6 +95,10 @@ class WSCarouselCollectionViewController: UIViewController {
                 arrayOfImages.append(imageFromURL!)
             }
         }
+    }
+    
+    func convertImagesToGrayscale() {
+        arrayOfGrayscaleImages = arrayOfImages.map { convertToGrayScale($0) }
     }
     
     func activateBlur(){
@@ -111,11 +117,11 @@ class WSCarouselCollectionViewController: UIViewController {
     
     func prepareCarousel(){
         carouselView.buttonArray = arrayOfButtons
-        carouselView.imageArray = arrayOfImages
+        carouselView.imageArray = arrayOfGrayscaleImages
         carouselView.crankInterval = 1.5
         carouselView.beginCarousel()
-    
     }
+    
     func setConstraints() {
 //       self.view.removeConstraints(self.view.constraints)
 //        self.carouselView.removeConstraints(self.carouselView.constraints)
@@ -135,9 +141,6 @@ class WSCarouselCollectionViewController: UIViewController {
         self.findDestinationButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.1).active = true
         self.findDestinationButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.5).active = true
         
-        
-       
-        
         self.carouselView.addSubview(imFeelingLuckyButton)
         self.imFeelingLuckyButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -156,17 +159,28 @@ class WSCarouselCollectionViewController: UIViewController {
         self.logoView.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.2).active = true
         self.logoView.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.7).active = true
         self.logoView.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 50).active = true
-        
-       
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
     
+    func convertToGrayScale(image: UIImage) -> UIImage {
+        let imageRect:CGRect = CGRectMake(0, 0, image.size.width, image.size.height)
+        let colorSpace = CGColorSpaceCreateDeviceGray()
+        let width = image.size.width
+        let height = image.size.height
+        
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.None.rawValue)
+        let context = CGBitmapContextCreate(nil, Int(width), Int(height), 8, 0, colorSpace, bitmapInfo.rawValue)
+        
+        CGContextDrawImage(context, imageRect, image.CGImage)
+        let imageRef = CGBitmapContextCreateImage(context)
+        let newImage = UIImage(CGImage: imageRef!)
+        
+        return newImage
+    }
 
 }
 
