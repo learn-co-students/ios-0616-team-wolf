@@ -218,9 +218,8 @@ extension MatchingViewController: KolodaViewDelegate {
         let matchWord = matchingKeys[Int(index)]
         let icon = iconStackView.arrangedSubviews[Int(index)]
         
-        /* Trying to animate scroll view so that each icon moves over as card is selected...
-        let newXPoint = iconScrollView.contentOffset.x + icon.frame.size.width
-        iconScrollView.setContentOffset(CGPoint(x: newXPoint, y: iconScrollView.contentOffset.y), animated: true) */
+        // Trying to animate scroll view so that each icon moves over as card is selected...
+        iconScrollView.contentInset.left = iconScrollView.contentInset.left - (icon.frame.size.width + CGFloat(2))
         
         if direction == .Left {
             negativeMatchParameters.append(matchWord)
