@@ -22,6 +22,14 @@ class LoadViewController: UIViewController {
         configurePlane()
         configureGlobe()
         configureWanderText()
+        
+        
+    }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        self.performSegueWithIdentifier("presentCollectionView", sender: self)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,7 +49,7 @@ class LoadViewController: UIViewController {
     
     
     func configureGlobe() {
-        let globe = UIImage(named: "globe.png")
+        let globe = UIImage(named: "earth.png")
         let globeImageView = UIImageView(image: globe)
         view.addSubview(globeImageView)
         globeImageView.contentMode = .ScaleAspectFill

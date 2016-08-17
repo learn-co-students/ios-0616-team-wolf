@@ -15,9 +15,14 @@ class CoordinateAndFlightQueues {
     static let store = LocationsDataStore.sharedInstance
     
     static let newOperationQueue = NSOperationQueue()
+    
     static var coordinatesPopulated = false
     static var coordinatesPopulatedCount = 0
-    static var retrievingCoordinates : Bool = true
+    static var retrievingCoordinates = true
+    
+    static var flightsRetrieved = false
+    static var retrievingFlights = true
+    static var numberOfFlightsRetrieved = 0
     
     class func getCoordinatesAndFlightInfo () {
         
@@ -38,9 +43,7 @@ class CoordinateAndFlightQueues {
                     
                     coordinatesPopulatedCount += 1
                 }
-                
             }
-            
         })
         
 
@@ -50,7 +53,35 @@ class CoordinateAndFlightQueues {
             if coordinatesPopulated {
                 for location in store.matchedLocations {
                     print("FLIGHT COORDINATES: \(location.name) -> \(location.coordinates)")
+                    SkyScannerAPIClient.getFlights(location, completion: {
+                        numberOfFlightsRetrieved += 1
+                        print("number of flights retrieved: \(String(numberOfFlightsRetrieved))")
+                        
+                    })
                 }
+            }
+        }
+        flightOperation.completionBlock = {
+            while numberOfFlightsRetrieved < 10 {
+                print("still retrieving flight information")
+            }
+            
+            retrievingFlights = false
+            flightsRetrieved = true
+            
+            for location in self.store.matchedLocations {
+                if flightsRetrieved {
+                    SkyScannerDataParser.matchedLocationFlightInfo(location)
+                    print("***************** FLIGHT INFORMATION *****************")
+                    print("\n\nNAME: \(location.name)")
+                    print("DESCRIPTION: \(location.description)")
+                    print("COORDINATES: \(location.coordinates)")
+                    print("CARRIER: \(location.cheapestFlight.carrierName)")
+                    print("FLIGHT ORIGIN AIRPORT: \(location.cheapestFlight.originIATACode)")
+                    print("PRICE: \(location.cheapestFlight.lowestPrice)\n\n")
+                    print("******************* END FLIGHT INFO *******************")
+                }
+
             }
         }
         
@@ -58,9 +89,8 @@ class CoordinateAndFlightQueues {
         googleOperation.addExecutionBlock({
             
             while coordinatesPopulatedCount < 10 {
-                //print("still retrieving coordinates")
+                print("still retrieving coordinates")
             }
-            
             retrievingCoordinates = false
             coordinatesPopulated = true
             flightOperation.addDependency(googleOperation)
@@ -73,8 +103,7 @@ class CoordinateAndFlightQueues {
         newOperationQueue.maxConcurrentOperationCount = 1
         newOperationQueue.addOperations([googleOperation, flightOperation], waitUntilFinished: false)
     }
-    
-    
+
     
     //    class func getCoordinatesAndFlights() {
     //        if store.matchedLocations.count == 10 {

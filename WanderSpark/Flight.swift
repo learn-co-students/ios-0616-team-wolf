@@ -10,13 +10,19 @@ import Foundation
 
 class Flight {
     
+    //all flights obtained from skyscanner are round trip 
+    
     let carrierName : String
     let carrierID : String
-    let lowestPrice : Int
+    let originIATACode : String
+    let destinationIATACode : String
+    let lowestPrice : String
     
-    init(carrierName: String, carrierID: String, lowestPrice: Int) {
+    init(carrierName: String, carrierID: String, originIATACode: String, destinationIATACode: String, lowestPrice: String) {
         self.carrierName = carrierName
         self.carrierID = carrierID
+        self.originIATACode = originIATACode
+        self.destinationIATACode = destinationIATACode
         self.lowestPrice = lowestPrice
     }
 }

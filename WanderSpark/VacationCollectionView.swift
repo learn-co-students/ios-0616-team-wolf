@@ -18,7 +18,6 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     //dummy
     
     var vacationLocations: [Location] = [Location]()
-    
     func createDummyData(){
         
         //store.matchedLocations
@@ -38,16 +37,19 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         self.vacationLocations.append(egypt)
         
     }
+
+    var arrayOfVacationImages: [UIImage] = [UIImage]()
+    var arrayOfVacationImagesForThumbnail: [UIImage] = [UIImage]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
-        createDummyData()
+        self.view.backgroundColor = UIColor.blackColor()
         store.getLocationsWithCompletion { 
         }
-
- 
+        createImagesForCircleFromString()
+        createImagesFromString()
         setConstraints()
         setUpCollectionView()   
     }
@@ -73,8 +75,9 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         self.view.addSubview(fullSceenImage)
         
         self.fullSceenImage.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-        self.fullSceenImage.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
-        self.fullSceenImage.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor).active = true
+       // self.fullSceenImage.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
+        self.fullSceenImage.topAnchor.constraintEqualToAnchor(self.view.topAnchor).active = true
+        self.fullSceenImage.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.4).active = true
         self.fullSceenImage.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor).active = true
         
         self.fullSceenImage.addSubview(blurImage)
@@ -83,34 +86,22 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         self.blurImage.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
         self.blurImage.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor).active = true
         self.blurImage.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor).active = true
-
-        
-        //        self.vacationsCollectionView.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-        //        self.vacationsCollectionView.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
-        //        self.vacationsCollectionView.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.5).active = true
-        //        self.vacationsCollectionView.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.5).active = true
-        
     }
     
     func setUpCollectionView(){
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        //layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
-        //layout.itemSize = CGSize(self.view.width, height: 120)
         layout.scrollDirection = UICollectionViewScrollDirection.Horizontal
-        
-        
         vacationCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         vacationCollectionView.dataSource = self
         vacationCollectionView.delegate = self
         vacationCollectionView.registerClass(customVacationCell.self, forCellWithReuseIdentifier: "Cell")
-        vacationCollectionView.backgroundColor = UIColor.whiteColor()
+        vacationCollectionView.backgroundColor = UIColor.blackColor()
         self.view.addSubview(vacationCollectionView)
         vacationCollectionView.pagingEnabled = true
         
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
         let collectionViewWidth = self.view
             .bounds.size.width
         let collectionViewHeight = self.view
@@ -120,7 +111,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return store.matchedLocations.count
     }
     
     
@@ -128,13 +119,48 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
         
-        cell.locationLabel.text = vacationLocations[indexPath.row].name
-        cell.imageView.image = UIImage(named:  (vacationLocations[indexPath.row].images[0]))
-        cell.priceButton.setTitle(vacationLocations[indexPath.row].description, forState: .Normal)
+        cell.locationLabel.text = store.matchedLocations[indexPath.row].name
+        cell.imageView.image = arrayOfVacationImages[indexPath.row]
+                //cell.priceButton.setTitle(store.matchedLocations[indexPath.row].cheapestFlight, forState: .Normal)
         cell.priceButton.addTarget(self, action: #selector(VacationCollectionView.getPrices), forControlEvents: .TouchUpInside)
+        cell.snippetLabel.numberOfLines = 0
+        cell.snippetLabel.text = store.matchedLocations[indexPath.row].description
+         cell.snippetLabel.sizeToFit()
+        cell.circleProfileView.image = arrayOfVacationImagesForThumbnail[indexPath.row].circle
+        cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row].circle
+        print("cell for row at index path was just called -- the description is: \(cell.snippetLabel.text!)")
       
         
         return cell
+    }
+    
+    
+    func createImagesFromString(){
+        // append images from assets
+
+        
+        for location in store.matchedLocations{
+            if location.images != []{
+            let url = NSURL(string: "https://www.nytimes.com/\(location.images[1])")
+            let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
+            let imageFromURL = UIImage(data: data!)
+            arrayOfVacationImages.append(imageFromURL!)
+            }
+        }
+    }
+    
+    func createImagesForCircleFromString(){
+        // append images from assets
+        
+        
+        for location in store.matchedLocations{
+            if location.images != []{
+                let url = NSURL(string: "https://www.nytimes.com/\(location.images[0])")
+                let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
+                let imageFromURL = UIImage(data: data!)
+                arrayOfVacationImagesForThumbnail.append(imageFromURL!)
+            }
+        }
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
@@ -147,3 +173,5 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     
     
 }
+
+
