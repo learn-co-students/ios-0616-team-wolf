@@ -41,12 +41,6 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     
     
     func setConstraints() {
-//        self.view.removeConstraints(self.view.constraints)
-//        self.fullSceenImage.removeConstraints(self.fullSceenImage.constraints)
-//        self.blurImage.removeConstraints(self.blurImage.constraints)
-//       
-//        
-//        self.view.translatesAutoresizingMaskIntoConstraints = false
         self.fullSceenImage.translatesAutoresizingMaskIntoConstraints = false
         self.blurImage.translatesAutoresizingMaskIntoConstraints = false
         
@@ -54,7 +48,6 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         self.view.addSubview(fullSceenImage)
         
         self.fullSceenImage.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-       // self.fullSceenImage.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
         self.fullSceenImage.topAnchor.constraintEqualToAnchor(self.view.topAnchor).active = true
         self.fullSceenImage.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.4).active = true
         self.fullSceenImage.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor).active = true
@@ -100,13 +93,15 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         
         cell.locationLabel.text = store.matchedLocations[indexPath.row].name
         cell.imageView.image = arrayOfVacationImages[indexPath.row]
-                //cell.priceButton.setTitle(store.matchedLocations[indexPath.row].cheapestFlight, forState: .Normal)
+        cell.priceButton.setTitle("Fly From JFK $1999", forState: .Normal)
         cell.priceButton.addTarget(self, action: #selector(VacationCollectionView.getPrices), forControlEvents: .TouchUpInside)
-        cell.snippetLabel.numberOfLines = 0
+       
         cell.snippetLabel.text = store.matchedLocations[indexPath.row].description
-         cell.snippetLabel.sizeToFit()
+    
+     
         cell.circleProfileView.image = arrayOfVacationImagesForThumbnail[indexPath.row].circle
         cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row].circle
+       
         print("cell for row at index path was just called -- the description is: \(cell.snippetLabel.text!)")
       
         

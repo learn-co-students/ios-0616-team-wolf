@@ -9,14 +9,16 @@
 import UIKit
 import SnapKit
 import UICircleAnimationView
+import ChameleonFramework
 
 class LoadViewController: UIViewController {
     var circleAnimation = UICircleAnimationView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        view.backgroundColor = UIColor.lightGrayColor()
+        
+        let gradientColor = UIColor(gradientStyle:UIGradientStyle.Radial, withFrame:view.frame, andColors:[UIColor.flatPlumColor(), UIColor.flatPlumColorDark().darkenByPercentage(0.2)])
+        self.view.backgroundColor = gradientColor
         
         configureCircleAnimation()
         configurePlane()
@@ -50,7 +52,9 @@ class LoadViewController: UIViewController {
     
     func configureGlobe() {
         let globe = UIImage(named: "earth.png")
-        let globeImageView = UIImageView(image: globe)
+        let tintedGlobe = globe!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        let globeImageView = UIImageView(image: tintedGlobe)
+        globeImageView.tintColor = UIColor.flatGreenColor()
         view.addSubview(globeImageView)
         globeImageView.contentMode = .ScaleAspectFill
         
@@ -75,11 +79,11 @@ class LoadViewController: UIViewController {
     }
     
     func configureWanderText() {
-        let font = UIFont (name: "AvenirNext-DemiBold", size: 40)
         
         let topLabel = UILabel()
         topLabel.text = "Prepare to"
-        topLabel.font = font
+        topLabel.textColor = UIColor.flatWhiteColor()
+        topLabel.font = wanderSparkFont(40)
         topLabel.alpha = 0
         topLabel.textAlignment = .Center
         view.addSubview(topLabel)
@@ -93,7 +97,8 @@ class LoadViewController: UIViewController {
         
         let bottomLabel = UILabel()
         bottomLabel.text = "Wander"
-        bottomLabel.font = font
+        bottomLabel.textColor = UIColor.flatWhiteColor()
+        bottomLabel.font = wanderSparkFont(40)
         bottomLabel.alpha = 0
         bottomLabel.textAlignment = .Center
         view.addSubview(bottomLabel)
