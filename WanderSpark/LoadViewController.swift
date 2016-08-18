@@ -13,6 +13,8 @@ import ChameleonFramework
 
 class LoadViewController: UIViewController {
     var circleAnimation = UICircleAnimationView()
+    let store = LocationsDataStore.sharedInstance
+    var imFeelingLucky: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,14 +28,22 @@ class LoadViewController: UIViewController {
         configureWanderText()
         
         
+
+        
     }
     
     
     override func viewDidAppear(animated: Bool) {
-        self.performSegueWithIdentifier("presentCollectionView", sender: self)
-
+        if imFeelingLucky == true{
+        store.getLocationsWithCompletion({
+        self.store.matchedLocations.append(self.store.locations[0])
+            self.performSegueWithIdentifier("presentCollectionView", sender: self)
+        })
+        }else{
+         
+            self.performSegueWithIdentifier("presentCollectionView", sender: self)
     }
-    
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

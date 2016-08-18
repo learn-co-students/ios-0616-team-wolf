@@ -32,8 +32,8 @@
                     </view>
                     <connections>
                         <outlet property="carouselView" destination="u8w-vg-Zky" id="mCQ-Uo-Xb6"/>
-                        <segue destination="ezc-iB-gIG" kind="show" identifier="imFeelingLucky" id="xBk-hz-Riy"/>
                         <segue destination="caD-9v-XcQ" kind="show" identifier="playMatchMaker" id="HXO-xC-P2W"/>
+                        <segue destination="ff7-Sb-lFT" kind="show" identifier="imFeelingLucky" id="Los-io-wJs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -74,6 +74,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="returnHome" id="Y30-SO-0pX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VOW-oY-g9C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -102,6 +105,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Nwq-Zh-Ufx"/>
+        <segue reference="Los-io-wJs"/>
     </inferredMetricsTieBreakers>
 </document>
