@@ -15,8 +15,6 @@ class GoogleMapsAPIClient {
     
     class func getLocationCoordinatesWithCompletion(location: Location, completion: (Bool) -> ()) {
         
-        print("HELLO, I'M IN GOOGLE API CLIENT")
-        
         let destinationName = Location.formatLocationName(location.name)
         
         Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/geocode/json?address=\(destinationName)&key=\(Secrets.googlePlacesAPIKey)").responseJSON { (response) in

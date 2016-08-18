@@ -28,21 +28,6 @@ class SkyScannerAPIClient {
     
     static let store = LocationsDataStore.sharedInstance
     
-    /*
-     switch response.result {
-     case .Failure(let error):
-     completion([Location](), error)
-     
-     case .Success(let value):
-     guard let responseValue = value as? NSDictionary else { completion([Location](), NYTimesAPIError.InvalidJSONDictionaryCast); return }
-     
-     guard let docsDictionary = responseValue["response"] as? [String : AnyObject] else { completion([Location](), NYTimesAPIError.InvalidDictionaryResponseKey); return }
-     
-     guard let thirtySixHoursArray = docsDictionary["docs"] as? [[String: AnyObject]] else { completion([Location](), NYTimesAPIError.InvalidDictionaryDocsKey); return }
-     
-     completion(NYTimesDataParser.initializeLocationsFromJSON(thirtySixHoursArray), nil)
-     } */
-    
     class func getFlights(location: Location, completion: FlightCompletion) {
         
         Alamofire.request(.GET, "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.730610,-73.935242-latlong/\(location.coordinates.0),\(location.coordinates.1)-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)").responseJSON { (response) in
@@ -74,34 +59,3 @@ class SkyScannerAPIClient {
         } //end of Alamofire request
     }//end of class func
 }
-                
-//                locationInformation = locationInfo
-//                carrierInformation = carrierList
-                
-//                guard let
-////                cheapestFlight = lowestFlightPrices.first,
-//                cheapestFlightInfo = cheapestFlight["OutboundLeg"] as? [String:AnyObject]
-//                    else {
-//                        fatalError()
-//                }
-                
-//                var carrierName = ""
-//                var airportInfo = ("", "")
-//                
-//                if let cheapestFlight = lowestFlightPrices.first {
-//                    lowestAirfare = String(cheapestFlight["MinPrice"])
-//                    if let selectedFlight = cheapestFlight["OutboundLeg"] as? [String:AnyObject] {
-//                        carrierName = SkyScannerDataParser.matchCarrierInformationForFlight(selectedFlight)
-//                        airportInfo = SkyScannerDataParser.matchFlightLocationInformationForFlight(selectedFlight)
-//                    }
-//                } else {
-//                    print("STILL ERROR WITH CHEAPEST FLIGHT")
-//                }
-//                print("***************** FLIGHTS *****************")
-//                print("\n\nNAME: \(location.name)")
-//                print("FLIGHT: \(bestFlight)")
-//                print("LOWEST PRICE: \(lowestAirfare)")
-//                print("LOCATION: \(locationInformation)")
-//                print("CARRIERS: \(carrierInformation)\n\n")
-//                print("******************* END *******************")
-                
