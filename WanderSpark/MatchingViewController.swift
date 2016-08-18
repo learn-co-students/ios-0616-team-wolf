@@ -88,6 +88,7 @@ class MatchingViewController: UIViewController {
         iconScrollView.contentSize = CGSizeMake(860, iconStackView.frame.height)
         iconScrollView.alwaysBounceHorizontal = false
         iconScrollView.showsHorizontalScrollIndicator = false
+        iconScrollView.pagingEnabled = true
         iconScrollView.addSubview(iconStackView)
         view.addSubview(iconScrollView)
         
@@ -145,6 +146,10 @@ class MatchingViewController: UIViewController {
             if let iconStackIndex = iconStackView.arrangedSubviews.indexOf(iconImageView) {
                 print("Icon at index \(iconStackIndex) tapped.")
                 
+                while matchingView.currentCardIndex > iconStackIndex {
+                    matchingView.revertAction()
+                    matchingView.applyAppearAnimationIfNeeded()
+                }
             }
         }
     }
@@ -242,7 +247,12 @@ extension MatchingViewController: KolodaViewDelegate {
         let icon = iconStackView.arrangedSubviews[Int(index)]
         
         // Trying to animate scroll view so that each icon moves over as card is selected...
-        iconScrollView.contentInset.left = iconScrollView.contentInset.left - (icon.frame.size.width + CGFloat(2))
+        //iconScrollView.contentInset.left = iconScrollView.contentInset.left - (icon.frame.size.width + CGFloat(2))
+        let width = iconScrollView.frame.width
+        let height = iconScrollView.frame.height
+        let newPosition = iconScrollView.contentOffset.x + icon.frame.width
+        let toVisible = CGRectMake(newPosition, 0, width, height)
+        iconScrollView.scrollRectToVisible(toVisible, animated: true)
         
         if direction == .Left {
             negativeMatchParameters.append(matchWord)
