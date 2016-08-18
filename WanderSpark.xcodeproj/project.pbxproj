@@ -195,6 +195,7 @@
 				TargetAttributes = {
 					BF41AB461D55270800725AAE = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = M5447X76VF;
 					};
 				};
 			};
@@ -470,7 +471,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WanderSpark/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = zain.flatiron.WanderSpark;
+				PRODUCT_BUNDLE_IDENTIFIER = zain.flatiron.WanderSpark01;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WanderSpark/WanderSpark-Bridging-Header.h";
@@ -489,7 +490,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WanderSpark/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = zain.flatiron.WanderSpark;
+				PRODUCT_BUNDLE_IDENTIFIER = zain.flatiron.WanderSpark01;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WanderSpark/WanderSpark-Bridging-Header.h";

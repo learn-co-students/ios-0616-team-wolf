@@ -34,15 +34,15 @@ class LoadViewController: UIViewController {
     
     
     override func viewDidAppear(animated: Bool) {
-        if imFeelingLucky == true{
-        store.getLocationsWithCompletion({
-        self.store.matchedLocations.append(self.store.locations[0])
+//        if imFeelingLucky == true{
+//        CoordinateAndFlightQueues.getCoordinatesAndFlightInfo()
+//            self.store.matchedLocations.append(self.store.locations[0])
+//            self.performSegueWithIdentifier("presentCollectionView", sender: self)
+//      
+//        }else{
+//         
             self.performSegueWithIdentifier("presentCollectionView", sender: self)
-        })
-        }else{
-         
-            self.performSegueWithIdentifier("presentCollectionView", sender: self)
-    }
+//    }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
