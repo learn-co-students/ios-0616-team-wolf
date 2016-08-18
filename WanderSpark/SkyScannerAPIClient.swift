@@ -30,7 +30,9 @@ class SkyScannerAPIClient {
     
     class func getFlights(location: Location, completion: FlightCompletion) {
         
-        Alamofire.request(.GET, "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.730610,-73.935242-latlong/\(location.coordinates.0),\(location.coordinates.1)-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)").responseJSON { (response) in
+        guard let coordinates = location.coordinates else { fatalError("ERROR: failed to unwrap coordinate values") }
+        
+        Alamofire.request(.GET, "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.730610,-73.935242-latlong/\(coordinates.0),\(coordinates.1)-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)").responseJSON { (response) in
             
             var flightQuotes = [[String:AnyObject]]()
             var locationInfo = [[String:AnyObject]]()

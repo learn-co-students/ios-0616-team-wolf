@@ -37,7 +37,6 @@ class CoordinateAndFlightQueues {
                     print("********** DESTINATION INFORMATION ************")
                     print("Name: \(location.name)")
                     print("Coordinates: \(location.coordinates)")
-                    // print("Flight Price: \(location.cheapestFlight.lowestPrice)")
                     print("Snippet Description: \(location.description)")
                     print("***********************************************")
                     
@@ -56,14 +55,7 @@ class CoordinateAndFlightQueues {
                         numberOfFlightsRetrieved += 1
                         print("number of flights retrieved: \(String(numberOfFlightsRetrieved))")
                         
-                        print("***************** FLIGHT INFORMATION *****************")
-                        print("\n\nNAME: \(location.name)")
-                        print("DESCRIPTION: \(location.description)")
-                        print("COORDINATES: \(location.coordinates)")
-                        print("CARRIER: \(location.cheapestFlight.carrierName)")
-                        print("FLIGHT ORIGIN AIRPORT: \(location.cheapestFlight.originIATACode)")
-                        print("PRICE: \(location.cheapestFlight.lowestPrice)\n\n")
-                        print("******************* END FLIGHT INFO *******************")
+                        Flight.printFlightInformation(location)
 
                     })
                 }

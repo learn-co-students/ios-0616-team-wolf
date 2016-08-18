@@ -12,13 +12,13 @@ class Flight {
     
     //all flights obtained from skyscanner are round trip 
     
-    let carrierName : String
-    let carrierID : Int
-    let originIATACode : String
-    let destinationIATACode : String
-    let lowestPrice : String
+    let carrierName : String?
+    let carrierID : Int?
+    let originIATACode : String?
+    let destinationIATACode : String?
+    let lowestPrice : String?
     
-    init(carrierName: String, carrierID: Int, originIATACode: String, destinationIATACode: String, lowestPrice: String) {
+    init(carrierName: String?, carrierID: Int?, originIATACode: String?, destinationIATACode: String?, lowestPrice: String?) {
         self.carrierName = carrierName
         self.carrierID = carrierID
         self.originIATACode = originIATACode
@@ -28,5 +28,24 @@ class Flight {
     
     convenience init() {
         self.init(carrierName: nil, carrierID: nil, originIATACode: nil, destinationIATACode: nil, lowestPrice: nil)
+    }
+    
+    class func printFlightInformation(location: Location) {
+        
+        guard let
+            coordinates = location.coordinates,
+            carrierName = location.cheapestFlight!.carrierName,
+            originAirport = location.cheapestFlight!.originIATACode,
+            price = location.cheapestFlight!.lowestPrice
+            else { fatalError("ERROR: could not unwrap flight information for print statment") }
+        
+        print("***************** FLIGHT INFORMATION *****************")
+        print("\n\nNAME: \(location.name)")
+        print("DESCRIPTION: \(location.description)")
+        print("COORDINATES: \(coordinates)")
+        print("CARRIER: \(carrierName)")
+        print("FLIGHT ORIGIN AIRPORT: \(originAirport)")
+        print("PRICE: \(price)\n\n")
+        print("******************* END FLIGHT INFO *******************")
     }
 }
