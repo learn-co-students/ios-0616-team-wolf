@@ -93,14 +93,24 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         
         cell.locationLabel.text = store.matchedLocations[indexPath.row].name
         cell.imageView.image = arrayOfVacationImages[indexPath.row]
-        cell.priceButton.setTitle("Fly From JFK $1999", forState: .Normal)
+        
+        if let lowestPrice = store.matchedLocations[indexPath.row].cheapestFlight?.lowestPrice{
+        cell.priceButton.setTitle("$\(lowestPrice)", forState: .Normal)
+        }
+        
+        if let airportLocation = store.matchedLocations[indexPath.row].cheapestFlight?.originIATACode{
+            cell.airportLabel.text = "from \(airportLocation)"
+        }
+        
         cell.priceButton.addTarget(self, action: #selector(VacationCollectionView.getPrices), forControlEvents: .TouchUpInside)
-       
+        cell.homeButton.setTitle("home", forState: .Normal)
+        cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
+        
         cell.snippetLabel.text = store.matchedLocations[indexPath.row].description
     
      
         cell.circleProfileView.image = arrayOfVacationImagesForThumbnail[indexPath.row].circle
-        cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row].circle
+        cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
        
         print("cell for row at index path was just called -- the description is: \(cell.snippetLabel.text!)")
       
@@ -123,6 +133,8 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         }
     }
     
+    
+    
     func createImagesForCircleFromString(){
         // append images from assets
         
@@ -143,6 +155,13 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+  
+    func returnHome(){
+        self.store.locations.removeAll()
+        self.store.matchedLocations.removeAll()
+        self.performSegueWithIdentifier("returnHome", sender: self)
+        
     }
     
     

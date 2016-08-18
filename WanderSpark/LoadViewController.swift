@@ -13,6 +13,8 @@ import ChameleonFramework
 
 class LoadViewController: UIViewController {
     var circleAnimation = UICircleAnimationView()
+    let store = LocationsDataStore.sharedInstance
+    var imFeelingLucky: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +42,6 @@ class LoadViewController: UIViewController {
                 })
             })
         }
-        
     }
     
     override func didReceiveMemoryWarning() {

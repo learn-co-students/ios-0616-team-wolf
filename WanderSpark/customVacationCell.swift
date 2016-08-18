@@ -18,6 +18,8 @@ class customVacationCell: UICollectionViewCell {
     var snippetLabel: UITextView!
     var circleProfileView: UIImageView!
     var backgroundLocationImage: UIImageView!
+    var homeButton: UIButton!
+    var airportLabel: UILabel!
     
     
     override init(frame: CGRect) {
@@ -35,6 +37,9 @@ class customVacationCell: UICollectionViewCell {
         snippetLabel = UITextView()
         circleProfileView = UIImageView()
         backgroundLocationImage = UIImageView()
+        homeButton = UIButton()
+        airportLabel = UILabel()
+        
         
         contentView.addSubview(imageView)
         contentView.addSubview(locationLabel)
@@ -42,13 +47,14 @@ class customVacationCell: UICollectionViewCell {
         contentView.addSubview(circleProfileView)
         contentView.addSubview(backgroundLocationImage)
         contentView.addSubview(snippetLabel)
-        
+        contentView.addSubview(homeButton)
+        contentView.addSubview(airportLabel)
         
         self.imageView.translatesAutoresizingMaskIntoConstraints = false
-        self.imageView.topAnchor.constraintEqualToAnchor(self.circleProfileView.bottomAnchor, constant: 10).active = true
+        self.imageView.topAnchor.constraintEqualToAnchor(self.circleProfileView.bottomAnchor, constant: 50).active = true
         self.imageView.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor).active = true
         self.imageView.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor).active = true
-        self.imageView.heightAnchor.constraintEqualToAnchor(self.contentView.heightAnchor, multiplier: 0.7).active = true
+        self.imageView.heightAnchor.constraintEqualToAnchor(self.contentView.heightAnchor, multiplier: 0.35).active = true
         self.imageView.centerXAnchor.constraintEqualToAnchor(self.contentView.centerXAnchor).active = true
 
         
@@ -67,7 +73,7 @@ class customVacationCell: UICollectionViewCell {
         self.backgroundLocationImage.centerXAnchor.constraintEqualToAnchor(self.contentView.centerXAnchor).active = true
 
         self.snippetLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.snippetLabel.topAnchor.constraintEqualToAnchor(self.imageView.bottomAnchor, constant: -60).active = true
+        self.snippetLabel.topAnchor.constraintEqualToAnchor(self.imageView.bottomAnchor, constant: 10).active = true
         self.snippetLabel.widthAnchor.constraintEqualToAnchor(self.contentView.widthAnchor, multiplier: 0.8).active = true
         self.snippetLabel.heightAnchor.constraintEqualToAnchor(self.contentView.heightAnchor, multiplier: 0.2).active = true
         self.snippetLabel.centerXAnchor.constraintEqualToAnchor(self.contentView.centerXAnchor).active = true
@@ -93,9 +99,16 @@ class customVacationCell: UICollectionViewCell {
 
         
         self.priceButton.translatesAutoresizingMaskIntoConstraints = false
-        self.priceButton.topAnchor.constraintEqualToAnchor(self.circleProfileView.bottomAnchor, constant: 20).active = true
-        self.priceButton.centerXAnchor.constraintEqualToAnchor(self.contentView.centerXAnchor).active = true
+        self.priceButton.bottomAnchor.constraintEqualToAnchor(self.contentView.bottomAnchor, constant: -10).active = true
+        self.priceButton.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor, constant:-20).active = true
         
+        self.homeButton.translatesAutoresizingMaskIntoConstraints = false
+        self.homeButton.bottomAnchor.constraintEqualToAnchor(self.contentView.bottomAnchor, constant: -10).active = true
+        self.homeButton.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: 20).active = true
+       
+        self.airportLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.airportLabel.topAnchor.constraintEqualToAnchor(self.priceButton.bottomAnchor, constant: -20).active = true
+        self.airportLabel.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor, constant: -40).active = true
 
 //        self.snippetButton = UIButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
 //        self.snippetButton.addTarget(self, action: #selector(self.blurImage), forControlEvents: .TouchUpInside)
@@ -110,12 +123,30 @@ class customVacationCell: UICollectionViewCell {
         snippetLabel.backgroundColor = UIColor.clearColor()
         snippetLabel.font = wanderSparkFont(20)
         
-        snippetLabel.textAlignment = NSTextAlignment.Center
+        snippetLabel.textAlignment = NSTextAlignment.Justified
         snippetLabel.textColor = UIColor.whiteColor()
+        
         snippetLabel.text = "No Information"
         
-        priceButton.titleLabel?.font = wanderSparkFont(20)
+        
+        
+        priceButton.titleLabel?.font = wanderSparkFont(50)
         priceButton.titleLabel?.textColor = UIColor.whiteColor()
+        priceButton.titleLabel?.shadowColor = UIColor.whiteColor()
+        
+        
+        
+        homeButton.titleLabel?.font = wanderSparkFont(14)
+        homeButton.titleLabel?.textColor = UIColor.whiteColor()
+        
+        airportLabel.font = wanderSparkFont(11)
+        airportLabel.textColor = UIColor.whiteColor()
+        
+        
+//        priceButton.titleLabel?.sizeToFit()
+//        priceButton.layer.borderWidth = 1
+//        priceButton.layer.borderColor = UIColor.whiteColor().CGColor
+//        priceButton.backgroundColor = UIColor.clearColor()
         
 
         contentView.addSubview(imageView)
@@ -123,16 +154,13 @@ class customVacationCell: UICollectionViewCell {
         contentView.addSubview(priceButton)
         contentView.addSubview(circleProfileView)
         contentView.addSubview(snippetLabel)
-     
-        
-
-        
-        
-        
-        
-        
-        
+        contentView.addSubview(homeButton)
+        contentView.addSubview(airportLabel)
     }
+    
+  
+    
+    
     
 //    func blurImage(){
 //        

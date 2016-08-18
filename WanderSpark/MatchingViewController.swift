@@ -72,7 +72,6 @@ class MatchingViewController: UIViewController {
         matchingView.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
         matchingView.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.85).active = true
         matchingView.heightAnchor.constraintEqualToAnchor(matchingView.widthAnchor, multiplier: 1.1).active = true
-
         
         matchingView.dataSource = self
         matchingView.delegate = self
@@ -88,6 +87,7 @@ class MatchingViewController: UIViewController {
         iconScrollView.contentSize = CGSizeMake(860, iconStackView.frame.height)
         iconScrollView.alwaysBounceHorizontal = false
         iconScrollView.showsHorizontalScrollIndicator = false
+        iconScrollView.pagingEnabled = true
         iconScrollView.addSubview(iconStackView)
         view.addSubview(iconScrollView)
         
@@ -111,18 +111,48 @@ class MatchingViewController: UIViewController {
         }
         
         for icon in matchingIcons {
-            let tintedIcon = icon.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-            let iconImageView = UIImageView(image: tintedIcon)
-            
-            iconImageView.snp_makeConstraints { make in
-                make.width.height.equalTo(60)
-            }
-            iconImageView.backgroundColor = UIColor.flatWhiteColor()
-            iconImageView.tintColor = UIColor.flatBlackColor().lightenByPercentage(0.05)
-            iconImageView.alpha = 0.25
+            let iconImageView = makeIconImageView(icon)
+            makeIconButton(iconImageView)
             iconStackView.addArrangedSubview(iconImageView)
         }
     }
+    
+    
+    func makeIconImageView(icon: UIImage) -> UIImageView {
+        let tintedIcon = icon.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        let iconImageView = UIImageView(image: tintedIcon)
+        
+        iconImageView.snp_makeConstraints { make in
+            make.width.height.equalTo(60)
+        }
+        iconImageView.backgroundColor = UIColor.flatWhiteColor()
+        iconImageView.tintColor = UIColor.flatBlackColor().lightenByPercentage(0.05)
+        iconImageView.alpha = 0.25
+        
+        return iconImageView
+    }
+    
+    
+    func makeIconButton(iconImageView: UIImageView) {
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(iconTapped))
+        iconImageView.userInteractionEnabled = true
+        iconImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    
+    func iconTapped(sender: UITapGestureRecognizer) {
+        if let iconImageView = sender.view {
+            if let iconStackIndex = iconStackView.arrangedSubviews.indexOf(iconImageView) {
+                print("Icon at index \(iconStackIndex) tapped.")
+                
+                while matchingView.currentCardIndex > iconStackIndex {
+                    matchingView.revertAction()
+                    matchingView.applyAppearAnimationIfNeeded()
+                }
+            }
+        }
+    }
+
     
 // MARK: Buttons
     
@@ -196,10 +226,7 @@ extension MatchingViewController: KolodaViewDelegate {
         }
         
         self.performSegueWithIdentifier("loadViewController", sender: self)
-       
-        
-        
-       
+
         // Send the matched locations to the Carousel ViewController...?
     }
     
@@ -218,15 +245,20 @@ extension MatchingViewController: KolodaViewDelegate {
         let icon = iconStackView.arrangedSubviews[Int(index)]
         
         // Trying to animate scroll view so that each icon moves over as card is selected...
-        iconScrollView.contentInset.left = iconScrollView.contentInset.left - (icon.frame.size.width + CGFloat(2))
+        // iconScrollView.contentInset.left = iconScrollView.contentInset.left - (icon.frame.size.width + CGFloat(2))
+        let width = iconScrollView.frame.width
+        let height = iconScrollView.frame.height
+        let newPosition = iconScrollView.contentOffset.x + icon.frame.width
+        let toVisible = CGRectMake(newPosition, 0, width, height)
+        iconScrollView.scrollRectToVisible(toVisible, animated: true)
         
         if direction == .Left {
-            negativeMatchParameters.append(matchWord)
+            negativeMatchParameters = addMatchWordToParameters(negativeMatchParameters, matchWord: matchWord)
             icon.backgroundColor = UIColor.flatRedColorDark()
             print("Left swipe : \(matchWord)")
             
         } else if direction == .Right {
-            positiveMatchParameters.append(matchWord)
+            positiveMatchParameters = addMatchWordToParameters(positiveMatchParameters, matchWord: matchWord)
             icon.backgroundColor = UIColor.flatGreenColor()
             icon.alpha = 0.55
             print("Right swipe : \(matchWord)")
@@ -234,6 +266,20 @@ extension MatchingViewController: KolodaViewDelegate {
         
         print("These words have been added to the positive matching parameters array: \(positiveMatchParameters)")
         print("These words have been added to the negative matching parameters array: \(negativeMatchParameters)")
+    }
+    
+    func addMatchWordToParameters(parameters: [String], matchWord: String) -> [String] {
+        var parameters = parameters
+        
+        if let matchWordIndex = positiveMatchParameters.indexOf(matchWord) {
+            positiveMatchParameters.removeAtIndex(matchWordIndex)
+        }
+        
+        if let matchWordIndex = negativeMatchParameters.indexOf(matchWord) {
+            negativeMatchParameters.removeAtIndex(matchWordIndex)
+        }
+        parameters.append(matchWord)
+        return parameters
     }
 }
 
@@ -286,6 +332,4 @@ extension MatchingViewController: KolodaViewDataSource {
         
         return matchingCardView
     }
-    
-
 }

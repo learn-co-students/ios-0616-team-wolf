@@ -61,6 +61,9 @@ class WSCarouselCollectionViewController: UIViewController {
     
     func imFeelingLuckyTapped(){
         self.performSegueWithIdentifier("imFeelingLucky", sender: self)
+        store.getLocationsWithCompletion { 
+        
+        }
     }
     
     func convertImagesToGrayscale() {
@@ -131,4 +134,12 @@ class WSCarouselCollectionViewController: UIViewController {
         return newImage
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "imFeelingLucky" {
+            let destinationVC = LoadViewController()
+            destinationVC.imFeelingLucky = true
+
+    }
+    }
+    
 }
