@@ -140,9 +140,15 @@ class MatchingViewController: UIViewController {
     }
     
     
-    func iconTapped() {
-        print("Icon tapped")
+    func iconTapped(sender: UITapGestureRecognizer) {
+        if let iconImageView = sender.view {
+            if let iconStackIndex = iconStackView.arrangedSubviews.indexOf(iconImageView) {
+                print("Icon at index \(iconStackIndex) tapped.")
+                
+            }
+        }
     }
+
     
 // MARK: Buttons
     
@@ -217,10 +223,7 @@ extension MatchingViewController: KolodaViewDelegate {
        
          CoordinateAndFlightQueues.getCoordinatesAndFlightInfo()
         self.performSegueWithIdentifier("loadViewController", sender: self)
-       
-        
-        
-       
+
         // Send the matched locations to the Carousel ViewController...?
     }
     
@@ -307,6 +310,4 @@ extension MatchingViewController: KolodaViewDataSource {
         
         return matchingCardView
     }
-    
-
 }
