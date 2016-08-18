@@ -15,9 +15,7 @@ struct NYTimesAPIClient {
     typealias LocationCompletion = ([Location], ErrorType?) -> ()
     
     enum NYTimesAPIError: ErrorType {
-        case InvalidJSONDictionaryCast
-        case InvalidDictionaryResponseKey
-        case InvalidDictionaryDocsKey
+        case JSONParseError
     }
     
     static func getLocationsWithCompletion(page: Int, completion: LocationCompletion) {
@@ -30,11 +28,11 @@ struct NYTimesAPIClient {
                     completion([Location](), error)
                     
                 case .Success(let value):
-                    guard let responseValue = value as? NSDictionary else { completion([Location](), NYTimesAPIError.InvalidJSONDictionaryCast); return }
+                    guard let responseValue = value as? NSDictionary else { completion([Location](), NYTimesAPIError.JSONParseError); return }
                     
-                    guard let docsDictionary = responseValue["response"] as? [String : AnyObject] else { completion([Location](), NYTimesAPIError.InvalidDictionaryResponseKey); return }
+                    guard let docsDictionary = responseValue["response"] as? [String : AnyObject] else { completion([Location](), NYTimesAPIError.JSONParseError); return }
                     
-                    guard let thirtySixHoursArray = docsDictionary["docs"] as? [[String: AnyObject]] else { completion([Location](), NYTimesAPIError.InvalidDictionaryDocsKey); return }
+                    guard let thirtySixHoursArray = docsDictionary["docs"] as? [[String: AnyObject]] else { completion([Location](), NYTimesAPIError.JSONParseError); return }
                     
                     completion(NYTimesDataParser.initializeLocationsFromJSON(thirtySixHoursArray), nil)
                 }
