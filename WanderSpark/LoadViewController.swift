@@ -42,10 +42,6 @@ class LoadViewController: UIViewController {
         }
         
     }
-
-    override func viewDidAppear(animated: Bool) {
-        // self.performSegueWithIdentifier("presentCollectionView", sender: self)
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -60,7 +56,7 @@ class LoadViewController: UIViewController {
         
         circleAnimation.setForegroundStrokeColor(UIColor.orangeColor())
         circleAnimation.strokeCircleTo(19, total: 10, withAnimate: true)
-        circleAnimation.duration = 8.0
+        circleAnimation.duration = 15.0
     }
     
     

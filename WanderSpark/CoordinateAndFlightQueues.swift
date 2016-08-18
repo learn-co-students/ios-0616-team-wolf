@@ -26,8 +26,6 @@ class CoordinateAndFlightQueues {
     
     class func getCoordinatesAndFlightInfo (completion: (Bool)-> ()) {
         
-        //might need to add a completion block to this so it will return a bool that will then be fed back into the queue and used to evaluate whether or not it can go back to the main queue or not
-        
         let googleOperation = NSBlockOperation()
         googleOperation.addExecutionBlock({
             
@@ -77,11 +75,6 @@ class CoordinateAndFlightQueues {
         flightOperation.completionBlock = {
             if flightsRetrieved {
                 print("all flight info retrieved")
-//                LoadViewController.makingMatchesQueue.addOperationWithBlock({
-//                    LoadViewController.viewDidAppear(LoadViewController){
-//                        self.performSegueWithIdentifier("presentCollectionView", sender: self)
-//                    }
-//                })
                 NSOperationQueue.mainQueue().addOperationWithBlock({ 
                     completion(true)
                 })
