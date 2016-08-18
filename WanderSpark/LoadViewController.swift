@@ -20,18 +20,31 @@ class LoadViewController: UIViewController {
         let gradientColor = UIColor(gradientStyle:UIGradientStyle.Radial, withFrame:view.frame, andColors:[UIColor.flatPlumColor(), UIColor.flatPlumColorDark().darkenByPercentage(0.2)])
         self.view.backgroundColor = gradientColor
         
-        configureCircleAnimation()
-        configurePlane()
-        configureGlobe()
-        configureWanderText()
-        
-        
     }
     
+    override func viewWillAppear(animated: Bool) {
+        
+        NSOperationQueue.mainQueue().addOperationWithBlock { 
+            self.configurePlane()
+            self.configureGlobe()
+            self.configureWanderText()
+            self.configureCircleAnimation()
+        }
     
-    override func viewDidAppear(animated: Bool) {
-        self.performSegueWithIdentifier("presentCollectionView", sender: self)
+        let getCoordinatesAndFlightsQueue = NSOperationQueue()
+        getCoordinatesAndFlightsQueue.qualityOfService = .UserInitiated
+        getCoordinatesAndFlightsQueue.addOperationWithBlock { 
+            CoordinateAndFlightQueues.getCoordinatesAndFlightInfo({ (complete) in
+                NSOperationQueue.mainQueue().addOperationWithBlock({
+                    self.performSegueWithIdentifier("presentCollectionView", sender: self)
+                })
+            })
+        }
+        
+    }
 
+    override func viewDidAppear(animated: Bool) {
+        // self.performSegueWithIdentifier("presentCollectionView", sender: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -47,6 +60,7 @@ class LoadViewController: UIViewController {
         
         circleAnimation.setForegroundStrokeColor(UIColor.orangeColor())
         circleAnimation.strokeCircleTo(19, total: 10, withAnimate: true)
+        circleAnimation.duration = 8.0
     }
     
     

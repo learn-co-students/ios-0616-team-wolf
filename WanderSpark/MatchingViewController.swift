@@ -194,8 +194,7 @@ extension MatchingViewController: KolodaViewDelegate {
             print("Name: \(location.name)")
             print("Match Count: \(location.matchCount)\n")
         }
-       
-         CoordinateAndFlightQueues.getCoordinatesAndFlightInfo()
+        
         self.performSegueWithIdentifier("loadViewController", sender: self)
        
         
