@@ -72,7 +72,6 @@ class MatchingViewController: UIViewController {
         matchingView.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
         matchingView.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.85).active = true
         matchingView.heightAnchor.constraintEqualToAnchor(matchingView.widthAnchor, multiplier: 1.1).active = true
-
         
         matchingView.dataSource = self
         matchingView.delegate = self
@@ -247,7 +246,7 @@ extension MatchingViewController: KolodaViewDelegate {
         let icon = iconStackView.arrangedSubviews[Int(index)]
         
         // Trying to animate scroll view so that each icon moves over as card is selected...
-        //iconScrollView.contentInset.left = iconScrollView.contentInset.left - (icon.frame.size.width + CGFloat(2))
+        // iconScrollView.contentInset.left = iconScrollView.contentInset.left - (icon.frame.size.width + CGFloat(2))
         let width = iconScrollView.frame.width
         let height = iconScrollView.frame.height
         let newPosition = iconScrollView.contentOffset.x + icon.frame.width
@@ -255,12 +254,12 @@ extension MatchingViewController: KolodaViewDelegate {
         iconScrollView.scrollRectToVisible(toVisible, animated: true)
         
         if direction == .Left {
-            negativeMatchParameters.append(matchWord)
+            negativeMatchParameters = addMatchWordToParameters(negativeMatchParameters, matchWord: matchWord)
             icon.backgroundColor = UIColor.flatRedColorDark()
             print("Left swipe : \(matchWord)")
             
         } else if direction == .Right {
-            positiveMatchParameters.append(matchWord)
+            positiveMatchParameters = addMatchWordToParameters(positiveMatchParameters, matchWord: matchWord)
             icon.backgroundColor = UIColor.flatGreenColor()
             icon.alpha = 0.55
             print("Right swipe : \(matchWord)")
@@ -268,6 +267,20 @@ extension MatchingViewController: KolodaViewDelegate {
         
         print("These words have been added to the positive matching parameters array: \(positiveMatchParameters)")
         print("These words have been added to the negative matching parameters array: \(negativeMatchParameters)")
+    }
+    
+    func addMatchWordToParameters(parameters: [String], matchWord: String) -> [String] {
+        var parameters = parameters
+        
+        if let matchWordIndex = positiveMatchParameters.indexOf(matchWord) {
+            positiveMatchParameters.removeAtIndex(matchWordIndex)
+        }
+        
+        if let matchWordIndex = negativeMatchParameters.indexOf(matchWord) {
+            negativeMatchParameters.removeAtIndex(matchWordIndex)
+        }
+        parameters.append(matchWord)
+        return parameters
     }
 }
 
