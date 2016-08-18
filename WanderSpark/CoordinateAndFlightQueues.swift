@@ -85,7 +85,7 @@ class CoordinateAndFlightQueues {
             if flightsRetrieved {
                 print("all flight info retrieved")
                 for location in store.matchedLocations {
-                    //SkyScannerDataParser.matchedLocationFlightInfo(location)
+                    // SkyScannerDataParser.matchedLocationFlightInfo(location)
                     print("***************** FLIGHT INFORMATION *****************")
                     print("\n\nNAME: \(location.name)")
                     print("DESCRIPTION: \(location.description)")

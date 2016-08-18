@@ -70,21 +70,6 @@ class SkyScannerAPIClient {
                 
             }
             
-//            if let flightsResponse = response.result.value as? NSDictionary {
-//                
-//                guard let
-//                    flightQuotes = flightsResponse["Quotes"] as? [[String:AnyObject]],
-//                    locationInfo = flightsResponse["Places"] as? [[String:AnyObject]],
-//                    carrierList = flightsResponse["Carriers"] as? [[String:AnyObject]]
-//                    else {
-//                        fatalError("ERROR: No flights found for location")
-//                    }
-//                
-//                //sorting and assigning response to variables/properties
-//                lowestFlightPrices = flightQuotes.sort{
-//                    (($0)["MinPrice"] as? Int) < (($1)["MinPrice"] as? Int)
-//                }
-//            }
             completion(SkyScannerDataParser.matchedLocationFlightInfo(location, quotes: flightQuotes, carriers: carrierList, airports: locationInfo), nil)
         } //end of Alamofire request
     }//end of class func
