@@ -111,17 +111,37 @@ class MatchingViewController: UIViewController {
         }
         
         for icon in matchingIcons {
-            let tintedIcon = icon.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-            let iconImageView = UIImageView(image: tintedIcon)
-            
-            iconImageView.snp_makeConstraints { make in
-                make.width.height.equalTo(60)
-            }
-            iconImageView.backgroundColor = UIColor.flatWhiteColor()
-            iconImageView.tintColor = UIColor.flatBlackColor().lightenByPercentage(0.05)
-            iconImageView.alpha = 0.25
+            let iconImageView = makeIconImageView(icon)
+            makeIconButton(iconImageView)
             iconStackView.addArrangedSubview(iconImageView)
         }
+    }
+    
+    
+    func makeIconImageView(icon: UIImage) -> UIImageView {
+        let tintedIcon = icon.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        let iconImageView = UIImageView(image: tintedIcon)
+        
+        iconImageView.snp_makeConstraints { make in
+            make.width.height.equalTo(60)
+        }
+        iconImageView.backgroundColor = UIColor.flatWhiteColor()
+        iconImageView.tintColor = UIColor.flatBlackColor().lightenByPercentage(0.05)
+        iconImageView.alpha = 0.25
+        
+        return iconImageView
+    }
+    
+    
+    func makeIconButton(iconImageView: UIImageView) {
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(iconTapped))
+        iconImageView.userInteractionEnabled = true
+        iconImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    
+    func iconTapped() {
+        print("Icon tapped")
     }
     
 // MARK: Buttons

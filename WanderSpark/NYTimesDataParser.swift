@@ -10,9 +10,9 @@ import Foundation
 
 struct NYTimesDataParser {
     
-    static func initializeLocationsFromJSON(JSONArray: [[String : AnyObject]]) -> [Location]? {
+    static func initializeLocationsFromJSON(JSONArray: [[String : AnyObject]]) -> [Location] {
         
-        var unfilteredLocations : [Location]
+        var unfilteredLocations = [Location]()
         
         for article in JSONArray {
             if let locationName = NYTimesDataParser.getLocationName(article),
@@ -89,13 +89,13 @@ struct NYTimesDataParser {
             else { print("Could not get location multimedia from supplied dictionary.")
                 return nil }
         
-        // Replace for-loop with filter for items with type equal to image.
+        let imageItems = multimedia.filter { $0["type"] as? String == "image" }
         
-        for item in multimedia {
-            guard let mediaType = item["type"] as? String else { print("Error: No type key for media item.")
-                return nil }
-            
-            if mediaType == "image" {
+        var images = [String]()
+        if imageItems.isEmpty {
+            return nil
+        } else {
+            for item in imageItems {
                 if let imageURL = item["url"] as? String {
                     images.append(imageURL)
                 } else {
