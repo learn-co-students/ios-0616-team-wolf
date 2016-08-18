@@ -15,8 +15,8 @@ class Location {
     let description: String
     let articleURL: String
     var matchCount = 0
-    var coordinates : (Double, Double)
-    var cheapestFlight : Flight
+    var coordinates : (Double?, Double?)
+    var cheapestFlight : Flight?
     
     init(name: String, description: String, images: [String], url: String, coordinates: (Double, Double), cheapestFlight : Flight) {
         self.name = name
@@ -28,7 +28,7 @@ class Location {
     }
     
     convenience init(name: String, description: String, images: [String], url: String) {
-        self.init(name: name, description: description, images: images, url: url, coordinates: (0.00, 0.00), cheapestFlight : Flight(carrierName: "EMPTY", carrierID: 0, originIATACode: "EMPTY", destinationIATACode: "EMPTY", lowestPrice: "ZERO"))
+        self.init(name: name, description: description, images: images, url: url, coordinates: (nil, nil), cheapestFlight : nil)
     }
     
     class func formatLocationName(locationName: String) -> String {

@@ -27,6 +27,6 @@ class Flight {
     }
     
     convenience init() {
-        self.init(carrierName: "", carrierID: 0, originIATACode: "", destinationIATACode: "", lowestPrice: "")
+        self.init(carrierName: nil, carrierID: nil, originIATACode: nil, destinationIATACode: nil, lowestPrice: nil)
     }
 }
