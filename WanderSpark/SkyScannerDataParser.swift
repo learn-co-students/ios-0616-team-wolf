@@ -14,9 +14,9 @@ class SkyScannerDataParser {
     
     static let store = LocationsDataStore.sharedInstance
     
-    static let flight = SkyScannerAPIClient.bestFlight
+    static var cheapestFlight = [String : AnyObject]()
     
-    static var flightCarrierID = ""
+    static var flightCarrierID = 0
     static var flightCarrierName : String = ""
     static var flightOriginIATACode : String = ""
     static var flightOriginName : String = ""
@@ -24,56 +24,103 @@ class SkyScannerDataParser {
     static var flightDestinationName : String = ""
     static var lowestAirfare : Int = 0
     
+    static var flightCarrierIDArrayTest = [String]()
     
-    class func matchCarrierInformation() {
+    class func getMinimumPrice(quotes: [[String: AnyObject]]) -> Int {
+        var minimumPrice = 0
         
-        for carrier in SkyScannerAPIClient.carrierInformation {
-            
-            if let flightCarrierIDArray = flight["CarrierIds"] as? [String] {
-                
-                guard let carrierID = carrier["CarrierId"] as? [String]
-                    else {fatalError("no carrier IDs available")}
-                
-                if carrierID[0] == flightCarrierIDArray[0] {
-                    flightCarrierName = carrier["Name"] as! String
-                    flightCarrierID = carrierID[0]
-                }
-                
-                
-            }
+        let lowestFlightPrices = quotes.sort{
+            (($0)["MinPrice"] as? Int) < (($1)["MinPrice"] as? Int)
         }
+        
+        if let lowestAirfare = lowestFlightPrices.first {
+            cheapestFlight = lowestAirfare
+        }
+        
+        
+        if let unwrappedMinimumPrice = cheapestFlight["MinPrice"] as? Int {
+            minimumPrice = unwrappedMinimumPrice
+        } else {
+            print("ERROR WITH CHEAPEST FLIGHT")
+        }
+        return minimumPrice
     }
     
+    
+    class func getCarrierInfo(quotes: [[String:AnyObject]], carriers: [[String:AnyObject]]) -> (Int, String) {
+        var outboundCarrierID = 0
+        var outboundCarrierName = ""
         
-        class func matchFlightLocationInformation() {
-            for flightLocation in SkyScannerAPIClient.locationInformation {
+        if let outboundFlight = cheapestFlight["OutboundLeg"] as? [String:AnyObject] {
+            
+            guard let
+                outboundCarriers = outboundFlight["CarrierIds"] as? [Int]
+                else {fatalError("ERROR: no carrierID for best flight")}
+            
+            if let firstCarrierID = outboundCarriers.first {
+                outboundCarrierID = firstCarrierID
+            }
+        
+            for carrier in carriers {
+                
+                guard let carrierID = carrier["CarrierId"] as? Int
+                    else {fatalError("no carrier IDs available")}
+                
+                if outboundCarrierID == carrierID {
+                    print("CARRIER MATCH YAYAY <3")
+                    outboundCarrierName = carrier["Name"] as! String
+                } else {
+                    print("NO MATCHES FOUND :(")
+                }
+            }
+        } else {
+            print("ERROR WITH CARRIER ID")
+        }
+        return (outboundCarrierID, outboundCarrierName)
+    }
+
+
+    class func getAirportInfo(quotes: [[String:AnyObject]], airports: [[String : AnyObject]]) -> (String, String){
+        
+        if let outboundFlight = cheapestFlight["OutboundLeg"] as? [String:AnyObject] {
+            
+            guard let
+                flightOriginID = outboundFlight["OriginId"] as? Int,
+                flightDestinationID = outboundFlight["DestinationId"] as? Int
+                else { fatalError("no airport name/IATA code available") }
+            
+            for airport in airports {
                 
                 guard let
-                    flightOriginID = flight["OriginId"] as? Int,
-                    flightDestinationID = flight["DestinationId"] as? Int,
-                    airportName = flightLocation["Name"] as? String,
-                    airportIATACode = flightLocation["IataCode"] as? String
+                    airportName = airport["Name"] as? String,
+                    airportIATACode = airport["IataCode"] as? String
                     else { fatalError("no airport name/IATA code available") }
                 
-                if flightLocation["PlaceId"] as? Int == flightOriginID {
+                if airport["PlaceId"] as? Int == flightOriginID {
                     flightOriginName = airportName
                     flightOriginIATACode = airportIATACode
                 }
-                else if flightLocation["PlaceId"] as? Int == flightDestinationID {
+                else if airport["PlaceId"] as? Int == flightDestinationID {
                     flightDestinationName = airportName
                     flightDestinationIATACode = airportIATACode
                 }
             }
         }
+        return (flightOriginIATACode, flightOriginName)
+    }
+    
+    
+    
+    class func matchedLocationFlightInfo(location: Location, quotes: [[String : AnyObject]], carriers: [[String : AnyObject]], airports: [[String : AnyObject]]) -> Flight {
         
+        let minimumPrice = String(getMinimumPrice(quotes))
+        let carrierInfo = getCarrierInfo(quotes, carriers: carriers)
+        let airportInfo = getAirportInfo(quotes, airports: airports)
         
-        class func matchedLocationFlightInfo(location: Location) {
-            //call functions to match up carrier ids and flight information
-            matchCarrierInformation()
-            matchFlightLocationInformation()
-            
-            location.cheapestFlight = Flight(carrierName: flightCarrierName, carrierID: String(flightCarrierID), originIATACode: flightOriginIATACode, destinationIATACode: flightDestinationIATACode, lowestPrice: SkyScannerAPIClient.lowestAirfare)
-        }
+        let cheapestFlight = Flight(carrierName: carrierInfo.1, carrierID: carrierInfo.0, originIATACode: airportInfo.0, destinationIATACode: airportInfo.1, lowestPrice: minimumPrice)
+        location.cheapestFlight = cheapestFlight
+        return cheapestFlight
+    }
 }
 
 
