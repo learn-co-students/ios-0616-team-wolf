@@ -43,7 +43,7 @@ class SkyScannerDataParser {
         } else {
             print("ERROR WITH CHEAPEST FLIGHT")
         }
-        print("MINIMUM PRICE: \(minimumPrice)")
+        // print("MINIMUM PRICE: \(minimumPrice)")
         return minimumPrice
     }
     
@@ -52,11 +52,11 @@ class SkyScannerDataParser {
         var outboundCarrierID = 0
         var outboundCarrierName = ""
         
-        print("CHEAPEST FLIGHT: \(cheapestFlight)")
+      //  print("CHEAPEST FLIGHT: \(cheapestFlight)")
         
         if let outboundFlight = cheapestFlight["OutboundLeg"] as? [String:AnyObject] {
             
-            print("OUTBOUND FLIGHT: \(outboundFlight)")
+           // print("OUTBOUND FLIGHT: \(outboundFlight)")
             
             guard let
                 outboundCarriers = outboundFlight["CarrierIds"] as? [Int]
