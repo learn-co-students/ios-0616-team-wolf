@@ -52,8 +52,7 @@ class MatchingViewController: UIViewController {
         configureYesButton()
         configureNoButton()
         
-        let gradientColor = UIColor(gradientStyle:UIGradientStyle.Radial, withFrame:view.frame, andColors:[UIColor.flatYellowColor(), UIColor.flatRedColor()])
-        self.view.backgroundColor = gradientColor
+        self.view.backgroundColor = orangeGradient(view.frame)
     }
     
     override func viewDidLayoutSubviews() {

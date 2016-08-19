@@ -18,10 +18,8 @@ class LoadViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let gradientColor = UIColor(gradientStyle:UIGradientStyle.Radial, withFrame:view.frame, andColors:[UIColor.flatPlumColor(), UIColor.flatPlumColorDark().darkenByPercentage(0.2)])
-        self.view.backgroundColor = gradientColor
-        
+    
+        self.view.backgroundColor = purpleGradient(view.frame)
     }
     
     override func viewWillAppear(animated: Bool) {

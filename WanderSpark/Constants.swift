@@ -10,14 +10,13 @@
 import Foundation
 import ChameleonFramework
 
-//WanderSpark Font
+// WanderSpark Font
 func wanderSparkFont(size: CGFloat)-> UIFont{
 
-return UIFont(name: "Avenir-Book", size: size)!
-
+    return UIFont(name: "Avenir-Book", size: size)!
 }
-//Images for matching
 
+//Images for matching
  let adventureImage = UIImage(named: "adventure")!
  let beachesImage = UIImage(named: "beaches")!
  let cityImage = UIImage(named: "city")!
@@ -50,10 +49,15 @@ let brazil =  UIImage(named: "brazil")!
 
 // Colors
 
-let seafoam = UIColor(red: 112/255, green: 217/255, blue: 169/255, alpha: 1.0)
-let teal = UIColor(red: 44/255, green: 157/255, blue: 145/255, alpha: 1.0)
-let softWhite = UIColor(red: 252/255, green: 251/255, blue: 242/255, alpha: 1.0)
+func orangeGradient(frame: CGRect) -> UIColor{
+    let orangeGradient = UIColor(gradientStyle:UIGradientStyle.Radial, withFrame: frame, andColors:[UIColor.flatYellowColor(), UIColor.flatRedColor()])!
+    return orangeGradient
+}
 
+func purpleGradient(frame: CGRect) -> UIColor {
+    let purpleGradient = UIColor(gradientStyle:UIGradientStyle.Radial, withFrame:frame, andColors:[UIColor.flatPlumColor(), UIColor.flatPlumColorDark().darkenByPercentage(0.2)])
+    return purpleGradient
+}
 
 extension UIImage {
     var circle: UIImage {
