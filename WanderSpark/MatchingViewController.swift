@@ -15,7 +15,7 @@ import ChameleonFramework
 class MatchingViewController: UIViewController {
     
     let store = LocationsDataStore.sharedInstance
-    var matchingView: KolodaView!
+    var matchingView = KolodaView()
     
     var positiveMatchParameters = [String]()
     var negativeMatchParameters = [String]()
@@ -65,7 +65,6 @@ class MatchingViewController: UIViewController {
     
     
     func configureMatchingView() {
-        matchingView = KolodaView()
         view.addSubview(matchingView)
         matchingView.translatesAutoresizingMaskIntoConstraints = false
         matchingView.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
@@ -161,7 +160,7 @@ class MatchingViewController: UIViewController {
         yesButton.setTitle("✔︎", forState: UIControlState.Normal)
         yesButton.backgroundColor = UIColor.flatGreenColorDark()
         yesButton.layer.cornerRadius = 2
-        yesButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 35)
+        yesButton.titleLabel?.font = wanderSparkFont(35)
     
         yesButton.snp_makeConstraints { make in
             make.right.equalTo(matchingView)
@@ -179,7 +178,7 @@ class MatchingViewController: UIViewController {
         noButton.setTitle("✖︎", forState: UIControlState.Normal)
         noButton.backgroundColor = UIColor.flatRedColorDark()
         noButton.layer.cornerRadius = 2
-        noButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 30)
+        noButton.titleLabel?.font = wanderSparkFont(30)
         
         noButton.snp_makeConstraints { make in
             make.left.equalTo(matchingView)
@@ -233,13 +232,10 @@ extension MatchingViewController: KolodaViewDelegate {
     
     func koloda(matchingView: KolodaView, didSwipeCardAtIndex index: UInt, inDirection direction: SwipeResultDirection) {
         
-        print("Locations in store when \(index + 1) match card loads: \(store.locations.count)")
-        
+        // Make call to the NYTimes API when the first card loads.
         if index == 0 {
-            store.getLocationsWithCompletion({ 
-                
+            store.getLocationsWithCompletion({
             })
-                
         }
         
         let matchWord = matchingKeys[Int(index)]
