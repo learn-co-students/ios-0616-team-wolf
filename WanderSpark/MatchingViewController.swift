@@ -235,10 +235,11 @@ extension MatchingViewController: KolodaViewDelegate {
         
         print("Locations in store when \(index + 1) match card loads: \(store.locations.count)")
         
-        if index % 3 == 0 {
-            store.getLocationsWithCompletion({
-                print("Calling get locations for the card at index \(index).")
+        if index == 0 {
+            store.getLocationsWithCompletion({ 
+                
             })
+                
         }
         
         let matchWord = matchingKeys[Int(index)]

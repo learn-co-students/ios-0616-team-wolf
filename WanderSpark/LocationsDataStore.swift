@@ -16,14 +16,55 @@ class LocationsDataStore {
     var locations = [Location]()
     var matchedLocations = [Location]()
     
+    var locationsRetrieved = false
+    var retrievingLocations = true
+    
+    let newOperationQueue = NSOperationQueue()
+    
     func getLocationsWithCompletion(completion: () -> ()) {
         
-        var currentPage = 0
-        let lastPage = 5
+        let NYTimesOperationOne = NSBlockOperation()
+        addExecutionBlock(NYTimesOperationOne)
         
-        while currentPage < lastPage {
+        let NYTimesOperationTwo = NSBlockOperation()
+        addExecutionBlock(NYTimesOperationTwo)
+        
+        let NYTimesOperationThree = NSBlockOperation()
+        addExecutionBlock(NYTimesOperationThree)
+        
+        let NYTimesOperationFour = NSBlockOperation()
+        addExecutionBlock(NYTimesOperationFour)
+        
+        let NYTimesOperationFive = NSBlockOperation()
+        addExecutionBlock(NYTimesOperationFive)
+        
+        let NYTimesOperationSix = NSBlockOperation()
+        addExecutionBlock(NYTimesOperationSix)
+        
+        let NYTimesOperationSeven = NSBlockOperation()
+        addExecutionBlock(NYTimesOperationSeven)
+        
+        let NYTimesOperationEight = NSBlockOperation()
+        addExecutionBlock(NYTimesOperationEight)
+        
+        let NYTimesOperationNine = NSBlockOperation()
+        addExecutionBlock(NYTimesOperationNine)
+        
+        let NYTimesOperationTen = NSBlockOperation()
+        addExecutionBlock(NYTimesOperationTen)
+
+        completion()
+        
+        newOperationQueue.addOperations([NYTimesOperationOne, NYTimesOperationTwo, NYTimesOperationThree, NYTimesOperationFour, NYTimesOperationFive, NYTimesOperationSix, NYTimesOperationSeven, NYTimesOperationEight, NYTimesOperationNine, NYTimesOperationTen], waitUntilFinished: false)
+    }
+    
+    func addExecutionBlock(NYTimesOperation: NSBlockOperation) {
+        NYTimesOperation.addExecutionBlock({
+            let page = Int(arc4random_uniform(10))
+            print("This is the randomly selected page: \(page)")
             
-            NYTimesAPIClient.getLocationsWithCompletion(currentPage) { (locationCompletion) in
+            NYTimesAPIClient.getLocationsWithCompletion(page, completion: { (locationCompletion) in
+                print("This is the page requested from NYTimes: \(page)")
                 
                 for location in locationCompletion.0 {
                     if !self.locations.contains(location) {
@@ -31,10 +72,9 @@ class LocationsDataStore {
                     }
                     print("Location count: \(self.locations.count)")
                 }
-            }
-            currentPage += 1
-        }
-        completion()
+            })
+        })
     }
+    
     
 }

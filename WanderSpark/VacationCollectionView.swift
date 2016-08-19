@@ -26,8 +26,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = UIColor.blackColor()
-        store.getLocationsWithCompletion { 
-        }
+
         createImagesForCircleFromString()
         createImagesFromString()
         setConstraints()
