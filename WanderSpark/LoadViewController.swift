@@ -83,7 +83,7 @@ class LoadViewController: UIViewController {
     
     
     func configurePlane() {
-        circleAnimation.circlePoint.contents = UIImage(named: "plane")?.CGImage
+        circleAnimation.circlePoint.contents = UIImage(named: "airplane")?.CGImage
         circleAnimation.circlePoint.frame = CGRectMake(0, 0, 35, 35)
         circleAnimation.circlePoint.borderWidth = 0
         circleAnimation.circlePoint.cornerRadius = 18

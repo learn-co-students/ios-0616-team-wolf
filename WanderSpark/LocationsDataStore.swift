@@ -23,7 +23,11 @@ class LocationsDataStore {
         
         while currentPage < lastPage {
             
+            print("OUTSIDE CALL ---- CURRENT PAGE: \(currentPage)")
+            
             NYTimesAPIClient.getLocationsWithCompletion(currentPage) { (locationCompletion) in
+                
+                print("INSIDE CALL ---- CURRENT PAGE: \(currentPage)")
                 
                 for location in locationCompletion.0 {
                     if !self.locations.contains(location) {
