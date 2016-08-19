@@ -24,43 +24,45 @@ class LocationsDataStore {
     func getLocationsWithCompletion(completion: () -> ()) {
         
         let NYTimesOperationOne = NSBlockOperation()
-        addExecutionBlock(NYTimesOperationOne)
+        addExecutionBlock(NYTimesOperationOne, page: 0)
         
         let NYTimesOperationTwo = NSBlockOperation()
-        addExecutionBlock(NYTimesOperationTwo)
+        addExecutionBlock(NYTimesOperationTwo, page: 1)
         
         let NYTimesOperationThree = NSBlockOperation()
-        addExecutionBlock(NYTimesOperationThree)
+        addExecutionBlock(NYTimesOperationThree, page: 2)
         
         let NYTimesOperationFour = NSBlockOperation()
-        addExecutionBlock(NYTimesOperationFour)
+        addExecutionBlock(NYTimesOperationFour, page: 3)
         
         let NYTimesOperationFive = NSBlockOperation()
-        addExecutionBlock(NYTimesOperationFive)
+        addExecutionBlock(NYTimesOperationFive, page: 4)
         
         let NYTimesOperationSix = NSBlockOperation()
-        addExecutionBlock(NYTimesOperationSix)
+        addExecutionBlock(NYTimesOperationSix, page: 5)
         
         let NYTimesOperationSeven = NSBlockOperation()
-        addExecutionBlock(NYTimesOperationSeven)
+        addExecutionBlock(NYTimesOperationSeven, page: 6)
         
         let NYTimesOperationEight = NSBlockOperation()
-        addExecutionBlock(NYTimesOperationEight)
+        addExecutionBlock(NYTimesOperationEight, page: 7)
         
         let NYTimesOperationNine = NSBlockOperation()
-        addExecutionBlock(NYTimesOperationNine)
+        addExecutionBlock(NYTimesOperationNine, page: 8)
         
         let NYTimesOperationTen = NSBlockOperation()
-        addExecutionBlock(NYTimesOperationTen)
+        addExecutionBlock(NYTimesOperationTen, page: 9)
 
         completion()
+        
+        newOperationQueue.maxConcurrentOperationCount = 2
         
         newOperationQueue.addOperations([NYTimesOperationOne, NYTimesOperationTwo, NYTimesOperationThree, NYTimesOperationFour, NYTimesOperationFive, NYTimesOperationSix, NYTimesOperationSeven, NYTimesOperationEight, NYTimesOperationNine, NYTimesOperationTen], waitUntilFinished: false)
     }
     
-    func addExecutionBlock(NYTimesOperation: NSBlockOperation) {
+    func addExecutionBlock(NYTimesOperation: NSBlockOperation, page: Int) {
         NYTimesOperation.addExecutionBlock({
-            let page = Int(arc4random_uniform(10))
+            //let page = Int(arc4random_uniform(10))
             print("This is the randomly selected page: \(page)")
             
             NYTimesAPIClient.getLocationsWithCompletion(page, completion: { (locationCompletion) in
