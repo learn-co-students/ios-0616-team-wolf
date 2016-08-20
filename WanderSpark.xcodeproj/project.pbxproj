@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		1B3D0A341D5E02C40072185F /* UserOrigin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D0A331D5E02C40072185F /* UserOrigin.swift */; };
 		1B3D0A361D5E02DA0072185F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B3D0A351D5E02DA0072185F /* CoreLocation.framework */; };
+		1BBD0E5A1D6890B60061DAA1 /* FavoritesDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBD0E591D6890B60061DAA1 /* FavoritesDataStore.swift */; };
+		1BBD0E5D1D6893080061DAA1 /* WanderSpark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1BBD0E5B1D6893080061DAA1 /* WanderSpark.xcdatamodeld */; };
+		1BBD0E621D6894E40061DAA1 /* FavoriteLocation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBD0E601D6894E40061DAA1 /* FavoriteLocation+CoreDataProperties.swift */; };
+		1BBD0E631D6894E40061DAA1 /* FavoriteLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBD0E611D6894E40061DAA1 /* FavoriteLocation.swift */; };
 		1BBE4BA51D5BD4890037032D /* SkyScannerAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBE4BA41D5BD4890037032D /* SkyScannerAPIClient.swift */; };
 		1BE7A6391D58E3E600B7E89F /* LocationMatchmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7A6381D58E3E600B7E89F /* LocationMatchmaker.swift */; };
 		1BE7A63B1D592FD000B7E89F /* NYTimesDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */; };
@@ -23,7 +27,6 @@
 		BF415E101D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF415E0D1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m */; };
 		BF415E111D5A8FD200C2BFB8 /* FZCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF415E0F1D5A8FD200C2BFB8 /* FZCarouselView.m */; };
 		BF41AB4B1D55270800725AAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF41AB4A1D55270800725AAE /* AppDelegate.swift */; };
-		BF41AB4D1D55270800725AAE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF41AB4C1D55270800725AAE /* ViewController.swift */; };
 		BF41AB501D55270800725AAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF41AB4E1D55270800725AAE /* Main.storyboard */; };
 		BF41AB521D55270800725AAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF41AB511D55270800725AAE /* Assets.xcassets */; };
 		BF41AB551D55270800725AAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF41AB531D55270800725AAE /* LaunchScreen.storyboard */; };
@@ -39,6 +42,10 @@
 /* Begin PBXFileReference section */
 		1B3D0A331D5E02C40072185F /* UserOrigin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserOrigin.swift; sourceTree = "<group>"; };
 		1B3D0A351D5E02DA0072185F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1BBD0E591D6890B60061DAA1 /* FavoritesDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDataStore.swift; sourceTree = "<group>"; };
+		1BBD0E5C1D6893080061DAA1 /* WanderSpark.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WanderSpark.xcdatamodel; sourceTree = "<group>"; };
+		1BBD0E601D6894E40061DAA1 /* FavoriteLocation+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FavoriteLocation+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1BBD0E611D6894E40061DAA1 /* FavoriteLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteLocation.swift; sourceTree = "<group>"; };
 		1BBE4BA41D5BD4890037032D /* SkyScannerAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyScannerAPIClient.swift; sourceTree = "<group>"; };
 		1BE7A6381D58E3E600B7E89F /* LocationMatchmaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationMatchmaker.swift; sourceTree = "<group>"; };
 		1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NYTimesDataParser.swift; sourceTree = "<group>"; };
@@ -59,7 +66,6 @@
 		BF415E0F1D5A8FD200C2BFB8 /* FZCarouselView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZCarouselView.m; sourceTree = "<group>"; };
 		BF41AB471D55270800725AAE /* WanderSpark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WanderSpark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF41AB4A1D55270800725AAE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BF41AB4C1D55270800725AAE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BF41AB4F1D55270800725AAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF41AB511D55270800725AAE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF41AB541D55270800725AAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -128,7 +134,6 @@
 				BF415E0F1D5A8FD200C2BFB8 /* FZCarouselView.m */,
 				BF41AB4A1D55270800725AAE /* AppDelegate.swift */,
 				1B3D0A331D5E02C40072185F /* UserOrigin.swift */,
-				BF41AB4C1D55270800725AAE /* ViewController.swift */,
 				BF41AB5C1D55274700725AAE /* NYTimesAPIClient.swift */,
 				1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */,
 				A4ECDD641D55429F00FC9E03 /* GoogleMapsAPIClient.swift */,
@@ -136,6 +141,10 @@
 				A445AD4B1D635CB00066199D /* SkyScannerDataParser.swift */,
 				BF41AB5E1D55275000725AAE /* LocationsDataStore.swift */,
 				BF41AB601D55275700725AAE /* Location.swift */,
+				1BBD0E591D6890B60061DAA1 /* FavoritesDataStore.swift */,
+				1BBD0E601D6894E40061DAA1 /* FavoriteLocation+CoreDataProperties.swift */,
+				1BBD0E611D6894E40061DAA1 /* FavoriteLocation.swift */,
+				1BBD0E5B1D6893080061DAA1 /* WanderSpark.xcdatamodeld */,
 				1BE7A6381D58E3E600B7E89F /* LocationMatchmaker.swift */,
 				BF41AB4E1D55270800725AAE /* Main.storyboard */,
 				A496A69C1D5E5C29007DF405 /* Flight.swift */,
@@ -330,7 +339,7 @@
 			files = (
 				BF415E111D5A8FD200C2BFB8 /* FZCarouselView.m in Sources */,
 				1BFA0F2B1D61FA2500423878 /* Secrets.swift in Sources */,
-				BF41AB4D1D55270800725AAE /* ViewController.swift in Sources */,
+				1BBD0E5D1D6893080061DAA1 /* WanderSpark.xcdatamodeld in Sources */,
 				1BFA0EEF1D5CC2D500423878 /* MatchingViewController.swift in Sources */,
 				BF415E101D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m in Sources */,
 				BFC9EF691D5B771F009C0F2A /* VacationCollectionView.swift in Sources */,
@@ -339,10 +348,13 @@
 				BF53C59D1D5A8CFA00810066 /* WSCarouselCollectionViewController.swift in Sources */,
 				A496A69B1D5E5BF0007DF405 /* CoordinateAndFlightQueues.swift in Sources */,
 				1BFA0F2D1D62072F00423878 /* LoadViewController.swift in Sources */,
+				1BBD0E631D6894E40061DAA1 /* FavoriteLocation.swift in Sources */,
 				A445AD4C1D635CB00066199D /* SkyScannerDataParser.swift in Sources */,
 				A4ECDD651D55429F00FC9E03 /* GoogleMapsAPIClient.swift in Sources */,
 				BF41AB5D1D55274700725AAE /* NYTimesAPIClient.swift in Sources */,
 				BF41AB611D55275700725AAE /* Location.swift in Sources */,
+				1BBD0E5A1D6890B60061DAA1 /* FavoritesDataStore.swift in Sources */,
+				1BBD0E621D6894E40061DAA1 /* FavoriteLocation+CoreDataProperties.swift in Sources */,
 				BF41AB5F1D55275000725AAE /* LocationsDataStore.swift in Sources */,
 				1BE7A6391D58E3E600B7E89F /* LocationMatchmaker.swift in Sources */,
 				BF41AB4B1D55270800725AAE /* AppDelegate.swift in Sources */,
@@ -520,6 +532,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1BBD0E5B1D6893080061DAA1 /* WanderSpark.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1BBD0E5C1D6893080061DAA1 /* WanderSpark.xcdatamodel */,
+			);
+			currentVersion = 1BBD0E5C1D6893080061DAA1 /* WanderSpark.xcdatamodel */;
+			path = WanderSpark.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = BF41AB3F1D55270800725AAE /* Project object */;
 }

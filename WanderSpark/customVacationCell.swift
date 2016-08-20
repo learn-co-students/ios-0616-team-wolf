@@ -21,6 +21,8 @@ class customVacationCell: UICollectionViewCell {
     var homeButton: UIButton!
     var airportLabel: UILabel!
     
+    var favoriteButton = UIButton()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -122,19 +124,13 @@ class customVacationCell: UICollectionViewCell {
         
         snippetLabel.backgroundColor = UIColor.clearColor()
         snippetLabel.font = wanderSparkFont(20)
-        
         snippetLabel.textAlignment = NSTextAlignment.Justified
         snippetLabel.textColor = UIColor.whiteColor()
-        
         snippetLabel.text = "No Information"
-        
-        
         
         priceButton.titleLabel?.font = wanderSparkFont(50)
         priceButton.titleLabel?.textColor = UIColor.whiteColor()
         priceButton.titleLabel?.shadowColor = UIColor.whiteColor()
-        
-        
         
         homeButton.titleLabel?.font = wanderSparkFont(14)
         homeButton.titleLabel?.textColor = UIColor.whiteColor()
@@ -159,7 +155,14 @@ class customVacationCell: UICollectionViewCell {
     }
     
   
-    
+    func configureFavoriteButton() {
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton.bottomAnchor.constraintEqualToAnchor(homeButton.bottomAnchor).active = true
+        favoriteButton.leadingAnchor.constraintEqualToAnchor(homeButton.trailingAnchor, constant: 5).active = true
+        favoriteButton.setTitle("❤️", forState: UIControlState.Normal)
+        
+        contentView.addSubview(favoriteButton)
+    }
     
     
 //    func blurImage(){

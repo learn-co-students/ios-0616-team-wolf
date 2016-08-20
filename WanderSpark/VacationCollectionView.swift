@@ -20,6 +20,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     var vacationLocations: [Location] = [Location]()
     var arrayOfVacationImages: [UIImage] = [UIImage]()
     var arrayOfVacationImagesForThumbnail: [UIImage] = [UIImage]()
+    
 
     
     override func viewDidLoad() {
@@ -119,8 +120,6 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     
     
     func createImagesFromString(){
-        // append images from assets
-
         
         for location in store.matchedLocations{
             if location.images != []{
@@ -131,12 +130,9 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
             }
         }
     }
-    
-    
+     
     
     func createImagesForCircleFromString(){
-        // append images from assets
-        
         
         for location in store.matchedLocations{
             if location.images != []{
@@ -162,6 +158,9 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         self.performSegueWithIdentifier("returnHome", sender: self)
         
     }
+    
+
+    
     
     
 }
