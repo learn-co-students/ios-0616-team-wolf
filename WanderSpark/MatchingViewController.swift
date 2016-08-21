@@ -15,7 +15,7 @@ import ChameleonFramework
 class MatchingViewController: UIViewController {
     
     let store = LocationsDataStore.sharedInstance
-    var matchingView: KolodaView!
+    var matchingView = KolodaView()
     
     var positiveMatchParameters = [String]()
     var negativeMatchParameters = [String]()
@@ -52,8 +52,7 @@ class MatchingViewController: UIViewController {
         configureYesButton()
         configureNoButton()
         
-        let gradientColor = UIColor(gradientStyle:UIGradientStyle.Radial, withFrame:view.frame, andColors:[UIColor.flatYellowColor(), UIColor.flatRedColor()])
-        self.view.backgroundColor = gradientColor
+        self.view.backgroundColor = orangeGradient(view.frame)
     }
     
     override func viewDidLayoutSubviews() {
@@ -65,7 +64,6 @@ class MatchingViewController: UIViewController {
     
     
     func configureMatchingView() {
-        matchingView = KolodaView()
         view.addSubview(matchingView)
         matchingView.translatesAutoresizingMaskIntoConstraints = false
         matchingView.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
@@ -161,7 +159,7 @@ class MatchingViewController: UIViewController {
         yesButton.setTitle("✔︎", forState: UIControlState.Normal)
         yesButton.backgroundColor = UIColor.flatGreenColorDark()
         yesButton.layer.cornerRadius = 2
-        yesButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 35)
+        yesButton.titleLabel?.font = wanderSparkFont(35)
     
         yesButton.snp_makeConstraints { make in
             make.right.equalTo(matchingView)
@@ -179,7 +177,7 @@ class MatchingViewController: UIViewController {
         noButton.setTitle("✖︎", forState: UIControlState.Normal)
         noButton.backgroundColor = UIColor.flatRedColorDark()
         noButton.layer.cornerRadius = 2
-        noButton.titleLabel?.font = UIFont(name: "Avenir-Book", size: 30)
+        noButton.titleLabel?.font = wanderSparkFont(30)
         
         noButton.snp_makeConstraints { make in
             make.left.equalTo(matchingView)
@@ -233,11 +231,9 @@ extension MatchingViewController: KolodaViewDelegate {
     
     func koloda(matchingView: KolodaView, didSwipeCardAtIndex index: UInt, inDirection direction: SwipeResultDirection) {
         
-        print("Locations in store when \(index + 1) match card loads: \(store.locations.count)")
-        
-        if index % 3 == 0 {
+        // Make call to the NYTimes API when the first card loads.
+        if index == 0 {
             store.getLocationsWithCompletion({
-                print("Calling get locations for the card at index \(index).")
             })
         }
         
@@ -298,6 +294,24 @@ extension MatchingViewController: KolodaViewDataSource {
         
         matchingCardView.backgroundColor = UIColor.flatWhiteColor()
         
+        // Add and constrain matching label:
+        let matchWordLabel = UILabel()
+        let font = UIFont(name: "Avenir-Book", size: 45)
+        matchingCardView.addSubview(matchWordLabel)
+        
+        matchWordLabel.text = matchingKeys[Int(index)]
+        matchWordLabel.font = font
+        matchWordLabel.textAlignment = .Center
+        matchWordLabel.textColor = UIColor.flatWhiteColor()
+        matchWordLabel.backgroundColor = UIColor.flatPlumColorDark().darkenByPercentage(0.1)
+        
+        matchWordLabel.snp_makeConstraints { make in
+            make.centerX.equalTo(matchingCardView)
+            make.bottom.equalTo(matchingCardView).offset(-5)
+            make.width.equalTo(matchingCardView)
+            make.height.equalTo(70)
+        }
+        
         // Add and constrain matching icon:
         let iconView = UIImageView()
         matchingCardView.addSubview(iconView)
@@ -308,28 +322,10 @@ extension MatchingViewController: KolodaViewDataSource {
         
         iconView.snp_makeConstraints { make in
             make.centerX.equalTo(matchingCardView)
-            make.centerY.equalTo(matchingCardView).offset(-20)
+            make.bottom.equalTo(matchWordLabel.snp_top).offset(-5)
             make.width.height.equalTo(matchingCardView).multipliedBy(0.7)
         }
-        
-        // Add and constrain matching label:
-        let matchWordLabel = UILabel()
-        let font = UIFont(name: "Avenir-Book", size: 45)
-        matchingCardView.addSubview(matchWordLabel)
-        
-        matchWordLabel.text = matchingKeys[Int(index)]
-        matchWordLabel.font = font
-        matchWordLabel.textAlignment = .Center
-        matchWordLabel.textColor = UIColor.flatWhiteColor()
-        matchWordLabel.backgroundColor = UIColor.flatPlumColorDark().darkenByPercentage(0.2)
-        
-        matchWordLabel.snp_makeConstraints { make in
-            make.centerX.equalTo(iconView)
-            make.bottom.equalTo(matchingCardView).offset(-5)
-            make.width.equalTo(matchingCardView)
-            make.height.equalTo(70)
-        }
-        
+
         return matchingCardView
     }
 }
