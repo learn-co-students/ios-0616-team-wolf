@@ -42,7 +42,6 @@ class customVacationCell: UICollectionViewCell {
         homeButton = UIButton()
         airportLabel = UILabel()
         
-        
         contentView.addSubview(imageView)
         contentView.addSubview(locationLabel)
         contentView.addSubview(priceButton)
@@ -51,6 +50,7 @@ class customVacationCell: UICollectionViewCell {
         contentView.addSubview(snippetLabel)
         contentView.addSubview(homeButton)
         contentView.addSubview(airportLabel)
+        configureFavoriteButton()
         
         self.imageView.translatesAutoresizingMaskIntoConstraints = false
         self.imageView.topAnchor.constraintEqualToAnchor(self.circleProfileView.bottomAnchor, constant: 50).active = true
@@ -152,16 +152,22 @@ class customVacationCell: UICollectionViewCell {
         contentView.addSubview(snippetLabel)
         contentView.addSubview(homeButton)
         contentView.addSubview(airportLabel)
+        contentView.addSubview(favoriteButton)
     }
     
   
     func configureFavoriteButton() {
+        contentView.addSubview(favoriteButton)
+        
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.bottomAnchor.constraintEqualToAnchor(homeButton.bottomAnchor).active = true
-        favoriteButton.leadingAnchor.constraintEqualToAnchor(homeButton.trailingAnchor, constant: 5).active = true
-        favoriteButton.setTitle("❤️", forState: UIControlState.Normal)
+        favoriteButton.leadingAnchor.constraintEqualToAnchor(homeButton.trailingAnchor, constant: 10).active = true
+        favoriteButton.widthAnchor.constraintEqualToConstant(30).active = true
+        favoriteButton.heightAnchor.constraintEqualToConstant(30).active = true
         
-        contentView.addSubview(favoriteButton)
+        favoriteButton.titleLabel?.font = wanderSparkFont(30)
+        favoriteButton.titleLabel?.textColor = UIColor.whiteColor()
+        //favoriteButton.setTitle("❤︎", forState: .Normal)
     }
     
     

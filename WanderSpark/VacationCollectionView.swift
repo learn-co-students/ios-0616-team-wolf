@@ -8,10 +8,13 @@
 
 
 import UIKit
+import CoreData
 
 class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     let store = LocationsDataStore.sharedInstance
+    let favoritesStore = FavoritesDataStore.sharedInstance
+    
     var fullSceenImage = UIImageView()
     var blurImage = UIVisualEffectView()
     var vacationCollectionView : UICollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -35,7 +38,6 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func getPrices(){
-        
         print("GET PRICES!!!!!!!!!!!!!")
     }
     
@@ -43,7 +45,6 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     func setConstraints() {
         self.fullSceenImage.translatesAutoresizingMaskIntoConstraints = false
         self.blurImage.translatesAutoresizingMaskIntoConstraints = false
-        
         
         self.view.addSubview(fullSceenImage)
         
@@ -70,7 +71,6 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         vacationCollectionView.backgroundColor = UIColor.blackColor()
         self.view.addSubview(vacationCollectionView)
         vacationCollectionView.pagingEnabled = true
-        
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -94,17 +94,20 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         cell.locationLabel.text = store.matchedLocations[indexPath.row].name
         cell.imageView.image = arrayOfVacationImages[indexPath.row]
         
-        if let lowestPrice = store.matchedLocations[indexPath.row].cheapestFlight?.lowestPrice{
-        cell.priceButton.setTitle("$\(lowestPrice)", forState: .Normal)
-        }
-        
         if let airportLocation = store.matchedLocations[indexPath.row].cheapestFlight?.originIATACode{
             cell.airportLabel.text = "from \(airportLocation)"
         }
         
+        if let lowestPrice = store.matchedLocations[indexPath.row].cheapestFlight?.lowestPrice{
+            cell.priceButton.setTitle("$\(lowestPrice)", forState: .Normal)
+        }
         cell.priceButton.addTarget(self, action: #selector(VacationCollectionView.getPrices), forControlEvents: .TouchUpInside)
+        
         cell.homeButton.setTitle("home", forState: .Normal)
         cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
+        
+        cell.favoriteButton.setTitle("❤︎", forState: .Normal)
+        cell.favoriteButton.addTarget(self, action: #selector(VacationCollectionView.addToFavorites), forControlEvents: .TouchUpInside)
         
         cell.snippetLabel.text = store.matchedLocations[indexPath.row].description
     
@@ -113,7 +116,6 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
        
         print("cell for row at index path was just called -- the description is: \(cell.snippetLabel.text!)")
-      
         
         return cell
     }
@@ -147,19 +149,36 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
   
     func returnHome(){
         self.store.locations.removeAll()
         self.store.matchedLocations.removeAll()
         self.performSegueWithIdentifier("returnHome", sender: self)
-        
     }
     
-
+    func addToFavorites() {
+        print("Add to favorites")
+        
+        let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
+        if let selectedIndex = vacationCollectionView.indexPathForCell(selectedCell) {
+            let selectedRow = selectedIndex.row
+            let selectedLocation = store.matchedLocations[selectedRow]
+            
+            let locationDescription = NSEntityDescription.entityForName("FavoriteLocation", inManagedObjectContext: favoritesStore.managedObjectContext)
+            
+            if let locationDescription = locationDescription {
+                
+                let favoriteLocation = FavoriteLocation(entity: locationDescription, insertIntoManagedObjectContext: favoritesStore.managedObjectContext)
+                
+                favoriteLocation.name = selectedLocation.name
+                favoriteLocation.image = selectedLocation.images[0]
+                favoriteLocation.snippet = selectedLocation.description
+                favoriteLocation.matchCount = selectedLocation.matchCount
+            }
+            favoritesStore.saveContext()
+        }
+    }
     
     
     
