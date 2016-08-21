@@ -53,7 +53,7 @@ class Flight {
     
     class func checkLocationFlightInformation(location: Location) {
         
-        guard let
+        guard var
             coordinates = location.coordinates,
             carrierName = location.cheapestFlight!.carrierName,
             originAirport = location.cheapestFlight!.originIATACode,
@@ -61,9 +61,14 @@ class Flight {
             else { fatalError("ERROR: could not unwrap flight information in check to verify they have been populated correctly") }
         
         if originAirport == "" || price == String(0) || price == "" {
+            
             print("MISSING INFO FOR \(location.name.uppercaseString)")
+            
+            //adjust coordinates for Williamsburg, VA and Mendocino, CA because its a hit/miss for SkyScanner to get flight information for these locations, so changing coordinates to city with closest airport that serves the area 
+            
             CoordinateAndFlightQueues.numberOfFlightsRetrieved -= 1
             CoordinateAndFlightQueues.flightsRetrieved = false
+            
             SkyScannerAPIClient.getFlights(location, completion: { (missingFlightInfo, nil) in
                 print("getting missing flight information for \(location.name)")
             })

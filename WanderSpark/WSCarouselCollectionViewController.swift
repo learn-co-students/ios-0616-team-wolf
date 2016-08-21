@@ -35,6 +35,15 @@ class WSCarouselCollectionViewController: UIViewController {
         activateBlur()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        let store = LocationsDataStore.sharedInstance
+        store.matchedLocations.removeAll()
+        CoordinateAndFlightQueues.coordinatesPopulatedCount = 0
+        CoordinateAndFlightQueues.numberOfFlightsRetrieved = 0 
+        print("cleared matched locations")
+        
+    }
+    
     func createButtons(){
         self.logoView.image = UIImage(named: "crystalballnobackground")
         logoView.contentMode = .ScaleAspectFit

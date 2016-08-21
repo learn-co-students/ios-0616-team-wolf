@@ -30,6 +30,14 @@ class SkyScannerAPIClient {
     
     class func getFlights(location: Location, completion: FlightCompletion) {
         
+        if location.name == "Williamsburg (Va)" {
+            location.coordinates = (37.531399, -77.476009) //coordinates for servicing airport in richmond, va
+        } else if location.name == "Mendocino (Calif)" {
+            location.coordinates = (38.575764, -121.478851) //coordinates for servicing airport in sacramento, ca
+        }
+        
+        // in the future, if coordinates cannot be found or no flights are available for a location, use google maps to geolocate coordinates of nearest airport
+        
         guard let coordinates = location.coordinates else { fatalError("ERROR: failed to unwrap coordinate values") }
         
         Alamofire.request(.GET, "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.730610,-73.935242-latlong/\(coordinates.0),\(coordinates.1)-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)").responseJSON { (response) in

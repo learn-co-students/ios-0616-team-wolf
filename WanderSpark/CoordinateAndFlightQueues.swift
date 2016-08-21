@@ -26,8 +26,18 @@ class CoordinateAndFlightQueues {
     
     class func getCoordinatesAndFlightInfo (completion: (Bool)-> ()) {
         
+        print("MATCHED LOCATIONS HERE: ")
+        for location in store.matchedLocations {
+            print("\(location.name)")
+        }
+        
+        
         let googleOperation = NSBlockOperation()
         googleOperation.addExecutionBlock({
+            
+            while store.matchedLocations.count < 10 {
+                print("waiting for matched locations")
+            }
             
             for location in store.matchedLocations {
                  
@@ -46,7 +56,7 @@ class CoordinateAndFlightQueues {
         
         let flightOperation = NSBlockOperation()
         flightOperation.addExecutionBlock {
-            if coordinatesPopulated {
+            if coordinatesPopulatedCount == 10 && coordinatesPopulated {
                 for location in store.matchedLocations {
                     print("FLIGHT COORDINATES: \(location.name) -> \(location.coordinates)")
                     SkyScannerAPIClient.getFlights(location, completion: {_,_ in
