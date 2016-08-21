@@ -39,9 +39,7 @@ class WSCarouselCollectionViewController: UIViewController {
         let store = LocationsDataStore.sharedInstance
         store.matchedLocations.removeAll()
         CoordinateAndFlightQueues.coordinatesPopulatedCount = 0
-        CoordinateAndFlightQueues.numberOfFlightsRetrieved = 0 
-        print("cleared matched locations")
-        
+        CoordinateAndFlightQueues.numberOfFlightsRetrieved = 0
     }
     
     func createButtons(){
