@@ -158,8 +158,6 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func addToFavorites() {
-        print("Add to favorites")
-        
         let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
         if let selectedIndex = vacationCollectionView.indexPathForCell(selectedCell) {
             let selectedRow = selectedIndex.row
@@ -172,9 +170,10 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
                 let favoriteLocation = FavoriteLocation(entity: locationDescription, insertIntoManagedObjectContext: favoritesStore.managedObjectContext)
                 
                 favoriteLocation.name = selectedLocation.name
-                favoriteLocation.image = selectedLocation.images[0]
+                favoriteLocation.imageURL = selectedLocation.images[0]
                 favoriteLocation.snippet = selectedLocation.description
                 favoriteLocation.matchCount = selectedLocation.matchCount
+                favoriteLocation.articleURL = selectedLocation.articleURL
             }
             favoritesStore.saveContext()
         }

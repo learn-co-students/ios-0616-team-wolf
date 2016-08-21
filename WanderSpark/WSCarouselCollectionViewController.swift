@@ -13,6 +13,8 @@ import FZCarousel
 class WSCarouselCollectionViewController: UIViewController {
     
     let store = LocationsDataStore.sharedInstance
+    let favoritesStore = FavoritesDataStore.sharedInstance
+    
     @IBOutlet weak var carouselView: FZCarouselView!
     var blurEffect: UIBlurEffect!
     var arrayOfImages = [carousel3, japan, carousel4, china, carousel1, egypt, brazil]
@@ -24,6 +26,13 @@ class WSCarouselCollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Testing to see if favorites data store is working...
+        favoritesStore.fetchFavoriteLocationsData()
+        
+        print("This many locations have been saved to the favorites store:\n")
+        print(favoritesStore.favoriteLocations.count)
+        
         
         carouselView.clipsToBounds = true
         

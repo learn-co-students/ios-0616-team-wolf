@@ -14,11 +14,12 @@ import ChameleonFramework
 class LoadViewController: UIViewController {
     var circleAnimation = UICircleAnimationView()
     let store = LocationsDataStore.sharedInstance
+    let favoritesStore = FavoritesDataStore.sharedInstance
     var imFeelingLucky: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+            
         self.view.backgroundColor = purpleGradient(view.frame)
     }
     
