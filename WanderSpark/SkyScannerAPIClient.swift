@@ -49,7 +49,7 @@ class SkyScannerAPIClient {
                         locationInfoArray = flightsResponse["Places"] as? [[String:AnyObject]],
                         carrierListArray = flightsResponse["Carriers"] as? [[String:AnyObject]]
                         else {
-                        fatalError("ERROR: No flights found for location")
+                        fatalError("ERROR: No flights found for location \(location.name)")
                         }
                 flightQuotes = flightQuotesArray
                 locationInfo = locationInfoArray
