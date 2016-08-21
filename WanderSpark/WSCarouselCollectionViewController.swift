@@ -40,14 +40,14 @@ class WSCarouselCollectionViewController: UIViewController {
         logoView.contentMode = .ScaleAspectFit
         
         self.findDestinationButton.setTitle("Find Destination", forState: .Normal)
-        self.findDestinationButton.titleLabel?.font = wanderSparkFont(22)
+        self.findDestinationButton.titleLabel?.font = wanderSparkFont(18)
         self.findDestinationButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.playMatchMakerTapped), forControlEvents: .TouchUpInside)
         //self.findDestinationButton.setBackgroundImage(backgroundButton, forState: .Normal)
         //self.findDestinationButton.layer.shadowRadius = 2
         //self.findDestinationButton.layer.shadowOpacity = 2
         
         self.imFeelingLuckyButton.setTitle("I'm Feeling Lucky", forState: .Normal)
-        self.imFeelingLuckyButton.titleLabel?.font = wanderSparkFont(22)
+        self.imFeelingLuckyButton.titleLabel?.font = wanderSparkFont(18)
         self.imFeelingLuckyButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.imFeelingLuckyTapped), forControlEvents: .TouchUpInside)
         
         //self.imFeelingLuckyButton.setBackgroundImage(backgroundButton, forState: .Normal)
@@ -104,6 +104,9 @@ class WSCarouselCollectionViewController: UIViewController {
         self.findDestinationButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
         self.findDestinationButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.1).active = true
         self.findDestinationButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.5).active = true
+        findDestinationButton.titleLabel?.adjustsFontSizeToFitWidth
+        
+        
         
         self.carouselView.addSubview(imFeelingLuckyButton)
         self.imFeelingLuckyButton.translatesAutoresizingMaskIntoConstraints = false
@@ -111,6 +114,10 @@ class WSCarouselCollectionViewController: UIViewController {
         self.imFeelingLuckyButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
         self.imFeelingLuckyButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.1).active = true
         self.imFeelingLuckyButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.5).active = true
+        imFeelingLuckyButton.titleLabel?.adjustsFontSizeToFitWidth
+
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
