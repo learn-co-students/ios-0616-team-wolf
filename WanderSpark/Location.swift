@@ -12,8 +12,7 @@ import UIKit
 class Location {
     let name: String
     let images: [String]
-    let description:
-    String
+    let description: String
     let articleURL: String
     var matchCount = 0
     var coordinates : (Double, Double)?
@@ -43,6 +42,7 @@ class Location {
         
         return formattedLocation
     }
+    
 }
 
 extension Location: Equatable {}
