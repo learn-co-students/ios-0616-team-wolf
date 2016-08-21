@@ -64,7 +64,7 @@ class LocationsDataStore {
         NYTimesOperation.addExecutionBlock({
             //let page = Int(arc4random_uniform(10))
             print("This is the randomly selected page: \(page)")
-            
+                
             NYTimesAPIClient.getLocationsWithCompletion(page, completion: { (locationCompletion) in
                 print("This is the page requested from NYTimes: \(page)")
                 

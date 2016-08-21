@@ -294,6 +294,24 @@ extension MatchingViewController: KolodaViewDataSource {
         
         matchingCardView.backgroundColor = UIColor.flatWhiteColor()
         
+        // Add and constrain matching label:
+        let matchWordLabel = UILabel()
+        let font = UIFont(name: "Avenir-Book", size: 45)
+        matchingCardView.addSubview(matchWordLabel)
+        
+        matchWordLabel.text = matchingKeys[Int(index)]
+        matchWordLabel.font = font
+        matchWordLabel.textAlignment = .Center
+        matchWordLabel.textColor = UIColor.flatWhiteColor()
+        matchWordLabel.backgroundColor = UIColor.flatPlumColorDark().darkenByPercentage(0.1)
+        
+        matchWordLabel.snp_makeConstraints { make in
+            make.centerX.equalTo(matchingCardView)
+            make.bottom.equalTo(matchingCardView).offset(-5)
+            make.width.equalTo(matchingCardView)
+            make.height.equalTo(70)
+        }
+        
         // Add and constrain matching icon:
         let iconView = UIImageView()
         matchingCardView.addSubview(iconView)
@@ -304,28 +322,10 @@ extension MatchingViewController: KolodaViewDataSource {
         
         iconView.snp_makeConstraints { make in
             make.centerX.equalTo(matchingCardView)
-            make.centerY.equalTo(matchingCardView).offset(-20)
+            make.bottom.equalTo(matchWordLabel.snp_top).offset(-5)
             make.width.height.equalTo(matchingCardView).multipliedBy(0.7)
         }
-        
-        // Add and constrain matching label:
-        let matchWordLabel = UILabel()
-        let font = UIFont(name: "Avenir-Book", size: 45)
-        matchingCardView.addSubview(matchWordLabel)
-        
-        matchWordLabel.text = matchingKeys[Int(index)]
-        matchWordLabel.font = font
-        matchWordLabel.textAlignment = .Center
-        matchWordLabel.textColor = UIColor.flatWhiteColor()
-        matchWordLabel.backgroundColor = UIColor.flatPlumColorDark().darkenByPercentage(0.2)
-        
-        matchWordLabel.snp_makeConstraints { make in
-            make.centerX.equalTo(iconView)
-            make.bottom.equalTo(matchingCardView).offset(-5)
-            make.width.equalTo(matchingCardView)
-            make.height.equalTo(70)
-        }
-        
+
         return matchingCardView
     }
 }
