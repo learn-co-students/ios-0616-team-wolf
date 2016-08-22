@@ -22,6 +22,7 @@ class customVacationCell: UICollectionViewCell {
     var airportLabel: UILabel!
     
     var favoriteButton = UIButton()
+    var deleteFromFavoritesButton = UIButton()
     
     
     override init(frame: CGRect) {
@@ -167,7 +168,21 @@ class customVacationCell: UICollectionViewCell {
         
         favoriteButton.titleLabel?.font = wanderSparkFont(30)
         favoriteButton.titleLabel?.textColor = UIColor.whiteColor()
-        //favoriteButton.setTitle("❤︎", forState: .Normal)
+        favoriteButton.setTitle("❤︎", forState: .Normal)
+    }
+    
+    func configureDeleteFromFavoritesButton() {
+        contentView.addSubview(deleteFromFavoritesButton)
+        
+        deleteFromFavoritesButton.translatesAutoresizingMaskIntoConstraints = false
+        deleteFromFavoritesButton.bottomAnchor.constraintEqualToAnchor(homeButton.bottomAnchor).active = true
+        deleteFromFavoritesButton.leadingAnchor.constraintEqualToAnchor(homeButton.trailingAnchor, constant: 10).active = true
+        deleteFromFavoritesButton.widthAnchor.constraintEqualToConstant(30).active = true
+        deleteFromFavoritesButton.heightAnchor.constraintEqualToConstant(30).active = true
+        
+        deleteFromFavoritesButton.titleLabel?.font = wanderSparkFont(30)
+        deleteFromFavoritesButton.titleLabel?.textColor = UIColor.whiteColor()
+        deleteFromFavoritesButton.setTitle("Delete", forState: .Normal)
     }
     
     

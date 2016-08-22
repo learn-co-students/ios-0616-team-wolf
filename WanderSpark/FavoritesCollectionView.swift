@@ -1,16 +1,15 @@
 //
-//  VacationCollectionView.swift
+//  FavoritesCollectionView.swift
 //  WanderSpark
 //
-//  Created by Zain Nadeem on 8/10/16.
+//  Created by Flatiron School on 8/22/16.
 //  Copyright © 2016 Zain Nadeem. All rights reserved.
 //
-
 
 import UIKit
 import CoreData
 
-class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     let store = LocationsDataStore.sharedInstance
     let favoritesStore = FavoritesDataStore.sharedInstance
@@ -18,26 +17,23 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     var fullSceenImage = UIImageView()
     var blurImage = UIVisualEffectView()
     var vacationCollectionView : UICollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
-
-    var vacationLocations: [Location] = [Location]()
+    
+    var favoriteLocations: [FavoriteLocation] = [FavoriteLocation]()
     var arrayOfVacationImages: [UIImage] = [UIImage]()
     var arrayOfVacationImagesForThumbnail: [UIImage] = [UIImage]()
     
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        favoritesStore.fetchFavoriteLocationsData()
+
         self.view.backgroundColor = UIColor.blackColor()
 
         createImagesForCircleFromString()
         createImagesFromString()
         setConstraints()
-        setUpCollectionView()   
-    }
-    
-    func getPrices(){
-        print("GET PRICES!!!!!!!!!!!!!")
+        setUpCollectionView()
     }
     
     
@@ -60,6 +56,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         self.blurImage.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor).active = true
     }
     
+    
     func setUpCollectionView(){
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = UICollectionViewScrollDirection.Horizontal
@@ -72,6 +69,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         vacationCollectionView.pagingEnabled = true
     }
     
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let collectionViewWidth = self.view
             .bounds.size.width
@@ -82,7 +80,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return store.matchedLocations.count
+        return favoritesStore.favoriteLocations.count
     }
     
     
@@ -90,30 +88,37 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
         
-        cell.locationLabel.text = store.matchedLocations[indexPath.row].name
-        cell.imageView.image = arrayOfVacationImages[indexPath.row]
+        let favoriteLocation = favoritesStore.favoriteLocations[indexPath.row]
         
-        if let airportLocation = store.matchedLocations[indexPath.row].cheapestFlight?.originIATACode{
-            cell.airportLabel.text = "from \(airportLocation)"
+        if let favoriteName = favoriteLocation.name {
+            cell.locationLabel.text = favoriteName
         }
         
-        if let lowestPrice = store.matchedLocations[indexPath.row].cheapestFlight?.lowestPrice{
-            cell.priceButton.setTitle("$\(lowestPrice)", forState: .Normal)
+        if let favoriteSnippet = favoriteLocation.snippet {
+            cell.snippetLabel.text = favoriteSnippet
         }
-        cell.priceButton.addTarget(self, action: #selector(VacationCollectionView.getPrices), forControlEvents: .TouchUpInside)
+        
+        if let favoriteImageURL = favoriteLocation.imageURL {
+            
+            
+            
+        }
+        
+        cell.priceButton.enabled = false
+        cell.favoriteButton.enabled = false
+        cell.deleteFromFavoritesButton.enabled = true
         
         cell.homeButton.setTitle("home", forState: .Normal)
         cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
         
         
-        cell.favoriteButton.addTarget(self, action: #selector(VacationCollectionView.addToFavorites), forControlEvents: .TouchUpInside)
         
-        cell.snippetLabel.text = store.matchedLocations[indexPath.row].description
-    
-     
+        
+        
+        
         cell.circleProfileView.image = arrayOfVacationImagesForThumbnail[indexPath.row].circle
         cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
-       
+        
         print("cell for row at index path was just called -- the description is: \(cell.snippetLabel.text!)")
         
         return cell
@@ -124,14 +129,14 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         
         for location in store.matchedLocations{
             if location.images != []{
-            let url = NSURL(string: "https://www.nytimes.com/\(location.images[1])")
-            let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
-            let imageFromURL = UIImage(data: data!)
-            arrayOfVacationImages.append(imageFromURL!)
+                let url = NSURL(string: "https://www.nytimes.com/\(location.images[1])")
+                let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
+                let imageFromURL = UIImage(data: data!)
+                arrayOfVacationImages.append(imageFromURL!)
             }
         }
     }
-     
+    
     
     func createImagesForCircleFromString(){
         
@@ -148,8 +153,8 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0
     }
-
-  
+    
+    
     func returnHome(){
         self.store.locations.removeAll()
         self.store.matchedLocations.removeAll()
@@ -198,5 +203,3 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     
     
 }
-
-

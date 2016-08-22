@@ -137,10 +137,11 @@ class WSCarouselCollectionViewController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "viewFavorites" {
-            let destinationVC = LoadViewController()
-            destinationVC.imFeelingLucky = true
+            let destinationVC = VacationCollectionView()
+            
+            
 
-    }
+        }
     }
     
 }
