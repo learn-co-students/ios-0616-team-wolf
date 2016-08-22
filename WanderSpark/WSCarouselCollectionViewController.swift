@@ -62,7 +62,7 @@ class WSCarouselCollectionViewController: UIViewController {
     }
     
     func viewFavoritesTapped(){
-        self.performSegueWithIdentifier("viewFavorites", sender: self)   
+        self.performSegueWithIdentifier("viewFavorites", sender: self)
     }
     
     func convertImagesToGrayscale() {
@@ -136,7 +136,7 @@ class WSCarouselCollectionViewController: UIViewController {
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "imFeelingLucky" {
+        if segue.identifier == "viewFavorites" {
             let destinationVC = LoadViewController()
             destinationVC.imFeelingLucky = true
 

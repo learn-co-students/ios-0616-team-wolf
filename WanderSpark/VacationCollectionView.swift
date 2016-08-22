@@ -165,7 +165,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
             let selectedLocation = store.matchedLocations[selectedRow]
             
             favoritesStore.fetchFavoriteLocationsData()
-            let sameSelection = favoritesStore.favoriteLocations.filter { $0.name == selectedLocation.name }
+            let sameSelection = favoritesStore.favoriteLocations.filter { $0.name! == selectedLocation.name }
             
             if sameSelection.isEmpty {
                 
