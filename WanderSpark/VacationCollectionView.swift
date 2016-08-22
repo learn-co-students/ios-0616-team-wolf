@@ -33,6 +33,14 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         setUpCollectionView()   
     }
     
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
     func getPrices(){
         
         print("GET PRICES!!!!!!!!!!!!!")

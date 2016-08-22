@@ -34,6 +34,14 @@ class WSCarouselCollectionViewController: UIViewController {
         self.prepareCarousel()
         activateBlur()
     }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
 
     override func viewWillAppear(animated: Bool) {
         let store = LocationsDataStore.sharedInstance
