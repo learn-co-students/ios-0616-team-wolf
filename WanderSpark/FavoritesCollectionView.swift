@@ -95,9 +95,9 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
             cell.snippetLabel.text = favoriteSnippet
         }
         
-        cell.imageView.image = favoriteImages[indexPath.row]
-        cell.backgroundLocationImage.image = favoriteImages[indexPath.row]
-    
+//        cell.imageView.image = favoriteImages[indexPath.row]
+//        cell.backgroundLocationImage.image = favoriteImages[indexPath.row]
+//    
         cell.circleProfileView.hidden = true
         cell.airportLabel.hidden = true
         
@@ -152,7 +152,10 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
     func returnHome(){
         self.store.locations.removeAll()
         self.store.matchedLocations.removeAll()
-        self.performSegueWithIdentifier("returnHome", sender: self)
+        self.dismissViewControllerAnimated(true) { 
+            
+        }
+        //self.performSegueWithIdentifier("returnHome", sender: self)
     }
 
     
@@ -160,9 +163,16 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
         let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
         if let selectedIndex = vacationCollectionView.indexPathForCell(selectedCell) {
             let selectedRow = selectedIndex.row
+            let nextIndex = NSIndexPath(forRow: selectedRow + 1, inSection: 0)
+            
             let selectedFavorite = favoritesStore.favoriteLocations[selectedRow]
             
             favoritesStore.managedObjectContext.deleteObject(selectedFavorite)
+            
+            vacationCollectionView.scrollToItemAtIndexPath(nextIndex, atScrollPosition: .Right, animated: true)
+            
+            favoritesStore.fetchFavoriteLocationsData()
+            vacationCollectionView.reloadData()
         }
     }
     
