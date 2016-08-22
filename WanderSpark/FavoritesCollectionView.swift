@@ -11,16 +11,13 @@ import CoreData
 
 class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
-    let store = LocationsDataStore.sharedInstance
     let favoritesStore = FavoritesDataStore.sharedInstance
     
     var fullSceenImage = UIImageView()
     var blurImage = UIVisualEffectView()
     var vacationCollectionView : UICollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    var favoriteLocations: [FavoriteLocation] = [FavoriteLocation]()
-    var arrayOfVacationImages: [UIImage] = [UIImage]()
-    var arrayOfVacationImagesForThumbnail: [UIImage] = [UIImage]()
+    var favoriteImages = [UIImage]()
     
     
     override func viewDidLoad() {
@@ -30,7 +27,7 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
 
         self.view.backgroundColor = UIColor.blackColor()
 
-        createImagesForCircleFromString()
+        //createImagesForCircleFromString()
         createImagesFromString()
         setConstraints()
         setUpCollectionView()
@@ -103,41 +100,34 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
             
             
         }
+        cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
         
         cell.priceButton.enabled = false
         cell.favoriteButton.enabled = false
+        
         cell.deleteFromFavoritesButton.enabled = true
+        cell.deleteFromFavoritesButton.addTarget(self, action: #selector(VacationCollectionView.deleteFromFavorites), forControlEvents: .TouchUpInside)
         
         cell.homeButton.setTitle("home", forState: .Normal)
         cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
-        
-        
-        
-        
-        
-        
-        cell.circleProfileView.image = arrayOfVacationImagesForThumbnail[indexPath.row].circle
-        cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
-        
-        print("cell for row at index path was just called -- the description is: \(cell.snippetLabel.text!)")
         
         return cell
     }
     
     
-    func createImagesFromString(){
+    func createImageFromURL(){
         
-        for location in store.matchedLocations{
-            if location.images != []{
-                let url = NSURL(string: "https://www.nytimes.com/\(location.images[1])")
+        for favorite in favoritesStore.favoriteLocations {
+            if let imageURLString = favorite.imageURL {
+                let url = NSURL(string: "https://www.nytimes.com/\(favorite.imageURL)")
                 let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
                 let imageFromURL = UIImage(data: data!)
-                arrayOfVacationImages.append(imageFromURL!)
+                favoriteImages.append(imageFromURL!)
             }
         }
     }
     
-    
+    /*
     func createImagesForCircleFromString(){
         
         for location in store.matchedLocations{
@@ -149,6 +139,7 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
             }
         }
     }
+    */
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0
@@ -160,35 +151,7 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
         self.store.matchedLocations.removeAll()
         self.performSegueWithIdentifier("returnHome", sender: self)
     }
-    
-    
-    func addToFavorites() {
-        let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
-        if let selectedIndex = vacationCollectionView.indexPathForCell(selectedCell) {
-            let selectedRow = selectedIndex.row
-            let selectedLocation = store.matchedLocations[selectedRow]
-            
-            favoritesStore.fetchFavoriteLocationsData()
-            let sameSelection = favoritesStore.favoriteLocations.filter { $0.name! == selectedLocation.name }
-            
-            if sameSelection.isEmpty {
-                
-                let locationDescription = NSEntityDescription.entityForName("FavoriteLocation", inManagedObjectContext: favoritesStore.managedObjectContext)
-                
-                if let locationDescription = locationDescription {
-                    
-                    let favoriteLocation = FavoriteLocation(entity: locationDescription, insertIntoManagedObjectContext: favoritesStore.managedObjectContext)
-                    
-                    favoriteLocation.name = selectedLocation.name
-                    favoriteLocation.imageURL = selectedLocation.images[1]
-                    favoriteLocation.snippet = selectedLocation.description
-                    favoriteLocation.matchCount = selectedLocation.matchCount
-                    favoriteLocation.articleURL = selectedLocation.articleURL
-                }
-                favoritesStore.saveContext()
-            }
-        }
-    }
+
     
     func deleteFromFavorites() {
         let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
@@ -199,7 +162,5 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
             favoritesStore.managedObjectContext.deleteObject(selectedFavorite)
         }
     }
-    
-    
     
 }
