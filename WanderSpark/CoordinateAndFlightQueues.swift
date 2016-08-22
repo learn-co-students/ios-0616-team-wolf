@@ -26,12 +26,6 @@ class CoordinateAndFlightQueues {
     
     class func getCoordinatesAndFlightInfo (completion: (Bool)-> ()) {
         
-        print("MATCHED LOCATIONS HERE: ")
-        for location in store.matchedLocations {
-            print("\(location.name)")
-        }
-        
-        
         let googleOperation = NSBlockOperation()
         googleOperation.addExecutionBlock({
             

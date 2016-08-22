@@ -24,22 +24,18 @@ class LoadViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         
-        NSOperationQueue.mainQueue().addOperationWithBlock { 
+        NSOperationQueue.mainQueue().addOperationWithBlock {
             self.configurePlane()
             self.configureGlobe()
             self.configureWanderText()
             self.configureCircleAnimation()
         }
-    
-        let getCoordinatesAndFlightsQueue = NSOperationQueue()
-        getCoordinatesAndFlightsQueue.qualityOfService = .UserInitiated
-        getCoordinatesAndFlightsQueue.addOperationWithBlock { 
-            CoordinateAndFlightQueues.getCoordinatesAndFlightInfo({ (complete) in
+        
+        CoordinateAndFlightQueues.getCoordinatesAndFlightInfo({ (complete) in
                 NSOperationQueue.mainQueue().addOperationWithBlock({
                     self.performSegueWithIdentifier("presentCollectionView", sender: self)
                 })
             })
-        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,6 +81,7 @@ class LoadViewController: UIViewController {
         circleAnimation.circlePoint.frame = CGRectMake(0, 0, 35, 35)
         circleAnimation.circlePoint.borderWidth = 0
         circleAnimation.circlePoint.cornerRadius = 18
+        //stop animation
     }
     
     func configureWanderText() {
