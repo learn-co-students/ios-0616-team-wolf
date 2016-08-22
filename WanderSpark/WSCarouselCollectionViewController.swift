@@ -48,7 +48,7 @@ class WSCarouselCollectionViewController: UIViewController {
         self.logoView.image = UIImage(named: "crystalballnobackground")
         logoView.contentMode = .ScaleAspectFit
         
-        self.findDestinationButton.setTitle("Find Destination", forState: .Normal)
+        self.findDestinationButton.setTitle("Find Your Destination", forState: .Normal)
         self.findDestinationButton.titleLabel?.font = wanderSparkFont(18)
         self.findDestinationButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.playMatchMakerTapped), forControlEvents: .TouchUpInside)
         //self.findDestinationButton.setBackgroundImage(backgroundButton, forState: .Normal)

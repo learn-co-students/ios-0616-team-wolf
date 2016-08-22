@@ -164,19 +164,25 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
             let selectedRow = selectedIndex.row
             let selectedLocation = store.matchedLocations[selectedRow]
             
-            let locationDescription = NSEntityDescription.entityForName("FavoriteLocation", inManagedObjectContext: favoritesStore.managedObjectContext)
+            favoritesStore.fetchFavoriteLocationsData()
+            let sameSelection = favoritesStore.favoriteLocations.filter { $0.name == selectedLocation.name }
             
-            if let locationDescription = locationDescription {
+            if sameSelection.isEmpty {
                 
-                let favoriteLocation = FavoriteLocation(entity: locationDescription, insertIntoManagedObjectContext: favoritesStore.managedObjectContext)
+                let locationDescription = NSEntityDescription.entityForName("FavoriteLocation", inManagedObjectContext: favoritesStore.managedObjectContext)
                 
-                favoriteLocation.name = selectedLocation.name
-                favoriteLocation.imageURL = selectedLocation.images[0]
-                favoriteLocation.snippet = selectedLocation.description
-                favoriteLocation.matchCount = selectedLocation.matchCount
-                favoriteLocation.articleURL = selectedLocation.articleURL
+                if let locationDescription = locationDescription {
+                    
+                    let favoriteLocation = FavoriteLocation(entity: locationDescription, insertIntoManagedObjectContext: favoritesStore.managedObjectContext)
+                    
+                    favoriteLocation.name = selectedLocation.name
+                    favoriteLocation.imageURL = selectedLocation.images[0]
+                    favoriteLocation.snippet = selectedLocation.description
+                    favoriteLocation.matchCount = selectedLocation.matchCount
+                    favoriteLocation.articleURL = selectedLocation.articleURL
+                }
+                favoritesStore.saveContext()
             }
-            favoritesStore.saveContext()
         }
     }
     

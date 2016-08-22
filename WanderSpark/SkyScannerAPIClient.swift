@@ -30,7 +30,7 @@ class SkyScannerAPIClient {
     
     class func getFlights(location: Location, completion: FlightCompletion) {
         
-        guard let coordinates = location.coordinates else { fatalError("ERROR: failed to unwrap coordinate values") }
+        guard let coordinates = location.coordinates else { print("ERROR: failed to unwrap coordinate values for \(location.name)"); return }
         
         Alamofire.request(.GET, "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.730610,-73.935242-latlong/\(coordinates.0),\(coordinates.1)-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)").responseJSON { (response) in
             
@@ -49,9 +49,7 @@ class SkyScannerAPIClient {
                         locationInfoArray = flightsResponse["Places"] as? [[String:AnyObject]],
                         carrierListArray = flightsResponse["Carriers"] as? [[String:AnyObject]]
                         else {
-                            
-                        // We need to make this present an alert controller or something, rather than crashing the app!!
-                        fatalError("ERROR: No flights found for location")
+                            print("ERROR: No flights found for \(location.name)"); return
                         }
                 flightQuotes = flightQuotesArray
                 locationInfo = locationInfoArray
