@@ -77,44 +77,54 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return favoritesStore.favoriteLocations.count
+        return favoritesStore.favoriteLocations.count + 1
     }
     
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
-        
-        let favoriteLocation = favoritesStore.favoriteLocations[indexPath.row]
-        
-        if let favoriteName = favoriteLocation.name {
-            cell.locationLabel.text = favoriteName
+        if indexPath.row < favoritesStore.favoriteLocations.count {
+            
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
+            
+            let favoriteLocation = favoritesStore.favoriteLocations[indexPath.row]
+            
+            if let favoriteName = favoriteLocation.name {
+                cell.locationLabel.text = favoriteName
+            }
+            
+            if let favoriteSnippet = favoriteLocation.snippet {
+                cell.snippetLabel.text = favoriteSnippet
+            }
+            
+            //        cell.imageView.image = favoriteImages[indexPath.row]
+            //        cell.backgroundLocationImage.image = favoriteImages[indexPath.row]
+            
+            cell.circleProfileView.hidden = true
+            cell.airportLabel.hidden = true
+            
+            cell.priceButton.hidden = true
+            cell.priceButton.enabled = false
+            
+            cell.favoriteButton.hidden = true
+            cell.favoriteButton.enabled = false
+            
+            cell.deleteFromFavoritesButton.hidden = false
+            cell.deleteFromFavoritesButton.enabled = true
+            cell.deleteFromFavoritesButton.addTarget(self, action: #selector(FavoritesCollectionView.deleteFromFavorites), forControlEvents: .TouchUpInside)
+            
+            cell.homeButton.setTitle("home", forState: .Normal)
+            cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
+            
+            return cell
+            
+        } else if indexPath.row == favoritesStore.favoriteLocations.count {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
+            
+            cell.snippetLabel.text = "You have no destinations stored in favorites."
+            return cell
         }
-        
-        if let favoriteSnippet = favoriteLocation.snippet {
-            cell.snippetLabel.text = favoriteSnippet
-        }
-        
-//        cell.imageView.image = favoriteImages[indexPath.row]
-//        cell.backgroundLocationImage.image = favoriteImages[indexPath.row]
-//    
-        cell.circleProfileView.hidden = true
-        cell.airportLabel.hidden = true
-        
-        cell.priceButton.hidden = true
-        cell.priceButton.enabled = false
-        
-        cell.favoriteButton.hidden = true
-        cell.favoriteButton.enabled = false
-        
-        cell.deleteFromFavoritesButton.hidden = false
-        cell.deleteFromFavoritesButton.enabled = true
-        cell.deleteFromFavoritesButton.addTarget(self, action: #selector(FavoritesCollectionView.deleteFromFavorites), forControlEvents: .TouchUpInside)
-        
-        cell.homeButton.setTitle("home", forState: .Normal)
-        cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
-        
-        return cell
+        return UICollectionViewCell()
     }
     
     
@@ -168,6 +178,7 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
             let selectedFavorite = favoritesStore.favoriteLocations[selectedRow]
             
             favoritesStore.managedObjectContext.deleteObject(selectedFavorite)
+            favoritesStore.saveContext()
             
             vacationCollectionView.scrollToItemAtIndexPath(nextIndex, atScrollPosition: .Right, animated: true)
             
