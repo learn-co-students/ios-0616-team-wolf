@@ -8,10 +8,13 @@
 
 
 import UIKit
+import CoreData
 
 class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UITextViewDelegate {
     
     let store = LocationsDataStore.sharedInstance
+    let favoritesStore = FavoritesDataStore.sharedInstance
+    
     var fullSceenImage = UIImageView()
     var blurImage = UIVisualEffectView()
     var vacationCollectionView : UICollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -19,25 +22,19 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     var vacationLocations: [Location] = [Location]()
     var arrayOfVacationImages: [UIImage] = [UIImage]()
     var arrayOfVacationImagesForThumbnail: [UIImage] = [UIImage]()
-    var snippetTap: UITapGestureRecognizer = UITapGestureRecognizer()
 
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = UIColor.blackColor()
-        store.getLocationsWithCompletion { 
-        }
+
         createImagesForCircleFromString()
         createImagesFromString()
         setConstraints()
         setUpCollectionView()
 
-    }
-    
-    func snippetButtonTapped(article : String){
-        print("websiteView should open!")
-        UIApplication.sharedApplication().openURL(NSURL(string: "http://" + (article))!)
     }
     
     
@@ -48,12 +45,14 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         let url = NSURL (string: store.matchedLocations[(currentIndexPath?.row)!].articleURL)
         UIApplication.sharedApplication().openURL(url!)
 
+
     }
     
     
     func setConstraints() {
         self.fullSceenImage.translatesAutoresizingMaskIntoConstraints = false
         self.blurImage.translatesAutoresizingMaskIntoConstraints = false
+
         self.view.addSubview(fullSceenImage)
         
         self.fullSceenImage.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
@@ -78,7 +77,6 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         vacationCollectionView.backgroundColor = UIColor.blackColor()
         self.view.addSubview(vacationCollectionView)
         vacationCollectionView.pagingEnabled = true
-        
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -101,22 +99,26 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         cell.locationLabel.text = store.matchedLocations[indexPath.row].name
         cell.imageView.image = arrayOfVacationImages[indexPath.row]
         
-        if let lowestPrice = store.matchedLocations[indexPath.row].cheapestFlight?.lowestPrice{
-        cell.priceButton.setTitle("$\(lowestPrice)", forState: .Normal)
-        }
-        
         if let airportLocation = store.matchedLocations[indexPath.row].cheapestFlight?.originIATACode{
             cell.airportLabel.text = "from \(airportLocation)"
         }
 
+        if let lowestPrice = store.matchedLocations[indexPath.row].cheapestFlight?.lowestPrice{
+            cell.priceButton.setTitle("$\(lowestPrice)", forState: .Normal)
+        }
+
         cell.homeButton.setTitle("home", forState: .Normal)
         cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
+        
+        cell.favoriteButton.setTitle("❤︎", forState: .Normal)
+        cell.favoriteButton.addTarget(self, action: #selector(VacationCollectionView.addToFavorites), forControlEvents: .TouchUpInside)
         
         cell.snippetLabel.text = store.matchedLocations[indexPath.row].description
     
      
         cell.circleProfileView.image = arrayOfVacationImagesForThumbnail[indexPath.row].circle
         cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
+
 
         cell.snippetLabel.allowsEditingTextAttributes = false
         cell.snippetLabel.backgroundColor = UIColor.clearColor()
@@ -130,6 +132,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         cell.readMoreButton.setTitle("Read More", forState: .Normal)
         cell.readMoreButton.addTarget(self, action: #selector(self.goToArticle), forControlEvents: .TouchUpInside)
     
+
         return cell
     }
 
@@ -139,7 +142,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     
 
     func createImagesFromString(){
-        // append images from assets
+
         for location in store.matchedLocations{
             if location.images != []{
             let url = NSURL(string: "https://www.nytimes.com/\(location.images[1])")
@@ -149,9 +152,10 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
             }
         }
     }
+
     
     func createImagesForCircleFromString(){
-        // append images from assets
+
         for location in store.matchedLocations{
             if location.images != []{
                 let url = NSURL(string: "https://www.nytimes.com/\(location.images[0])")
@@ -165,17 +169,37 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
   
     func returnHome(){
         self.store.locations.removeAll()
         self.store.matchedLocations.removeAll()
         self.performSegueWithIdentifier("returnHome", sender: self)
-        
     }
+    
+    
+    func addToFavorites() {
+        let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
+        if let selectedIndex = vacationCollectionView.indexPathForCell(selectedCell) {
+            let selectedRow = selectedIndex.row
+            let selectedLocation = store.matchedLocations[selectedRow]
+            
+            let locationDescription = NSEntityDescription.entityForName("FavoriteLocation", inManagedObjectContext: favoritesStore.managedObjectContext)
+            
+            if let locationDescription = locationDescription {
+                
+                let favoriteLocation = FavoriteLocation(entity: locationDescription, insertIntoManagedObjectContext: favoritesStore.managedObjectContext)
+                
+                favoriteLocation.name = selectedLocation.name
+                favoriteLocation.imageURL = selectedLocation.images[0]
+                favoriteLocation.snippet = selectedLocation.description
+                favoriteLocation.matchCount = selectedLocation.matchCount
+                favoriteLocation.articleURL = selectedLocation.articleURL
+            }
+            favoritesStore.saveContext()
+        }
+    }
+    
     
     
 }

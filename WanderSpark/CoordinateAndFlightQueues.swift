@@ -15,7 +15,6 @@ class CoordinateAndFlightQueues {
     static let store = LocationsDataStore.sharedInstance
     
     static let newOperationQueue = NSOperationQueue()
-    static let mainOperationQueue = NSOperationQueue.mainQueue()
     
     static var coordinatesPopulated = false
     static var coordinatesPopulatedCount = 0
@@ -25,8 +24,7 @@ class CoordinateAndFlightQueues {
     static var retrievingFlights = true
     static var numberOfFlightsRetrieved = 0
     
-    class func getCoordinatesAndFlightInfo () {
-        
+    class func getCoordinatesAndFlightInfo (completion: (Bool)-> ()) {
         
         let googleOperation = NSBlockOperation()
         googleOperation.addExecutionBlock({
@@ -55,6 +53,8 @@ class CoordinateAndFlightQueues {
                         numberOfFlightsRetrieved += 1
                         print("number of flights retrieved: \(String(numberOfFlightsRetrieved))")
                         
+                        //double check flight information here to see if it has been properly populated, if not add it to an array and then loop through it again!! 
+                        
                         Flight.printFlightInformation(location)
 
                     })
@@ -65,6 +65,7 @@ class CoordinateAndFlightQueues {
         flightOperation.addExecutionBlock {
             while numberOfFlightsRetrieved < 10 {
                 print("still retrieving flight information")
+                //make sure animation keeps going here and then remove print statement 
             }
             
             retrievingFlights = false
@@ -74,8 +75,8 @@ class CoordinateAndFlightQueues {
         flightOperation.completionBlock = {
             if flightsRetrieved {
                 print("all flight info retrieved")
-                mainOperationQueue.addOperationWithBlock({ 
-                    //finish animation here
+                NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                    completion(true)
                 })
                 
             }

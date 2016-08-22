@@ -24,25 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Override point for customization after application launch.
         
       userLocation.checkCoreLocationPermission()
-
-        
-        // obtainLocationCoordinatesBlockOperation.addDependency(obtainLocationsQueue)
-//        obtainLocationCoordinatesBlockOperation.completionBlock = {
-//            print("in coordinates completion block")
-//            if obtainLocationCoordinatesBlockOperation.finished {
-//                print("DONE WITH COORDINATES QUEUE")
-//            }
-//        }
-        
-        
-//        mainOperationQueue.addOperations([obtainLocationsQueue, obtainLocationCoordinatesBlockOperation], waitUntilFinished: false)
-        
-        
-        
-        // 4. use coordinates for matched locations to get flight information
-            //main thread: loading screen 
-            //other thread: get flight information from skyscannerAPI 
-                //may need to check if coordinates are already populated first
        
         
 //        locationManager = CLLocationManager()

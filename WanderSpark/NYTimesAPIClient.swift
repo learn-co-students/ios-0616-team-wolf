@@ -39,6 +39,10 @@ struct NYTimesAPIClient {
         }
     }
 }
+
+
+
+
     /*
     static func getAllPagesWithCompletion(completion: ([[String: AnyObject]]) -> ()) {
         print("Calling get all pages in NYTimes API Client")
