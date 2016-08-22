@@ -17,6 +17,7 @@ class Location {
     var matchCount = 0
     var coordinates : (Double, Double)?
     var cheapestFlight : Flight?
+    var userZipCode : String?
     
     init(name: String, description: String, images: [String], url: String, coordinates: (Double, Double)?, cheapestFlight : Flight?) {
         self.name = name
@@ -27,7 +28,7 @@ class Location {
         self.cheapestFlight = cheapestFlight
     }
     
-    convenience init(name: String, description: String, images: [String], url: String) {
+    convenience init(name: String, description: String, images: [String], url: String ) {
         self.init(name: name, description: description, images: images, url: url, coordinates: nil, cheapestFlight : nil)
     }
     

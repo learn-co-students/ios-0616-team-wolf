@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import UICircleAnimationView
 import ChameleonFramework
+import NVActivityIndicatorView
 
 class LoadViewController: UIViewController {
     var circleAnimation = UICircleAnimationView()
@@ -21,16 +22,51 @@ class LoadViewController: UIViewController {
         super.viewDidLoad()
             
         self.view.backgroundColor = purpleGradient(view.frame)
+        //            self.configurePlane()
+        //            self.configureGlobe()
+        //            self.configureWanderText()
+        //            self.configureCircleAnimation()
     }
     
     override func viewWillAppear(animated: Bool) {
         
         NSOperationQueue.mainQueue().addOperationWithBlock {
-            self.configurePlane()
-            self.configureGlobe()
-            self.configureWanderText()
-            self.configureCircleAnimation()
+            
+//            self.view.backgroundColor = UIColor(red: CGFloat(237 / 255.0), green: CGFloat(85 / 255.0), blue: CGFloat(101 / 255.0), alpha: 1)
+//            
+//            let cols = 4
+//            let rows = 8
+//            let cellWidth = Int(self.view.frame.width / CGFloat(cols))
+//            let cellHeight = Int(self.view.frame.height / CGFloat(rows))
+            
+//            (NVActivityIndicatorType.Orbit.rawValue).forEach {
+//                let x = ($0 - 1) % cols * cellWidth
+//                let y = ($0 - 1) / cols * cellHeight
+//                let frame = CGRect(x: x, y: y, width: cellWidth, height: cellHeight)
+                let activityIndicatorView = NVActivityIndicatorView(frame: self.view.frame,
+                    type: .Orbit)
+                let animationTypeLabel = UILabel(frame: self.view.frame)
+                
+                // animationTypeLabel.text = String($0)
+                animationTypeLabel.sizeToFit()
+                animationTypeLabel.textColor = UIColor.whiteColor()
+                animationTypeLabel.frame.origin.x += 5
+                // animationTypeLabel.frame.origin.y += CGFloat(cellHeight) - animationTypeLabel.frame.size.height
+                
+                activityIndicatorView.padding = 20
+                self.view.addSubview(activityIndicatorView)
+                self.view.addSubview(animationTypeLabel)
+                activityIndicatorView.startAnimation()
         }
+        
+//                let button:UIButton = UIButton(frame: frame)
+//                button.tag = $0
+//                button.addTarget(self,
+//                    action: #selector(buttonTapped(_:)),
+//                    forControlEvents: UIControlEvents.TouchUpInside)
+//                self.view.addSubview(button)
+//            }
+   //     }
         
         CoordinateAndFlightQueues.getCoordinatesAndFlightInfo({ (complete) in
                 NSOperationQueue.mainQueue().addOperationWithBlock({
