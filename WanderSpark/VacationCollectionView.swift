@@ -157,6 +157,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         self.performSegueWithIdentifier("returnHome", sender: self)
     }
     
+    
     func addToFavorites() {
         let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
         if let selectedIndex = vacationCollectionView.indexPathForCell(selectedCell) {
