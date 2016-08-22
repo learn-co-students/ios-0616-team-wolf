@@ -49,6 +49,8 @@ class SkyScannerAPIClient {
                         locationInfoArray = flightsResponse["Places"] as? [[String:AnyObject]],
                         carrierListArray = flightsResponse["Carriers"] as? [[String:AnyObject]]
                         else {
+                            
+                        // We need to make this present an alert controller or something, rather than crashing the app!!
                         fatalError("ERROR: No flights found for location")
                         }
                 flightQuotes = flightQuotesArray
