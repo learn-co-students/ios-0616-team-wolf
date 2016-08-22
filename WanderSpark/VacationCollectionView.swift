@@ -176,13 +176,23 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
                     let favoriteLocation = FavoriteLocation(entity: locationDescription, insertIntoManagedObjectContext: favoritesStore.managedObjectContext)
                     
                     favoriteLocation.name = selectedLocation.name
-                    favoriteLocation.imageURL = selectedLocation.images[0]
+                    favoriteLocation.imageURL = selectedLocation.images[1]
                     favoriteLocation.snippet = selectedLocation.description
                     favoriteLocation.matchCount = selectedLocation.matchCount
                     favoriteLocation.articleURL = selectedLocation.articleURL
                 }
                 favoritesStore.saveContext()
             }
+        }
+    }
+    
+    func deleteFromFavorites() {
+        let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
+        if let selectedIndex = vacationCollectionView.indexPathForCell(selectedCell) {
+            let selectedRow = selectedIndex.row
+            let selectedFavorite = favoritesStore.favoriteLocations[selectedRow]
+            
+            favoritesStore.managedObjectContext.deleteObject(selectedFavorite)
         }
     }
     
