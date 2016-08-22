@@ -100,9 +100,9 @@ class FlightsParameterViewController: UIViewController {
     
     func enableCoreLocation(sender: UIButton!) {
         
-//        sharedLocation = UserLocation.sharedInstance
-//        sharedLocation?.location?.coordinate
-//        print(<#T##items: Any...##Any#>)
+        sharedLocation = UserLocation.sharedInstance
+        //sharedLocation?.location?.coordinate
+        print(sharedLocation?.location?.coordinate)
     }
     
     
