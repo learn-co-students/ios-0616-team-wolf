@@ -52,6 +52,7 @@ class customVacationCell: UICollectionViewCell {
         contentView.addSubview(homeButton)
         contentView.addSubview(airportLabel)
         configureFavoriteButton()
+        configureDeleteFromFavoritesButton()
         
         self.imageView.translatesAutoresizingMaskIntoConstraints = false
         self.imageView.topAnchor.constraintEqualToAnchor(self.circleProfileView.bottomAnchor, constant: 50).active = true
@@ -82,7 +83,6 @@ class customVacationCell: UICollectionViewCell {
         self.snippetLabel.centerXAnchor.constraintEqualToAnchor(self.contentView.centerXAnchor).active = true
         //self.snippetLabel.centerYAnchor.constraintEqualToAnchor(self.contentView.centerYAnchor).active = true
         //contentView.bringSubviewToFront(snippetLabel)
-        
         
         
         self.locationLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -154,6 +154,7 @@ class customVacationCell: UICollectionViewCell {
         contentView.addSubview(homeButton)
         contentView.addSubview(airportLabel)
         contentView.addSubview(favoriteButton)
+        contentView.addSubview(deleteFromFavoritesButton)
     }
     
   

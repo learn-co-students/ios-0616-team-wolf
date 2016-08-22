@@ -137,10 +137,9 @@ class WSCarouselCollectionViewController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "viewFavorites" {
-            let destinationVC = VacationCollectionView()
-            
-            
-
+            let destinationVC = FavoritesCollectionView()
+            // Need to present the collection view here I think...
+d
         }
     }
     
