@@ -10,7 +10,7 @@
 import UIKit
 import CoreData
 
-class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UITextViewDelegate {
     
     let store = LocationsDataStore.sharedInstance
     let favoritesStore = FavoritesDataStore.sharedInstance
@@ -18,14 +18,13 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     var fullSceenImage = UIImageView()
     var blurImage = UIVisualEffectView()
     var vacationCollectionView : UICollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
-    //dummy
-    
+    var webView: UIWebView = UIWebView()
     var vacationLocations: [Location] = [Location]()
     var arrayOfVacationImages: [UIImage] = [UIImage]()
     var arrayOfVacationImagesForThumbnail: [UIImage] = [UIImage]()
-    
 
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -34,25 +33,32 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         createImagesForCircleFromString()
         createImagesFromString()
         setConstraints()
-        setUpCollectionView()   
+        setUpCollectionView()
+
     }
     
-    func getPrices(){
-        print("GET PRICES!!!!!!!!!!!!!")
+    
+    func goToArticle(){
+        print(self.vacationCollectionView.visibleCells())
+        let currentCell = self.vacationCollectionView.visibleCells()[0]
+        let currentIndexPath = self.vacationCollectionView.indexPathForCell(currentCell)
+        let url = NSURL (string: store.matchedLocations[(currentIndexPath?.row)!].articleURL)
+        UIApplication.sharedApplication().openURL(url!)
+
+
     }
     
     
     func setConstraints() {
         self.fullSceenImage.translatesAutoresizingMaskIntoConstraints = false
         self.blurImage.translatesAutoresizingMaskIntoConstraints = false
-        
+
         self.view.addSubview(fullSceenImage)
         
         self.fullSceenImage.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
         self.fullSceenImage.topAnchor.constraintEqualToAnchor(self.view.topAnchor).active = true
         self.fullSceenImage.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.4).active = true
         self.fullSceenImage.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor).active = true
-        
         self.fullSceenImage.addSubview(blurImage)
         
         self.blurImage.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
@@ -85,8 +91,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return store.matchedLocations.count
     }
-    
-    
+
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
@@ -97,12 +102,11 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         if let airportLocation = store.matchedLocations[indexPath.row].cheapestFlight?.originIATACode{
             cell.airportLabel.text = "from \(airportLocation)"
         }
-        
+
         if let lowestPrice = store.matchedLocations[indexPath.row].cheapestFlight?.lowestPrice{
             cell.priceButton.setTitle("$\(lowestPrice)", forState: .Normal)
         }
-        cell.priceButton.addTarget(self, action: #selector(VacationCollectionView.getPrices), forControlEvents: .TouchUpInside)
-        
+
         cell.homeButton.setTitle("home", forState: .Normal)
         cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
         
@@ -114,15 +118,31 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
      
         cell.circleProfileView.image = arrayOfVacationImagesForThumbnail[indexPath.row].circle
         cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
-       
-        print("cell for row at index path was just called -- the description is: \(cell.snippetLabel.text!)")
-        
+
+
+        cell.snippetLabel.allowsEditingTextAttributes = false
+        cell.snippetLabel.backgroundColor = UIColor.clearColor()
+        cell.snippetLabel.font = wanderSparkFont(20)
+
+        cell.snippetLabel.delegate = self
+        cell.snippetLabel.userInteractionEnabled = true
+        cell.snippetLabel.scrollEnabled = false
+        cell.snippetLabel.selectable = true
+
+        cell.readMoreButton.setTitle("Read More", forState: .Normal)
+        cell.readMoreButton.addTarget(self, action: #selector(self.goToArticle), forControlEvents: .TouchUpInside)
+    
+
         return cell
     }
+
+    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+        return false
+    }
     
-    
+
     func createImagesFromString(){
-        
+
         for location in store.matchedLocations{
             if location.images != []{
             let url = NSURL(string: "https://www.nytimes.com/\(location.images[1])")
@@ -132,10 +152,10 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
             }
         }
     }
-     
+
     
     func createImagesForCircleFromString(){
-        
+
         for location in store.matchedLocations{
             if location.images != []{
                 let url = NSURL(string: "https://www.nytimes.com/\(location.images[0])")
@@ -183,5 +203,6 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     
     
 }
+
 
 
