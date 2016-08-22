@@ -27,7 +27,6 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
 
         self.view.backgroundColor = UIColor.blackColor()
 
-        //createImagesForCircleFromString()
         createImagesFromString()
         setConstraints()
         setUpCollectionView()
@@ -95,16 +94,16 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
             cell.snippetLabel.text = favoriteSnippet
         }
         
-        if let favoriteImageURL = favoriteLocation.imageURL {
-            
-            
-            
-        }
-        cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
+        cell.imageView.image = favoriteImages[indexPath.row]
+        cell.backgroundLocationImage.image = favoriteImages[indexPath.row]
         
+        cell.priceButton.hidden = true
         cell.priceButton.enabled = false
+        
+        cell.favoriteButton.hidden = true
         cell.favoriteButton.enabled = false
         
+        cell.deleteFromFavoritesButton.hidden = false
         cell.deleteFromFavoritesButton.enabled = true
         cell.deleteFromFavoritesButton.addTarget(self, action: #selector(VacationCollectionView.deleteFromFavorites), forControlEvents: .TouchUpInside)
         
@@ -115,14 +114,14 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
     }
     
     
-    func createImageFromURL(){
-        
+    func createImagesFromString(){
         for favorite in favoritesStore.favoriteLocations {
             if let imageURLString = favorite.imageURL {
-                let url = NSURL(string: "https://www.nytimes.com/\(favorite.imageURL)")
-                let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
-                let imageFromURL = UIImage(data: data!)
-                favoriteImages.append(imageFromURL!)
+                if let url = NSURL(string: "https://www.nytimes.com/\(favorite.imageURL)") {
+                    let data = NSData(contentsOfURL: url)
+                    let imageFromURL = UIImage(data: data!)
+                    favoriteImages.append(imageFromURL!)
+                } else { print("Error: Unable to create NSURL from imageURL for favorite \(favorite.name)") }
             }
         }
     }
