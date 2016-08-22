@@ -11,6 +11,7 @@ import CoreData
 
 class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
+    let store = LocationsDataStore.sharedInstance
     let favoritesStore = FavoritesDataStore.sharedInstance
     
     var fullSceenImage = UIImageView()
@@ -108,7 +109,7 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
         
         cell.deleteFromFavoritesButton.hidden = false
         cell.deleteFromFavoritesButton.enabled = true
-        cell.deleteFromFavoritesButton.addTarget(self, action: #selector(VacationCollectionView.deleteFromFavorites), forControlEvents: .TouchUpInside)
+        cell.deleteFromFavoritesButton.addTarget(self, action: #selector(FavoritesCollectionView.deleteFromFavorites), forControlEvents: .TouchUpInside)
         
         cell.homeButton.setTitle("home", forState: .Normal)
         cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)

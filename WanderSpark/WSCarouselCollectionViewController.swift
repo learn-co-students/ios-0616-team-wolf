@@ -139,7 +139,7 @@ class WSCarouselCollectionViewController: UIViewController {
         if segue.identifier == "viewFavorites" {
             let destinationVC = FavoritesCollectionView()
             // Need to present the collection view here I think...
-d
+
         }
     }
     
