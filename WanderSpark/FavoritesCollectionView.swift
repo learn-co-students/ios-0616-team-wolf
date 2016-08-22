@@ -97,6 +97,8 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
         cell.imageView.image = favoriteImages[indexPath.row]
         cell.backgroundLocationImage.image = favoriteImages[indexPath.row]
         
+        cell.airportLabel.hidden = true
+        
         cell.priceButton.hidden = true
         cell.priceButton.enabled = false
         

@@ -91,30 +91,33 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
         
         cell.locationLabel.text = store.matchedLocations[indexPath.row].name
-        cell.imageView.image = arrayOfVacationImages[indexPath.row]
+        cell.snippetLabel.text = store.matchedLocations[indexPath.row].description
         
+        cell.imageView.image = arrayOfVacationImages[indexPath.row]
+        cell.circleProfileView.image = arrayOfVacationImagesForThumbnail[indexPath.row].circle
+        cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
+        
+        cell.airportLabel.hidden = false
         if let airportLocation = store.matchedLocations[indexPath.row].cheapestFlight?.originIATACode{
             cell.airportLabel.text = "from \(airportLocation)"
         }
         
+        cell.priceButton.hidden = false
+        cell.priceButton.enabled = true
         if let lowestPrice = store.matchedLocations[indexPath.row].cheapestFlight?.lowestPrice{
             cell.priceButton.setTitle("$\(lowestPrice)", forState: .Normal)
         }
         cell.priceButton.addTarget(self, action: #selector(VacationCollectionView.getPrices), forControlEvents: .TouchUpInside)
         
-        cell.homeButton.setTitle("home", forState: .Normal)
-        cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
-        
-        
+        cell.favoriteButton.hidden = false
+        cell.favoriteButton.enabled = true
         cell.favoriteButton.addTarget(self, action: #selector(VacationCollectionView.addToFavorites), forControlEvents: .TouchUpInside)
         
-        cell.snippetLabel.text = store.matchedLocations[indexPath.row].description
-    
-     
-        cell.circleProfileView.image = arrayOfVacationImagesForThumbnail[indexPath.row].circle
-        cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
-       
-        print("cell for row at index path was just called -- the description is: \(cell.snippetLabel.text!)")
+        cell.deleteFromFavoritesButton.hidden = true
+        cell.deleteFromFavoritesButton.enabled = false
+        
+        cell.homeButton.setTitle("home", forState: .Normal)
+        cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
         
         return cell
     }
@@ -185,18 +188,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         }
     }
     
-    func deleteFromFavorites() {
-        let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
-        if let selectedIndex = vacationCollectionView.indexPathForCell(selectedCell) {
-            let selectedRow = selectedIndex.row
-            let selectedFavorite = favoritesStore.favoriteLocations[selectedRow]
-            
-            favoritesStore.managedObjectContext.deleteObject(selectedFavorite)
-        }
-    }
-    
-    
-    
+   
 }
 
 
