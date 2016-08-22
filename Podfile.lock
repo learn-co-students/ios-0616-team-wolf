@@ -6,7 +6,7 @@ PODS:
     - ChameleonFramework/Default (= 2.1.0)
   - ChameleonFramework/Default (2.1.0)
   - FZCarousel (0.1.2)
-  - Koloda (3.1.1):
+  - Koloda (3.1.2):
     - pop (~> 1.0)
   - pop (1.0.9)
   - SnapKit (0.15.0)
@@ -29,7 +29,7 @@ SPEC CHECKSUMS:
   AlamofireImage: 3ccf3347d9ea24580dc11fb892770a0be6a29826
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   FZCarousel: 81c7fba723fd785107ee2b18079e0721457e2181
-  Koloda: 782e61549cafec9fd69fc70c4a8b54bce997894d
+  Koloda: 5aee353329cd1605540f1215a4c1975481dc7a37
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
