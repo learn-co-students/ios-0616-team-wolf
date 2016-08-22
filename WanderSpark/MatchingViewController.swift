@@ -303,7 +303,7 @@ extension MatchingViewController: KolodaViewDataSource {
         
         // Add and constrain matching label:
         let matchWordLabel = UILabel()
-        let font = UIFont(name: "Avenir-Book", size: 45)
+        let font = wanderSparkFont(45)
         matchingCardView.addSubview(matchWordLabel)
         
         matchWordLabel.text = matchingKeys[Int(index)]
