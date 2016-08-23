@@ -15,7 +15,17 @@ class GoogleMapsAPIClient {
     
     class func getLocationCoordinatesWithCompletion(location: Location, completion: (Bool) -> ()) {
         
-        let destinationName = Location.formatLocationName(location.name)
+        var destinationName = ""
+        
+        if location.name == "user's zip code" {
+            if let zipCode = location.userZipCode {
+                destinationName = zipCode
+            }
+        } else {
+            destinationName = Location.formatLocationName(location.name)
+        }
+        
+        print("DESTINATION NAME: \(destinationName)")
         
         Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/geocode/json?address=\(destinationName)&key=\(Secrets.googlePlacesAPIKey)").responseJSON { (response) in
             

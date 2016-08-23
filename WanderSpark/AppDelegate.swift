@@ -17,12 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        let sharedLocation = UserLocation.sharedInstance
-        print(sharedLocation.location?.coordinate)
-//        sharedLocation.configureLocationManager()
-//        sharedLocation.requestUserLocation()
-//        print(sharedLocation.locationManager.location?.coordinate)
-        
         return true
     }
 

@@ -14,9 +14,9 @@ import CoreLocation
 class UserLocation: NSObject, CLLocationManagerDelegate {
 //    override init() {}
     
-    var locationManager: CLLocationManager?
-    var location: CLLocation?
-    var userCoordinates: CLLocationCoordinate2D?
+    static var locationManager: CLLocationManager?
+    static var location: CLLocation?
+    static var userCoordinates: CLLocationCoordinate2D?
     var userPostalCode: String?
     
     static let sharedInstance = UserLocation()
@@ -36,12 +36,17 @@ class UserLocation: NSObject, CLLocationManagerDelegate {
     
     func startUpdatingLocation() {
         print("Starting Location Updates")
-        self.locationManager?.startUpdatingLocation()
+        
+        //guard let unwrappedLocationManager = self.locationManager else { fatalError() }
+        self.locationManager.startUpdatingLocation()
     }
     
     func stopUpdatingLocation() {
         print("Stop Location Updates")
-        self.locationManager?.stopUpdatingLocation()
+        
+        //guard let unwrappedLocationManager = self.locationManager else { fatalError() }
+        
+        self.locationManager.stopUpdatingLocation()
     }
     
     //function to get coordinates for the user's origin as well as the zipcode of the user
