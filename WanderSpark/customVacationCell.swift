@@ -107,6 +107,7 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         contentView.addSubview(backgroundLocationImage)
         
         backgroundLocationImage.contentMode = UIViewContentMode.ScaleAspectFill
+        backgroundLocationImage.clipsToBounds = true
         
         self.backgroundLocationImage.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundLocationImage.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor).active = true

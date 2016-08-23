@@ -87,8 +87,14 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        if indexPath.row < favoritesStore.favoriteLocations.count {
+        if favoritesStore.favoriteLocations.isEmpty {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
             
+            cell.snippetLabel.text = "You have no destinations stored in favorites."
+            
+            return cell
+            
+        } else {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
             
             let favoriteLocation = favoritesStore.favoriteLocations[indexPath.row]
@@ -121,14 +127,7 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
             cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
             
             return cell
-            
-        } else if indexPath.row == favoritesStore.favoriteLocations.count {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
-            
-            cell.snippetLabel.text = "You have no destinations stored in favorites."
-            return cell
         }
-        return UICollectionViewCell()
     }
     
     
@@ -183,10 +182,9 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
             favoritesStore.managedObjectContext.deleteObject(selectedFavorite)
             favoritesStore.saveContext()
             
-            vacationCollectionView.scrollToItemAtIndexPath(nextIndex, atScrollPosition: .Right, animated: true)
-            
             favoritesStore.fetchFavoriteLocationsData()
             vacationCollectionView.reloadData()
+            vacationCollectionView.scrollToItemAtIndexPath(nextIndex, atScrollPosition: .Right, animated: true)
         }
     }
     
