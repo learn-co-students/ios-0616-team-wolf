@@ -36,7 +36,7 @@ class LoadViewController: UIViewController {
             let animationTypeLabel = UILabel(frame: self.view.frame)
             
             activityIndicatorView.padding = 0.0
-            activityIndicatorView.color = UIColor.flatSkyBlueColor()
+            activityIndicatorView.color = UIColor.flatPowderBlueColorDark()
             activityIndicatorView.alpha = 0.5
             self.view.addSubview(activityIndicatorView)
             self.view.addSubview(animationTypeLabel)
@@ -93,15 +93,6 @@ class LoadViewController: UIViewController {
             make.width.equalTo(view.snp_width).multipliedBy(0.55)
         }
     }
-    
-    
-//    func configurePlane() {
-//        circleAnimation.circlePoint.contents = UIImage(named: "airplane")?.CGImage
-//        circleAnimation.circlePoint.frame = CGRectMake(0, 0, 35, 35)
-//        circleAnimation.circlePoint.borderWidth = 0
-//        circleAnimation.circlePoint.cornerRadius = 18
-//        //stop animation
-//    }
     
     func configureWanderText() {
         
