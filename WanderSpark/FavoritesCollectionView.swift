@@ -77,7 +77,11 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return favoritesStore.favoriteLocations.count + 1
+        if favoritesStore.favoriteLocations.isEmpty {
+            return 1
+        } else {
+            return favoritesStore.favoriteLocations.count
+        }
     }
     
     
@@ -97,8 +101,8 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
                 cell.snippetLabel.text = favoriteSnippet
             }
             
-                   cell.imageView.image = favoriteImages[indexPath.row]
-                cell.backgroundLocationImage.image = favoriteImages[indexPath.row]
+            cell.imageView.image = favoriteImages[indexPath.row]
+            cell.backgroundLocationImage.image = favoriteImages[indexPath.row]
             
             cell.circleProfileView.hidden = true
             cell.airportLabel.hidden = true
