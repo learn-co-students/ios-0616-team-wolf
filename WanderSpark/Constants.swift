@@ -65,7 +65,7 @@ func lightMagentaGradient(frame: CGRect) -> UIColor {
 }
 
 func darkMagentaGradient(frame: CGRect) -> UIColor {
-    let darkMagentaGradient = UIColor(gradientStyle: UIGradientStyle.Radial, withFrame: frame, andColors: [UIColor.flatWatermelonColorDark().darkenByPercentage(0.15), UIColor.flatMagentaColorDark(), UIColor.flatPlumColor().darkenByPercentage(0.2)])
+    let darkMagentaGradient = UIColor(gradientStyle: UIGradientStyle.Radial, withFrame: frame, andColors: [UIColor.flatWatermelonColorDark().darkenByPercentage(0.15), UIColor.flatMagentaColorDark()])
     return darkMagentaGradient
 }
 
