@@ -113,22 +113,20 @@ class FlightsParameterViewController: UIViewController {
         return zipCodeTestPredicate.evaluateWithObject(zipcodeTextField.text)
     }
     
-    func allowUserToInputCityZipcode(sender: UIButton) {
+    func allowUserToInputCityZipcode() {
         
         //print("User coordinates: \(sharedLocation!.userCoordinates)")
         
-        if isZipCodeValid(zipcodeTextField.text!) == true
+        if let userZipCode = zipcodeTextField.text
         {
             //call on the GoogleAPIClient to convert the zipcode into latitude and longitude coordinates
             //therefore easiest way is to call the GoogleAPIClient
-            //userOrigin.userCoordinates = the coordinates that come in as a result of the zipcode
             
-            if let userZipCode = zipcodeTextField.text {
+             if isZipCodeValid(userZipCode) == true {
                 let userLocation : Location = Location(userZipCode: userZipCode)
                 GoogleMapsAPIClient.getLocationCoordinatesWithCompletion(userLocation, completion: { (getZipCode) in
                     print("calling googleAPI to get coordinates based on user zipcode")
                     print("\(userLocation.coordinates)")
-                    
                 })
             }
         }
@@ -141,7 +139,6 @@ class FlightsParameterViewController: UIViewController {
             //show the alert
             self.presentViewController(alert, animated: true, completion: nil)
         }
-        
     }
 
     override func didReceiveMemoryWarning() {

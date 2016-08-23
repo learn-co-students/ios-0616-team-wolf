@@ -11,6 +11,7 @@
 		1B2FE5641D6B4B0E008C94AF /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2FE5631D6B4B0E008C94AF /* UserLocation.swift */; };
 		1B2FE5681D6B4C16008C94AF /* FlightsParameterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2FE5671D6B4C16008C94AF /* FlightsParameterViewController.swift */; };
 		1B3D0A361D5E02DA0072185F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B3D0A351D5E02DA0072185F /* CoreLocation.framework */; };
+		1B4E93AE1D6B7E520031F216 /* FavoritesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4E93AD1D6B7E520031F216 /* FavoritesCollectionView.swift */; };
 		1BBD0E5A1D6890B60061DAA1 /* FavoritesDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBD0E591D6890B60061DAA1 /* FavoritesDataStore.swift */; };
 		1BBD0E5D1D6893080061DAA1 /* WanderSpark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1BBD0E5B1D6893080061DAA1 /* WanderSpark.xcdatamodeld */; };
 		1BBD0E621D6894E40061DAA1 /* FavoriteLocation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBD0E601D6894E40061DAA1 /* FavoriteLocation+CoreDataProperties.swift */; };
@@ -45,6 +46,7 @@
 		1B2FE5631D6B4B0E008C94AF /* UserLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocation.swift; sourceTree = "<group>"; };
 		1B2FE5671D6B4C16008C94AF /* FlightsParameterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightsParameterViewController.swift; sourceTree = "<group>"; };
 		1B3D0A351D5E02DA0072185F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1B4E93AD1D6B7E520031F216 /* FavoritesCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesCollectionView.swift; sourceTree = "<group>"; };
 		1BBD0E591D6890B60061DAA1 /* FavoritesDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDataStore.swift; sourceTree = "<group>"; };
 		1BBD0E5C1D6893080061DAA1 /* WanderSpark.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WanderSpark.xcdatamodel; sourceTree = "<group>"; };
 		1BBD0E601D6894E40061DAA1 /* FavoriteLocation+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FavoriteLocation+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				1BFA0F2C1D62072F00423878 /* LoadViewController.swift */,
 				BFC9EF6C1D5B9048009C0F2A /* customVacationCell.swift */,
 				BFC9EF681D5B771F009C0F2A /* VacationCollectionView.swift */,
+				1B4E93AD1D6B7E520031F216 /* FavoritesCollectionView.swift */,
 				1BFA0EEE1D5CC2D500423878 /* MatchingViewController.swift */,
 				BF53C59A1D5A8CFA00810066 /* WSCarouselCollectionViewController.swift */,
 				BF415E0C1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.h */,
@@ -361,6 +364,7 @@
 				1BBD0E621D6894E40061DAA1 /* FavoriteLocation+CoreDataProperties.swift in Sources */,
 				BF41AB5F1D55275000725AAE /* LocationsDataStore.swift in Sources */,
 				1BE7A6391D58E3E600B7E89F /* LocationMatchmaker.swift in Sources */,
+				1B4E93AE1D6B7E520031F216 /* FavoritesCollectionView.swift in Sources */,
 				BF41AB4B1D55270800725AAE /* AppDelegate.swift in Sources */,
 				1BBE4BA51D5BD4890037032D /* SkyScannerAPIClient.swift in Sources */,
 				A496A69D1D5E5C29007DF405 /* Flight.swift in Sources */,

@@ -17,6 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
+//        let vc = FlightsParameterViewController()
+//        
+//        vc.zipcodeTextField.text = "11221"
+//        
+//        print("Is zip code valid? \(vc.isZipCodeValid("11221"))")
+//        
+//        vc.allowUserToInputCityZipcode()
+        
         return true
     }
 

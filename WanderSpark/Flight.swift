@@ -34,9 +34,10 @@ class Flight {
         
         guard let
             coordinates = location.coordinates,
-            carrierName = location.cheapestFlight!.carrierName,
-            originAirport = location.cheapestFlight!.originIATACode,
-            price = location.cheapestFlight!.lowestPrice
+            unwrappedCheapestFlights = location.cheapestFlight,
+            carrierName = unwrappedCheapestFlights.carrierName,
+            originAirport = unwrappedCheapestFlights.originIATACode,
+            price = unwrappedCheapestFlights.lowestPrice
             else { fatalError("ERROR: could not unwrap flight information for print statment") }
         
         print("***************** FLIGHT INFORMATION *****************")

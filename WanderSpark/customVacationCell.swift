@@ -21,6 +21,7 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
     var readMoreButton: UIButton!
     
     var favoriteButton = UIButton()
+    var deleteFromFavoritesButton = UIButton()
     
     
     override init(frame: CGRect) {
@@ -60,7 +61,7 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         contentView.addSubview(readMoreButton)
 
         configureFavoriteButton()
-
+        configureDeleteFromFavoritesButton()
         
         self.imageView.translatesAutoresizingMaskIntoConstraints = false
         self.imageView.topAnchor.constraintEqualToAnchor(self.circleProfileView.bottomAnchor, constant: 50).active = true
@@ -94,7 +95,6 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         snippetLabel.font = wanderSparkFont(20)
         snippetLabel.textAlignment = NSTextAlignment.Justified
         snippetLabel.textColor = UIColor.whiteColor()
-        
         snippetLabel.text = "No Information"
         
         self.locationLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -173,6 +173,7 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         contentView.addSubview(homeButton)
         contentView.addSubview(airportLabel)
         contentView.addSubview(favoriteButton)
+        contentView.addSubview(deleteFromFavoritesButton)
     }
     
   
@@ -187,8 +188,24 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         
         favoriteButton.titleLabel?.font = wanderSparkFont(30)
         favoriteButton.titleLabel?.textColor = UIColor.whiteColor()
-        //favoriteButton.setTitle("❤︎", forState: .Normal)
+        favoriteButton.setTitle("❤︎", forState: .Normal)
     }
+    
+    func configureDeleteFromFavoritesButton() {
+        contentView.addSubview(deleteFromFavoritesButton)
+        
+        deleteFromFavoritesButton.translatesAutoresizingMaskIntoConstraints = false
+        deleteFromFavoritesButton.bottomAnchor.constraintEqualToAnchor(homeButton.bottomAnchor).active = true
+        deleteFromFavoritesButton.leadingAnchor.constraintEqualToAnchor(homeButton.trailingAnchor, constant: 10).active = true
+        deleteFromFavoritesButton.widthAnchor.constraintEqualToConstant(30).active = true
+        deleteFromFavoritesButton.heightAnchor.constraintEqualToConstant(30).active = true
+        
+        deleteFromFavoritesButton.titleLabel?.font = wanderSparkFont(30)
+        deleteFromFavoritesButton.titleLabel?.textColor = UIColor.whiteColor()
+        deleteFromFavoritesButton.setTitle("Delete", forState: .Normal)
+    }
+    
+    
     
     
 //    func blurImage(){

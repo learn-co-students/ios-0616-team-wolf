@@ -34,6 +34,7 @@ class Location {
         self.init(name: name, description: description, images: images, url: url, coordinates: nil, cheapestFlight : nil)
     }
     
+    //this convenience initializer was created for the zipcode in specific 
     convenience init(userZipCode: String) {
         self.init(name: "user's zip code", description: "obtaining user's location", images: [], url: "obtaining user's location", coordinates: nil, cheapestFlight : nil)
         self.userZipCode = userZipCode

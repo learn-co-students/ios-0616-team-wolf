@@ -13,7 +13,7 @@ class FavoritesDataStore {
 
 static let sharedInstance = FavoritesDataStore()
 
-var favoriteLocations: [Location] = []
+var favoriteLocations: [FavoriteLocation] = []
 
 // MARK: - Core Data Saving support
     
@@ -42,7 +42,7 @@ var favoriteLocations: [Location] = []
         favoriteLocationsRequest.sortDescriptors = [favoriteLocationNameSorter]
         
         do {
-            favoriteLocations = try managedObjectContext.executeFetchRequest(favoriteLocationsRequest) as! [Location]
+            favoriteLocations = try managedObjectContext.executeFetchRequest(favoriteLocationsRequest) as! [FavoriteLocation]
         } catch let nserror as NSError {
             error = nserror
             favoriteLocations = []
