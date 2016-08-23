@@ -200,10 +200,14 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
                     let favoriteLocation = FavoriteLocation(entity: locationDescription, insertIntoManagedObjectContext: favoritesStore.managedObjectContext)
                     
                     favoriteLocation.name = selectedLocation.name
-                    favoriteLocation.imageURL = selectedLocation.images[1]
                     favoriteLocation.snippet = selectedLocation.description
                     favoriteLocation.matchCount = selectedLocation.matchCount
                     favoriteLocation.articleURL = selectedLocation.articleURL
+                    
+                    let imageURLString = selectedLocation.images[1]
+                    if let imageURL = NSURL(string: "https://www.nytimes.com/\(imageURLString)") {
+                        favoriteLocation.image = NSData(contentsOfURL: imageURL)
+                    }
                 }
                 favoritesStore.saveContext()
             }

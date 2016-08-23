@@ -11,7 +11,7 @@ import UIKit
 class customVacationCell: UICollectionViewCell, UITextViewDelegate {
     
     var blurEffectView: UIVisualEffectView!
-    var backgroundLocationImage: UIImageView!
+    var backgroundLocationImage = UIImageView()
     var imageView: UIImageView!
     var circleProfileView = UIImageView()
     
@@ -30,17 +30,17 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         super.init(frame: frame)
         
         imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
-        backgroundLocationImage = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
-
-        contentView.addSubview(circleProfileView)
-        self.circleProfileView.translatesAutoresizingMaskIntoConstraints = false
-        self.circleProfileView.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 25).active = true
-        self.circleProfileView.heightAnchor.constraintEqualToAnchor(self.contentView.heightAnchor, multiplier: 0.10).active = true
-        self.circleProfileView.widthAnchor.constraintEqualToAnchor(self.contentView.widthAnchor, multiplier: 0.18).active = true
-        self.circleProfileView.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: 30).active = true
+        //backgroundLocationImage = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
+        
+//        contentView.addSubview(circleProfileView)
+//        self.circleProfileView.translatesAutoresizingMaskIntoConstraints = false
+//        self.circleProfileView.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 25).active = true
+//        self.circleProfileView.heightAnchor.constraintEqualToAnchor(self.contentView.heightAnchor, multiplier: 0.10).active = true
+//        self.circleProfileView.widthAnchor.constraintEqualToAnchor(self.contentView.widthAnchor, multiplier: 0.18).active = true
+//        self.circleProfileView.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: 30).active = true
         
         configureBackgroundImage()
-        configureBlurEffectView()
+        configureBlurEffect()
         configureImageView()
         configureLocationLabel()
         configureSnippetLabel()
@@ -50,16 +50,7 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         configureFavoriteButton()
         configureDeleteFromFavoritesButton()
         configureAirportLabel()
-
-        contentView.addSubview(imageView)
-        contentView.addSubview(locationLabel)
-        contentView.addSubview(priceButton)
-        contentView.addSubview(circleProfileView)
-        contentView.addSubview(snippetLabel)
-        contentView.addSubview(homeButton)
-        contentView.addSubview(airportLabel)
-        contentView.addSubview(favoriteButton)
-        contentView.addSubview(deleteFromFavoritesButton)
+        
     }
     
     
@@ -88,7 +79,7 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         //locationLabel.layer.shadowColor = UIColor.whiteColor().CGColor
         
         self.locationLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.locationLabel.leadingAnchor.constraintEqualToAnchor(self.circleProfileView.trailingAnchor, constant: 20).active = true
+        //self.locationLabel.leadingAnchor.constraintEqualToAnchor(self.circleProfileView.trailingAnchor, constant: 20).active = true
         self.locationLabel.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 40).active = true
         self.locationLabel.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor, constant: -40).active = true
     }
@@ -125,7 +116,7 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
     }
     
     
-    func configureBlurEffectView() {
+    func configureBlurEffect() {
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.contentView.bounds
@@ -143,7 +134,7 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         imageView.clipsToBounds = true
         
         self.imageView.translatesAutoresizingMaskIntoConstraints = false
-        self.imageView.topAnchor.constraintEqualToAnchor(self.circleProfileView.bottomAnchor, constant: 50).active = true
+        self.imageView.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 50).active = true
         self.imageView.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor).active = true
         self.imageView.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor).active = true
         self.imageView.heightAnchor.constraintEqualToAnchor(self.contentView.heightAnchor, multiplier: 0.35).active = true

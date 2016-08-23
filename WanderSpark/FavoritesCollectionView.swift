@@ -97,8 +97,8 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
                 cell.snippetLabel.text = favoriteSnippet
             }
             
-            //        cell.imageView.image = favoriteImages[indexPath.row]
-            //        cell.backgroundLocationImage.image = favoriteImages[indexPath.row]
+                   cell.imageView.image = favoriteImages[indexPath.row]
+                cell.backgroundLocationImage.image = favoriteImages[indexPath.row]
             
             cell.circleProfileView.hidden = true
             cell.airportLabel.hidden = true
@@ -130,13 +130,12 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
     
     func createImagesFromString(){
         for favorite in favoritesStore.favoriteLocations {
-            if let imageURLString = favorite.imageURL {
-                if let url = NSURL(string: "https://www.nytimes.com/\(favorite.imageURL)") {
-                    let data = NSData(contentsOfURL: url)
-                    let imageFromURL = UIImage(data: data!)
-                    favoriteImages.append(imageFromURL!)
-                } else { print("Error: Unable to create NSURL from imageURL for favorite \(favorite.name)") }
-            }
+            if let imageData = favorite.image {
+                if let image = UIImage(data: imageData) {
+                    favoriteImages.append(image)
+                }
+            } else { print("Error: Unable to create image from NSData for favorite \(favorite.name)") }
+            
         }
     }
     
