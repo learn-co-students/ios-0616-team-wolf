@@ -20,38 +20,34 @@ class LoadViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            
+        
         self.view.backgroundColor = purpleGradient(view.frame)
-        //            self.configurePlane()
-        //            self.configureGlobe()
-        //            self.configureWanderText()
-        //            self.configureCircleAnimation()
     }
     
     override func viewWillAppear(animated: Bool) {
         
         NSOperationQueue.mainQueue().addOperationWithBlock {
             
-                let activityIndicatorView = NVActivityIndicatorView(frame: self.view.frame,
-                    type: .Orbit)
-                let animationTypeLabel = UILabel(frame: self.view.frame)
-                
-                animationTypeLabel.text = "Prepare to Wander"
-                animationTypeLabel.sizeToFit()
-                animationTypeLabel.textColor = UIColor.whiteColor()
-                animationTypeLabel.frame.origin.x += 5
+            self.configureGlobe()
+            self.configureWanderText()
             
-                activityIndicatorView.padding = 20
-                self.view.addSubview(activityIndicatorView)
-                self.view.addSubview(animationTypeLabel)
-                activityIndicatorView.startAnimation()
+            let activityIndicatorView = NVActivityIndicatorView(frame: self.view.frame,
+                type: .Orbit, padding: 0.0)
+            let animationTypeLabel = UILabel(frame: self.view.frame)
+            
+            activityIndicatorView.padding = 0.0
+            activityIndicatorView.color = UIColor.flatSkyBlueColor()
+            activityIndicatorView.alpha = 0.5
+            self.view.addSubview(activityIndicatorView)
+            self.view.addSubview(animationTypeLabel)
+            activityIndicatorView.startAnimation()
         }
         
         CoordinateAndFlightQueues.getCoordinatesAndFlightInfo({ (complete) in
-                NSOperationQueue.mainQueue().addOperationWithBlock({
-                    self.performSegueWithIdentifier("presentCollectionView", sender: self)
-                })
+            NSOperationQueue.mainQueue().addOperationWithBlock({
+                self.performSegueWithIdentifier("presentCollectionView", sender: self)
             })
+        })
     }
     
     override func didReceiveMemoryWarning() {
@@ -67,15 +63,15 @@ class LoadViewController: UIViewController {
         return UIInterfaceOrientationMask.Portrait
     }
     
-    func configureCircleAnimation() {
-        let circleAnimationFrame = CGRect(x: view.center.x/2, y: view.center.y/2, width: view.frame.width/2, height: view.frame.height/2)
-        circleAnimation = UICircleAnimationView(frame: circleAnimationFrame)
-        view.addSubview(circleAnimation)
-        
-        circleAnimation.setForegroundStrokeColor(UIColor.orangeColor())
-        circleAnimation.strokeCircleTo(19, total: 10, withAnimate: true)
-        circleAnimation.duration = 20.0
-    }
+//    func configureCircleAnimation() {
+//        let circleAnimationFrame = CGRect(x: view.center.x/2, y: view.center.y/2, width: view.frame.width/2, height: view.frame.height/2)
+//        circleAnimation = UICircleAnimationView(frame: circleAnimationFrame)
+//        view.addSubview(circleAnimation)
+//        
+//        circleAnimation.setForegroundStrokeColor(UIColor.orangeColor())
+//        circleAnimation.strokeCircleTo(19, total: 10, withAnimate: true)
+//        circleAnimation.duration = 20.0
+//    }
     
     
     func configureGlobe() {
@@ -93,19 +89,19 @@ class LoadViewController: UIViewController {
         globeImageView.snp_makeConstraints { make in
             make.centerX.equalTo(view)
             make.centerY.equalTo(view)
-            make.height.equalTo(view.snp_height).multipliedBy(0.45)
-            make.width.equalTo(view.snp_width).multipliedBy(0.65)
+            make.height.equalTo(view.snp_height).multipliedBy(0.35)
+            make.width.equalTo(view.snp_width).multipliedBy(0.55)
         }
     }
     
     
-    func configurePlane() {
-        circleAnimation.circlePoint.contents = UIImage(named: "airplane")?.CGImage
-        circleAnimation.circlePoint.frame = CGRectMake(0, 0, 35, 35)
-        circleAnimation.circlePoint.borderWidth = 0
-        circleAnimation.circlePoint.cornerRadius = 18
-        //stop animation
-    }
+//    func configurePlane() {
+//        circleAnimation.circlePoint.contents = UIImage(named: "airplane")?.CGImage
+//        circleAnimation.circlePoint.frame = CGRectMake(0, 0, 35, 35)
+//        circleAnimation.circlePoint.borderWidth = 0
+//        circleAnimation.circlePoint.cornerRadius = 18
+//        //stop animation
+//    }
     
     func configureWanderText() {
         
@@ -144,5 +140,5 @@ class LoadViewController: UIViewController {
             bottomLabel.alpha = 0.9
         })
     }
-
+    
 }
