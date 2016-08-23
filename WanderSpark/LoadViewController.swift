@@ -21,7 +21,7 @@ class LoadViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = purpleGradient(view.frame)
+        self.view.backgroundColor = lightMagentaGradient(self.view.frame)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -31,16 +31,26 @@ class LoadViewController: UIViewController {
             self.configureGlobe()
             self.configureWanderText()
             
-            let activityIndicatorView = NVActivityIndicatorView(frame: self.view.frame,
+            let airplaneActivityIndicatorView = NVActivityIndicatorView(frame: self.view.frame,
                 type: .Orbit, padding: 0.0)
-            let animationTypeLabel = UILabel(frame: self.view.frame)
+            let airplaneAnimationTypeLabel = UILabel(frame: self.view.frame)
+            airplaneActivityIndicatorView.padding = 0.0
+            airplaneActivityIndicatorView.alpha = 1.0
+            self.view.addSubview(airplaneActivityIndicatorView)
+            self.view.addSubview(airplaneAnimationTypeLabel)
             
-            activityIndicatorView.padding = 0.0
-            activityIndicatorView.color = UIColor.flatPowderBlueColorDark()
-            activityIndicatorView.alpha = 0.5
-            self.view.addSubview(activityIndicatorView)
-            self.view.addSubview(animationTypeLabel)
-            activityIndicatorView.startAnimation()
+            
+            let bubbleActivityIndicatorView = NVActivityIndicatorView(frame: self.view.frame,
+                type: .BallScale, padding: 0.0)
+            let bubbleAnimationTypeLabel = UILabel(frame: self.view.frame)
+            bubbleActivityIndicatorView.padding = 0.0
+            bubbleActivityIndicatorView.color = UIColor.flatPowderBlueColor()
+            bubbleActivityIndicatorView.alpha = 0.3
+            self.view.addSubview(bubbleActivityIndicatorView)
+            self.view.addSubview(bubbleAnimationTypeLabel)
+            
+            airplaneActivityIndicatorView.startAnimation()
+            bubbleActivityIndicatorView.startAnimation()
         }
         
         CoordinateAndFlightQueues.getCoordinatesAndFlightInfo({ (complete) in
@@ -78,14 +88,10 @@ class LoadViewController: UIViewController {
         let globe = UIImage(named: "earth.png")
         let tintedGlobe = globe!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         let globeImageView = UIImageView(image: tintedGlobe)
-        globeImageView.tintColor = UIColor.flatGreenColor()
+        globeImageView.tintColor = UIColor.flatGreenColorDark()
         view.addSubview(globeImageView)
         globeImageView.contentMode = .ScaleAspectFill
-        
-        globeImageView.layer.shadowOpacity = 0.75
-        globeImageView.layer.shadowRadius = 3.0
-        globeImageView.layer.shadowOffset = CGSize(width: 0, height: 3)
-        
+
         globeImageView.snp_makeConstraints { make in
             make.centerX.equalTo(view)
             make.centerY.equalTo(view)
