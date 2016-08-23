@@ -19,6 +19,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     var blurImage = UIVisualEffectView()
     var vacationCollectionView : UICollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
     var webView: UIWebView = UIWebView()
+
     var vacationLocations: [Location] = [Location]()
     var arrayOfVacationImages: [UIImage] = [UIImage]()
     var arrayOfVacationImagesForThumbnail: [UIImage] = [UIImage]()
@@ -104,42 +105,45 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
         
         cell.locationLabel.text = store.matchedLocations[indexPath.row].name
-        cell.imageView.image = arrayOfVacationImages[indexPath.row]
-        
-        if let airportLocation = store.matchedLocations[indexPath.row].cheapestFlight?.originIATACode{
-            cell.airportLabel.text = "from \(airportLocation)"
-        }
-
-        if let lowestPrice = store.matchedLocations[indexPath.row].cheapestFlight?.lowestPrice{
-            cell.priceButton.setTitle("$\(lowestPrice)", forState: .Normal)
-        }
-
-        cell.homeButton.setTitle("home", forState: .Normal)
-        cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
-        
-        cell.favoriteButton.setTitle("❤︎", forState: .Normal)
-        cell.favoriteButton.addTarget(self, action: #selector(VacationCollectionView.addToFavorites), forControlEvents: .TouchUpInside)
         
         cell.snippetLabel.text = store.matchedLocations[indexPath.row].description
-    
-     
-        cell.circleProfileView.image = arrayOfVacationImagesForThumbnail[indexPath.row].circle
-        cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
-
-
         cell.snippetLabel.allowsEditingTextAttributes = false
         cell.snippetLabel.backgroundColor = UIColor.clearColor()
         cell.snippetLabel.font = wanderSparkFont(20)
-
         cell.snippetLabel.delegate = self
         cell.snippetLabel.userInteractionEnabled = true
         cell.snippetLabel.scrollEnabled = false
         cell.snippetLabel.selectable = true
+        
+        cell.imageView.image = arrayOfVacationImages[indexPath.row]
+        cell.circleProfileView.image = arrayOfVacationImagesForThumbnail[indexPath.row].circle
+        cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
+        
+        cell.airportLabel.hidden = false
+        if let airportLocation = store.matchedLocations[indexPath.row].cheapestFlight?.originIATACode{
+            cell.airportLabel.text = "from \(airportLocation)"
+        }
 
         cell.readMoreButton.setTitle("Read More", forState: .Normal)
         cell.readMoreButton.addTarget(self, action: #selector(self.goToArticle), forControlEvents: .TouchUpInside)
-    
-
+        
+        cell.priceButton.hidden = false
+        cell.priceButton.enabled = true
+        if let lowestPrice = store.matchedLocations[indexPath.row].cheapestFlight?.lowestPrice{
+            cell.priceButton.setTitle("$\(lowestPrice)", forState: .Normal)
+        }
+        //cell.priceButton.addTarget(self, action: #selector(VacationCollectionView.getPrices), forControlEvents: .TouchUpInside)
+        
+        cell.favoriteButton.hidden = false
+        cell.favoriteButton.enabled = true
+        cell.favoriteButton.addTarget(self, action: #selector(VacationCollectionView.addToFavorites), forControlEvents: .TouchUpInside)
+        
+        cell.deleteFromFavoritesButton.hidden = true
+        cell.deleteFromFavoritesButton.enabled = false
+        
+        cell.homeButton.setTitle("home", forState: .Normal)
+        cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
+        
         return cell
     }
 
@@ -191,24 +195,29 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
             let selectedRow = selectedIndex.row
             let selectedLocation = store.matchedLocations[selectedRow]
             
-            let locationDescription = NSEntityDescription.entityForName("FavoriteLocation", inManagedObjectContext: favoritesStore.managedObjectContext)
+            favoritesStore.fetchFavoriteLocationsData()
+            let sameSelection = favoritesStore.favoriteLocations.filter { $0.name! == selectedLocation.name }
             
-            if let locationDescription = locationDescription {
+            if sameSelection.isEmpty {
                 
-                let favoriteLocation = FavoriteLocation(entity: locationDescription, insertIntoManagedObjectContext: favoritesStore.managedObjectContext)
+                let locationDescription = NSEntityDescription.entityForName("FavoriteLocation", inManagedObjectContext: favoritesStore.managedObjectContext)
                 
-                favoriteLocation.name = selectedLocation.name
-                favoriteLocation.imageURL = selectedLocation.images[0]
-                favoriteLocation.snippet = selectedLocation.description
-                favoriteLocation.matchCount = selectedLocation.matchCount
-                favoriteLocation.articleURL = selectedLocation.articleURL
+                if let locationDescription = locationDescription {
+                    
+                    let favoriteLocation = FavoriteLocation(entity: locationDescription, insertIntoManagedObjectContext: favoritesStore.managedObjectContext)
+                    
+                    favoriteLocation.name = selectedLocation.name
+                    favoriteLocation.imageURL = selectedLocation.images[1]
+                    favoriteLocation.snippet = selectedLocation.description
+                    favoriteLocation.matchCount = selectedLocation.matchCount
+                    favoriteLocation.articleURL = selectedLocation.articleURL
+                }
+                favoritesStore.saveContext()
             }
-            favoritesStore.saveContext()
         }
     }
     
-    
-    
+   
 }
 
 
