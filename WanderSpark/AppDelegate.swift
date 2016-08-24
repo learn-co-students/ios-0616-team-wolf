@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Override point for customization after application launch.
         
 
+
         
        
         
@@ -67,6 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
          print("*******")
          print(groupDefaults().boolForKey(onboardingKey))
          print("*******")
+
         
         if(groupDefaults().boolForKey(onboardingKey)) {
             launchStoryboard(Storyboard.Main)

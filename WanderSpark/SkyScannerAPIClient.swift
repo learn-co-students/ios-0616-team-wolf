@@ -27,9 +27,11 @@ class SkyScannerAPIClient {
     typealias FlightCompletion = (Flight, ErrorType?) -> ()
     
     static let store = LocationsDataStore.sharedInstance
+    let sharedLocation = UserLocation.sharedInstance
     
     class func getFlights(location: Location, completion: FlightCompletion) {
         
+
         if location.name == "Williamsburg (Va)" {
             location.coordinates = (37.531399, -77.476009) //coordinates for servicing airport in richmond, va
         } else if location.name == "Mendocino (Calif)" {
@@ -38,8 +40,10 @@ class SkyScannerAPIClient {
         
         // in the future, if coordinates cannot be found or no flights are available for a location, use google maps to geolocate coordinates of nearest airport
         
+
         guard let coordinates = location.coordinates else { print("ERROR: failed to unwrap coordinate values for \(location.name)"); return }
-        
+
+        //not allowing for the coordinates that are coming in from userLocation class
         Alamofire.request(.GET, "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.730610,-73.935242-latlong/\(coordinates.0),\(coordinates.1)-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)").responseJSON { (response) in
             
             var flightQuotes = [[String:AnyObject]]()

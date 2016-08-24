@@ -10,10 +10,13 @@
 import Foundation
 import ChameleonFramework
 
-// WanderSpark Font
-func wanderSparkFont(size: CGFloat)-> UIFont{
-
+// WanderSpark Fonts
+func wanderSparkFont(size: CGFloat) -> UIFont {
     return UIFont(name: "Avenir-Book", size: size)!
+}
+
+func boldWanderSparkFont(size: CGFloat) -> UIFont {
+    return UIFont(name: "Avenir-Heavy", size: size)!
 }
 
 //Images for matching
