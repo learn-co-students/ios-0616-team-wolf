@@ -12,7 +12,7 @@ import Alamofire
 class GoogleMapsAPIClient {
     
     static let store = LocationsDataStore.sharedInstance
-    static let userZipCoordinates = UserLocation.sharedInstance
+    static let sharedUserLocation = UserLocation.sharedInstance
     
     class func getLocationCoordinatesWithCompletion(location: Location, completion: (Bool) -> ()) {
         
@@ -44,16 +44,19 @@ class GoogleMapsAPIClient {
                 }
                 
                 if location.name == "user's zip code" {
-                    self.userZipCoordinates.userZipCodeCoordinates = (destinationLat, destinationLng)
-                    
+                    print("shared user location zip code coordinates: \(self.sharedUserLocation.userZipCodeCoordinates)")
+                    self.sharedUserLocation.userZipCodeCoordinates = (destinationLat, destinationLng)
+                    print("shared user location zip code coordinates: \(self.sharedUserLocation.userZipCodeCoordinates)")
                 } else {
                     location.coordinates = (destinationLat, destinationLng)
                 }
                 
+                print(self.sharedUserLocation.userZipCodeCoordinates)
                 completion(true)
                 
             } else {
-                fatalError("ERROR: No response for request")
+                completion(false)
+                print("Failed to get coordinates from Google for zip code")
             }
         }
     }

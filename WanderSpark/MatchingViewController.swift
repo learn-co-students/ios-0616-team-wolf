@@ -14,6 +14,7 @@ import ChameleonFramework
 
 class MatchingViewController: UIViewController {
     
+    let sharedUserLocation = UserLocation.sharedInstance
     let store = LocationsDataStore.sharedInstance
     var matchingView = KolodaView()
     
@@ -52,6 +53,9 @@ class MatchingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("zip coordintes from matching view controller: \(self.sharedUserLocation.userZipCodeCoordinates)")
+        print("core location coordintes from matching view controller: \(self.sharedUserLocation.userCoordinates)")
         
         configureMatchingView()
         configureIconScrollView()

@@ -28,11 +28,10 @@ class SkyScannerAPIClient {
     typealias FlightCompletion = (Flight, ErrorType?) -> ()
     
     static let store = LocationsDataStore.sharedInstance
-    static let getUserCoordinates = UserLocation.sharedInstance
+    static let sharedUserLocation = UserLocation.sharedInstance
     
     class func getFlights(location: Location, completion: FlightCompletion) {
         
-
         if location.name == "Williamsburg (Va)" {
             location.coordinates = (37.531399, -77.476009) //coordinates for servicing airport in richmond, va
         } else if location.name == "Mendocino (Calif)" {
@@ -44,34 +43,30 @@ class SkyScannerAPIClient {
         var userLatitude = Double()
         var userLngitude = Double()
         
-
         guard let coordinates = location.coordinates else { print("ERROR: failed to unwrap coordinate values for \(location.name)"); return }
         
+        print("user coordinates from sky scanner api client: \(sharedUserLocation.userCoordinates)")
+        print("zip coordinates from sky scanner api client: \(sharedUserLocation.userZipCodeCoordinates)")
         //obtain user coordinates
-        if getUserCoordinates.userCoordinates != nil {
+        if sharedUserLocation.userCoordinates != nil {
             //enabled core location
             print("using coordinates from core location")
-            if let userLocationCoordinates = getUserCoordinates.userCoordinates {
+            if let userLocationCoordinates = sharedUserLocation.userCoordinates {
                 userLatitude = userLocationCoordinates.latitude
                 userLngitude = userLocationCoordinates.longitude
             } else {
                 print("could not get user coordinates using core location")
             }
-        } else if getUserCoordinates.userZipCodeCoordinates != nil {
+        } else if sharedUserLocation.userZipCodeCoordinates != nil {
             print("using coordinates from zipcode")
-            
-            if let userZipCoordinates = getUserCoordinates.userZipCodeCoordinates{
-            print ("zipcode coordinates: \(userZipCoordinates)")
-            
+            if let userZipCoordinates = sharedUserLocation.userZipCodeCoordinates{
+                print ("zipcode coordinates: \(userZipCoordinates)")
                 userLatitude = userZipCoordinates.0
                 userLngitude = userZipCoordinates.1
-                
             }
         }
         
         
-        
-
         //not allowing for the coordinates that are coming in from userLocation class
         
         print("UNWRAPPED USER COORDINATES: (\(userLatitude), \(userLngitude))")
@@ -83,22 +78,22 @@ class SkyScannerAPIClient {
             var carrierList = [[String:AnyObject]]()
             
             switch response.result {
-                case .Failure(let error):
-                    completion(Flight(), error)
+            case .Failure(let error):
+                completion(Flight(), error)
                 
-                case .Success(let value):
-                    guard let flightsResponse = value as? NSDictionary else { completion(Flight(), SkyscannerAPIError.InvalidJSONDictionaryCast); return }
-                    guard let
-                        flightQuotesArray = flightsResponse["Quotes"] as? [[String:AnyObject]],
-                        locationInfoArray = flightsResponse["Places"] as? [[String:AnyObject]],
-                        carrierListArray = flightsResponse["Carriers"] as? [[String:AnyObject]]
-                        else {
-                            print("ERROR: No flights found for \(location.name)"); return
-                        }
+            case .Success(let value):
+                guard let flightsResponse = value as? NSDictionary else { completion(Flight(), SkyscannerAPIError.InvalidJSONDictionaryCast); return }
+                guard let
+                    flightQuotesArray = flightsResponse["Quotes"] as? [[String:AnyObject]],
+                    locationInfoArray = flightsResponse["Places"] as? [[String:AnyObject]],
+                    carrierListArray = flightsResponse["Carriers"] as? [[String:AnyObject]]
+                    else {
+                        print("ERROR: No flights found for \(location.name)"); return
+                }
+                
                 flightQuotes = flightQuotesArray
                 locationInfo = locationInfoArray
                 carrierList = carrierListArray
-                
             }
             
             completion(SkyScannerDataParser.matchedLocationFlightInfo(location, quotes: flightQuotes, carriers: carrierList, airports: locationInfo), nil)

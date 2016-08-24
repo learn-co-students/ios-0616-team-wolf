@@ -20,7 +20,6 @@ class Location {
     var userZipCode : String?
     var userCoordinates : (Double, Double)?
 
-
     
     init(name: String, description: String, images: [String], url: String, coordinates: (Double, Double)?, cheapestFlight : Flight?) {
         self.name = name

@@ -22,16 +22,23 @@ class UserLocation: NSObject, CLLocationManagerDelegate {
     static let sharedInstance = UserLocation()
     
     private override init() {
+        print("initializing UserLocation")
         locationManager = CLLocationManager()
         super.init()
         guard let locationManager = locationManager else { return }
         if CLLocationManager.authorizationStatus() == .NotDetermined {
+            print("authorization status not determined")
             locationManager.requestWhenInUseAuthorization()
         }
         
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.delegate = self
-        startUpdatingLocation()
+        
+        print("Current location auth status: \(CLLocationManager.authorizationStatus())")
+        
+        if location == nil {
+            startUpdatingLocation()
+        }
     }
     
     func startUpdatingLocation() {

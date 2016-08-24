@@ -16,9 +16,9 @@ class FlightsParameterViewController: UIViewController {
     var locationManager: CLLocationManager = CLLocationManager()
     var zipcodeTextField: UITextField = UITextField()
     var userCurrentLocationButton = UIButton(frame: CGRectMake(200, 500, 200, 200))
-    var sharedLocation: UserLocation? = nil
+    var sharedUserLocation: UserLocation = UserLocation.sharedInstance
     
-    let getUserLocationCoordinates = UserLocation.sharedInstance
+//    let sharedLocation = UserLocation.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +61,7 @@ class FlightsParameterViewController: UIViewController {
             UIButton(frame: CGRectMake(50, 50, 50, 50))
         submitButton.backgroundColor = UIColor.orangeColor()
         submitButton.setTitle("Submit", forState: UIControlState.Normal)
-        submitButton.addTarget(self, action: #selector(allowUserToInputCityZipcode), forControlEvents: UIControlEvents.TouchUpInside)
+        submitButton.addTarget(self, action: #selector(zipcodeSubmitButtonTapped), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(submitButton)
         
         //constraints on the userCurrentLocationn Button
@@ -110,9 +110,8 @@ class FlightsParameterViewController: UIViewController {
     //this is wired to the enable core location button
     func enableCoreLocation(sender: UIButton!) {
         print("enablecorelocation button tapped")
-        sharedLocation = UserLocation.sharedInstance
-        //sharedLocation?.location?.coordinate
-        print(sharedLocation?.location?.coordinate)
+        sharedUserLocation = UserLocation.sharedInstance
+        print(sharedUserLocation.location?.coordinate)
         let destinationVC = MatchingViewController()
         self.presentViewController(destinationVC, animated: true, completion: {
             
@@ -121,7 +120,7 @@ class FlightsParameterViewController: UIViewController {
     
     
     //function to validate the zipcode
-    func isZipCodeValid(text: String) -> Bool
+    func zipCodeIsValid(text: String) -> Bool
     {
         let zipCodeTestPredicate = NSPredicate (format:"SELF MATCHES %@","(^[0-9]{5}(-[0-9]{4})?$)")
         return zipCodeTestPredicate.evaluateWithObject(zipcodeTextField.text)
@@ -141,27 +140,37 @@ class FlightsParameterViewController: UIViewController {
     
     //function to check whether zipcode is correct or not and based on that provide appropriate action
     //this is wired to the submit button
-    func allowUserToInputCityZipcode() {
+    func zipcodeSubmitButtonTapped() {
         
         //unwrapping the zipcodeTextfield
         if let userZipCode = zipcodeTextField.text
         {
-            if isZipCodeValid(userZipCode) == true {
+            if zipCodeIsValid(userZipCode) == true {
                 let userLocation : Location = Location(userZipCode: userZipCode)
-                GoogleMapsAPIClient.getLocationCoordinatesWithCompletion(userLocation, completion: { (getZipCode) in
-                    print("calling googleAPI to get coordinates based on user zipcode")
-                    print("\(self.getUserLocationCoordinates.userZipCodeCoordinates)")
-                    
-                    self.getUserLocationCoordinates.userZipCodeCoordinates = userLocation.coordinates
-                    
-                    let destinationVC = MatchingViewController()
-                    self.presentViewController(destinationVC, animated: true
-                        , completion: {
-                       
-                    })
+                print("calling googleAPI to get coordinates based on user zipcode")
+                GoogleMapsAPIClient.getLocationCoordinatesWithCompletion(userLocation, completion: { (success) in
+                    if success {
+                        // Location coordinates were successfully retrieved
+                        print("coordinates updated by Google: \(self.sharedUserLocation.userZipCodeCoordinates)")
+                        
+                        var coordinates: (Double, Double)
+                        
+                        if let coords = userLocation.coordinates {
+                            coordinates = coords
+                            
+                            self.sharedUserLocation.userZipCodeCoordinates = coordinates
+                            print("zip coordintes from flights parameter VC: \(self.sharedUserLocation.userZipCodeCoordinates)")
+                        }
+                        
+                        let destinationVC = MatchingViewController()
+                        self.presentViewController(destinationVC, animated: true
+                            , completion: {
+                            print("zip coordintes from flights parameter VC completion block for present MVC: \(self.sharedUserLocation.userZipCodeCoordinates)")
+                        })
+                    }
                 })
             }
-            else if isZipCodeValid(userZipCode) == false{
+            else if zipCodeIsValid(userZipCode) == false{
                 shakeTextField(zipcodeTextField)
             }
             //self.performSegueWithIdentifier("GoingFromFlightsToMatchMaker", sender: self)
