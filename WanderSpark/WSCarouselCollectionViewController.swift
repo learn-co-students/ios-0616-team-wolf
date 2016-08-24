@@ -42,8 +42,26 @@ class WSCarouselCollectionViewController: UIViewController {
         
         self.prepareCarousel()
         activateBlur()
+     
+      
+ 
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
     }
 
+    override func viewWillAppear(animated: Bool) {
+        let store = LocationsDataStore.sharedInstance
+        store.matchedLocations.removeAll()
+        CoordinateAndFlightQueues.coordinatesPopulatedCount = 0
+        CoordinateAndFlightQueues.numberOfFlightsRetrieved = 0
+    }
+    
     func createButtons(){
         self.logoView.image = UIImage(named: "crystalballnobackground")
         logoView.contentMode = .ScaleAspectFit

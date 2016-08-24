@@ -22,7 +22,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     var vacationLocations: [Location] = [Location]()
     var arrayOfVacationImages: [UIImage] = [UIImage]()
     var arrayOfVacationImagesForThumbnail: [UIImage] = [UIImage]()
-    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +31,14 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
 
         createImagesFromString()
         setUpCollectionView()
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
     }
     
     

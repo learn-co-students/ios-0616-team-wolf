@@ -62,6 +62,16 @@ func purpleGradient(frame: CGRect) -> UIColor {
     return purpleGradient
 }
 
+func lightMagentaGradient(frame: CGRect) -> UIColor {
+    let lightMagentaGradient = UIColor(gradientStyle: UIGradientStyle.Radial, withFrame: frame, andColors: [UIColor.flatWatermelonColorDark(), UIColor.flatMagentaColor()])
+    return lightMagentaGradient
+}
+
+func darkMagentaGradient(frame: CGRect) -> UIColor {
+    let darkMagentaGradient = UIColor(gradientStyle: UIGradientStyle.Radial, withFrame: frame, andColors: [UIColor.flatWatermelonColorDark().darkenByPercentage(0.15), UIColor.flatMagentaColorDark()])
+    return darkMagentaGradient
+}
+
 extension UIImage {
     var circle: UIImage {
         let square = size.width < size.height ? CGSize(width: size.width, height: size.width) : CGSize(width: size.height, height: size.height)

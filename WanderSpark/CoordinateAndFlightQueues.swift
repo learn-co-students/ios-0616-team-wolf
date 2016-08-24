@@ -29,6 +29,10 @@ class CoordinateAndFlightQueues {
         let googleOperation = NSBlockOperation()
         googleOperation.addExecutionBlock({
             
+            while store.matchedLocations.count < 10 {
+                print("waiting for matched locations")
+            }
+            
             for location in store.matchedLocations {
                  
                 GoogleMapsAPIClient.getLocationCoordinatesWithCompletion(location) { (gotCoordinates) in
@@ -46,14 +50,12 @@ class CoordinateAndFlightQueues {
         
         let flightOperation = NSBlockOperation()
         flightOperation.addExecutionBlock {
-            if coordinatesPopulated {
+            if coordinatesPopulatedCount == 10 && coordinatesPopulated {
                 for location in store.matchedLocations {
                     print("FLIGHT COORDINATES: \(location.name) -> \(location.coordinates)")
                     SkyScannerAPIClient.getFlights(location, completion: {_,_ in
                         numberOfFlightsRetrieved += 1
                         print("number of flights retrieved: \(String(numberOfFlightsRetrieved))")
-                        
-                        //double check flight information here to see if it has been properly populated, if not add it to an array and then loop through it again!! 
                         
                         Flight.printFlightInformation(location)
 
@@ -71,9 +73,24 @@ class CoordinateAndFlightQueues {
             retrievingFlights = false
             flightsRetrieved = true
         }
+
         
         flightOperation.completionBlock = {
-            if flightsRetrieved {
+            
+            for location in store.matchedLocations {
+                Flight.checkLocationFlightInformation(location)
+            }
+            
+            while numberOfFlightsRetrieved < 10 {
+                print("repopulating missing flight information")
+                retrievingFlights = true
+                flightsRetrieved = false
+            }
+            
+            flightsRetrieved = true
+            
+            
+            if numberOfFlightsRetrieved == 10 && flightsRetrieved {
                 print("all flight info retrieved")
                 NSOperationQueue.mainQueue().addOperationWithBlock({ 
                     completion(true)

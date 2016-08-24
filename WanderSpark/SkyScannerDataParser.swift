@@ -67,10 +67,7 @@ class SkyScannerDataParser {
                     else {fatalError("no carrier IDs available")}
                 
                 if outboundCarrierID == carrierID {
-                    print("CARRIER MATCH YAYAY <3")
                     outboundCarrierName = carrier["Name"] as! String
-                } else {
-                    print("NO MATCHES FOUND :(")
                 }
             }
         } else {
