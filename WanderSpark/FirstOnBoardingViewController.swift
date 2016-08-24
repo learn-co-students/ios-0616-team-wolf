@@ -44,7 +44,7 @@ class FirstOnBoardingViewController: UIViewController {
     func setUpTitleLabel(){
         self.view.addSubview(wandersparkTitleLabel)
         self.wandersparkTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.wandersparkTitleLabel.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 30).active = true
+        self.wandersparkTitleLabel.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 10).active = true
         self.wandersparkTitleLabel.topAnchor.constraintEqualToAnchor(self.view.topAnchor, constant: 30).active = true
         self.wandersparkTitleLabel.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor).active = true
         self.wandersparkTitleLabel.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.1).active = true

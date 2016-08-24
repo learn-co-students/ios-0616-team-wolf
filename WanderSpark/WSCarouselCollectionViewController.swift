@@ -16,14 +16,14 @@
     let favoritesStore = FavoritesDataStore.sharedInstance
     
     
-    @IBOutlet weak var carouselView: FZCarouselView!
-    var blurEffect: UIBlurEffect!
+    @IBOutlet weak var carouselView: FZCarouselView! = FZCarouselView()
+    var blurEffect: UIBlurEffect = UIBlurEffect()
     var arrayOfImages = [carousel3, japan, carousel4, china, carousel1, egypt, brazil]
     var arrayOfGrayscaleImages: [UIImage] = [UIImage]()
-    var findDestinationButton: UIButton! = UIButton()
-    var viewFavoritesButton: UIButton! = UIButton()
-    var logoView: UIImageView! = UIImageView()
-    var settingsButton: UIButton! = UIButton()
+    var findDestinationButton: UIButton = UIButton()
+    var viewFavoritesButton: UIButton = UIButton()
+    var logoView: UIImageView = UIImageView()
+    var settingsButton: UIButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,7 @@
         print("This many locations have been saved to the favorites store:\n")
         print(favoritesStore.favoriteLocations.count)
         
-        
+        self.view.addSubview(carouselView)
         carouselView.clipsToBounds = true
         
         convertImagesToGrayscale()
@@ -97,30 +97,19 @@
         else if sharedLocation.userCoordinates == nil{
             self.performSegueWithIdentifier("FlightsParameter", sender: self)
         }
-//            let alert = UIAlertController(title: "Need User Location", message: "Enter Valid Zipcode or allow WanderSpark to find your location ", preferredStyle: UIAlertControllerStyle.Alert)
-//            
-//            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
-//         
-//        
-//            
-//            alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
-//                
-//            })
-//            
-//            let submit = UIAlertAction(title: "Submit", style: .Default , handler: { (UIAlertAction) in
-//                self.zipcodeTextField.text = alert.textFields?.first?.text
-//                self.checkZipCodeWithCoordinates()
-////                self.performSegueWithIdentifier("playMatchMaker", sender: self)
-//            })
-//        
-//            alert.addAction(submit)
-//            self.presentViewController(alert, animated: true, completion: nil)
-//
+
+
     }
     
     func viewFavoritesTapped(){
+        if favoritesStore.favoriteLocations.count > 0{
         self.performSegueWithIdentifier("viewFavorites", sender: self)
-    }
+        }else{
+            let alert = UIAlertController(title: "Almost...", message: "Add destinations to your favorites by tapping 'Find Your Destination' and playing matchmaker", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        }
     
     func convertImagesToGrayscale() {
         arrayOfGrayscaleImages = arrayOfImages.map { convertToGrayScale($0) }
@@ -153,8 +142,8 @@
         self.logoView.translatesAutoresizingMaskIntoConstraints = false
         self.logoView.bottomAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
         self.logoView.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-        self.logoView.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.35).active = true
-        self.logoView.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.7).active = true
+        self.logoView.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.20).active = true
+        self.logoView.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.55).active = true
         
         self.carouselView.addSubview(findDestinationButton)
         self.findDestinationButton.translatesAutoresizingMaskIntoConstraints = false

@@ -229,8 +229,10 @@ extension MatchingViewController: KolodaViewDelegate {
             print("Name: \(location.name)")
             print("Match Count: \(location.matchCount)\n")
         }
-        
-        self.performSegueWithIdentifier("loadViewController", sender: self)
+        let destinationVC = LoadViewController()
+        self.presentViewController(destinationVC, animated: true, completion: { 
+            
+        })
 
         // Send the matched locations to the Carousel ViewController...?
     }
