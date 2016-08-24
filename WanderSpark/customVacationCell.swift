@@ -42,7 +42,6 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         configureAirportLabel()
         configurePriceButton()
         configureSnippetLabel()
-        
     }
     
     
