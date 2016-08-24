@@ -18,24 +18,19 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     var fullSceenImage = UIImageView()
     var blurImage = UIVisualEffectView()
     var vacationCollectionView : UICollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
-    var webView: UIWebView = UIWebView()
 
     var vacationLocations: [Location] = [Location]()
     var arrayOfVacationImages: [UIImage] = [UIImage]()
     var arrayOfVacationImagesForThumbnail: [UIImage] = [UIImage]()
-
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
         self.view.backgroundColor = UIColor.blackColor()
 
-        createImagesForCircleFromString()
         createImagesFromString()
-        setConstraints()
         setUpCollectionView()
-
     }
     
     
@@ -45,28 +40,8 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         let currentIndexPath = self.vacationCollectionView.indexPathForCell(currentCell)
         let url = NSURL (string: store.matchedLocations[(currentIndexPath?.row)!].articleURL)
         UIApplication.sharedApplication().openURL(url!)
-
-
     }
     
-    
-    func setConstraints() {
-        self.fullSceenImage.translatesAutoresizingMaskIntoConstraints = false
-        self.blurImage.translatesAutoresizingMaskIntoConstraints = false
-
-        self.view.addSubview(fullSceenImage)
-        
-        self.fullSceenImage.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-        self.fullSceenImage.topAnchor.constraintEqualToAnchor(self.view.topAnchor).active = true
-        self.fullSceenImage.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.4).active = true
-        self.fullSceenImage.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor).active = true
-        self.fullSceenImage.addSubview(blurImage)
-        
-        self.blurImage.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-        self.blurImage.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
-        self.blurImage.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor).active = true
-        self.blurImage.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor).active = true
-    }
     
     func setUpCollectionView(){
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -79,6 +54,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         self.view.addSubview(vacationCollectionView)
         vacationCollectionView.pagingEnabled = true
     }
+    
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let collectionViewWidth = self.view
@@ -93,6 +69,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         return store.matchedLocations.count
     }
 
+    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
@@ -100,42 +77,37 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         cell.locationLabel.text = store.matchedLocations[indexPath.row].name
         
         cell.snippetLabel.text = store.matchedLocations[indexPath.row].description
-        cell.snippetLabel.allowsEditingTextAttributes = false
-        cell.snippetLabel.backgroundColor = UIColor.clearColor()
-        cell.snippetLabel.font = wanderSparkFont(20)
-        cell.snippetLabel.delegate = self
-        cell.snippetLabel.userInteractionEnabled = true
-        cell.snippetLabel.scrollEnabled = false
-        cell.snippetLabel.selectable = true
+//        cell.snippetLabel.allowsEditingTextAttributes = false
+//        cell.snippetLabel.backgroundColor = UIColor.clearColor()
+//        cell.snippetLabel.font = wanderSparkFont(20)
+//        cell.snippetLabel.delegate = self
+//        cell.snippetLabel.userInteractionEnabled = true
+//        cell.snippetLabel.scrollEnabled = false
+//        cell.snippetLabel.selectable = true
         
         cell.imageView.image = arrayOfVacationImages[indexPath.row]
-        cell.circleProfileView.image = arrayOfVacationImagesForThumbnail[indexPath.row].circle
         cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
-        
-        cell.airportLabel.hidden = false
-        if let airportLocation = store.matchedLocations[indexPath.row].cheapestFlight?.originIATACode{
-            cell.airportLabel.text = "from \(airportLocation)"
-        }
 
-        cell.readMoreButton.setTitle("Read More", forState: .Normal)
         cell.readMoreButton.addTarget(self, action: #selector(self.goToArticle), forControlEvents: .TouchUpInside)
         
-        cell.priceButton.hidden = false
-        cell.priceButton.enabled = true
+        cell.favoriteButton.addTarget(self, action: #selector(VacationCollectionView.addToFavorites), forControlEvents: .TouchUpInside)
+        
+        cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
+
         if let lowestPrice = store.matchedLocations[indexPath.row].cheapestFlight?.lowestPrice{
             cell.priceButton.setTitle("$\(lowestPrice)", forState: .Normal)
         }
-        //cell.priceButton.addTarget(self, action: #selector(VacationCollectionView.getPrices), forControlEvents: .TouchUpInside)
         
-        cell.favoriteButton.hidden = false
-        cell.favoriteButton.enabled = true
-        cell.favoriteButton.addTarget(self, action: #selector(VacationCollectionView.addToFavorites), forControlEvents: .TouchUpInside)
+        if let airportLocation = store.matchedLocations[indexPath.row].cheapestFlight?.originIATACode {
+            cell.airportLabel.text = "from \(airportLocation)"
+        }
+        
+        if let carrierName = store.matchedLocations[indexPath.row].cheapestFlight?.carrierName {
+            cell.carrierLabel.text = "via \(carrierName)"
+        }
         
         cell.deleteFromFavoritesButton.hidden = true
         cell.deleteFromFavoritesButton.enabled = false
-        
-        cell.homeButton.setTitle("home", forState: .Normal)
-        cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
         
         return cell
     }
@@ -157,18 +129,6 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         }
     }
 
-    
-    func createImagesForCircleFromString(){
-
-        for location in store.matchedLocations{
-            if location.images != []{
-                let url = NSURL(string: "https://www.nytimes.com/\(location.images[0])")
-                let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
-                let imageFromURL = UIImage(data: data!)
-                arrayOfVacationImagesForThumbnail.append(imageFromURL!)
-            }
-        }
-    }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0
@@ -217,5 +177,18 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
    
 }
 
+/*
+ func createImagesForCircleFromString(){
+ 
+ for location in store.matchedLocations{
+ if location.images != []{
+ let url = NSURL(string: "https://www.nytimes.com/\(location.images[0])")
+ let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
+ let imageFromURL = UIImage(data: data!)
+ arrayOfVacationImagesForThumbnail.append(imageFromURL!)
+ }
+ }
+ }
+ */
 
 
