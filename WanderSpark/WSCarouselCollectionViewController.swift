@@ -20,7 +20,7 @@ class WSCarouselCollectionViewController: UIViewController {
     var arrayOfImages = [carousel3, japan, carousel4, china, carousel1, egypt, brazil]
     var arrayOfGrayscaleImages: [UIImage] = [UIImage]()
     var findDestinationButton: UIButton! = UIButton()
-    var imFeelingLuckyButton: UIButton! = UIButton()
+    var viewFavoritesButton: UIButton! = UIButton()
     var logoView: UIImageView! = UIImageView()
     
     
@@ -46,36 +46,41 @@ class WSCarouselCollectionViewController: UIViewController {
       
  
     }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
 
+    override func viewWillAppear(animated: Bool) {
+        let store = LocationsDataStore.sharedInstance
+        store.matchedLocations.removeAll()
+        CoordinateAndFlightQueues.coordinatesPopulatedCount = 0
+        CoordinateAndFlightQueues.numberOfFlightsRetrieved = 0
+    }
+    
     func createButtons(){
         self.logoView.image = UIImage(named: "crystalballnobackground")
         logoView.contentMode = .ScaleAspectFit
         
-        self.findDestinationButton.setTitle("Find Destination", forState: .Normal)
+        self.findDestinationButton.setTitle("Find Your Destination", forState: .Normal)
         self.findDestinationButton.titleLabel?.font = wanderSparkFont(18)
         self.findDestinationButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.playMatchMakerTapped), forControlEvents: .TouchUpInside)
-        //self.findDestinationButton.setBackgroundImage(backgroundButton, forState: .Normal)
-        //self.findDestinationButton.layer.shadowRadius = 2
-        //self.findDestinationButton.layer.shadowOpacity = 2
         
-        self.imFeelingLuckyButton.setTitle("I'm Feeling Lucky", forState: .Normal)
-        self.imFeelingLuckyButton.titleLabel?.font = wanderSparkFont(18)
-        self.imFeelingLuckyButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.imFeelingLuckyTapped), forControlEvents: .TouchUpInside)
-        
-        //self.imFeelingLuckyButton.setBackgroundImage(backgroundButton, forState: .Normal)
-        //self.imFeelingLuckyButton.layer.shadowRadius = 2
-        //self.imFeelingLuckyButton.layer.shadowOpacity = 2
+        self.viewFavoritesButton.setTitle("View Your Favorites", forState: .Normal)
+        self.viewFavoritesButton.titleLabel?.font = wanderSparkFont(18)
+        self.viewFavoritesButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.viewFavoritesTapped), forControlEvents: .TouchUpInside)
     }
     
     func playMatchMakerTapped(){
         self.performSegueWithIdentifier("playMatchMaker", sender: self)
     }
     
-    func imFeelingLuckyTapped(){
-        self.performSegueWithIdentifier("imFeelingLucky", sender: self)
-//        store.getLocationsWithCompletion { _ in 
-//        
-//        }
+    func viewFavoritesTapped(){
+        self.performSegueWithIdentifier("viewFavorites", sender: self)
     }
     
     func convertImagesToGrayscale() {
@@ -92,7 +97,7 @@ class WSCarouselCollectionViewController: UIViewController {
         
         carouselView.addSubview(blurEffectView)
         self.carouselView.bringSubviewToFront(self.findDestinationButton)
-        self.carouselView.bringSubviewToFront(self.imFeelingLuckyButton)
+        self.carouselView.bringSubviewToFront(self.viewFavoritesButton)
         self.carouselView.bringSubviewToFront(self.logoView)
     }
     
@@ -118,18 +123,13 @@ class WSCarouselCollectionViewController: UIViewController {
         self.findDestinationButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.5).active = true
         findDestinationButton.titleLabel?.adjustsFontSizeToFitWidth
         
-        
-        
-        self.carouselView.addSubview(imFeelingLuckyButton)
-        self.imFeelingLuckyButton.translatesAutoresizingMaskIntoConstraints = false
-        self.imFeelingLuckyButton.topAnchor.constraintEqualToAnchor(self.findDestinationButton.bottomAnchor, constant: 10).active = true
-        self.imFeelingLuckyButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-        self.imFeelingLuckyButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.1).active = true
-        self.imFeelingLuckyButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.5).active = true
-        imFeelingLuckyButton.titleLabel?.adjustsFontSizeToFitWidth
-
-        
-        
+        self.carouselView.addSubview(viewFavoritesButton)
+        self.viewFavoritesButton.translatesAutoresizingMaskIntoConstraints = false
+        self.viewFavoritesButton.topAnchor.constraintEqualToAnchor(self.findDestinationButton.bottomAnchor, constant: 10).active = true
+        self.viewFavoritesButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
+        self.viewFavoritesButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.1).active = true
+        self.viewFavoritesButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.5).active = true
+        viewFavoritesButton.titleLabel?.adjustsFontSizeToFitWidth
     }
     
     override func didReceiveMemoryWarning() {
@@ -154,11 +154,14 @@ class WSCarouselCollectionViewController: UIViewController {
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "imFeelingLucky" {
-            let destinationVC = LoadViewController()
-            destinationVC.imFeelingLucky = true
+        if segue.identifier == "viewFavorites" {
+            let destinationVC = FavoritesCollectionView()
+            self.presentViewController(destinationVC, animated: true, completion: { 
+                
+            })
+            // Need to present the collection view here I think...
 
-    }
+        }
     }
     
 }

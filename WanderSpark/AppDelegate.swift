@@ -23,16 +23,17 @@ enum Storyboard: String {
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
-    var locationManager: CLLocationManager!
-    let userLocation = UserOrigin.sharedOrigin
-    let stuff = UserOrigin()
+
+  
+   
 
     let store = LocationsDataStore.sharedInstance
+
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-      userLocation.checkCoreLocationPermission()
+
         
        
         
@@ -113,6 +114,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let controller = storyboard.instantiateInitialViewController()! as UIViewController
         self.window?.rootViewController = controller
     }
+
+
 
 }
 

@@ -39,10 +39,8 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
-	<key>NSLocationWhenInUsageDescription</key>
-	<string>Need location information to get flight ticket information</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We&apos;ll use your current location to find relevant flight information.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
