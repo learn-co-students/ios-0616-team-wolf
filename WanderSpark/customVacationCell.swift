@@ -35,13 +35,13 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         configureBlurEffect()
         configureImageView()
         configureLocationLabel()
-        configureSnippetLabel()
         configureReadMoreButton()
         configureHomeButton()
         configureFavoriteButton()
         configureCarrierLabel()
         configureAirportLabel()
         configurePriceButton()
+        configureSnippetLabel()
         
     }
     
@@ -89,7 +89,7 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         
         self.snippetLabel.translatesAutoresizingMaskIntoConstraints = false
         self.snippetLabel.topAnchor.constraintEqualToAnchor(self.imageView.bottomAnchor, constant: 10).active = true
-        self.snippetLabel.bottomAnchor.constraintEqualToAnchor(self.contentView.bottomAnchor, constant: -40).active = true
+        self.snippetLabel.bottomAnchor.constraintEqualToAnchor(self.priceButton.topAnchor, constant: -5).active = true
         self.snippetLabel.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: 15).active = true
         self.snippetLabel.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor, constant: -15).active = true
         
@@ -175,14 +175,14 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
     func configurePriceButton() {
         contentView.addSubview(priceButton)
         
-        priceButton.titleLabel?.font = wanderSparkFont(50)
+        priceButton.titleLabel?.font = wanderSparkFont(40)
         priceButton.titleLabel?.textColor = UIColor.whiteColor()
         priceButton.titleLabel?.shadowColor = UIColor.whiteColor()
         
         self.priceButton.translatesAutoresizingMaskIntoConstraints = false
         self.priceButton.bottomAnchor.constraintEqualToAnchor(self.airportLabel.topAnchor, constant: -3).active = true
         self.priceButton.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor, constant:-20).active = true
-        self.priceButton.heightAnchor.constraintEqualToConstant(50).active = true
+        self.priceButton.heightAnchor.constraintEqualToConstant(40).active = true
     }
     
   
