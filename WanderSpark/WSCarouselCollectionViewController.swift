@@ -70,7 +70,7 @@ class WSCarouselCollectionViewController: UIViewController {
         self.findDestinationButton.titleLabel?.font = wanderSparkFont(18)
         self.findDestinationButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.playMatchMakerTapped), forControlEvents: .TouchUpInside)
         
-        self.viewFavoritesButton.setTitle("View Your Favorites", forState: .Normal)
+        self.viewFavoritesButton.setTitle("◉ View Your Favorites", forState: .Normal)
         self.viewFavoritesButton.titleLabel?.font = wanderSparkFont(18)
         self.viewFavoritesButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.viewFavoritesTapped), forControlEvents: .TouchUpInside)
     }
