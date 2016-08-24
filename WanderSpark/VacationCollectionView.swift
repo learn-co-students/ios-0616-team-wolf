@@ -23,8 +23,6 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     var arrayOfVacationImages: [UIImage] = [UIImage]()
     var arrayOfVacationImagesForThumbnail: [UIImage] = [UIImage]()
 
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -34,6 +32,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         createImagesFromString()
         setConstraints()
         setUpCollectionView()
+        
 
     }
     

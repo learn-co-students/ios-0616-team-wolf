@@ -9,7 +9,17 @@
 import UIKit
 import CoreLocation
 
+
+enum Storyboard: String {
+    case Main = "Main"
+    case Onboarding = "Onboarding"
+}
+
+
 @UIApplicationMain
+
+
+
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
@@ -17,13 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     let userLocation = UserOrigin.sharedOrigin
     let stuff = UserOrigin()
 
-    
     let store = LocationsDataStore.sharedInstance
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
       userLocation.checkCoreLocationPermission()
+        
        
         
 //        locationManager = CLLocationManager()
@@ -52,7 +62,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 //        }
         
         
-
+        registerDefaults()
+         print("*******")
+         print(groupDefaults().boolForKey(onboardingKey))
+         print("*******")
+        
+        if(groupDefaults().boolForKey(onboardingKey)) {
+            launchStoryboard(Storyboard.Main)
+        } else {
+            
+            launchStoryboard(Storyboard.Onboarding)
+        }
         return true
     }
     
@@ -87,6 +107,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func launchStoryboard(storyboard: Storyboard) {
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Slide)
+        let storyboard = UIStoryboard(name: storyboard.rawValue, bundle: nil)
+        let controller = storyboard.instantiateInitialViewController()! as UIViewController
+        self.window?.rootViewController = controller
+    }
 
 }
 

@@ -42,6 +42,9 @@ class WSCarouselCollectionViewController: UIViewController {
         
         self.prepareCarousel()
         activateBlur()
+     
+      
+ 
     }
 
     func createButtons(){
