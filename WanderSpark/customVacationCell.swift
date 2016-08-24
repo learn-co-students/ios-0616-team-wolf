@@ -24,7 +24,6 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
     var priceButton = UIButton()
     var readMoreButton = UIButton()
     var favoriteButton = UIButton()
-    var deleteFromFavoritesButton = UIButton()
     
     
     override init(frame: CGRect) {
@@ -40,7 +39,6 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         configureReadMoreButton()
         configureHomeButton()
         configureFavoriteButton()
-        configureDeleteFromFavoritesButton()
         configureCarrierLabel()
         configureAirportLabel()
         configurePriceButton()
@@ -165,7 +163,7 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         contentView.addSubview(homeButton)
         
         self.homeButton.translatesAutoresizingMaskIntoConstraints = false
-        self.homeButton.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 20).active = true
+        self.homeButton.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 25).active = true
         self.homeButton.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: 20).active = true
         
         homeButton.titleLabel?.font = wanderSparkFont(16)
@@ -195,24 +193,24 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         favoriteButton.centerYAnchor.constraintEqualToAnchor(homeButton.centerYAnchor).active = true
         favoriteButton.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -20).active = true
         
-        favoriteButton.titleLabel?.font = wanderSparkFont(35)
+        favoriteButton.titleLabel?.font = wanderSparkFont(32)
         favoriteButton.titleLabel?.textColor = UIColor.whiteColor()
-        favoriteButton.setTitle("❤︎", forState: .Normal)
+        favoriteButton.setTitle("◎", forState: .Normal)
         favoriteButton.showsTouchWhenHighlighted = true
     }
     
     
-    func configureDeleteFromFavoritesButton() {
-        contentView.addSubview(deleteFromFavoritesButton)
-        
-        deleteFromFavoritesButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteFromFavoritesButton.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -20).active = true
-        deleteFromFavoritesButton.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -20).active = true
-        
-        deleteFromFavoritesButton.titleLabel?.font = wanderSparkFont(16)
-        deleteFromFavoritesButton.titleLabel?.textColor = UIColor.whiteColor()
-        deleteFromFavoritesButton.setTitle("remove from favorites", forState: .Normal)
-    }
+//    func configureDeleteFromFavoritesButton() {
+//        contentView.addSubview(deleteFromFavoritesButton)
+//        
+//        deleteFromFavoritesButton.translatesAutoresizingMaskIntoConstraints = false
+//        deleteFromFavoritesButton.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -20).active = true
+//        deleteFromFavoritesButton.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -20).active = true
+//        
+//        deleteFromFavoritesButton.titleLabel?.font = wanderSparkFont(16)
+//        deleteFromFavoritesButton.titleLabel?.textColor = UIColor.whiteColor()
+//        deleteFromFavoritesButton.setTitle("remove from favorites", forState: .Normal)
+//    }
     
     
     required init?(coder aDecoder: NSCoder) {

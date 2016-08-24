@@ -106,9 +106,6 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
             cell.carrierLabel.text = "via \(carrierName)"
         }
         
-        cell.deleteFromFavoritesButton.hidden = true
-        cell.deleteFromFavoritesButton.enabled = false
-        
         return cell
     }
 
@@ -144,6 +141,9 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     
     func addToFavorites() {
         let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
+        
+        selectedCell.favoriteButton.setTitle("◉", forState: .Normal)
+        
         if let selectedIndex = vacationCollectionView.indexPathForCell(selectedCell) {
             let selectedRow = selectedIndex.row
             let selectedLocation = store.matchedLocations[selectedRow]
