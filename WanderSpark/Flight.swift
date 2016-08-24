@@ -10,7 +10,9 @@ import Foundation
 
 class Flight {
     
-    //all flights obtained from skyscanner are round trip 
+    //all flights obtained from skyscanner are round trip
+    
+    static let store = LocationsDataStore.sharedInstance
     
     let carrierName : String?
     let carrierID : Int?
@@ -48,5 +50,28 @@ class Flight {
         print("FLIGHT ORIGIN AIRPORT: \(originAirport)")
         print("PRICE: \(price)\n\n")
         print("******************* END FLIGHT INFO *******************")
+    }
+    
+    class func checkLocationFlightInformation(location: Location) {
+        
+        guard let
+            coordinates = location.coordinates,
+            carrierName = location.cheapestFlight!.carrierName,
+            originAirport = location.cheapestFlight!.originIATACode,
+            price = location.cheapestFlight!.lowestPrice
+            else { fatalError("ERROR: could not unwrap flight information in check to verify they have been populated correctly") }
+        
+        if originAirport == "" || price == String(0) || price == "" {
+            
+            print("MISSING INFO FOR \(location.name.uppercaseString)")
+            
+            CoordinateAndFlightQueues.numberOfFlightsRetrieved -= 1
+            CoordinateAndFlightQueues.flightsRetrieved = false
+            
+            SkyScannerAPIClient.getFlights(location, completion: { (missingFlightInfo, nil) in
+                print("getting missing flight information for \(location.name)")
+            })
+        }
+        
     }
 }

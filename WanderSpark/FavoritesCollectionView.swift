@@ -16,7 +16,7 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
     
     var fullSceenImage = UIImageView()
     var blurImage = UIVisualEffectView()
-    var vacationCollectionView : UICollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
+    var favoritesCollectionView : UICollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
     
     var favoriteImages = [UIImage]()
     
@@ -29,41 +29,21 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
         self.view.backgroundColor = UIColor.blackColor()
 
         createImagesFromString()
-        setConstraints()
         setUpCollectionView()
     }
     
-    
-    func setConstraints() {
-        self.fullSceenImage.translatesAutoresizingMaskIntoConstraints = false
-        self.blurImage.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.view.addSubview(fullSceenImage)
-        
-        self.fullSceenImage.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-        self.fullSceenImage.topAnchor.constraintEqualToAnchor(self.view.topAnchor).active = true
-        self.fullSceenImage.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.4).active = true
-        self.fullSceenImage.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor).active = true
-        
-        self.fullSceenImage.addSubview(blurImage)
-        
-        self.blurImage.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-        self.blurImage.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
-        self.blurImage.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor).active = true
-        self.blurImage.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor).active = true
-    }
-    
-    
+
     func setUpCollectionView(){
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = UICollectionViewScrollDirection.Horizontal
-        vacationCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        vacationCollectionView.dataSource = self
-        vacationCollectionView.delegate = self
-        vacationCollectionView.registerClass(customVacationCell.self, forCellWithReuseIdentifier: "Cell")
-        vacationCollectionView.backgroundColor = UIColor.blackColor()
-        self.view.addSubview(vacationCollectionView)
-        vacationCollectionView.pagingEnabled = true
+        favoritesCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        favoritesCollectionView.dataSource = self
+        favoritesCollectionView.delegate = self
+        favoritesCollectionView.registerClass(customVacationCell.self, forCellWithReuseIdentifier: "Cell")
+        favoritesCollectionView.backgroundColor = UIColor.blackColor()
+        favoritesCollectionView.pagingEnabled = true
+        
+        self.view.addSubview(favoritesCollectionView)
     }
     
     
@@ -77,82 +57,56 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return favoritesStore.favoriteLocations.count + 1
+        return favoritesStore.favoriteLocations.count
+
     }
     
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        if indexPath.row < favoritesStore.favoriteLocations.count {
-            
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
-            
-            let favoriteLocation = favoritesStore.favoriteLocations[indexPath.row]
-            
-            if let favoriteName = favoriteLocation.name {
-                cell.locationLabel.text = favoriteName
-            }
-            
-            if let favoriteSnippet = favoriteLocation.snippet {
-                cell.snippetLabel.text = favoriteSnippet
-            }
-            
-            //        cell.imageView.image = favoriteImages[indexPath.row]
-            //        cell.backgroundLocationImage.image = favoriteImages[indexPath.row]
-            
-            cell.circleProfileView.hidden = true
-            cell.airportLabel.hidden = true
-            
-            cell.priceButton.hidden = true
-            cell.priceButton.enabled = false
-            
-            cell.favoriteButton.hidden = true
-            cell.favoriteButton.enabled = false
-            
-            cell.deleteFromFavoritesButton.hidden = false
-            cell.deleteFromFavoritesButton.enabled = true
-            cell.deleteFromFavoritesButton.addTarget(self, action: #selector(FavoritesCollectionView.deleteFromFavorites), forControlEvents: .TouchUpInside)
-            
-            cell.homeButton.setTitle("home", forState: .Normal)
-            cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
-            
-            return cell
-            
-        } else if indexPath.row == favoritesStore.favoriteLocations.count {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
-            
-            cell.snippetLabel.text = "You have no destinations stored in favorites."
-            return cell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
+        
+        cell.airportLabel.hidden = true
+        
+        cell.priceButton.hidden = true
+        cell.priceButton.enabled = false
+        
+        cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
+        
+        cell.readMoreButton.addTarget(self, action: #selector(FavoritesCollectionView.goToArticle), forControlEvents: .TouchUpInside)
+        
+        let favoriteLocation = favoritesStore.favoriteLocations[indexPath.row]
+        
+        if let favoriteName = favoriteLocation.name {
+            cell.locationLabel.text = favoriteName
         }
-        return UICollectionViewCell()
+        
+        if let favoriteSnippet = favoriteLocation.snippet {
+            cell.snippetLabel.text = favoriteSnippet
+        }
+        
+        cell.imageView.image = favoriteImages[indexPath.row]
+        cell.backgroundLocationImage.image = favoriteImages[indexPath.row]
+        
+        cell.favoriteButton.setTitle("◉", forState: .Normal)
+        cell.favoriteButton.addTarget(self, action: #selector(FavoritesCollectionView.deleteFromFavorites), forControlEvents: .TouchUpInside)
+        
+        return cell
+        
     }
     
     
     func createImagesFromString(){
         for favorite in favoritesStore.favoriteLocations {
-            if let imageURLString = favorite.imageURL {
-                if let url = NSURL(string: "https://www.nytimes.com/\(favorite.imageURL)") {
-                    let data = NSData(contentsOfURL: url)
-                    let imageFromURL = UIImage(data: data!)
-                    favoriteImages.append(imageFromURL!)
-                } else { print("Error: Unable to create NSURL from imageURL for favorite \(favorite.name)") }
-            }
+            if let imageData = favorite.image {
+                if let image = UIImage(data: imageData) {
+                    favoriteImages.append(image)
+                }
+            } else { print("Error: Unable to create image from NSData for favorite \(favorite.name)") }
+            
         }
     }
     
-    /*
-    func createImagesForCircleFromString(){
-        
-        for location in store.matchedLocations{
-            if location.images != []{
-                let url = NSURL(string: "https://www.nytimes.com/\(location.images[0])")
-                let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
-                let imageFromURL = UIImage(data: data!)
-                arrayOfVacationImagesForThumbnail.append(imageFromURL!)
-            }
-        }
-    }
-    */
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0
@@ -162,28 +116,39 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
     func returnHome(){
         self.store.locations.removeAll()
         self.store.matchedLocations.removeAll()
-        self.dismissViewControllerAnimated(true) { 
-            
+        self.dismissViewControllerAnimated(true) {
         }
-        //self.performSegueWithIdentifier("returnHome", sender: self)
     }
 
     
     func deleteFromFavorites() {
-        let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
-        if let selectedIndex = vacationCollectionView.indexPathForCell(selectedCell) {
+        
+        let selectedCell = favoritesCollectionView.visibleCells()[0] as! customVacationCell
+        
+        selectedCell.favoriteButton.setTitle("◎", forState: .Normal)
+        
+        if let selectedIndex = favoritesCollectionView.indexPathForCell(selectedCell) {
             let selectedRow = selectedIndex.row
-            let nextIndex = NSIndexPath(forRow: selectedRow + 1, inSection: 0)
             
             let selectedFavorite = favoritesStore.favoriteLocations[selectedRow]
             
             favoritesStore.managedObjectContext.deleteObject(selectedFavorite)
             favoritesStore.saveContext()
-            
-            vacationCollectionView.scrollToItemAtIndexPath(nextIndex, atScrollPosition: .Right, animated: true)
-            
-            favoritesStore.fetchFavoriteLocationsData()
-            vacationCollectionView.reloadData()
+        }
+    }
+    
+    
+    func goToArticle(){
+        let selectedCell = favoritesCollectionView.visibleCells()[0] as! customVacationCell
+        guard let selectedIndex = favoritesCollectionView.indexPathForCell(selectedCell) else {
+            print("Error: Cannot unwrap indexpath for selected favorite collection view cell.")
+            return
+        }
+        
+        if let urlString = favoritesStore.favoriteLocations[selectedIndex.row].articleURL {
+            if let url = NSURL(string: urlString) {
+                UIApplication.sharedApplication().openURL(url)
+            }
         }
     }
     

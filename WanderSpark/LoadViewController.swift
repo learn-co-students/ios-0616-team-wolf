@@ -8,78 +8,53 @@
 
 import UIKit
 import SnapKit
-import UICircleAnimationView
 import ChameleonFramework
+import NVActivityIndicatorView
 
 class LoadViewController: UIViewController {
-    var circleAnimation = UICircleAnimationView()
     let store = LocationsDataStore.sharedInstance
     let favoritesStore = FavoritesDataStore.sharedInstance
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            
-        self.view.backgroundColor = purpleGradient(view.frame)
+        
+        self.view.backgroundColor = lightMagentaGradient(self.view.frame)
     }
     
     override func viewWillAppear(animated: Bool) {
         
-        NSOperationQueue.mainQueue().addOperationWithBlock { 
-            self.configurePlane()
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            
             self.configureGlobe()
             self.configureWanderText()
-            self.configureCircleAnimation()
             
-//            // set up some values to use in the curve
-//            let ovalStartAngle = CGFloat(90.01 * M_PI/180)
-//            let ovalEndAngle = CGFloat(90 * M_PI/180)
-//            let ovalRect = CGRectMake(97.5, 58.5, 125, 125)
-//            
-//            // create the bezier path
-//            let ovalPath = UIBezierPath()
-//            
-//            ovalPath.addArcWithCenter(CGPointMake(CGRectGetMidX(ovalRect), CGRectGetMidY(ovalRect)),
-//                radius: CGRectGetWidth(ovalRect) / 2,
-//                startAngle: ovalStartAngle,
-//                endAngle: ovalEndAngle, clockwise: true)
-//            
-//            // create an object that represents how the curve
-//            // should be presented on the screen
-//            let progressLine = CAShapeLayer()
-//            progressLine.path = ovalPath.CGPath
-//            progressLine.strokeColor = UIColor.blueColor().CGColor
-//            progressLine.fillColor = UIColor.clearColor().CGColor
-//            progressLine.lineWidth = 10.0
-//            progressLine.lineCap = kCALineCapRound
-//            let airplaneIcon = "data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjY0cHgiIGhlaWdodD0iNjRweCIgdmlld0JveD0iMCAwIDUxMCA1MTAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMCA1MTA7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8ZyBpZD0iYWlycGxhbmVtb2RlLW9uIj4KCQk8cGF0aCBkPSJNNDk3LjI1LDM1N3YtNTFsLTIwNC0xMjcuNVYzOC4yNUMyOTMuMjUsMTcuODUsMjc1LjQsMCwyNTUsMGMtMjAuNCwwLTM4LjI1LDE3Ljg1LTM4LjI1LDM4LjI1VjE3OC41TDEyLjc1LDMwNnY1MSAgICBsMjA0LTYzLjc1VjQzMy41bC01MSwzOC4yNVY1MTBMMjU1LDQ4NC41bDg5LjI1LDI1LjV2LTM4LjI1bC01MS0zOC4yNVYyOTMuMjVMNDk3LjI1LDM1N3oiIGZpbGw9IiNkOTQxMDAiLz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K"
-//            let airplaneData = NSData(base64EncodedString: airplaneIcon)
-//            progressLine.lineCap.appendContentsOf(airplaneIcon)
+            let airplaneActivityIndicatorView = NVActivityIndicatorView(frame: self.view.frame,
+                type: .Orbit, padding: 0.0)
+            let airplaneAnimationTypeLabel = UILabel(frame: self.view.frame)
+            airplaneActivityIndicatorView.padding = 0.0
+            airplaneActivityIndicatorView.alpha = 1.0
+            self.view.addSubview(airplaneActivityIndicatorView)
+            self.view.addSubview(airplaneAnimationTypeLabel)
             
-            // add the curve to the screen
-//            self.view.layer.addSublayer(progressLine)
-//            
-//            // create a basic animation that animates the value 'strokeEnd'
-//            // from 0.0 to 1.0 over 3.0 seconds
-//            let animateStrokeEnd = CABasicAnimation(keyPath: "strokeEnd")
-//            animateStrokeEnd.duration = 3.0
-//            animateStrokeEnd.fromValue = 0.0
-//            animateStrokeEnd.toValue = 1.0
-//            
-//            // add the animation
-//            progressLine.addAnimation(animateStrokeEnd, forKey: "animate stroke end animation")
+            let bubbleActivityIndicatorView = NVActivityIndicatorView(frame: self.view.frame,
+                type: .BallScale, padding: 0.0)
+            let bubbleAnimationTypeLabel = UILabel(frame: self.view.frame)
+            bubbleActivityIndicatorView.padding = 0.0
+            bubbleActivityIndicatorView.color = UIColor.flatPowderBlueColor()
+            bubbleActivityIndicatorView.alpha = 0.3
+            self.view.addSubview(bubbleActivityIndicatorView)
+            self.view.addSubview(bubbleAnimationTypeLabel)
             
+            airplaneActivityIndicatorView.startAnimation()
+            bubbleActivityIndicatorView.startAnimation()
         }
-    
-        let getCoordinatesAndFlightsQueue = NSOperationQueue()
-        getCoordinatesAndFlightsQueue.qualityOfService = .UserInitiated
-        getCoordinatesAndFlightsQueue.addOperationWithBlock { 
-            CoordinateAndFlightQueues.getCoordinatesAndFlightInfo({ (complete) in
-                NSOperationQueue.mainQueue().addOperationWithBlock({
-                    self.performSegueWithIdentifier("presentCollectionView", sender: self)
-                })
+        
+        CoordinateAndFlightQueues.getCoordinatesAndFlightInfo({ (complete) in
+            NSOperationQueue.mainQueue().addOperationWithBlock({
+                self.performSegueWithIdentifier("presentCollectionView", sender: self)
             })
-        }
+        })
     }
     
     override func didReceiveMemoryWarning() {
@@ -87,15 +62,12 @@ class LoadViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
     
-    func configureCircleAnimation() {
-        let circleAnimationFrame = CGRect(x: view.center.x/2, y: view.center.y/2, width: view.frame.width/2, height: view.frame.height/2)
-        circleAnimation = UICircleAnimationView(frame: circleAnimationFrame)
-        view.addSubview(circleAnimation)
-        
-        circleAnimation.setForegroundStrokeColor(UIColor.orangeColor())
-        circleAnimation.strokeCircleTo(19, total: 10, withAnimate: true)
-        circleAnimation.duration = 15.0
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
     }
     
     
@@ -103,28 +75,16 @@ class LoadViewController: UIViewController {
         let globe = UIImage(named: "earth.png")
         let tintedGlobe = globe!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         let globeImageView = UIImageView(image: tintedGlobe)
-        globeImageView.tintColor = UIColor.flatGreenColor()
+        globeImageView.tintColor = UIColor.flatGreenColorDark()
         view.addSubview(globeImageView)
         globeImageView.contentMode = .ScaleAspectFill
-        
-        globeImageView.layer.shadowOpacity = 0.75
-        globeImageView.layer.shadowRadius = 3.0
-        globeImageView.layer.shadowOffset = CGSize(width: 0, height: 3)
-        
+
         globeImageView.snp_makeConstraints { make in
             make.centerX.equalTo(view)
             make.centerY.equalTo(view)
-            make.height.equalTo(view.snp_height).multipliedBy(0.45)
-            make.width.equalTo(view.snp_width).multipliedBy(0.65)
+            make.height.equalTo(view.snp_height).multipliedBy(0.35)
+            make.width.equalTo(view.snp_width).multipliedBy(0.55)
         }
-    }
-    
-    
-    func configurePlane() {
-        circleAnimation.circlePoint.contents = UIImage(named: "airplane")?.CGImage
-        circleAnimation.circlePoint.frame = CGRectMake(0, 0, 35, 35)
-        circleAnimation.circlePoint.borderWidth = 0
-        circleAnimation.circlePoint.cornerRadius = 18
     }
     
     func configureWanderText() {
@@ -159,10 +119,10 @@ class LoadViewController: UIViewController {
             make.width.equalTo(view)
         }
         
-        UIView.animateWithDuration(2.5, animations: {
+        UIView.animateWithDuration(2.0, animations: {
             topLabel.alpha = 0.9
             bottomLabel.alpha = 0.9
         })
     }
-
+    
 }

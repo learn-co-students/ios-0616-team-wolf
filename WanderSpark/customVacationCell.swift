@@ -9,171 +9,179 @@
 import UIKit
 
 class customVacationCell: UICollectionViewCell, UITextViewDelegate {
-    var locationLabel: UILabel!
-    var priceButton: UIButton!
-    var imageView: UIImageView!
-    var blurEffectView: UIVisualEffectView!
-    var snippetLabel: UITextView!
-    var circleProfileView: UIImageView!
-    var backgroundLocationImage: UIImageView!
-    var homeButton: UIButton!
-    var airportLabel: UILabel!
-    var readMoreButton: UIButton!
     
+    var blurEffectView: UIVisualEffectView!
+    var backgroundLocationImage = UIImageView()
+    var imageView : UIImageView!
+    var circleProfileView = UIImageView()
+    
+    var snippetLabel = UITextView()
+    var locationLabel = UILabel()
+    var airportLabel = UILabel()
+    var carrierLabel = UILabel()
+    
+    var homeButton = UIButton()
+    var priceButton = UIButton()
+    var readMoreButton = UIButton()
     var favoriteButton = UIButton()
-    var deleteFromFavoritesButton = UIButton()
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
-        backgroundLocationImage = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
-        backgroundLocationImage.contentMode = UIViewContentMode.ScaleAspectFill
-        imageView.contentMode = UIViewContentMode.ScaleAspectFit
-        imageView.clipsToBounds = true
-        priceButton = UIButton()
-        locationLabel = UILabel()
-        snippetLabel = UITextView()
-        circleProfileView = UIImageView()
-        backgroundLocationImage = UIImageView()
-        homeButton = UIButton()
-        airportLabel = UILabel()
-        readMoreButton = UIButton()
         
-
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
-        self.blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = self.contentView.bounds
-        blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]// for supporting device rotation
-        blurEffectView.alpha = 1
-        
-        contentView.addSubview(backgroundLocationImage)
-        self.contentView.addSubview(blurEffectView)
-
-        contentView.addSubview(imageView)
-        contentView.addSubview(locationLabel)
-        contentView.addSubview(priceButton)
-        contentView.addSubview(circleProfileView)
-        contentView.addSubview(snippetLabel)
-        contentView.addSubview(homeButton)
-        contentView.addSubview(airportLabel)
-        contentView.addSubview(readMoreButton)
-
+        configureBackgroundImage()
+        configureBlurEffect()
+        configureImageView()
+        configureLocationLabel()
+        configureReadMoreButton()
+        configureHomeButton()
         configureFavoriteButton()
-        configureDeleteFromFavoritesButton()
+        configureCarrierLabel()
+        configureAirportLabel()
+        configurePriceButton()
+        configureSnippetLabel()
+    }
+    
+    
+    func configureAirportLabel() {
+        contentView.addSubview(airportLabel)
         
-        self.imageView.translatesAutoresizingMaskIntoConstraints = false
-        self.imageView.topAnchor.constraintEqualToAnchor(self.circleProfileView.bottomAnchor, constant: 50).active = true
-        self.imageView.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor).active = true
-        self.imageView.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor).active = true
-        self.imageView.heightAnchor.constraintEqualToAnchor(self.contentView.heightAnchor, multiplier: 0.35).active = true
-        self.imageView.centerXAnchor.constraintEqualToAnchor(self.contentView.centerXAnchor).active = true
-
+        airportLabel.font = wanderSparkFont(12)
+        airportLabel.textColor = UIColor.whiteColor()
         
-        self.circleProfileView.translatesAutoresizingMaskIntoConstraints = false
-        self.circleProfileView.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 25).active = true
-        self.circleProfileView.heightAnchor.constraintEqualToAnchor(self.contentView.heightAnchor, multiplier: 0.10).active = true
-        self.circleProfileView.widthAnchor.constraintEqualToAnchor(self.contentView.widthAnchor, multiplier: 0.18).active = true
-        self.circleProfileView.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: 30).active = true
+        self.airportLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.airportLabel.bottomAnchor.constraintEqualToAnchor(self.carrierLabel.topAnchor, constant: -1).active = true
+        self.airportLabel.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor, constant: -20).active = true
+    }
+    
+    
+    func configureCarrierLabel() {
+        contentView.addSubview(carrierLabel)
+        
+        carrierLabel.font = wanderSparkFont(12)
+        carrierLabel.textColor = UIColor.whiteColor()
+        
+        self.carrierLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.carrierLabel.bottomAnchor.constraintEqualToAnchor(self.contentView.bottomAnchor, constant: -10).active = true
+        self.carrierLabel.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor, constant: -20).active = true
+    }
+    
+    func configureLocationLabel() {
+        contentView.addSubview(locationLabel)
+        
+        locationLabel.font = boldWanderSparkFont(28)
+        locationLabel.textColor = UIColor.whiteColor()
+        locationLabel.textAlignment = .Right
+        locationLabel.adjustsFontSizeToFitWidth = true
+        
+        self.locationLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.locationLabel.bottomAnchor.constraintEqualToAnchor(self.imageView.topAnchor, constant: -15).active = true
+        self.locationLabel.widthAnchor.constraintEqualToAnchor(self.contentView.widthAnchor, multiplier: 0.8).active = true
+        self.locationLabel.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor, constant: -15).active = true
+    }
+    
+    
+    func configureSnippetLabel() {
+        contentView.addSubview(snippetLabel)
+        
+        self.snippetLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.snippetLabel.topAnchor.constraintEqualToAnchor(self.imageView.bottomAnchor, constant: 10).active = true
+        self.snippetLabel.bottomAnchor.constraintEqualToAnchor(self.priceButton.topAnchor, constant: -5).active = true
+        self.snippetLabel.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: 15).active = true
+        self.snippetLabel.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor, constant: -15).active = true
+        
+        snippetLabel.delegate = self
+        snippetLabel.backgroundColor = UIColor.clearColor()
+        snippetLabel.font = wanderSparkFont(18)
+        snippetLabel.textAlignment = NSTextAlignment.Left
+        snippetLabel.textColor = UIColor.whiteColor()
+        snippetLabel.text = "No Information"
+        
+        snippetLabel.allowsEditingTextAttributes = false
+        snippetLabel.userInteractionEnabled = true
+        snippetLabel.scrollEnabled = false
+        snippetLabel.selectable = true
+    }
+    
+    
+    func configureBackgroundImage() {
+        contentView.addSubview(backgroundLocationImage)
+        
+        backgroundLocationImage.contentMode = UIViewContentMode.ScaleAspectFill
+        backgroundLocationImage.clipsToBounds = true
         
         self.backgroundLocationImage.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundLocationImage.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor).active = true
         self.backgroundLocationImage.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor).active = true
         self.backgroundLocationImage.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor).active = true
         self.backgroundLocationImage.heightAnchor.constraintEqualToAnchor(self.contentView.heightAnchor).active = true
-        self.backgroundLocationImage.centerXAnchor.constraintEqualToAnchor(self.contentView.centerXAnchor).active = true
-
-        self.snippetLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.snippetLabel.topAnchor.constraintEqualToAnchor(self.imageView.bottomAnchor, constant: 10).active = true
-        self.snippetLabel.widthAnchor.constraintEqualToAnchor(self.contentView.widthAnchor, multiplier: 0.8).active = true
-        self.snippetLabel.heightAnchor.constraintEqualToAnchor(self.contentView.heightAnchor, multiplier: 0.25).active = true
-        self.snippetLabel.centerXAnchor.constraintEqualToAnchor(self.contentView.centerXAnchor).active = true
+    }
+    
+    
+    func configureBlurEffect() {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.contentView.bounds
+        blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        blurEffectView.alpha = 1
         
-       
-        snippetLabel.backgroundColor = UIColor.clearColor()
-        snippetLabel.font = wanderSparkFont(20)
-        snippetLabel.textAlignment = NSTextAlignment.Justified
-        snippetLabel.textColor = UIColor.whiteColor()
-        snippetLabel.text = "No Information"
+        contentView.addSubview(blurEffectView)
+    }
+    
+    
+    func configureImageView() {
+        contentView.addSubview(imageView)
         
-        self.locationLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.locationLabel.leadingAnchor.constraintEqualToAnchor(self.circleProfileView.trailingAnchor, constant: 20).active = true
-        self.locationLabel.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 40).active = true
-        self.locationLabel.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor, constant: -40).active = true
+        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        imageView.clipsToBounds = true
         
+        self.imageView.translatesAutoresizingMaskIntoConstraints = false
+        self.imageView.centerYAnchor.constraintEqualToAnchor(self.contentView.centerYAnchor, constant: -50).active = true
+        self.imageView.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor).active = true
+        self.imageView.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor).active = true
+        self.imageView.heightAnchor.constraintEqualToAnchor(self.contentView.heightAnchor, multiplier: 0.35).active = true   
+    }
+    
+    
+    func configureReadMoreButton() {
+        contentView.addSubview(readMoreButton)
         
-        locationLabel.font = UIFont(name: "Avenir-Book" , size: 27)
-        locationLabel.textColor = UIColor.whiteColor()
-        locationLabel.textAlignment = .Center
-        locationLabel.layer.shadowRadius = 10
-        locationLabel.layer.shadowOpacity = 1.75
-        locationLabel.layer.shadowColor = UIColor.whiteColor().CGColor
-        self.locationLabel.adjustsFontSizeToFitWidth = true
-
-        self.priceButton.translatesAutoresizingMaskIntoConstraints = false
-        self.priceButton.bottomAnchor.constraintEqualToAnchor(self.contentView.bottomAnchor, constant: -10).active = true
-        self.priceButton.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor, constant:-20).active = true
-        
-        priceButton.titleLabel?.font = wanderSparkFont(50)
-        priceButton.titleLabel?.textColor = UIColor.whiteColor()
-        priceButton.titleLabel?.shadowColor = UIColor.whiteColor()
-        
-        
-        self.homeButton.translatesAutoresizingMaskIntoConstraints = false
-        self.homeButton.bottomAnchor.constraintEqualToAnchor(self.contentView.bottomAnchor, constant: -10).active = true
-        self.homeButton.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: 20).active = true
-        homeButton.titleLabel?.font = wanderSparkFont(14)
-        homeButton.titleLabel?.textColor = UIColor.whiteColor()
-       
+        readMoreButton.titleLabel?.font = wanderSparkFont(16)
+        readMoreButton.titleLabel?.textColor = UIColor.blueColor()
+        readMoreButton.setTitle("read more", forState: .Normal)
         
         self.readMoreButton.translatesAutoresizingMaskIntoConstraints = false
-        self.readMoreButton.topAnchor.constraintEqualToAnchor(self.snippetLabel.bottomAnchor).active = true
-        self.readMoreButton.centerXAnchor.constraintEqualToAnchor(self.contentView.centerXAnchor).active = true
-        readMoreButton.titleLabel?.font = wanderSparkFont(14)
-        readMoreButton.titleLabel?.textColor = UIColor.blueColor()
-
-        snippetLabel.backgroundColor = UIColor.clearColor()
-        snippetLabel.font = wanderSparkFont(20)
-        snippetLabel.textAlignment = NSTextAlignment.Justified
-        snippetLabel.textColor = UIColor.whiteColor()
-        snippetLabel.text = "No Information"
+        self.readMoreButton.bottomAnchor.constraintEqualToAnchor(self.contentView.bottomAnchor, constant: -20).active = true
+        self.readMoreButton.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: 20).active = true
+    }
+    
+    
+    func configureHomeButton() {
+        contentView.addSubview(homeButton)
         
-        priceButton.titleLabel?.font = wanderSparkFont(50)
+        self.homeButton.translatesAutoresizingMaskIntoConstraints = false
+        self.homeButton.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 25).active = true
+        self.homeButton.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: 20).active = true
+        
+        homeButton.titleLabel?.font = wanderSparkFont(16)
+        homeButton.titleLabel?.textColor = UIColor.whiteColor()
+        homeButton.setTitle("home", forState: .Normal)
+    }
+    
+    
+    func configurePriceButton() {
+        contentView.addSubview(priceButton)
+        
+        priceButton.titleLabel?.font = wanderSparkFont(40)
         priceButton.titleLabel?.textColor = UIColor.whiteColor()
         priceButton.titleLabel?.shadowColor = UIColor.whiteColor()
         
-        homeButton.titleLabel?.font = wanderSparkFont(14)
-        homeButton.titleLabel?.textColor = UIColor.whiteColor()
-
-        
-        self.airportLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.airportLabel.topAnchor.constraintEqualToAnchor(self.priceButton.bottomAnchor, constant: -20).active = true
-        self.airportLabel.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor, constant: -40).active = true
-        airportLabel.font = wanderSparkFont(11)
-        airportLabel.textColor = UIColor.whiteColor()
-
-//        contentView.addSubview(imageView)
-//        contentView.addSubview(locationLabel)
-//        contentView.addSubview(priceButton)
-//        contentView.addSubview(circleProfileView)
-//        contentView.addSubview(snippetLabel)
-//        contentView.addSubview(homeButton)
-//        contentView.addSubview(airportLabel)
-    
-        snippetLabel.delegate = self
-    
-    
-
-        contentView.addSubview(imageView)
-        contentView.addSubview(locationLabel)
-        contentView.addSubview(priceButton)
-        contentView.addSubview(circleProfileView)
-        contentView.addSubview(snippetLabel)
-        contentView.addSubview(homeButton)
-        contentView.addSubview(airportLabel)
-        contentView.addSubview(favoriteButton)
-        contentView.addSubview(deleteFromFavoritesButton)
+        self.priceButton.translatesAutoresizingMaskIntoConstraints = false
+        self.priceButton.bottomAnchor.constraintEqualToAnchor(self.airportLabel.topAnchor, constant: -3).active = true
+        self.priceButton.trailingAnchor.constraintEqualToAnchor(self.contentView.trailingAnchor, constant:-20).active = true
+        self.priceButton.heightAnchor.constraintEqualToConstant(40).active = true
     }
     
   
@@ -181,62 +189,26 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         contentView.addSubview(favoriteButton)
         
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.bottomAnchor.constraintEqualToAnchor(homeButton.bottomAnchor).active = true
-        favoriteButton.leadingAnchor.constraintEqualToAnchor(homeButton.trailingAnchor, constant: 10).active = true
-        favoriteButton.widthAnchor.constraintEqualToConstant(30).active = true
-        favoriteButton.heightAnchor.constraintEqualToConstant(30).active = true
+        favoriteButton.centerYAnchor.constraintEqualToAnchor(homeButton.centerYAnchor).active = true
+        favoriteButton.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -20).active = true
         
-        favoriteButton.titleLabel?.font = wanderSparkFont(30)
+        favoriteButton.titleLabel?.font = wanderSparkFont(32)
         favoriteButton.titleLabel?.textColor = UIColor.whiteColor()
-        favoriteButton.setTitle("❤︎", forState: .Normal)
-    }
-    
-    func configureDeleteFromFavoritesButton() {
-        contentView.addSubview(deleteFromFavoritesButton)
-        
-        deleteFromFavoritesButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteFromFavoritesButton.bottomAnchor.constraintEqualToAnchor(homeButton.bottomAnchor).active = true
-        deleteFromFavoritesButton.leadingAnchor.constraintEqualToAnchor(homeButton.trailingAnchor, constant: 10).active = true
-        deleteFromFavoritesButton.widthAnchor.constraintEqualToConstant(30).active = true
-        deleteFromFavoritesButton.heightAnchor.constraintEqualToConstant(30).active = true
-        
-        deleteFromFavoritesButton.titleLabel?.font = wanderSparkFont(30)
-        deleteFromFavoritesButton.titleLabel?.textColor = UIColor.whiteColor()
-        deleteFromFavoritesButton.setTitle("Delete", forState: .Normal)
+        favoriteButton.setTitle("◎", forState: .Normal)
+        favoriteButton.showsTouchWhenHighlighted = true
     }
     
     
-    
-    
-//    func blurImage(){
-//        
-//        if imageIsBlurred == false{
-//    var blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
-//    self.blurEffectView = UIVisualEffectView(effect: blurEffect)
-//    blurEffectView.frame = self.contentView.bounds
-//    blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]// for supporting device rotation
-//    blurEffectView.alpha = 0.5
-//    self.contentView.addSubview(blurEffectView)
-//    
-//    self.snippetLabel = UILabel(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height))
-//    self.snippetLabel.frame = self.contentView.bounds
-//  
-//            UIView.animateWithDuration(0.8) {
-//                self.blurEffectView.alpha = 1.0
-//                self.blurEffectView.addSubview(self.snippetLabel)
-//            }
-//            imageIsBlurred = true
-//        }else{
-//            blurEffectView.removeFromSuperview()
-//            snippetLabel.removeFromSuperview()
-//            imageIsBlurred = false
-//        }
-//    contentView.addSubview(snippetButton)
-//       // self.contentView.addSubview(snippetLabel)
-//    print("Snippet was just added! for the second time")
-//        
-//    }
 
+//        deleteFromFavoritesButton.translatesAutoresizingMaskIntoConstraints = false
+//        deleteFromFavoritesButton.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -20).active = true
+//        deleteFromFavoritesButton.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -20).active = true
+//        
+//        deleteFromFavoritesButton.titleLabel?.font = wanderSparkFont(16)
+//        deleteFromFavoritesButton.titleLabel?.textColor = UIColor.whiteColor()
+//        deleteFromFavoritesButton.setTitle("remove from favorites", forState: .Normal)
+//    }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -43,7 +43,27 @@
         
         self.prepareCarousel()
         activateBlur()
+     
+      
+ 
     }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+
+
+    override func viewWillAppear(animated: Bool) {
+        let store = LocationsDataStore.sharedInstance
+        store.matchedLocations.removeAll()
+        CoordinateAndFlightQueues.coordinatesPopulatedCount = 0
+        CoordinateAndFlightQueues.numberOfFlightsRetrieved = 0
+    }
+
     
     func createButtons(){
         self.logoView.image = UIImage(named: "crystalballnobackground")
@@ -53,7 +73,7 @@
         self.findDestinationButton.titleLabel?.font = wanderSparkFont(18)
         self.findDestinationButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.playMatchMakerTapped), forControlEvents: .TouchUpInside)
         
-        self.viewFavoritesButton.setTitle("View Your Favorites", forState: .Normal)
+        self.viewFavoritesButton.setTitle("◉ View Your Favorites", forState: .Normal)
         self.viewFavoritesButton.titleLabel?.font = wanderSparkFont(18)
         self.viewFavoritesButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.viewFavoritesTapped), forControlEvents: .TouchUpInside)
         
