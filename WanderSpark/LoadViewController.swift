@@ -8,12 +8,10 @@
 
 import UIKit
 import SnapKit
-import UICircleAnimationView
 import ChameleonFramework
 import NVActivityIndicatorView
 
 class LoadViewController: UIViewController {
-    var circleAnimation = UICircleAnimationView()
     let store = LocationsDataStore.sharedInstance
     let favoritesStore = FavoritesDataStore.sharedInstance
     
@@ -38,7 +36,6 @@ class LoadViewController: UIViewController {
             airplaneActivityIndicatorView.alpha = 1.0
             self.view.addSubview(airplaneActivityIndicatorView)
             self.view.addSubview(airplaneAnimationTypeLabel)
-            
             
             let bubbleActivityIndicatorView = NVActivityIndicatorView(frame: self.view.frame,
                 type: .BallScale, padding: 0.0)
@@ -72,16 +69,6 @@ class LoadViewController: UIViewController {
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.Portrait
     }
-    
-//    func configureCircleAnimation() {
-//        let circleAnimationFrame = CGRect(x: view.center.x/2, y: view.center.y/2, width: view.frame.width/2, height: view.frame.height/2)
-//        circleAnimation = UICircleAnimationView(frame: circleAnimationFrame)
-//        view.addSubview(circleAnimation)
-//        
-//        circleAnimation.setForegroundStrokeColor(UIColor.orangeColor())
-//        circleAnimation.strokeCircleTo(19, total: 10, withAnimate: true)
-//        circleAnimation.duration = 20.0
-//    }
     
     
     func configureGlobe() {

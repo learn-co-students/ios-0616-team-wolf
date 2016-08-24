@@ -12,7 +12,6 @@ PODS:
   - pop (1.0.9)
   - SnapKit (0.15.0)
   - SwiftyJSON (2.3.2)
-  - UICircleAnimationView (0.9.2)
 
 DEPENDENCIES:
   - Alamofire (~> 3.4)
@@ -24,7 +23,6 @@ DEPENDENCIES:
   - pop (~> 1.0)
   - SnapKit (~> 0.15.0)
   - SwiftyJSON
-  - UICircleAnimationView (~> 0.9)
 
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
@@ -36,8 +34,7 @@ SPEC CHECKSUMS:
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
-  UICircleAnimationView: 62ad23670e849c942f1c027d83c02ce5731d812b
 
-PODFILE CHECKSUM: b220f56388c5b9ce728138dfd74d45c4f34260fe
+PODFILE CHECKSUM: a228806a9cf8b3d55d8bda05a16abdc70972b3ff
 
 COCOAPODS: 1.0.1
