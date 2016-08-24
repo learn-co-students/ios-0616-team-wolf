@@ -198,7 +198,7 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         favoriteButton.titleLabel?.font = wanderSparkFont(35)
         favoriteButton.titleLabel?.textColor = UIColor.whiteColor()
         favoriteButton.setTitle("❤︎", forState: .Normal)
-        favoriteButton.adjustsImageWhenHighlighted = true
+        favoriteButton.showsTouchWhenHighlighted = true
     }
     
     
