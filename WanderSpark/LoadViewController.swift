@@ -52,7 +52,12 @@ class LoadViewController: UIViewController {
         
         CoordinateAndFlightQueues.getCoordinatesAndFlightInfo({ (complete) in
             NSOperationQueue.mainQueue().addOperationWithBlock({
-                self.performSegueWithIdentifier("presentCollectionView", sender: self)
+//                self.performSegueWithIdentifier("presentCollectionView", sender: self)
+                let destinationVC = VacationCollectionView()
+                self.presentViewController(destinationVC, animated: true
+                    , completion: {
+                        
+                })
             })
         })
     }

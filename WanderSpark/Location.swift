@@ -18,7 +18,6 @@ class Location {
     var coordinates : (Double, Double)?
     var cheapestFlight : Flight?
     var userZipCode : String?
-
     var userCoordinates : (Double, Double)?
 
 

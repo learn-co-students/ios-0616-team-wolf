@@ -41,7 +41,11 @@ class GoogleMapsAPIClient {
                         fatalError("ERROR: No match found for submitted location")
                 }
                 
-                location.coordinates = (destinationLat, destinationLng)
+                if location.name == "user's zip code" {
+                    location.userCoordinates = (destinationLat, destinationLng)
+                } else {
+                    location.coordinates = (destinationLat, destinationLng)
+                }
                 
                 completion(true)
                 

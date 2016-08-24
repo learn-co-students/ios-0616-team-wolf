@@ -9,6 +9,7 @@
 import Alamofire
 import Foundation
 import SwiftyJSON
+import CoreLocation
 
 class SkyScannerAPIClient {
     
@@ -27,7 +28,7 @@ class SkyScannerAPIClient {
     typealias FlightCompletion = (Flight, ErrorType?) -> ()
     
     static let store = LocationsDataStore.sharedInstance
-    let sharedLocation = UserLocation.sharedInstance
+    static let getUserCoordinates = UserLocation.sharedInstance
     
     class func getFlights(location: Location, completion: FlightCompletion) {
         
@@ -40,11 +41,50 @@ class SkyScannerAPIClient {
         
         // in the future, if coordinates cannot be found or no flights are available for a location, use google maps to geolocate coordinates of nearest airport
         
+        var userLatitude = Double()
+        var userLngitude = Double()
+        
 
         guard let coordinates = location.coordinates else { print("ERROR: failed to unwrap coordinate values for \(location.name)"); return }
+        
+        //obtain user coordinates
+        if getUserCoordinates.userCoordinates != nil {
+            //enabled core location
+            print("using coordinates from core location")
+            if let userLocationCoordinates = getUserCoordinates.userCoordinates {
+                userLatitude = userLocationCoordinates.latitude
+                userLngitude = userLocationCoordinates.longitude
+            } else {
+                print("could not get user coordinates using core location")
+            }
+        } else {
+            print("using coordinates from zipcode")
+            
+            let userZipCoordinates = FlightsParameterViewController.userCoordinatesFromZipCode
+            
+            guard let coordinates = userZipCoordinates
+                else {
+                    print("could not wrap user coordinates from zipcode")
+                    return
+            }
+            print("USER COORDINATES FROM ZIP CODE: \(coordinates)")
+            userLatitude = coordinates.0
+            userLngitude = coordinates.1
+        }
+        
+            
+//        } else {
+//            userLatitude = 40.730610
+//            userLngitude = -73.935242
+//        }
+        
+        
 
         //not allowing for the coordinates that are coming in from userLocation class
-        Alamofire.request(.GET, "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/40.730610,-73.935242-latlong/\(coordinates.0),\(coordinates.1)-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)").responseJSON { (response) in
+        
+        print("UNWRAPPED USER COORDINATES: (\(userLatitude), \(userLngitude))")
+        
+        Alamofire.request(.GET, "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/\(userLatitude),\(userLngitude)-latlong/\(coordinates.0),\(coordinates.1)-latlong/anytime/anytime?apikey=\(Secrets.skyscannerAPIKey)").responseJSON { (response) in
             
             var flightQuotes = [[String:AnyObject]]()
             var locationInfo = [[String:AnyObject]]()
