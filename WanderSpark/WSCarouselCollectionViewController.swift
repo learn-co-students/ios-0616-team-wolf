@@ -24,7 +24,6 @@
     var viewFavoritesButton: UIButton! = UIButton()
     var logoView: UIImageView! = UIImageView()
     var settingsButton: UIButton! = UIButton()
-    var zipcodeTextField: UITextField = UITextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +76,7 @@
         }
         else if sharedLocation.userCoordinates == nil{
             self.performSegueWithIdentifier("FlightsParameter", sender: self)
+        }
 //            let alert = UIAlertController(title: "Need User Location", message: "Enter Valid Zipcode or allow WanderSpark to find your location ", preferredStyle: UIAlertControllerStyle.Alert)
 //            
 //            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
@@ -95,8 +95,7 @@
 //        
 //            alert.addAction(submit)
 //            self.presentViewController(alert, animated: true, completion: nil)
-//            
-        }
+//
     }
     
     func viewFavoritesTapped(){

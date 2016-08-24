@@ -98,59 +98,65 @@ class FlightsParameterViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.whiteColor()
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-        view.addGestureRecognizer(tap)
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+//        view.addGestureRecognizer(tap)
     }
     
-    func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        view.endEditing(true)
-    }
+//    func dismissKeyboard() {
+//        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+//        view.endEditing(true)
+//    }
     
     func enableCoreLocation(sender: UIButton!) {
         print("enablecorlocation button tapped")
         sharedLocation = UserLocation.sharedInstance
         //sharedLocation?.location?.coordinate
         print(sharedLocation?.location?.coordinate)
+        self.performSegueWithIdentifier("playMatchMaker", sender: self)
     }
     
     
     //function to validate the zipcode
     func isZipCodeValid(text: String) -> Bool
     {
-        
         let zipCodeTestPredicate = NSPredicate (format:"SELF MATCHES %@","(^[0-9]{5}(-[0-9]{4})?$)")
         return zipCodeTestPredicate.evaluateWithObject(zipcodeTextField.text)
     }
     
+    //function to show animation upon invalidation of zipcode entered in the uitextfield
+    func shakeTextField(textField: UITextField)
+    {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.07
+        animation.repeatCount = 4
+        animation.autoreverses = true
+        animation.fromValue = NSValue(CGPoint: CGPointMake(textField.center.x - 10, textField.center.y))
+        animation.toValue = NSValue(CGPoint: CGPointMake(textField.center.x + 10, textField.center.y))
+        textField.layer.addAnimation(animation, forKey: "position")
+    }
+    
+    //function to check whether zipcode is correct or not and based on that provide appropriate action
     func allowUserToInputCityZipcode() {
         
-        //print("User coordinates: \(sharedLocation!.userCoordinates)")
-        
+        //unwrapping the zipcodeTextfield
         if let userZipCode = zipcodeTextField.text
         {
-            //call on the GoogleAPIClient to convert the zipcode into latitude and longitude coordinates
-            //therefore easiest way is to call the GoogleAPIClient
-            
-             if isZipCodeValid(userZipCode) == true {
+            if isZipCodeValid(userZipCode) == true {
                 let userLocation : Location = Location(userZipCode: userZipCode)
                 GoogleMapsAPIClient.getLocationCoordinatesWithCompletion(userLocation, completion: { (getZipCode) in
                     print("calling googleAPI to get coordinates based on user zipcode")
                     print("\(userLocation.coordinates)")
                 })
+                self.performSegueWithIdentifier("playMatchMaker", sender: self)
             }
+            else if isZipCodeValid(userZipCode) == false{
+                shakeTextField(zipcodeTextField)
+            }
+            
         }
-        else
-        {
-            //create the alert
-            let alert = UIAlertController(title: "Invalid Zipcode", message: "Enter Valid Zipcode", preferredStyle: UIAlertControllerStyle.Alert)
-            //add an action (button)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            //show the alert
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-        self.performSegueWithIdentifier("playMatchMaker", sender: self)
     }
+    
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
