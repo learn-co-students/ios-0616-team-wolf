@@ -1,6 +1,6 @@
 //
 //  FlightsParameterViewController.swift
-//  
+//
 //
 //  Created by Flatiron School on 8/22/16.
 //
@@ -19,10 +19,10 @@ class FlightsParameterViewController: UIViewController {
     var sharedLocation: UserLocation? = nil
     
     //let userOrigin = UserLocation()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         //This will be the first banner to appear on the screen
@@ -98,21 +98,25 @@ class FlightsParameterViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.whiteColor()
         
-//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-//        view.addGestureRecognizer(tap)
+        //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        //        view.addGestureRecognizer(tap)
     }
     
-//    func dismissKeyboard() {
-//        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-//        view.endEditing(true)
-//    }
+    //    func dismissKeyboard() {
+    //        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+    //        view.endEditing(true)
+    //    }
     
+    //this is wired to the enable core location button
     func enableCoreLocation(sender: UIButton!) {
         print("enablecorlocation button tapped")
         sharedLocation = UserLocation.sharedInstance
         //sharedLocation?.location?.coordinate
         print(sharedLocation?.location?.coordinate)
-        self.performSegueWithIdentifier("playMatchMaker", sender: self)
+        let destinationVC = MatchingViewController()
+        self.presentViewController(destinationVC, animated: true, completion: {
+            
+        })
     }
     
     
@@ -123,7 +127,7 @@ class FlightsParameterViewController: UIViewController {
         return zipCodeTestPredicate.evaluateWithObject(zipcodeTextField.text)
     }
     
-    //function to show animation upon invalidation of zipcode entered in the uitextfield
+    //function to show animation upon invalid input of zipcode in the UITextField
     func shakeTextField(textField: UITextField)
     {
         let animation = CABasicAnimation(keyPath: "position")
@@ -136,6 +140,7 @@ class FlightsParameterViewController: UIViewController {
     }
     
     //function to check whether zipcode is correct or not and based on that provide appropriate action
+    //this is wired to the submit button
     func allowUserToInputCityZipcode() {
         
         //unwrapping the zipcodeTextfield
@@ -146,32 +151,47 @@ class FlightsParameterViewController: UIViewController {
                 GoogleMapsAPIClient.getLocationCoordinatesWithCompletion(userLocation, completion: { (getZipCode) in
                     print("calling googleAPI to get coordinates based on user zipcode")
                     print("\(userLocation.coordinates)")
+                    let destinationVC = MatchingViewController()
+                    self.presentViewController(destinationVC, animated: true
+                        , completion: {
+                       
+                    })
                 })
-                self.performSegueWithIdentifier("playMatchMaker", sender: self)
             }
             else if isZipCodeValid(userZipCode) == false{
                 shakeTextField(zipcodeTextField)
             }
-            
+            //self.performSegueWithIdentifier("GoingFromFlightsToMatchMaker", sender: self)
         }
     }
     
-
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "showMatchMaker" {
+            let destinationVC = MatchingViewController()
+            self.presentViewController(destinationVC, animated: true, completion: {
+            })
+            
+        }
     }
-    */
-
+    
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
