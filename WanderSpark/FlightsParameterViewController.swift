@@ -16,10 +16,9 @@ class FlightsParameterViewController: UIViewController {
     var locationManager: CLLocationManager = CLLocationManager()
     var zipcodeTextField: UITextField = UITextField()
     var userCurrentLocationButton = UIButton(frame: CGRectMake(200, 500, 200, 200))
-    static var userCoordinatesFromZipCode : (Double, Double) = (0.0, 0.0)
     var sharedLocation: UserLocation? = nil
     
-    //let userOrigin = UserLocation()
+    let getUserLocationCoordinates = UserLocation.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,9 +150,9 @@ class FlightsParameterViewController: UIViewController {
                 let userLocation : Location = Location(userZipCode: userZipCode)
                 GoogleMapsAPIClient.getLocationCoordinatesWithCompletion(userLocation, completion: { (getZipCode) in
                     print("calling googleAPI to get coordinates based on user zipcode")
-                    print("\(userLocation.userCoordinates)")
+                    print("\(self.getUserLocationCoordinates.userZipCodeCoordinates)")
                     
-                    self.userCoordinatesFromZipCode = userLocation.userCoordinates
+                    self.getUserLocationCoordinates.userZipCodeCoordinates = userLocation.coordinates
                     
                     let destinationVC = MatchingViewController()
                     self.presentViewController(destinationVC, animated: true

@@ -17,6 +17,7 @@ class UserLocation: NSObject, CLLocationManagerDelegate {
     var location: CLLocation?
     var userCoordinates: CLLocationCoordinate2D?
     var userPostalCode: String?
+    var userZipCodeCoordinates : (Double, Double)?
     
     static let sharedInstance = UserLocation()
     

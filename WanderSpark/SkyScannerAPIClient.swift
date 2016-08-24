@@ -57,26 +57,18 @@ class SkyScannerAPIClient {
             } else {
                 print("could not get user coordinates using core location")
             }
-        } else {
+        } else if getUserCoordinates.userZipCodeCoordinates != nil {
             print("using coordinates from zipcode")
             
-            let userZipCoordinates = FlightsParameterViewController.userCoordinatesFromZipCode
+            if let userZipCoordinates = getUserCoordinates.userZipCodeCoordinates{
+            print ("zipcode coordinates: \(userZipCoordinates)")
             
-            guard let coordinates = userZipCoordinates
-                else {
-                    print("could not wrap user coordinates from zipcode")
-                    return
+                userLatitude = userZipCoordinates.0
+                userLngitude = userZipCoordinates.1
+                
             }
-            print("USER COORDINATES FROM ZIP CODE: \(coordinates)")
-            userLatitude = coordinates.0
-            userLngitude = coordinates.1
         }
         
-            
-//        } else {
-//            userLatitude = 40.730610
-//            userLngitude = -73.935242
-//        }
         
         
 
