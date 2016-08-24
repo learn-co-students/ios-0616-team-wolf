@@ -149,7 +149,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     
     func addToFavorites() {
         let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
-        
+        print("This is the selected cell: \(selectedCell)")
         selectedCell.favoriteButton.setTitle("◉", forState: .Normal)
         
         if let selectedIndex = vacationCollectionView.indexPathForCell(selectedCell) {

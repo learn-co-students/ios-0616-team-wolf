@@ -30,10 +30,6 @@ class WSCarouselCollectionViewController: UIViewController {
         // Testing to see if favorites data store is working...
         favoritesStore.fetchFavoriteLocationsData()
         
-        print("This many locations have been saved to the favorites store:\n")
-        print(favoritesStore.favoriteLocations.count)
-        
-        
         carouselView.clipsToBounds = true
         
         convertImagesToGrayscale()
@@ -42,9 +38,6 @@ class WSCarouselCollectionViewController: UIViewController {
         
         self.prepareCarousel()
         activateBlur()
-     
-      
- 
     }
     
     override func shouldAutorotate() -> Bool {
@@ -159,8 +152,6 @@ class WSCarouselCollectionViewController: UIViewController {
             self.presentViewController(destinationVC, animated: true, completion: { 
                 
             })
-            // Need to present the collection view here I think...
-
         }
     }
     
