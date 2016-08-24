@@ -34,6 +34,7 @@
                         <outlet property="carouselView" destination="u8w-vg-Zky" id="mCQ-Uo-Xb6"/>
                         <segue destination="caD-9v-XcQ" kind="show" identifier="playMatchMaker" id="HXO-xC-P2W"/>
                         <segue destination="9X9-77-dqT" kind="show" identifier="viewFavorites" id="Kc6-Pi-vfq"/>
+                        <segue destination="XDt-pF-usd" kind="presentation" identifier="FlightsParameter" id="vft-TM-avd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -57,6 +58,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DDW-Ag-qIU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6" y="1334"/>
+        </scene>
+        <!--Flights Parameter View Controller-->
+        <scene sceneID="co7-5r-zip">
+            <objects>
+                <viewController id="XDt-pF-usd" customClass="FlightsParameterViewController" customModule="WanderSpark" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wzH-oT-vqI"/>
+                        <viewControllerLayoutGuide type="bottom" id="RIc-vu-X0a"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KTT-Rx-yMA">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ap3-5n-eNe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="755" y="1304"/>
         </scene>
         <!--Load View Controller-->
         <scene sceneID="EeC-Hs-5Qo">

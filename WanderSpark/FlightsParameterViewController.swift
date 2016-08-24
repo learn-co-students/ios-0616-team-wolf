@@ -40,7 +40,7 @@ class FlightsParameterViewController: UIViewController {
         //userCurrentLocationButton.frame.size.width = 500
         userCurrentLocationButton.backgroundColor = UIColor.orangeColor()
         userCurrentLocationButton.setTitle("Current Location", forState: UIControlState.Normal)
-//        userCurrentLocationButton.addTarget(self, action: #selector(enableCoreLocation), forControlEvents: UIControlEvents.TouchUpInside)
+        userCurrentLocationButton.addTarget(self, action: #selector(enableCoreLocation), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(userCurrentLocationButton)
         
         
@@ -96,10 +96,19 @@ class FlightsParameterViewController: UIViewController {
         submitButton.topAnchor.constraintEqualToAnchor(zipcodeTextField.bottomAnchor, constant: 0).active = true
         submitButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor, constant: 0).active = true
         
+        self.view.backgroundColor = UIColor.whiteColor()
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
     func enableCoreLocation(sender: UIButton!) {
-        
+        print("enablecorlocation button tapped")
         sharedLocation = UserLocation.sharedInstance
         //sharedLocation?.location?.coordinate
         print(sharedLocation?.location?.coordinate)
@@ -109,6 +118,7 @@ class FlightsParameterViewController: UIViewController {
     //function to validate the zipcode
     func isZipCodeValid(text: String) -> Bool
     {
+        
         let zipCodeTestPredicate = NSPredicate (format:"SELF MATCHES %@","(^[0-9]{5}(-[0-9]{4})?$)")
         return zipCodeTestPredicate.evaluateWithObject(zipcodeTextField.text)
     }
@@ -139,6 +149,7 @@ class FlightsParameterViewController: UIViewController {
             //show the alert
             self.presentViewController(alert, animated: true, completion: nil)
         }
+        self.performSegueWithIdentifier("playMatchMaker", sender: self)
     }
 
     override func didReceiveMemoryWarning() {

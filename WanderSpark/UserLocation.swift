@@ -9,7 +9,6 @@
 import Foundation
 import CoreLocation
 
-//Remember the location has the properties called coordinates and that has properties called latitude and longitude to get the user's user information
 
 class UserLocation: NSObject, CLLocationManagerDelegate {
 //    override init() {}
