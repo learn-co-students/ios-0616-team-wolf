@@ -36,9 +36,10 @@ class Flight {
         
         guard let
             coordinates = location.coordinates,
-            carrierName = location.cheapestFlight!.carrierName,
-            originAirport = location.cheapestFlight!.originIATACode,
-            price = location.cheapestFlight!.lowestPrice
+            unwrappedCheapestFlights = location.cheapestFlight,
+            carrierName = unwrappedCheapestFlights.carrierName,
+            originAirport = unwrappedCheapestFlights.originIATACode,
+            price = unwrappedCheapestFlights.lowestPrice
             else { fatalError("ERROR: could not unwrap flight information for print statment") }
         
         print("***************** FLIGHT INFORMATION *****************")
@@ -60,7 +61,7 @@ class Flight {
             price = location.cheapestFlight!.lowestPrice
             else { fatalError("ERROR: could not unwrap flight information in check to verify they have been populated correctly") }
         
-        if originAirport == "" || price == String(0) || price == "" {
+        if price == String(0) || price == "" {
             
             print("MISSING INFO FOR \(location.name.uppercaseString)")
             
@@ -69,6 +70,11 @@ class Flight {
             
             SkyScannerAPIClient.getFlights(location, completion: { (missingFlightInfo, nil) in
                 print("getting missing flight information for \(location.name)")
+                CoordinateAndFlightQueues.numberOfFlightsRetrieved += 1
+                
+//                if CoordinateAndFlightQueues.numberOfFlightsRetrieved == 10 {
+//                    CoordinateAndFlightQueues.flightsRetrieved = true
+//                }
             })
         }
         

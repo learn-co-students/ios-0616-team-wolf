@@ -18,6 +18,8 @@ class Location {
     var coordinates : (Double, Double)?
     var cheapestFlight : Flight?
     var userZipCode : String?
+    var userCoordinates : (Double, Double)?
+
     
     init(name: String, description: String, images: [String], url: String, coordinates: (Double, Double)?, cheapestFlight : Flight?) {
         self.name = name
@@ -30,6 +32,17 @@ class Location {
     
     convenience init(name: String, description: String, images: [String], url: String ) {
         self.init(name: name, description: description, images: images, url: url, coordinates: nil, cheapestFlight : nil)
+    }
+    
+    //this convenience initializer was created for the zipcode in specific 
+    convenience init(userZipCode: String) {
+        self.init(name: "user's zip code", description: "obtaining user's location", images: [], url: "obtaining user's location", coordinates: nil, cheapestFlight : nil)
+        self.userZipCode = userZipCode
+    }
+    
+    convenience init(userCoordinates : (Double, Double)) {
+        self.init(name: "user's zip code", description: "obtaining user's location", images: [], url: "obtaining user's location", coordinates: nil, cheapestFlight : nil)
+        self.userCoordinates = userCoordinates
     }
     
     class func formatLocationName(locationName: String) -> String {

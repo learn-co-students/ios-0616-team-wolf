@@ -10,10 +10,13 @@
 import Foundation
 import ChameleonFramework
 
-// WanderSpark Font
-func wanderSparkFont(size: CGFloat)-> UIFont{
-
+// WanderSpark Fonts
+func wanderSparkFont(size: CGFloat) -> UIFont {
     return UIFont(name: "Avenir-Book", size: size)!
+}
+
+func boldWanderSparkFont(size: CGFloat) -> UIFont {
+    return UIFont(name: "Avenir-Heavy", size: size)!
 }
 
 //Images for matching
@@ -64,12 +67,20 @@ func lightMagentaGradient(frame: CGRect) -> UIColor {
     return lightMagentaGradient
 }
 
+func lightMagentaGradientReversed(frame: CGRect) -> UIColor {
+    let lightMagentaGradient = UIColor(gradientStyle: UIGradientStyle.Radial, withFrame: frame, andColors: [UIColor.flatMagentaColor(), UIColor.flatWatermelonColorDark()])
+    return lightMagentaGradient
+}
+
 func darkMagentaGradient(frame: CGRect) -> UIColor {
     let darkMagentaGradient = UIColor(gradientStyle: UIGradientStyle.Radial, withFrame: frame, andColors: [UIColor.flatWatermelonColorDark().darkenByPercentage(0.15), UIColor.flatMagentaColorDark()])
     return darkMagentaGradient
 }
 
-
+func lightBlue(frame: CGRect) -> UIColor {
+    let darkMagentaGradient = UIColor(gradientStyle: UIGradientStyle.Radial, withFrame: frame, andColors: [UIColor.flatSkyBlueColor().darkenByPercentage(0.15), UIColor.flatBlueColor()])
+    return darkMagentaGradient
+}
 
 extension UIImage {
     var circle: UIImage {

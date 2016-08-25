@@ -14,6 +14,7 @@ import ChameleonFramework
 
 class MatchingViewController: UIViewController {
     
+    let sharedUserLocation = UserLocation.sharedInstance
     let store = LocationsDataStore.sharedInstance
     var matchingView = KolodaView()
     
@@ -53,13 +54,16 @@ class MatchingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("zip coordintes from matching view controller: \(self.sharedUserLocation.userZipCodeCoordinates)")
+        print("core location coordintes from matching view controller: \(self.sharedUserLocation.userCoordinates)")
+        
         configureMatchingView()
         configureIconScrollView()
         configureIconStackView()
         configureYesButton()
         configureNoButton()
         
-        self.view.backgroundColor = orangeGradient(view.frame)
+        self.view.backgroundColor = lightMagentaGradientReversed(view.frame)
     }
     
     override func viewDidLayoutSubviews() {
@@ -182,7 +186,7 @@ class MatchingViewController: UIViewController {
     func configureNoButton() {
         view.addSubview(noButton)
         noButton.setTitle("✖︎", forState: UIControlState.Normal)
-        noButton.backgroundColor = UIColor.flatRedColorDark()
+        noButton.backgroundColor = UIColor.flatRedColor().lightenByPercentage(0.15)
         noButton.layer.cornerRadius = 2
         noButton.titleLabel?.font = wanderSparkFont(30)
         
@@ -229,8 +233,11 @@ extension MatchingViewController: KolodaViewDelegate {
             print("Name: \(location.name)")
             print("Match Count: \(location.matchCount)\n")
         }
-        
-        self.performSegueWithIdentifier("loadViewController", sender: self)
+
+        let destinationVC = LoadViewController()
+        self.presentViewController(destinationVC, animated: true, completion: { 
+            
+        })
 
         // Send the matched locations to the Carousel ViewController...?
     }
@@ -310,7 +317,7 @@ extension MatchingViewController: KolodaViewDataSource {
         matchWordLabel.font = font
         matchWordLabel.textAlignment = .Center
         matchWordLabel.textColor = UIColor.flatWhiteColor()
-        matchWordLabel.backgroundColor = UIColor.flatPlumColorDark().darkenByPercentage(0.1)
+        matchWordLabel.backgroundColor = UIColor.flatPurpleColor().darkenByPercentage(0.1) //UIColor.flatPlumColorDark().darkenByPercentage(0.1)
         
         matchWordLabel.snp_makeConstraints { make in
             make.centerX.equalTo(matchingCardView)

@@ -9,7 +9,6 @@
 import Foundation
 import CoreLocation
 
-//Remember the location has the properties called coordinates and that has properties called latitude and longitude to get the user's user information
 
 class UserLocation: NSObject, CLLocationManagerDelegate {
 //    override init() {}
@@ -18,20 +17,28 @@ class UserLocation: NSObject, CLLocationManagerDelegate {
     var location: CLLocation?
     var userCoordinates: CLLocationCoordinate2D?
     var userPostalCode: String?
+    var userZipCodeCoordinates : (Double, Double)?
     
     static let sharedInstance = UserLocation()
     
     private override init() {
+        print("initializing UserLocation")
         locationManager = CLLocationManager()
         super.init()
         guard let locationManager = locationManager else { return }
         if CLLocationManager.authorizationStatus() == .NotDetermined {
+            print("authorization status not determined")
             locationManager.requestWhenInUseAuthorization()
         }
         
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.delegate = self
-        startUpdatingLocation()
+        
+        print("Current location auth status: \(CLLocationManager.authorizationStatus())")
+        
+        if location == nil {
+            startUpdatingLocation()
+        }
     }
     
     func startUpdatingLocation() {

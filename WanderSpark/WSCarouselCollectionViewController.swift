@@ -1,28 +1,29 @@
  //
-//  ViewController.swift
-//  WanderSpark
-//
-//  Created by Zain Nadeem on 8/5/16.
-//  Copyright © 2016 Zain Nadeem. All rights reserved.
-//
-
-import UIKit
-import FZCarousel
-
-
-class WSCarouselCollectionViewController: UIViewController {
+ //  ViewController.swift
+ //  WanderSpark
+ //
+ //  Created by Zain Nadeem on 8/5/16.
+ //  Copyright © 2016 Zain Nadeem. All rights reserved.
+ //
+ 
+ import UIKit
+ import FZCarousel
+ 
+ 
+ class WSCarouselCollectionViewController: UIViewController {
     
     let store = LocationsDataStore.sharedInstance
     let favoritesStore = FavoritesDataStore.sharedInstance
     
-    @IBOutlet weak var carouselView: FZCarouselView!
-    var blurEffect: UIBlurEffect!
+    
+    @IBOutlet weak var carouselView: FZCarouselView! = FZCarouselView()
+    var blurEffect: UIBlurEffect = UIBlurEffect()
     var arrayOfImages = [carousel3, japan, carousel4, china, carousel1, egypt, brazil]
     var arrayOfGrayscaleImages: [UIImage] = [UIImage]()
-    var findDestinationButton: UIButton! = UIButton()
-    var viewFavoritesButton: UIButton! = UIButton()
-    var logoView: UIImageView! = UIImageView()
-    
+    var findDestinationButton: UIButton = UIButton()
+    var viewFavoritesButton: UIButton = UIButton()
+    var logoView: UIImageView = UIImageView()
+    var settingsButton: UIButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +34,7 @@ class WSCarouselCollectionViewController: UIViewController {
         print("This many locations have been saved to the favorites store:\n")
         print(favoritesStore.favoriteLocations.count)
         
-        
+        self.view.addSubview(carouselView)
         carouselView.clipsToBounds = true
         
         convertImagesToGrayscale()
@@ -42,6 +43,9 @@ class WSCarouselCollectionViewController: UIViewController {
         
         self.prepareCarousel()
         activateBlur()
+     
+      
+ 
     }
     
     override func shouldAutorotate() -> Bool {
@@ -52,12 +56,14 @@ class WSCarouselCollectionViewController: UIViewController {
         return UIInterfaceOrientationMask.Portrait
     }
 
+
     override func viewWillAppear(animated: Bool) {
         let store = LocationsDataStore.sharedInstance
         store.matchedLocations.removeAll()
         CoordinateAndFlightQueues.coordinatesPopulatedCount = 0
         CoordinateAndFlightQueues.numberOfFlightsRetrieved = 0
     }
+
     
     func createButtons(){
         self.logoView.image = UIImage(named: "crystalballnobackground")
@@ -67,18 +73,43 @@ class WSCarouselCollectionViewController: UIViewController {
         self.findDestinationButton.titleLabel?.font = wanderSparkFont(18)
         self.findDestinationButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.playMatchMakerTapped), forControlEvents: .TouchUpInside)
         
-        self.viewFavoritesButton.setTitle("View Your Favorites", forState: .Normal)
+        self.viewFavoritesButton.setTitle("◉ View Your Favorites", forState: .Normal)
         self.viewFavoritesButton.titleLabel?.font = wanderSparkFont(18)
         self.viewFavoritesButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.viewFavoritesTapped), forControlEvents: .TouchUpInside)
+        
+        //settings button
+        self.settingsButton.setTitle("Settings", forState: .Normal)
+        self.settingsButton.titleLabel?.font = wanderSparkFont(18)
+        self.settingsButton.addTarget(self, action: #selector(WSCarouselCollectionViewController.settingsButtonTapped), forControlEvents: .TouchUpInside)
     }
     
+    func settingsButtonTapped(){
+        self.performSegueWithIdentifier("FlightsParameter", sender: self)
+    }
+    
+    
+    
     func playMatchMakerTapped(){
+        let sharedLocation = UserLocation.sharedInstance
+        if sharedLocation.userCoordinates != nil {
         self.performSegueWithIdentifier("playMatchMaker", sender: self)
+        }
+        else if sharedLocation.userCoordinates == nil{
+            self.performSegueWithIdentifier("FlightsParameter", sender: self)
+        }
+
+
     }
     
     func viewFavoritesTapped(){
+        if favoritesStore.favoriteLocations.count > 0{
         self.performSegueWithIdentifier("viewFavorites", sender: self)
-    }
+        }else{
+            let alert = UIAlertController(title: "Almost...", message: "Add destinations to your favorites by tapping 'Find Your Destination' and playing matchmaker", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        }
     
     func convertImagesToGrayscale() {
         arrayOfGrayscaleImages = arrayOfImages.map { convertToGrayScale($0) }
@@ -96,6 +127,8 @@ class WSCarouselCollectionViewController: UIViewController {
         self.carouselView.bringSubviewToFront(self.findDestinationButton)
         self.carouselView.bringSubviewToFront(self.viewFavoritesButton)
         self.carouselView.bringSubviewToFront(self.logoView)
+        self.carouselView.bringSubviewToFront(self.settingsButton)
+        
     }
     
     func prepareCarousel(){
@@ -109,8 +142,8 @@ class WSCarouselCollectionViewController: UIViewController {
         self.logoView.translatesAutoresizingMaskIntoConstraints = false
         self.logoView.bottomAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
         self.logoView.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-        self.logoView.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.35).active = true
-        self.logoView.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.7).active = true
+        self.logoView.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.20).active = true
+        self.logoView.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.55).active = true
         
         self.carouselView.addSubview(findDestinationButton)
         self.findDestinationButton.translatesAutoresizingMaskIntoConstraints = false
@@ -127,6 +160,14 @@ class WSCarouselCollectionViewController: UIViewController {
         self.viewFavoritesButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.1).active = true
         self.viewFavoritesButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.5).active = true
         viewFavoritesButton.titleLabel?.adjustsFontSizeToFitWidth
+        
+        self.carouselView.addSubview(settingsButton)
+        self.settingsButton.translatesAutoresizingMaskIntoConstraints = false
+        self.settingsButton.topAnchor.constraintEqualToAnchor(self.viewFavoritesButton.bottomAnchor, constant: 5).active = true
+        self.settingsButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
+        self.settingsButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.1).active = true
+        self.settingsButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.5).active = true
+        settingsButton.titleLabel?.adjustsFontSizeToFitWidth
     }
     
     override func didReceiveMemoryWarning() {
@@ -149,16 +190,21 @@ class WSCarouselCollectionViewController: UIViewController {
         
         return newImage
     }
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
         if segue.identifier == "viewFavorites" {
             let destinationVC = FavoritesCollectionView()
-            self.presentViewController(destinationVC, animated: true, completion: { 
+            self.presentViewController(destinationVC, animated: true, completion: {
                 
             })
+            
             // Need to present the collection view here I think...
-
+        }else if segue.identifier == "FlightsParameter" {
+            let destinationVC = FlightsParameterViewController()
+            self.presentViewController(destinationVC, animated: true, completion: {
+                
+            })
         }
     }
-    
-}
+ }
