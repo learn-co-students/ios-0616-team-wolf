@@ -52,7 +52,6 @@ class LoadViewController: UIViewController {
         
         CoordinateAndFlightQueues.getCoordinatesAndFlightInfo({ (complete) in
             NSOperationQueue.mainQueue().addOperationWithBlock({
-//                self.performSegueWithIdentifier("presentCollectionView", sender: self)
                 let destinationVC = VacationCollectionView()
                 self.presentViewController(destinationVC, animated: true
                     , completion: {
@@ -61,6 +60,7 @@ class LoadViewController: UIViewController {
             })
         })
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -83,7 +83,7 @@ class LoadViewController: UIViewController {
         globeImageView.tintColor = UIColor.flatGreenColorDark()
         view.addSubview(globeImageView)
         globeImageView.contentMode = .ScaleAspectFill
-
+        
         globeImageView.snp_makeConstraints { make in
             make.centerX.equalTo(view)
             make.centerY.equalTo(view)

@@ -16,9 +16,13 @@ class FlightsParameterViewController: UIViewController {
     var locationManager: CLLocationManager = CLLocationManager()
     var zipcodeTextField: UITextField = UITextField()
     var userCurrentLocationButton = UIButton(frame: CGRectMake(200, 500, 200, 200))
+
     var sharedUserLocation: UserLocation = UserLocation.sharedInstance
+
+    var orLabel: UILabel = UILabel()
+    var sharedLocation: UserLocation? = nil
+    var cancelButton: UIButton = UIButton()
     
-//    let sharedLocation = UserLocation.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,14 +35,14 @@ class FlightsParameterViewController: UIViewController {
         screenHeight = screenSize.height
         let topBannerLabel = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 70))
         topBannerLabel.textAlignment = NSTextAlignment.Center
-        topBannerLabel.backgroundColor = UIColor.blueColor()
-        topBannerLabel.text = "Select Departure Location"
+        topBannerLabel.backgroundColor = UIColor.flatMintColor()
+        topBannerLabel.text = "Where are you wandering from?"
         topBannerLabel.textColor = UIColor.whiteColor()
         self.view.addSubview(topBannerLabel)
         
         //This is the button prompting users to use core location
         //userCurrentLocationButton.frame.size.width = 500
-        userCurrentLocationButton.backgroundColor = UIColor.orangeColor()
+        userCurrentLocationButton.backgroundColor = UIColor.flatMintColor()
         userCurrentLocationButton.setTitle("Current Location", forState: UIControlState.Normal)
         userCurrentLocationButton.addTarget(self, action: #selector(enableCoreLocation), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(userCurrentLocationButton)
@@ -49,17 +53,25 @@ class FlightsParameterViewController: UIViewController {
         departureCityZipcodeLabel.center = CGPointMake(160, 284)
         departureCityZipcodeLabel.textAlignment = NSTextAlignment.Center
         departureCityZipcodeLabel.text = "Enter City Zipcode"
-        self.view.addSubview(departureCityZipcodeLabel)
+        //self.view.addSubview(departureCityZipcodeLabel)
         
         //Creation of the zipcodeTextField
-        zipcodeTextField = UITextField (frame:CGRectMake(10, 10, 30, 10))
+      
         zipcodeTextField.placeholder = "Insert ZipCode here"
+        
+        
         self.view.addSubview(zipcodeTextField)
+        zipcodeTextField.translatesAutoresizingMaskIntoConstraints = false
+        zipcodeTextField.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 111).active = true
+        zipcodeTextField.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
+        zipcodeTextField.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
+        zipcodeTextField.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
         
         //Creation of the submit button
         let submitButton =
             UIButton(frame: CGRectMake(50, 50, 50, 50))
-        submitButton.backgroundColor = UIColor.orangeColor()
+        submitButton.backgroundColor = UIColor.flatMintColor()
+        
         submitButton.setTitle("Submit", forState: UIControlState.Normal)
         submitButton.addTarget(self, action: #selector(zipcodeSubmitButtonTapped), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(submitButton)
@@ -67,26 +79,35 @@ class FlightsParameterViewController: UIViewController {
         //constraints on the userCurrentLocationn Button
         userCurrentLocationButton.translatesAutoresizingMaskIntoConstraints = false
         userCurrentLocationButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-        userCurrentLocationButton.topAnchor.constraintEqualToAnchor(self.view.topAnchor,constant: 100).active = true
+        userCurrentLocationButton.topAnchor.constraintEqualToAnchor(self.view.topAnchor,constant: 150).active = true
         userCurrentLocationButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
         userCurrentLocationButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
         
-        //constraints on the departureCityZipcode label
-        departureCityZipcodeLabel.translatesAutoresizingMaskIntoConstraints = false
-        departureCityZipcodeLabel.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
-        departureCityZipcodeLabel.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
-        departureCityZipcodeLabel.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
-        departureCityZipcodeLabel.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
+        self.view.addSubview(orLabel)
+        orLabel.translatesAutoresizingMaskIntoConstraints = false
+        orLabel.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 175).active = true
+        orLabel.bottomAnchor.constraintEqualToAnchor(self.zipcodeTextField.topAnchor, constant: -20).active = true
+        orLabel.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
+        orLabel.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
+        orLabel.textColor = UIColor.whiteColor()
+        orLabel.text = "OR"
         
-        
+        self.view.addSubview(cancelButton)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
+        cancelButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
+        cancelButton.bottomAnchor.constraintEqualToAnchor(self.view.bottomAnchor, constant: -30).active = true
+        cancelButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor, constant: 0).active = true
+        cancelButton.setTitle("Cancel", forState: .Normal)
+        cancelButton.addTarget(self, action: #selector(self.returnHome), forControlEvents: .TouchUpInside)
         //creating a uitextfield
-        zipcodeTextField.translatesAutoresizingMaskIntoConstraints = false
-        zipcodeTextField.topAnchor.constraintEqualToAnchor(departureCityZipcodeLabel.bottomAnchor, constant: 40).active = true
-        zipcodeTextField.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor, constant: 50).active = true
-        
-        zipcodeTextField.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
-        zipcodeTextField.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
-        
+//        zipcodeTextField.translatesAutoresizingMaskIntoConstraints = false
+//        zipcodeTextField.topAnchor.constraintEqualToAnchor(departureCityZipcodeLabel.bottomAnchor, constant: 40).active = true
+//        zipcodeTextField.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor, constant: 50).active = true
+//        
+//        zipcodeTextField.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
+//        zipcodeTextField.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
+//        
         //zipcode.placeholder constraints so its in the center
         
         //constraints on the submitButton
@@ -96,7 +117,7 @@ class FlightsParameterViewController: UIViewController {
         submitButton.topAnchor.constraintEqualToAnchor(zipcodeTextField.bottomAnchor, constant: 0).active = true
         submitButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor, constant: 0).active = true
         
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = lightMagentaGradient(view.frame)
         
         //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         //        view.addGestureRecognizer(tap)
@@ -193,6 +214,14 @@ class FlightsParameterViewController: UIViewController {
             })
             
         }
+    }
+    
+    
+    func returnHome(){
+        self.dismissViewControllerAnimated(true, completion: nil)
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let destinationVC = storyboard.instantiateViewControllerWithIdentifier("carouselVC")
+//        self.presentViewController(destinationVC, animated: true, completion: nil)
     }
     
     

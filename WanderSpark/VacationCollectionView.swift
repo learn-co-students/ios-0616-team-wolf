@@ -30,7 +30,9 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         self.view.backgroundColor = UIColor.blackColor()
 
         createImagesFromString()
+        
         setUpCollectionView()
+    
     }
     
     override func shouldAutorotate() -> Bool {
@@ -61,6 +63,8 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         vacationCollectionView.backgroundColor = UIColor.blackColor()
         self.view.addSubview(vacationCollectionView)
         vacationCollectionView.pagingEnabled = true
+        
+    
     }
     
     
@@ -97,6 +101,9 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
 
         cell.readMoreButton.addTarget(self, action: #selector(self.goToArticle), forControlEvents: .TouchUpInside)
+        
+        
+       
         
         cell.favoriteButton.addTarget(self, action: #selector(VacationCollectionView.addToFavorites), forControlEvents: .TouchUpInside)
         
@@ -143,12 +150,15 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     func returnHome(){
         self.store.locations.removeAll()
         self.store.matchedLocations.removeAll()
-        self.performSegueWithIdentifier("returnHome", sender: self)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let destinationVC = storyboard.instantiateViewControllerWithIdentifier("carouselVC")
+        self.presentViewController(destinationVC, animated: true, completion: nil)
     }
     
     
     func addToFavorites() {
         let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
+        
         
         selectedCell.favoriteButton.setTitle("◉", forState: .Normal)
         
@@ -178,6 +188,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
                     }
                 }
                 favoritesStore.saveContext()
+                
             }
         }
     }
