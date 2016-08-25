@@ -15,7 +15,7 @@ class FlightsParameterViewController: UIViewController {
     var screenHeight: CGFloat = 0.0
     var locationManager: CLLocationManager = CLLocationManager()
     var zipcodeTextField: UITextField = UITextField()
-    var userCurrentLocationButton = UIButton(frame: CGRectMake(200, 500, 200, 200))
+    var userCurrentLocationButton = UIButton()
 
     var sharedUserLocation: UserLocation = UserLocation.sharedInstance
 
@@ -33,10 +33,11 @@ class FlightsParameterViewController: UIViewController {
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         screenWidth = screenSize.width
         screenHeight = screenSize.height
-        let topBannerLabel = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 70))
+        let topBannerLabel = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 80))
         topBannerLabel.textAlignment = NSTextAlignment.Center
         topBannerLabel.backgroundColor = UIColor.flatMintColor()
         topBannerLabel.text = "Where are you wandering from?"
+        topBannerLabel.font = wanderSparkFont(24)
         topBannerLabel.textColor = UIColor.whiteColor()
         self.view.addSubview(topBannerLabel)
         
@@ -45,6 +46,7 @@ class FlightsParameterViewController: UIViewController {
         userCurrentLocationButton.frame = CGRectMake(150, 200, 50, 50)
         userCurrentLocationButton.layer.cornerRadius = 0.5 * userCurrentLocationButton.bounds.size.width
         userCurrentLocationButton.setTitle("Current Location", forState: UIControlState.Normal)
+        userCurrentLocationButton.titleLabel?.font = wanderSparkFont(20)
         userCurrentLocationButton.addTarget(self, action: #selector(enableCoreLocation), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(userCurrentLocationButton)
         
@@ -54,16 +56,15 @@ class FlightsParameterViewController: UIViewController {
         departureCityZipcodeLabel.center = CGPointMake(160, 284)
         departureCityZipcodeLabel.textAlignment = NSTextAlignment.Center
         departureCityZipcodeLabel.text = "Enter City Zipcode"
-        zipcodeTextField.placeholder = "Insert ZipCode here"
+        zipcodeTextField.placeholder = "input your zip code here"
         
         
         self.view.addSubview(zipcodeTextField)
         zipcodeTextField.translatesAutoresizingMaskIntoConstraints = false
-        zipcodeTextField.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 111).active = true
+        zipcodeTextField.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
         zipcodeTextField.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
         zipcodeTextField.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
         zipcodeTextField.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
-        zipcodeTextField.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 85).active = true
         
         //Creation of the submit button
         let submitButton =
@@ -72,6 +73,7 @@ class FlightsParameterViewController: UIViewController {
         submitButton.frame = CGRectMake(150, 200, 50, 50)
         submitButton.layer.cornerRadius = 0.5 * userCurrentLocationButton.bounds.size.width
         submitButton.setTitle("Submit", forState: UIControlState.Normal)
+        submitButton.titleLabel?.font = wanderSparkFont(20)
         submitButton.addTarget(self, action: #selector(zipcodeSubmitButtonTapped), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(submitButton)
         
@@ -84,22 +86,21 @@ class FlightsParameterViewController: UIViewController {
         
         self.view.addSubview(orLabel)
         orLabel.translatesAutoresizingMaskIntoConstraints = false
-        orLabel.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 175).active = true
+        orLabel.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
         orLabel.bottomAnchor.constraintEqualToAnchor(self.zipcodeTextField.topAnchor, constant: -5).active = true
-        orLabel.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
-        orLabel.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
-        orLabel.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 150).active = true
         
         orLabel.textColor = UIColor.whiteColor()
-        orLabel.text = "OR"
+        orLabel.text = "or"
+        orLabel.font = wanderSparkFont(20)
         
         self.view.addSubview(cancelButton)
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
-        cancelButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
+        //cancelButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
+        //cancelButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
         cancelButton.bottomAnchor.constraintEqualToAnchor(self.view.bottomAnchor, constant: -30).active = true
-        cancelButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor, constant: 0).active = true
+        cancelButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
         cancelButton.setTitle("Cancel", forState: .Normal)
+        cancelButton.titleLabel?.font = wanderSparkFont(20)
         cancelButton.addTarget(self, action: #selector(self.returnHome), forControlEvents: .TouchUpInside)
 
         
@@ -108,7 +109,7 @@ class FlightsParameterViewController: UIViewController {
         submitButton.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
         submitButton.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
         submitButton.topAnchor.constraintEqualToAnchor(zipcodeTextField.bottomAnchor, constant: 0).active = true
-        submitButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor, constant: 0).active = true
+        submitButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor).active = true
         
         self.view.backgroundColor = lightMagentaGradient(view.frame)
     }
