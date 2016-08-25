@@ -92,15 +92,9 @@
 
     }
     
-    func viewFavoritesTapped(){
-        if favoritesStore.favoriteLocations.count > 0{
+    func viewFavoritesTapped() {
         self.performSegueWithIdentifier("viewFavorites", sender: self)
-        }else{
-            let alert = UIAlertController(title: "Almost...", message: "Add destinations to your favorites by tapping 'Find Your Destination' and playing matchmaker", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-        }
+    }
     
     func convertImagesToGrayscale() {
         arrayOfGrayscaleImages = arrayOfImages.map { convertToGrayScale($0) }

@@ -56,7 +56,7 @@ class FlightsParameterViewController: UIViewController {
         departureCityZipcodeLabel.center = CGPointMake(160, 284)
         departureCityZipcodeLabel.textAlignment = NSTextAlignment.Center
         departureCityZipcodeLabel.text = "Enter City Zipcode"
-        zipcodeTextField.placeholder = "input your zip code here"
+        zipcodeTextField.placeholder = "Input your zip code here."
         
         
         self.view.addSubview(zipcodeTextField)
