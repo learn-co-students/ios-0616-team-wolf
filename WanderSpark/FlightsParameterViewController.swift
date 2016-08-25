@@ -66,6 +66,11 @@ class FlightsParameterViewController: UIViewController {
         zipcodeTextField.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
         zipcodeTextField.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
         zipcodeTextField.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
+//        zipcodeTextField.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor, constant: 100).active = true
+//        zipcodeTextField.trailingAnchor.constraintEqualToAnchor(self.view.trailingAnchor, constant: 80).active = true
+        zipcodeTextField.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 85).active = true
+        
+        
         
         //Creation of the submit button
         let submitButton =
@@ -86,7 +91,7 @@ class FlightsParameterViewController: UIViewController {
         self.view.addSubview(orLabel)
         orLabel.translatesAutoresizingMaskIntoConstraints = false
         orLabel.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 175).active = true
-        orLabel.bottomAnchor.constraintEqualToAnchor(self.zipcodeTextField.topAnchor, constant: -20).active = true
+        orLabel.bottomAnchor.constraintEqualToAnchor(self.zipcodeTextField.topAnchor, constant: -10).active = true
         orLabel.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
         orLabel.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
         orLabel.textColor = UIColor.whiteColor()
@@ -100,15 +105,7 @@ class FlightsParameterViewController: UIViewController {
         cancelButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor, constant: 0).active = true
         cancelButton.setTitle("Cancel", forState: .Normal)
         cancelButton.addTarget(self, action: #selector(self.returnHome), forControlEvents: .TouchUpInside)
-        //creating a uitextfield
-//        zipcodeTextField.translatesAutoresizingMaskIntoConstraints = false
-//        zipcodeTextField.topAnchor.constraintEqualToAnchor(departureCityZipcodeLabel.bottomAnchor, constant: 40).active = true
-//        zipcodeTextField.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor, constant: 50).active = true
-//        
-//        zipcodeTextField.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
-//        zipcodeTextField.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
-//        
-        //zipcode.placeholder constraints so its in the center
+
         
         //constraints on the submitButton
         submitButton.translatesAutoresizingMaskIntoConstraints = false
@@ -118,16 +115,9 @@ class FlightsParameterViewController: UIViewController {
         submitButton.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor, constant: 0).active = true
         
         self.view.backgroundColor = lightMagentaGradient(view.frame)
-        
-        //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-        //        view.addGestureRecognizer(tap)
     }
     
-    //    func dismissKeyboard() {
-    //        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-    //        view.endEditing(true)
-    //    }
-    
+ 
     //this is wired to the enable core location button
     func enableCoreLocation(sender: UIButton!) {
         print("enablecorelocation button tapped")
