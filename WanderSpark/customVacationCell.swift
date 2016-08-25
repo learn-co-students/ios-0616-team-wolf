@@ -196,8 +196,8 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         favoriteButton.showsTouchWhenHighlighted = true
     }
     
-    func toggleFavoriteButton(favorite: Bool) {
-        if favorite {
+    func toggleFavoriteButton() {
+        if favoriteButton.titleLabel?.text == "◎" {
             favoriteButton.setTitle("◉", forState: .Normal)
         } else {
             favoriteButton.setTitle("◎", forState: .Normal)

@@ -45,6 +45,10 @@ class Location {
         return formattedLocation
     }
     
+    func toggleFavoriteStatus() {
+        self.favorite = !self.favorite
+    }
+    
 }
 
 extension Location: Equatable {}

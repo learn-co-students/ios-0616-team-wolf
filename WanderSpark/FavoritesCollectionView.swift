@@ -89,6 +89,9 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
             cell.imageView.hidden = true
             
             cell.snippetLabel.text = "You do not have any destinations stored in favorites."
+            cell.snippetLabel.textAlignment = .Center
+            cell.snippetLabel.font = wanderSparkFont(25)
+            
             
             return cell
             
@@ -150,13 +153,13 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
         
         let selectedCell = favoritesCollectionView.visibleCells()[0] as! customVacationCell
         
-        selectedCell.favoriteButton.setTitle("◎", forState: .Normal)
-        
         if let selectedIndex = favoritesCollectionView.indexPathForCell(selectedCell) {
             let selectedRow = selectedIndex.row
             
             let selectedFavorite = favoritesStore.favoriteLocations[selectedRow]
-            selectedFavorite.favorite = false
+            
+            selectedFavorite.toggleFavoriteStatus()
+            selectedCell.toggleFavoriteButton()
         }
     }
     

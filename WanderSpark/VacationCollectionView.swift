@@ -31,6 +31,8 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
 
         createImagesFromString()
         setUpCollectionView()
+        
+        vacationLocations = store.matchedLocations
     }
     
     override func shouldAutorotate() -> Bool {
@@ -152,37 +154,47 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     
     func addToFavorites() {
         let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
-        selectedCell.favoriteButton.setTitle("◉", forState: .Normal)
+        selectedCell.toggleFavoriteButton()
         
         if let selectedIndex = vacationCollectionView.indexPathForCell(selectedCell) {
             let selectedRow = selectedIndex.row
-            let selectedLocation = store.matchedLocations[selectedRow]
-            selectedLocation.favorite = true
+            let selectedLocation = vacationLocations[selectedRow]
+            selectedLocation.toggleFavoriteStatus()
+        }
+    }
+    
+    
+    override func viewWillDisappear(animated: Bool) {
+        
+        for location in vacationLocations {
             
-            favoritesStore.fetchFavoriteLocationsData()
-            let sameSelection = favoritesStore.favoriteLocations.filter { $0.name! == selectedLocation.name }
-            
-            if sameSelection.isEmpty {
+            if location.favorite == true {
+                favoritesStore.fetchFavoriteLocationsData()
+                let sameSelection = favoritesStore.favoriteLocations.filter { $0.name! == location.name }
                 
-                let locationDescription = NSEntityDescription.entityForName("FavoriteLocation", inManagedObjectContext: favoritesStore.managedObjectContext)
-                
-                if let locationDescription = locationDescription {
+                if sameSelection.isEmpty {
                     
-                    let favoriteLocation = FavoriteLocation(entity: locationDescription, insertIntoManagedObjectContext: favoritesStore.managedObjectContext)
+                    let locationDescription = NSEntityDescription.entityForName("FavoriteLocation", inManagedObjectContext: favoritesStore.managedObjectContext)
                     
-                    favoriteLocation.name = selectedLocation.name
-                    favoriteLocation.snippet = selectedLocation.description
-                    favoriteLocation.favorite = true
-                    favoriteLocation.articleURL = selectedLocation.articleURL
-                    
-                    let imageURLString = selectedLocation.images[1]
-                    if let imageURL = NSURL(string: "https://www.nytimes.com/\(imageURLString)") {
-                        favoriteLocation.image = NSData(contentsOfURL: imageURL)
+                    if let locationDescription = locationDescription {
+                        
+                        let favoriteLocation = FavoriteLocation(entity: locationDescription, insertIntoManagedObjectContext: favoritesStore.managedObjectContext)
+                        
+                        favoriteLocation.name = location.name
+                        favoriteLocation.snippet = location.description
+                        favoriteLocation.favorite = true
+                        favoriteLocation.articleURL = location.articleURL
+                        
+                        let imageURLString = location.images[1]
+                        if let imageURL = NSURL(string: "https://www.nytimes.com/\(imageURLString)") {
+                            favoriteLocation.image = NSData(contentsOfURL: imageURL)
+                        }
                     }
                 }
-                favoritesStore.saveContext()
             }
         }
+        favoritesStore.saveContext()
+        favoritesStore.fetchFavoriteLocationsData()
     }
     
    
