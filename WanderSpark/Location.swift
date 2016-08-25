@@ -18,6 +18,7 @@ class Location {
     var coordinates : (Double, Double)?
     var cheapestFlight : Flight?
     var userZipCode : String?
+    var favorite : Bool = false
     
     init(name: String, description: String, images: [String], url: String, coordinates: (Double, Double)?, cheapestFlight : Flight?) {
         self.name = name

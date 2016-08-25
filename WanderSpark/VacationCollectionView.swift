@@ -82,16 +82,11 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
         
-        cell.locationLabel.text = store.matchedLocations[indexPath.row].name
+        let location = store.matchedLocations[indexPath.row]
         
-        cell.snippetLabel.text = store.matchedLocations[indexPath.row].description
-//        cell.snippetLabel.allowsEditingTextAttributes = false
-//        cell.snippetLabel.backgroundColor = UIColor.clearColor()
-//        cell.snippetLabel.font = wanderSparkFont(20)
-//        cell.snippetLabel.delegate = self
-//        cell.snippetLabel.userInteractionEnabled = true
-//        cell.snippetLabel.scrollEnabled = false
-//        cell.snippetLabel.selectable = true
+        cell.locationLabel.text = location.name
+        
+        cell.snippetLabel.text = location.description
         
         cell.imageView.image = arrayOfVacationImages[indexPath.row]
         cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
@@ -99,18 +94,24 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         cell.readMoreButton.addTarget(self, action: #selector(self.goToArticle), forControlEvents: .TouchUpInside)
         
         cell.favoriteButton.addTarget(self, action: #selector(VacationCollectionView.addToFavorites), forControlEvents: .TouchUpInside)
+        if location.favorite == false {
+            cell.favoriteButton.setTitle("◎", forState: .Normal)
+        }
         
         cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
 
-        if let lowestPrice = store.matchedLocations[indexPath.row].cheapestFlight?.lowestPrice{
+        if let lowestPrice = location.cheapestFlight?.lowestPrice {
             cell.priceButton.setTitle("$\(lowestPrice)", forState: .Normal)
         }
         
-        if let airportLocation = store.matchedLocations[indexPath.row].cheapestFlight?.originIATACode {
+        if let airportLocation = location.cheapestFlight?.originIATACode {
             cell.airportLabel.text = "from \(airportLocation)"
         }
         
-        if let carrierName = store.matchedLocations[indexPath.row].cheapestFlight?.carrierName {
+        if let carrierName = location.cheapestFlight?.carrierName {
+            if carrierName == "" {
+                cell.carrierLabel.hidden = true
+            }
             cell.carrierLabel.text = "via \(carrierName)"
         }
         
@@ -149,12 +150,12 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     
     func addToFavorites() {
         let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
-        print("This is the selected cell: \(selectedCell)")
         selectedCell.favoriteButton.setTitle("◉", forState: .Normal)
         
         if let selectedIndex = vacationCollectionView.indexPathForCell(selectedCell) {
             let selectedRow = selectedIndex.row
             let selectedLocation = store.matchedLocations[selectedRow]
+            selectedLocation.favorite = true
             
             favoritesStore.fetchFavoriteLocationsData()
             let sameSelection = favoritesStore.favoriteLocations.filter { $0.name! == selectedLocation.name }
@@ -169,7 +170,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
                     
                     favoriteLocation.name = selectedLocation.name
                     favoriteLocation.snippet = selectedLocation.description
-                    favoriteLocation.matchCount = selectedLocation.matchCount
+                    favoriteLocation.favorite = true
                     favoriteLocation.articleURL = selectedLocation.articleURL
                     
                     let imageURLString = selectedLocation.images[1]

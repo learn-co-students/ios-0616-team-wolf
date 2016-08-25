@@ -2,7 +2,7 @@
 //  FavoriteLocation+CoreDataProperties.swift
 //  
 //
-//  Created by Flatiron School on 8/23/16.
+//  Created by Flatiron School on 8/24/16.
 //
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -16,8 +16,8 @@ extension FavoriteLocation {
 
     @NSManaged var articleURL: String?
     @NSManaged var image: NSData?
-    @NSManaged var matchCount: NSNumber?
     @NSManaged var name: String?
     @NSManaged var snippet: String?
+    @NSManaged var favorite: NSNumber?
 
 }

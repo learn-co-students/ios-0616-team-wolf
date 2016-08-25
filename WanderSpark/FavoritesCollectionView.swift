@@ -108,7 +108,9 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
             cell.imageView.image = favoriteImages[indexPath.row]
             cell.backgroundLocationImage.image = favoriteImages[indexPath.row]
             
-            cell.favoriteButton.setTitle("◉", forState: .Normal)
+            if favoriteLocation.favorite == true {
+                cell.favoriteButton.setTitle("◉", forState: .Normal)
+            }
             cell.favoriteButton.addTarget(self, action: #selector(FavoritesCollectionView.deleteFromFavorites), forControlEvents: .TouchUpInside)
             
             return cell

@@ -25,7 +25,6 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
     var readMoreButton = UIButton()
     var favoriteButton = UIButton()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -194,9 +193,17 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
         
         favoriteButton.titleLabel?.font = wanderSparkFont(32)
         favoriteButton.titleLabel?.textColor = UIColor.whiteColor()
-        favoriteButton.setTitle("◎", forState: .Normal)
         favoriteButton.showsTouchWhenHighlighted = true
     }
+    
+    func toggleFavoriteButton(favorite: Bool) {
+        if favorite {
+            favoriteButton.setTitle("◉", forState: .Normal)
+        } else {
+            favoriteButton.setTitle("◎", forState: .Normal)
+        }
+    }
+    
     
     
 //    func configureDeleteFromFavoritesButton() {
