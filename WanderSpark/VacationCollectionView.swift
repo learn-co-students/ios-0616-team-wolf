@@ -132,7 +132,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         for location in store.matchedLocations{
             if location.images != []{
             let url = NSURL(string: "https://www.nytimes.com/\(location.images[1])")
-            let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
+            let data = NSData(contentsOfURL: url!) 
             let imageFromURL = UIImage(data: data!)
             arrayOfVacationImages.append(imageFromURL!)
             }
@@ -194,24 +194,9 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
             }
         }
         favoritesStore.saveContext()
-        favoritesStore.fetchFavoriteLocationsData()
     }
-    
-   
+  
 }
 
-/*
- func createImagesForCircleFromString(){
- 
- for location in store.matchedLocations{
- if location.images != []{
- let url = NSURL(string: "https://www.nytimes.com/\(location.images[0])")
- let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
- let imageFromURL = UIImage(data: data!)
- arrayOfVacationImagesForThumbnail.append(imageFromURL!)
- }
- }
- }
- */
 
 
