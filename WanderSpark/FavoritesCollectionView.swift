@@ -110,7 +110,10 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
             
             if favoriteLocation.favorite == true {
                 cell.favoriteButton.setTitle("◉", forState: .Normal)
+            } else {
+                cell.favoriteButton.setTitle("◎", forState: .Normal)
             }
+            
             cell.favoriteButton.addTarget(self, action: #selector(FavoritesCollectionView.deleteFromFavorites), forControlEvents: .TouchUpInside)
             
             return cell
@@ -154,10 +157,17 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
             
             let selectedFavorite = favoritesStore.favoriteLocations[selectedRow]
             selectedFavorite.favorite = false
-            
-            favoritesStore.managedObjectContext.deleteObject(selectedFavorite)
-            favoritesStore.saveContext()
         }
+    }
+    
+    
+    override func viewWillDisappear(animated: Bool) {
+        for favorite in favoritesStore.favoriteLocations {
+            if favorite.favorite == false {
+                favoritesStore.managedObjectContext.deleteObject(favorite)
+            }
+        }
+        favoritesStore.saveContext()
     }
     
     
