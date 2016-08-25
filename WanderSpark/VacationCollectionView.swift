@@ -30,6 +30,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         self.view.backgroundColor = UIColor.blackColor()
 
         createImagesFromString()
+        
         setUpCollectionView()
         
         vacationLocations = store.matchedLocations
@@ -63,6 +64,8 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         vacationCollectionView.backgroundColor = UIColor.blackColor()
         self.view.addSubview(vacationCollectionView)
         vacationCollectionView.pagingEnabled = true
+        
+    
     }
     
     
@@ -94,6 +97,9 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
 
         cell.readMoreButton.addTarget(self, action: #selector(self.goToArticle), forControlEvents: .TouchUpInside)
+        
+        
+       
         
         cell.favoriteButton.addTarget(self, action: #selector(VacationCollectionView.addToFavorites), forControlEvents: .TouchUpInside)
         if location.favorite == false {
@@ -148,7 +154,9 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     func returnHome(){
         self.store.locations.removeAll()
         self.store.matchedLocations.removeAll()
-        self.performSegueWithIdentifier("returnHome", sender: self)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let destinationVC = storyboard.instantiateViewControllerWithIdentifier("carouselVC")
+        self.presentViewController(destinationVC, animated: true, completion: nil)
     }
     
     

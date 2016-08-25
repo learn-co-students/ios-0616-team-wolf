@@ -32,7 +32,7 @@ class FirstOnBoardingViewController: UIViewController {
         setUpTaglineLabel()
         setUpInstructionText()
         print("On Boarding View Did Load")
-        self.view.backgroundColor = orangeGradient(view.frame)
+        self.view.backgroundColor = lightMagentaGradientReversed(view.frame)
         // Do any additional setup after loading the view.
     }
 
@@ -44,12 +44,12 @@ class FirstOnBoardingViewController: UIViewController {
     func setUpTitleLabel(){
         self.view.addSubview(wandersparkTitleLabel)
         self.wandersparkTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.wandersparkTitleLabel.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 30).active = true
+        self.wandersparkTitleLabel.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 10).active = true
         self.wandersparkTitleLabel.topAnchor.constraintEqualToAnchor(self.view.topAnchor, constant: 30).active = true
         self.wandersparkTitleLabel.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor).active = true
         self.wandersparkTitleLabel.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.1).active = true
         
-        self.wandersparkTitleLabel.text = "Welcome To Wanderspark!"
+        self.wandersparkTitleLabel.text = "Welcome to WanderSpark!"
         self.wandersparkTitleLabel.font = wanderSparkFont(30)
         self.wandersparkTitleLabel.textColor = UIColor.whiteColor()
    
@@ -80,7 +80,7 @@ class FirstOnBoardingViewController: UIViewController {
         self.iphoneImage.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.4).active = true
         self.iphoneImage.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.45).active = true
        
-        self.iphoneImage.image = UIImage(named: "phoneForIntro")
+        self.iphoneImage.image = UIImage(named: "IphonePurple")
     
     }
     
@@ -128,7 +128,7 @@ class FirstOnBoardingViewController: UIViewController {
         self.wandersparkInstructionText.textColor = UIColor.whiteColor()
         wandersparkInstructionText.backgroundColor = UIColor.clearColor()
         wandersparkInstructionText.font = wanderSparkFont(20)
-        wandersparkInstructionText.textAlignment = NSTextAlignment.Justified
+        wandersparkInstructionText.textAlignment = NSTextAlignment.Left
         wandersparkInstructionText.sizeToFit()
         wandersparkInstructionText.userInteractionEnabled = false
         

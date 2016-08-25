@@ -12,10 +12,21 @@ import Alamofire
 class GoogleMapsAPIClient {
     
     static let store = LocationsDataStore.sharedInstance
+    static let sharedUserLocation = UserLocation.sharedInstance
     
     class func getLocationCoordinatesWithCompletion(location: Location, completion: (Bool) -> ()) {
         
-        let destinationName = Location.formatLocationName(location.name)
+        var destinationName = ""
+        
+        if location.name == "user's zip code" {
+            if let zipCode = location.userZipCode {
+                destinationName = zipCode
+            }
+        } else {
+            destinationName = Location.formatLocationName(location.name)
+        }
+        
+        print("DESTINATION NAME: \(destinationName)")
         
         Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/geocode/json?address=\(destinationName)&key=\(Secrets.googlePlacesAPIKey)").responseJSON { (response) in
             
@@ -28,15 +39,24 @@ class GoogleMapsAPIClient {
                     destinationLat = destinationLocationInfo["lat"],
                     destinationLng = destinationLocationInfo["lng"]
                     else {
-                        fatalError("ERROR: No match found for submitted location")
+                        print("ERROR: No match found for submitted location")
+                        return
                 }
                 
-                location.coordinates = (destinationLat, destinationLng)
+                if location.name == "user's zip code" {
+                    print("shared user location zip code coordinates: \(self.sharedUserLocation.userZipCodeCoordinates)")
+                    self.sharedUserLocation.userZipCodeCoordinates = (destinationLat, destinationLng)
+                    print("shared user location zip code coordinates: \(self.sharedUserLocation.userZipCodeCoordinates)")
+                } else {
+                    location.coordinates = (destinationLat, destinationLng)
+                }
                 
+                print(self.sharedUserLocation.userZipCodeCoordinates)
                 completion(true)
                 
             } else {
-                fatalError("ERROR: No response for request")
+                completion(false)
+                print("Failed to get coordinates from Google for zip code")
             }
         }
     }

@@ -24,7 +24,7 @@ struct NYTimesDataParser {
                 print("Name: \(locationName)")
                 print("Description: \(locationSnippet)")
                 print("Images: \(locationImages)")
-                print("Artical URL: \(articleURL)")
+                print("Article URL: \(articleURL)")
                 
                 let location = Location(name: locationName, description: locationSnippet, images: locationImages, url: articleURL)
                 unfilteredLocations.append(location)

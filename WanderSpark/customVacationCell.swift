@@ -44,6 +44,8 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
     }
     
     
+    
+    
     func configureAirportLabel() {
         contentView.addSubview(airportLabel)
         
@@ -206,9 +208,7 @@ class customVacationCell: UICollectionViewCell, UITextViewDelegate {
     
     
     
-//    func configureDeleteFromFavoritesButton() {
-//        contentView.addSubview(deleteFromFavoritesButton)
-//        
+
 //        deleteFromFavoritesButton.translatesAutoresizingMaskIntoConstraints = false
 //        deleteFromFavoritesButton.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -20).active = true
 //        deleteFromFavoritesButton.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -20).active = true
