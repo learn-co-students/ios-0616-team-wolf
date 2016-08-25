@@ -62,7 +62,7 @@ class Flight {
             price = cheapestFlight.lowestPrice
             else { print("ERROR: could not unwrap flight information in check to verify they have been populated correctly"); return }
         
-        if carrierName == "" || price == String(0) || price == "" {
+        if price == String(0) || price == "" {
             
             print("MISSING INFO FOR \(location.name.uppercaseString)")
             
