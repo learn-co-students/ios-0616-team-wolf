@@ -66,8 +66,6 @@ class FlightsParameterViewController: UIViewController {
         zipcodeTextField.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor).active = true
         zipcodeTextField.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
         zipcodeTextField.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
-//        zipcodeTextField.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor, constant: 100).active = true
-//        zipcodeTextField.trailingAnchor.constraintEqualToAnchor(self.view.trailingAnchor, constant: 80).active = true
         zipcodeTextField.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 85).active = true
         
         
@@ -91,9 +89,11 @@ class FlightsParameterViewController: UIViewController {
         self.view.addSubview(orLabel)
         orLabel.translatesAutoresizingMaskIntoConstraints = false
         orLabel.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 175).active = true
-        orLabel.bottomAnchor.constraintEqualToAnchor(self.zipcodeTextField.topAnchor, constant: -10).active = true
+        orLabel.bottomAnchor.constraintEqualToAnchor(self.zipcodeTextField.topAnchor, constant: -5).active = true
         orLabel.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 0.10).active = true
         orLabel.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
+        orLabel.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 150).active = true
+        
         orLabel.textColor = UIColor.whiteColor()
         orLabel.text = "OR"
         
