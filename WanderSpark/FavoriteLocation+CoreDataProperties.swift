@@ -16,8 +16,8 @@ extension FavoriteLocation {
 
     @NSManaged var articleURL: String?
     @NSManaged var image: NSData?
-    @NSManaged var matchCount: NSNumber?
     @NSManaged var name: String?
     @NSManaged var snippet: String?
+    @NSManaged var favorite: NSNumber?
 
 }

@@ -57,8 +57,11 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        if favoritesStore.favoriteLocations.isEmpty {
+            return 1
+        }
         return favoritesStore.favoriteLocations.count
-
     }
     
     
@@ -67,32 +70,57 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
         
         cell.airportLabel.hidden = true
+        cell.carrierLabel.hidden = true
         
         cell.priceButton.hidden = true
         cell.priceButton.enabled = false
         
         cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
         
-        cell.readMoreButton.addTarget(self, action: #selector(FavoritesCollectionView.goToArticle), forControlEvents: .TouchUpInside)
-        
-        let favoriteLocation = favoritesStore.favoriteLocations[indexPath.row]
-        
-        if let favoriteName = favoriteLocation.name {
-            cell.locationLabel.text = favoriteName
+        if favoritesStore.favoriteLocations.isEmpty {
+            
+            cell.readMoreButton.hidden = true
+            cell.readMoreButton.enabled = false
+            
+            cell.favoriteButton.hidden = true
+            cell.favoriteButton.enabled = false
+            
+            cell.locationLabel.hidden = true
+            cell.imageView.hidden = true
+            
+            cell.snippetLabel.text = "You do not have any destinations stored in favorites."
+            cell.snippetLabel.textAlignment = .Center
+            cell.snippetLabel.font = wanderSparkFont(25)
+            
+            
+            return cell
+            
+        } else {
+            cell.readMoreButton.addTarget(self, action: #selector(FavoritesCollectionView.goToArticle), forControlEvents: .TouchUpInside)
+            
+            let favoriteLocation = favoritesStore.favoriteLocations[indexPath.row]
+            
+            if let favoriteName = favoriteLocation.name {
+                cell.locationLabel.text = favoriteName
+            }
+            
+            if let favoriteSnippet = favoriteLocation.snippet {
+                cell.snippetLabel.text = favoriteSnippet
+            }
+            
+            cell.imageView.image = favoriteImages[indexPath.row]
+            cell.backgroundLocationImage.image = favoriteImages[indexPath.row]
+            
+            if favoriteLocation.favorite == true {
+                cell.favoriteButton.setTitle("◉", forState: .Normal)
+            } else {
+                cell.favoriteButton.setTitle("◎", forState: .Normal)
+            }
+            
+            cell.favoriteButton.addTarget(self, action: #selector(FavoritesCollectionView.deleteFromFavorites), forControlEvents: .TouchUpInside)
+            
+            return cell
         }
-        
-        if let favoriteSnippet = favoriteLocation.snippet {
-            cell.snippetLabel.text = favoriteSnippet
-        }
-        
-        cell.imageView.image = favoriteImages[indexPath.row]
-        cell.backgroundLocationImage.image = favoriteImages[indexPath.row]
-        
-        cell.favoriteButton.setTitle("◉", forState: .Normal)
-        cell.favoriteButton.addTarget(self, action: #selector(FavoritesCollectionView.deleteFromFavorites), forControlEvents: .TouchUpInside)
-        
-        return cell
-        
     }
     
     
@@ -125,16 +153,24 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
         
         let selectedCell = favoritesCollectionView.visibleCells()[0] as! customVacationCell
         
-        selectedCell.favoriteButton.setTitle("◎", forState: .Normal)
-        
         if let selectedIndex = favoritesCollectionView.indexPathForCell(selectedCell) {
             let selectedRow = selectedIndex.row
             
             let selectedFavorite = favoritesStore.favoriteLocations[selectedRow]
             
-            favoritesStore.managedObjectContext.deleteObject(selectedFavorite)
-            favoritesStore.saveContext()
+            selectedFavorite.toggleFavoriteStatus()
+            selectedCell.toggleFavoriteButton()
         }
+    }
+    
+    
+    override func viewWillDisappear(animated: Bool) {
+        for favorite in favoritesStore.favoriteLocations {
+            if favorite.favorite == false {
+                favoritesStore.managedObjectContext.deleteObject(favorite)
+            }
+        }
+        favoritesStore.saveContext()
     }
     
     

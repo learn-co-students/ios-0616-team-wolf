@@ -28,12 +28,6 @@
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Testing to see if favorites data store is working...
-        favoritesStore.fetchFavoriteLocationsData()
-        
-        print("This many locations have been saved to the favorites store:\n")
-        print(favoritesStore.favoriteLocations.count)
-        
         self.view.addSubview(carouselView)
         carouselView.clipsToBounds = true
         
@@ -43,9 +37,6 @@
         
         self.prepareCarousel()
         activateBlur()
-     
-      
- 
     }
     
     override func shouldAutorotate() -> Bool {
@@ -101,15 +92,9 @@
 
     }
     
-    func viewFavoritesTapped(){
-        if favoritesStore.favoriteLocations.count > 0{
+    func viewFavoritesTapped() {
         self.performSegueWithIdentifier("viewFavorites", sender: self)
-        }else{
-            let alert = UIAlertController(title: "Almost...", message: "Add destinations to your favorites by tapping 'Find Your Destination' and playing matchmaker", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-        }
+    }
     
     func convertImagesToGrayscale() {
         arrayOfGrayscaleImages = arrayOfImages.map { convertToGrayScale($0) }
@@ -198,9 +183,8 @@
             self.presentViewController(destinationVC, animated: true, completion: {
                 
             })
-            
-            // Need to present the collection view here I think...
-        }else if segue.identifier == "FlightsParameter" {
+
+        } else if segue.identifier == "FlightsParameter" {
             let destinationVC = FlightsParameterViewController()
             self.presentViewController(destinationVC, animated: true, completion: {
                 

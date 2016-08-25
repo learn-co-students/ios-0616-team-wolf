@@ -15,7 +15,9 @@ class Location {
     let description: String
     let articleURL: String
     var matchCount = 0
+    var favorite : Bool = false
     var coordinates : (Double, Double)?
+    
     var cheapestFlight : Flight?
     var userZipCode : String?
     var userCoordinates : (Double, Double)?
@@ -55,6 +57,10 @@ class Location {
         formattedLocation = formattedLocation.stringByReplacingOccurrencesOfString(" ", withString: "+")
         
         return formattedLocation
+    }
+    
+    func toggleFavoriteStatus() {
+        self.favorite = !self.favorite
     }
     
 }

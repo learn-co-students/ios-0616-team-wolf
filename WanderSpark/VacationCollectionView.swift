@@ -32,7 +32,8 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         createImagesFromString()
         
         setUpCollectionView()
-    
+        
+        vacationLocations = store.matchedLocations
     }
     
     override func shouldAutorotate() -> Bool {
@@ -86,16 +87,11 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! customVacationCell
         
-        cell.locationLabel.text = store.matchedLocations[indexPath.row].name
+        let location = store.matchedLocations[indexPath.row]
         
-        cell.snippetLabel.text = store.matchedLocations[indexPath.row].description
-//        cell.snippetLabel.allowsEditingTextAttributes = false
-//        cell.snippetLabel.backgroundColor = UIColor.clearColor()
-//        cell.snippetLabel.font = wanderSparkFont(20)
-//        cell.snippetLabel.delegate = self
-//        cell.snippetLabel.userInteractionEnabled = true
-//        cell.snippetLabel.scrollEnabled = false
-//        cell.snippetLabel.selectable = true
+        cell.locationLabel.text = location.name
+        
+        cell.snippetLabel.text = location.description
         
         cell.imageView.image = arrayOfVacationImages[indexPath.row]
         cell.backgroundLocationImage.image = arrayOfVacationImages[indexPath.row]
@@ -106,18 +102,26 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
        
         
         cell.favoriteButton.addTarget(self, action: #selector(VacationCollectionView.addToFavorites), forControlEvents: .TouchUpInside)
+        if location.favorite == false {
+            cell.favoriteButton.setTitle("◎", forState: .Normal)
+        } else {
+           cell.favoriteButton.setTitle("◉", forState: .Normal)
+        }
         
         cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)
 
-        if let lowestPrice = store.matchedLocations[indexPath.row].cheapestFlight?.lowestPrice{
+        if let lowestPrice = location.cheapestFlight?.lowestPrice {
             cell.priceButton.setTitle("$\(lowestPrice)", forState: .Normal)
         }
         
-        if let airportLocation = store.matchedLocations[indexPath.row].cheapestFlight?.originIATACode {
+        if let airportLocation = location.cheapestFlight?.originIATACode {
             cell.airportLabel.text = "from \(airportLocation)"
         }
         
-        if let carrierName = store.matchedLocations[indexPath.row].cheapestFlight?.carrierName {
+        if let carrierName = location.cheapestFlight?.carrierName {
+            if carrierName == "" {
+                cell.carrierLabel.hidden = true
+            }
             cell.carrierLabel.text = "via \(carrierName)"
         }
         
@@ -134,7 +138,7 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         for location in store.matchedLocations{
             if location.images != []{
             let url = NSURL(string: "https://www.nytimes.com/\(location.images[1])")
-            let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
+            let data = NSData(contentsOfURL: url!) 
             let imageFromURL = UIImage(data: data!)
             arrayOfVacationImages.append(imageFromURL!)
             }
@@ -158,56 +162,49 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
     
     func addToFavorites() {
         let selectedCell = vacationCollectionView.visibleCells()[0] as! customVacationCell
-        
-        
-        selectedCell.favoriteButton.setTitle("◉", forState: .Normal)
+        selectedCell.toggleFavoriteButton()
         
         if let selectedIndex = vacationCollectionView.indexPathForCell(selectedCell) {
             let selectedRow = selectedIndex.row
-            let selectedLocation = store.matchedLocations[selectedRow]
-            
-            favoritesStore.fetchFavoriteLocationsData()
-            let sameSelection = favoritesStore.favoriteLocations.filter { $0.name! == selectedLocation.name }
-            
-            if sameSelection.isEmpty {
-                
-                let locationDescription = NSEntityDescription.entityForName("FavoriteLocation", inManagedObjectContext: favoritesStore.managedObjectContext)
-                
-                if let locationDescription = locationDescription {
-                    
-                    let favoriteLocation = FavoriteLocation(entity: locationDescription, insertIntoManagedObjectContext: favoritesStore.managedObjectContext)
-                    
-                    favoriteLocation.name = selectedLocation.name
-                    favoriteLocation.snippet = selectedLocation.description
-                    favoriteLocation.matchCount = selectedLocation.matchCount
-                    favoriteLocation.articleURL = selectedLocation.articleURL
-                    
-                    let imageURLString = selectedLocation.images[1]
-                    if let imageURL = NSURL(string: "https://www.nytimes.com/\(imageURLString)") {
-                        favoriteLocation.image = NSData(contentsOfURL: imageURL)
-                    }
-                }
-                favoritesStore.saveContext()
-                
-            }
+            let selectedLocation = vacationLocations[selectedRow]
+            selectedLocation.toggleFavoriteStatus()
         }
     }
     
-   
+    
+    override func viewWillDisappear(animated: Bool) {
+        
+        for location in vacationLocations {
+            
+            if location.favorite == true {
+                favoritesStore.fetchFavoriteLocationsData()
+                let sameSelection = favoritesStore.favoriteLocations.filter { $0.name! == location.name }
+                
+                if sameSelection.isEmpty {
+                    
+                    let locationDescription = NSEntityDescription.entityForName("FavoriteLocation", inManagedObjectContext: favoritesStore.managedObjectContext)
+                    
+                    if let locationDescription = locationDescription {
+                        
+                        let favoriteLocation = FavoriteLocation(entity: locationDescription, insertIntoManagedObjectContext: favoritesStore.managedObjectContext)
+                        
+                        favoriteLocation.name = location.name
+                        favoriteLocation.snippet = location.description
+                        favoriteLocation.favorite = true
+                        favoriteLocation.articleURL = location.articleURL
+                        
+                        let imageURLString = location.images[1]
+                        if let imageURL = NSURL(string: "https://www.nytimes.com/\(imageURLString)") {
+                            favoriteLocation.image = NSData(contentsOfURL: imageURL)
+                        }
+                    }
+                }
+            }
+        }
+        favoritesStore.saveContext()
+    }
+  
 }
 
-/*
- func createImagesForCircleFromString(){
- 
- for location in store.matchedLocations{
- if location.images != []{
- let url = NSURL(string: "https://www.nytimes.com/\(location.images[0])")
- let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
- let imageFromURL = UIImage(data: data!)
- arrayOfVacationImagesForThumbnail.append(imageFromURL!)
- }
- }
- }
- */
 
 
