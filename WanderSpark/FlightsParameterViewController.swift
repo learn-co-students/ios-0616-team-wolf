@@ -29,7 +29,7 @@ class FlightsParameterViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         
-        //This will be the first banner to appear on the screen
+        //First banner to appear on the screen
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         screenWidth = screenSize.width
         screenHeight = screenSize.height
@@ -41,8 +41,9 @@ class FlightsParameterViewController: UIViewController {
         self.view.addSubview(topBannerLabel)
         
         //This is the button prompting users to use core location
-        //userCurrentLocationButton.frame.size.width = 500
         userCurrentLocationButton.backgroundColor = UIColor.flatMintColor()
+        userCurrentLocationButton.frame = CGRectMake(150, 200, 50, 50)
+        userCurrentLocationButton.layer.cornerRadius = 0.5 * userCurrentLocationButton.bounds.size.width
         userCurrentLocationButton.setTitle("Current Location", forState: UIControlState.Normal)
         userCurrentLocationButton.addTarget(self, action: #selector(enableCoreLocation), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(userCurrentLocationButton)
@@ -53,10 +54,6 @@ class FlightsParameterViewController: UIViewController {
         departureCityZipcodeLabel.center = CGPointMake(160, 284)
         departureCityZipcodeLabel.textAlignment = NSTextAlignment.Center
         departureCityZipcodeLabel.text = "Enter City Zipcode"
-        //self.view.addSubview(departureCityZipcodeLabel)
-        
-        //Creation of the zipcodeTextField
-      
         zipcodeTextField.placeholder = "Insert ZipCode here"
         
         
@@ -68,13 +65,12 @@ class FlightsParameterViewController: UIViewController {
         zipcodeTextField.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.50).active = true
         zipcodeTextField.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor, constant: 85).active = true
         
-        
-        
         //Creation of the submit button
         let submitButton =
             UIButton(frame: CGRectMake(50, 50, 50, 50))
         submitButton.backgroundColor = UIColor.flatMintColor()
-        
+        submitButton.frame = CGRectMake(150, 200, 50, 50)
+        submitButton.layer.cornerRadius = 0.5 * userCurrentLocationButton.bounds.size.width
         submitButton.setTitle("Submit", forState: UIControlState.Normal)
         submitButton.addTarget(self, action: #selector(zipcodeSubmitButtonTapped), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(submitButton)
