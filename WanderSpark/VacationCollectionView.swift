@@ -96,6 +96,8 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         cell.favoriteButton.addTarget(self, action: #selector(VacationCollectionView.addToFavorites), forControlEvents: .TouchUpInside)
         if location.favorite == false {
             cell.favoriteButton.setTitle("◎", forState: .Normal)
+        } else {
+           cell.favoriteButton.setTitle("◉", forState: .Normal)
         }
         
         cell.homeButton.addTarget(self, action: #selector(VacationCollectionView.returnHome), forControlEvents: .TouchUpInside)

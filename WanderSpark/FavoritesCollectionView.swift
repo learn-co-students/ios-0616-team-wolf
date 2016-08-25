@@ -153,6 +153,7 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
             let selectedRow = selectedIndex.row
             
             let selectedFavorite = favoritesStore.favoriteLocations[selectedRow]
+            selectedFavorite.favorite = false
             
             favoritesStore.managedObjectContext.deleteObject(selectedFavorite)
             favoritesStore.saveContext()
