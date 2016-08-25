@@ -145,8 +145,7 @@ class FlightsParameterViewController: UIViewController {
         textField.layer.addAnimation(animation, forKey: "position")
     }
     
-    //function to check whether zipcode is correct or not and based on that provide appropriate action
-    //this is wired to the submit button
+    //function to check whether zipcode is correct or not and based on that provide appropriate action, wired to submit button
     func zipcodeSubmitButtonTapped() {
         
         //unwrapping the zipcodeTextfield
@@ -180,7 +179,6 @@ class FlightsParameterViewController: UIViewController {
             else if zipCodeIsValid(userZipCode) == false{
                 shakeTextField(zipcodeTextField)
             }
-            //self.performSegueWithIdentifier("GoingFromFlightsToMatchMaker", sender: self)
         }
     }
     
