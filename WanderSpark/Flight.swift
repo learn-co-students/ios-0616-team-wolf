@@ -40,7 +40,7 @@ class Flight {
             carrierName = unwrappedCheapestFlights.carrierName,
             originAirport = unwrappedCheapestFlights.originIATACode,
             price = unwrappedCheapestFlights.lowestPrice
-            else { fatalError("ERROR: could not unwrap flight information for print statment") }
+            else { print("ERROR: could not unwrap flight information for print statment"); return }
         
         print("***************** FLIGHT INFORMATION *****************")
         print("\n\nNAME: \(location.name)")
@@ -55,13 +55,14 @@ class Flight {
     class func checkLocationFlightInformation(location: Location) {
         
         guard let
+            cheapestFlight = location.cheapestFlight,
             coordinates = location.coordinates,
-            carrierName = location.cheapestFlight!.carrierName,
-            originAirport = location.cheapestFlight!.originIATACode,
-            price = location.cheapestFlight!.lowestPrice
-            else { fatalError("ERROR: could not unwrap flight information in check to verify they have been populated correctly") }
+            carrierName = cheapestFlight.carrierName,
+            originAirport = cheapestFlight.originIATACode,
+            price = cheapestFlight.lowestPrice
+            else { print("ERROR: could not unwrap flight information in check to verify they have been populated correctly"); return }
         
-        if price == String(0) || price == "" {
+        if carrierName == "" || price == String(0) || price == "" {
             
             print("MISSING INFO FOR \(location.name.uppercaseString)")
             
@@ -72,10 +73,19 @@ class Flight {
                 print("getting missing flight information for \(location.name)")
                 CoordinateAndFlightQueues.numberOfFlightsRetrieved += 1
                 
-//                if CoordinateAndFlightQueues.numberOfFlightsRetrieved == 10 {
-//                    CoordinateAndFlightQueues.flightsRetrieved = true
-//                }
+                print("********** FILLED IN FLIGHT INFORMATION ************")
+                print("\n\nNAME: \(location.name)")
+                print("DESCRIPTION: \(location.description)")
+                print("COORDINATES: \(coordinates)")
+                print("CARRIER: \(carrierName)")
+                print("FLIGHT ORIGIN AIRPORT: \(originAirport)")
+                print("PRICE: \(price)\n\n")
+                print("******************* END FLIGHT INFO *******************")
+                
+
             })
+        } else {
+            return
         }
         
     }
