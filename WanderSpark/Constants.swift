@@ -69,6 +69,8 @@ func darkMagentaGradient(frame: CGRect) -> UIColor {
     return darkMagentaGradient
 }
 
+
+
 extension UIImage {
     var circle: UIImage {
         let square = size.width < size.height ? CGSize(width: size.width, height: size.width) : CGSize(width: size.height, height: size.height)
