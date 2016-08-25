@@ -55,7 +55,7 @@ class SkyScannerDataParser {
             
             guard let
                 outboundCarriers = outboundFlight["CarrierIds"] as? [Int]
-                else {fatalError("ERROR: no carrierID for best flight")}
+                else {print("ERROR: no carrierID for best flight"); return (0, "error")}
             
             if let firstCarrierID = outboundCarriers.first {
                 outboundCarrierID = firstCarrierID
@@ -64,7 +64,7 @@ class SkyScannerDataParser {
             for carrier in carriers {
                 
                 guard let carrierID = carrier["CarrierId"] as? Int
-                    else {fatalError("no carrier IDs available")}
+                    else {print("no carrier IDs available"); return (0, "error")}
                 
                 if outboundCarrierID == carrierID {
                     outboundCarrierName = carrier["Name"] as! String
@@ -84,14 +84,14 @@ class SkyScannerDataParser {
             guard let
                 flightOriginID = outboundFlight["OriginId"] as? Int,
                 flightDestinationID = outboundFlight["DestinationId"] as? Int
-                else { fatalError("no airport name/IATA code available") }
+                else { print("no airport name/IATA code available"); return ("error", "no airport information available") }
             
             for airport in airports {
                 
                 guard let
                     airportName = airport["Name"] as? String,
                     airportIATACode = airport["IataCode"] as? String
-                    else { fatalError("no airport name/IATA code available") }
+                    else { print("no airport name/IATA code available"); return ("error", "no airport information available") }
                 
                 if airport["PlaceId"] as? Int == flightOriginID {
                     flightOriginName = airportName
