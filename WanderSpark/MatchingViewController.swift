@@ -65,14 +65,6 @@ class MatchingViewController: UIViewController {
         iconStackView.frame = CGRectMake(0, 0, iconScrollView.contentSize.width, iconScrollView.contentSize.height)
     }
     
-    override func shouldAutorotate() -> Bool {
-        return false
-    }
-    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
-    }
-    
     
     func configureMatchingView() {
         view.addSubview(matchingView)

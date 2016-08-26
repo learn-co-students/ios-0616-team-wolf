@@ -36,14 +36,6 @@ class VacationCollectionView: UIViewController, UICollectionViewDelegateFlowLayo
         vacationLocations = store.matchedLocations
     }
     
-    override func shouldAutorotate() -> Bool {
-        return false
-    }
-    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
-    }
-    
     
     func goToArticle(){
         print(self.vacationCollectionView.visibleCells())

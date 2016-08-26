@@ -31,14 +31,6 @@ class FavoritesCollectionView: UIViewController, UICollectionViewDelegateFlowLay
         createImagesFromString()
         setUpCollectionView()
     }
-    
-    override func shouldAutorotate() -> Bool {
-        return false
-    }
-    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
-    }
 
     func setUpCollectionView(){
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()

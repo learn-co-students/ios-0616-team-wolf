@@ -45,14 +45,6 @@
         CoordinateAndFlightQueues.coordinatesPopulatedCount = 0
         CoordinateAndFlightQueues.numberOfFlightsRetrieved = 0
     }
-    
-    override func shouldAutorotate() -> Bool {
-        return false
-    }
-    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
-    }
 
     
     func createButtons(){

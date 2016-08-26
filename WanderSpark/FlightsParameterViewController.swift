@@ -114,14 +114,6 @@ class FlightsParameterViewController: UIViewController {
         self.view.backgroundColor = lightMagentaGradient(view.frame)
     }
     
-    override func shouldAutorotate() -> Bool {
-        return false
-    }
-    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
-    }
-    
  
     //this is wired to the enable core location button
     func enableCoreLocation(sender: UIButton!) {
