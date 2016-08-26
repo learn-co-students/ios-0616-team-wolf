@@ -1,5 +1,5 @@
 //
-//  Settings.swift
+//  LocationSettings.swift
 //  
 //
 //  Created by Zain Nadeem on 8/22/16.

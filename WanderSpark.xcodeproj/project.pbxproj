@@ -26,7 +26,7 @@
 		A496A69B1D5E5BF0007DF405 /* CoordinateAndFlightQueues.swift in Sources */ = {isa = PBXBuildFile; fileRef = A496A69A1D5E5BF0007DF405 /* CoordinateAndFlightQueues.swift */; };
 		A496A69D1D5E5C29007DF405 /* Flight.swift in Sources */ = {isa = PBXBuildFile; fileRef = A496A69C1D5E5C29007DF405 /* Flight.swift */; };
 		A4ECDD651D55429F00FC9E03 /* GoogleMapsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ECDD641D55429F00FC9E03 /* GoogleMapsAPIClient.swift */; };
-		BF3901231D6B581000D42A63 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3901221D6B581000D42A63 /* Settings.swift */; };
+		BF3901231D6B581000D42A63 /* LocationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3901221D6B581000D42A63 /* LocationSettings.swift */; };
 		BF3901251D6B592300D42A63 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF3901241D6B592300D42A63 /* Onboarding.storyboard */; };
 		BF3901271D6B5AA700D42A63 /* FirstOnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3901261D6B5AA700D42A63 /* FirstOnBoardingViewController.swift */; };
 		BF415E101D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF415E0D1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m */; };
@@ -66,7 +66,7 @@
 		A496A69C1D5E5C29007DF405 /* Flight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flight.swift; sourceTree = "<group>"; };
 		A4ECDD641D55429F00FC9E03 /* GoogleMapsAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleMapsAPIClient.swift; sourceTree = "<group>"; };
 		B43BFDA5775D51B2DF42474B /* Pods_WanderSpark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WanderSpark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BF3901221D6B581000D42A63 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		BF3901221D6B581000D42A63 /* LocationSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSettings.swift; sourceTree = "<group>"; };
 		BF3901241D6B592300D42A63 /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		BF3901261D6B5AA700D42A63 /* FirstOnBoardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstOnBoardingViewController.swift; sourceTree = "<group>"; };
 		BF415E0B1D5A8FD200C2BFB8 /* WanderSpark-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WanderSpark-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -111,6 +111,79 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A4CEA3A21D705CD400EC1BA3 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BF415E0E1D5A8FD200C2BFB8 /* FZCarouselView.h */,
+				BF415E0F1D5A8FD200C2BFB8 /* FZCarouselView.m */,
+				BF415E0C1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.h */,
+				BF415E0D1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m */,
+				BF53C59A1D5A8CFA00810066 /* WSCarouselCollectionViewController.swift */,
+				BF3901261D6B5AA700D42A63 /* FirstOnBoardingViewController.swift */,
+				1B2FE5671D6B4C16008C94AF /* FlightsParameterViewController.swift */,
+				1BFA0EEE1D5CC2D500423878 /* MatchingViewController.swift */,
+				1BFA0F2C1D62072F00423878 /* LoadViewController.swift */,
+				BFC9EF681D5B771F009C0F2A /* VacationCollectionView.swift */,
+				1B4E93AD1D6B7E520031F216 /* FavoritesCollectionView.swift */,
+				BFC9EF6C1D5B9048009C0F2A /* customVacationCell.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		A4CEA3A31D705D5F00EC1BA3 /* APIClients and Data Parsing */ = {
+			isa = PBXGroup;
+			children = (
+				BF41AB5C1D55274700725AAE /* NYTimesAPIClient.swift */,
+				1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */,
+				A4ECDD641D55429F00FC9E03 /* GoogleMapsAPIClient.swift */,
+				1BBE4BA41D5BD4890037032D /* SkyScannerAPIClient.swift */,
+				A445AD4B1D635CB00066199D /* SkyScannerDataParser.swift */,
+			);
+			name = "APIClients and Data Parsing";
+			sourceTree = "<group>";
+		};
+		A4CEA3A51D705DCA00EC1BA3 /* UserLocation */ = {
+			isa = PBXGroup;
+			children = (
+				BF3901221D6B581000D42A63 /* LocationSettings.swift */,
+				1B2FE5631D6B4B0E008C94AF /* UserLocation.swift */,
+			);
+			name = UserLocation;
+			sourceTree = "<group>";
+		};
+		A4CEA3A61D705E4E00EC1BA3 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				BF41AB4E1D55270800725AAE /* Main.storyboard */,
+				BF41AB531D55270800725AAE /* LaunchScreen.storyboard */,
+				BF3901241D6B592300D42A63 /* Onboarding.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		A4CEA3A81D705EF800EC1BA3 /* LocationMatching */ = {
+			isa = PBXGroup;
+			children = (
+				A496A69C1D5E5C29007DF405 /* Flight.swift */,
+				BF41AB5E1D55275000725AAE /* LocationsDataStore.swift */,
+				BF41AB601D55275700725AAE /* Location.swift */,
+				1BE7A6381D58E3E600B7E89F /* LocationMatchmaker.swift */,
+				A496A69A1D5E5BF0007DF405 /* CoordinateAndFlightQueues.swift */,
+			);
+			name = LocationMatching;
+			sourceTree = "<group>";
+		};
+		A4CEA3A91D705F7300EC1BA3 /* UserFavorites */ = {
+			isa = PBXGroup;
+			children = (
+				1BBD0E591D6890B60061DAA1 /* FavoritesDataStore.swift */,
+				1BBD0E601D6894E40061DAA1 /* FavoriteLocation+CoreDataProperties.swift */,
+				1BBD0E611D6894E40061DAA1 /* FavoriteLocation.swift */,
+				1BBD0E5B1D6893080061DAA1 /* WanderSpark.xcdatamodeld */,
+			);
+			name = UserFavorites;
+			sourceTree = "<group>";
+		};
 		BF41AB3E1D55270800725AAE = {
 			isa = PBXGroup;
 			children = (
@@ -132,43 +205,18 @@
 		BF41AB491D55270800725AAE /* WanderSpark */ = {
 			isa = PBXGroup;
 			children = (
+				A4CEA3A91D705F7300EC1BA3 /* UserFavorites */,
+				A4CEA3A61D705E4E00EC1BA3 /* Storyboards */,
+				A4CEA3A21D705CD400EC1BA3 /* ViewControllers */,
+				A4CEA3A51D705DCA00EC1BA3 /* UserLocation */,
+				A4CEA3A31D705D5F00EC1BA3 /* APIClients and Data Parsing */,
+				A4CEA3A81D705EF800EC1BA3 /* LocationMatching */,
 				1B52DEC11D6DF64000F42191 /* Secrets.swift */,
 				BF41AB4A1D55270800725AAE /* AppDelegate.swift */,
-				BF3901221D6B581000D42A63 /* Settings.swift */,
-				BF3901261D6B5AA700D42A63 /* FirstOnBoardingViewController.swift */,
-				1B2FE5631D6B4B0E008C94AF /* UserLocation.swift */,
-				1B2FE5671D6B4C16008C94AF /* FlightsParameterViewController.swift */,
-				1BFA0F2C1D62072F00423878 /* LoadViewController.swift */,
-				BFC9EF6C1D5B9048009C0F2A /* customVacationCell.swift */,
-				BFC9EF681D5B771F009C0F2A /* VacationCollectionView.swift */,
-				1B4E93AD1D6B7E520031F216 /* FavoritesCollectionView.swift */,
-				1BFA0EEE1D5CC2D500423878 /* MatchingViewController.swift */,
-				BF53C59A1D5A8CFA00810066 /* WSCarouselCollectionViewController.swift */,
-				BF415E0C1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.h */,
-				BF415E0D1D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m */,
-				BF415E0E1D5A8FD200C2BFB8 /* FZCarouselView.h */,
-				BF415E0F1D5A8FD200C2BFB8 /* FZCarouselView.m */,
-				BF41AB5C1D55274700725AAE /* NYTimesAPIClient.swift */,
-				1BE7A63A1D592FD000B7E89F /* NYTimesDataParser.swift */,
-				A4ECDD641D55429F00FC9E03 /* GoogleMapsAPIClient.swift */,
-				1BBE4BA41D5BD4890037032D /* SkyScannerAPIClient.swift */,
-				A445AD4B1D635CB00066199D /* SkyScannerDataParser.swift */,
-				BF41AB5E1D55275000725AAE /* LocationsDataStore.swift */,
-				BF41AB601D55275700725AAE /* Location.swift */,
-				1BBD0E591D6890B60061DAA1 /* FavoritesDataStore.swift */,
-				1BBD0E601D6894E40061DAA1 /* FavoriteLocation+CoreDataProperties.swift */,
-				1BBD0E611D6894E40061DAA1 /* FavoriteLocation.swift */,
-				1BBD0E5B1D6893080061DAA1 /* WanderSpark.xcdatamodeld */,
-				1BE7A6381D58E3E600B7E89F /* LocationMatchmaker.swift */,
-				BF41AB4E1D55270800725AAE /* Main.storyboard */,
-				A496A69C1D5E5C29007DF405 /* Flight.swift */,
 				BFA39BE81D5D219B007E1638 /* Constants.swift */,
-				A496A69A1D5E5BF0007DF405 /* CoordinateAndFlightQueues.swift */,
 				BF41AB511D55270800725AAE /* Assets.xcassets */,
-				BF41AB531D55270800725AAE /* LaunchScreen.storyboard */,
 				BF41AB561D55270800725AAE /* Info.plist */,
 				BF415E0B1D5A8FD200C2BFB8 /* WanderSpark-Bridging-Header.h */,
-				BF3901241D6B592300D42A63 /* Onboarding.storyboard */,
 			);
 			path = WanderSpark;
 			sourceTree = "<group>";
@@ -356,7 +404,7 @@
 				1B2FE5641D6B4B0E008C94AF /* UserLocation.swift in Sources */,
 				1B52DEC21D6DF64000F42191 /* Secrets.swift in Sources */,
 				BF415E111D5A8FD200C2BFB8 /* FZCarouselView.m in Sources */,
-				BF3901231D6B581000D42A63 /* Settings.swift in Sources */,
+				BF3901231D6B581000D42A63 /* LocationSettings.swift in Sources */,
 				1BBD0E5D1D6893080061DAA1 /* WanderSpark.xcdatamodeld in Sources */,
 				1BFA0EEF1D5CC2D500423878 /* MatchingViewController.swift in Sources */,
 				BF415E101D5A8FD200C2BFB8 /* FZCarouselCollectionViewDelegate.m in Sources */,
