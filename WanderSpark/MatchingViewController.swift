@@ -43,14 +43,6 @@ class MatchingViewController: UIViewController {
     let yesButton = UIButton()
     let noButton = UIButton()
     
-    override func shouldAutorotate() -> Bool {
-        return false
-    }
-    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,6 +63,14 @@ class MatchingViewController: UIViewController {
         
         iconScrollView.frame = CGRectMake(0, 60, view.frame.width, view.frame.height/10)
         iconStackView.frame = CGRectMake(0, 0, iconScrollView.contentSize.width, iconScrollView.contentSize.height)
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
     }
     
     

@@ -38,6 +38,13 @@
         self.prepareCarousel()
         activateBlur()
     }
+
+    override func viewWillAppear(animated: Bool) {
+        let store = LocationsDataStore.sharedInstance
+        store.matchedLocations.removeAll()
+        CoordinateAndFlightQueues.coordinatesPopulatedCount = 0
+        CoordinateAndFlightQueues.numberOfFlightsRetrieved = 0
+    }
     
     override func shouldAutorotate() -> Bool {
         return false
@@ -45,14 +52,6 @@
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.Portrait
-    }
-
-
-    override func viewWillAppear(animated: Bool) {
-        let store = LocationsDataStore.sharedInstance
-        store.matchedLocations.removeAll()
-        CoordinateAndFlightQueues.coordinatesPopulatedCount = 0
-        CoordinateAndFlightQueues.numberOfFlightsRetrieved = 0
     }
 
     

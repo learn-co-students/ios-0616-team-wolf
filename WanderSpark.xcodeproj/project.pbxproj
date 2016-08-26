@@ -219,7 +219,7 @@
 				TargetAttributes = {
 					BF41AB461D55270800725AAE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = KXY9EDFTF5;
+						DevelopmentTeam = 4E8JHBC5T7;
 					};
 				};
 			};
@@ -508,6 +508,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WanderSpark/WanderSpark-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -527,6 +528,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WanderSpark/WanderSpark-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
